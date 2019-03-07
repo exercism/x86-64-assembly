@@ -2,4 +2,4 @@ language: bash
 
 script:
   - bin/fetch-configlet
-  - bin/configlet lint --track-id x86 .
+  - bin/configlet lint --track-id x86-assembly .
