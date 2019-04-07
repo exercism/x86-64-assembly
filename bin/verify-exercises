@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -e
+
+run_tests() {
+    local file="${1/-/_}"
+
+    cd "$1"
+
+    sed -i.bak 's#TEST_IGNORE();#// &#' "${file}"_test.c
+    mv example.asm "${file}".asm
+
+    make clean
+    make
+
+    cd ..
+}
+
+main() {
+    cd "$(dirname "$0")"/..
+
+    rm -rf build
+    cp -r exercises build
+
+    cd build
+
+    if [[ $# -gt 0 ]]; then
+        for exercise in "$@"; do
+            run_tests "${exercise}"
+        done
+    else
+        for exercise in *; do
+            run_tests "${exercise}"
+        done
+    fi
+
+}
+
+main "$@"
