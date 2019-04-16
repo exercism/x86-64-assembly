@@ -1,4 +1,4 @@
-CC = gcc
+CC ?= gcc
 AS = nasm
 
 CFLAGS = -std=c99 -g -Wall -Wextra -pedantic -Werror
