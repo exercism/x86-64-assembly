@@ -1,4 +1,3 @@
-CC ?= gcc
 AS = nasm
 
 CFLAGS = -std=c99 -g -Wall -Wextra -pedantic -Werror
@@ -6,9 +5,7 @@ ALL_CFLAGS = -m64 $(CFLAGS)
 
 ASFLAGS = -g -F dwarf -Werror
 
-ifeq ($(OS),Windows_NT)
-	ALL_ASFLAGS = -f elf64
-else ifeq ($(shell uname -s),Darwin)
+ifeq ($(shell uname -s),Darwin)
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
 	ALL_ASFLAGS = -f elf64
