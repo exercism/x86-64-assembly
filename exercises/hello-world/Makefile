@@ -1,16 +1,31 @@
 AS = nasm
 
 CFLAGS = -std=c99 -g -Wall -Wextra -pedantic -Werror
-ALL_CFLAGS = -m64 $(CFLAGS)
-
+LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
 ifeq ($(shell uname -s),Darwin)
+	ALL_CFLAGS = -fno-pie -Wno-unused-command-line-argument
+	ALL_LDFLAGS = -Wl,-no_pie
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
+	ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]no-pie'),)
+		ALL_CFLAGS = -fno-pie
+		ALL_LDFLAGS = -no-pie
+	endif
+	ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]nopie'),)
+		ALL_CFLAGS = -fno-pie
+		ALL_LDFLAGS = -nopie
+	endif
+	ifeq ($(CC),clang)
+		ALL_CFLAGS = -fno-pie -Wno-unused-command-line-argument
+		ALL_LDFLAGS = -nopie
+	endif
 	ALL_ASFLAGS = -f elf64
 endif
 
+ALL_CFLAGS += -m64 $(CFLAGS)
+ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 
 EXERCISE = $(notdir $(CURDIR))
@@ -24,7 +39,7 @@ all: test-$(EXERCISE)
 	@./test-$(EXERCISE)
 
 test-$(EXERCISE): $(OBJS)
-	@$(CC) $(ALL_CFLAGS) -o $@ $(OBJS)
+	@$(CC) $(ALL_CFLAGS) $(ALL_LDFLAGS) -o $@ $(OBJS)
 
 $(FILE).o: $(FILE).asm
 	@$(AS) $(ALL_ASFLAGS) -o $@ $<
