@@ -1,6 +1,6 @@
 AS = nasm
 
-CFLAGS = -std=c99 -g -Wall -Wextra -pedantic -Werror
+CFLAGS = -g -Wall -Wextra -pedantic -Werror
 LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
@@ -24,7 +24,7 @@ else
 	ALL_ASFLAGS = -f elf64
 endif
 
-ALL_CFLAGS += -m64 $(CFLAGS)
+ALL_CFLAGS += -std=c99 -m64 $(CFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 
