@@ -36,7 +36,7 @@ OBJS = $(FILE).o $(FILE)_test.o unity/unity.o
 CC_CMD = $(CC) $(ALL_CFLAGS) -c -o $@ $<
 
 all: test-$(EXERCISE)
-	@./test-$(EXERCISE)
+	@./$<
 
 test-$(EXERCISE): $(OBJS)
 	@$(CC) $(ALL_CFLAGS) $(ALL_LDFLAGS) -o $@ $(OBJS)
