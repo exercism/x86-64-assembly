@@ -28,6 +28,17 @@
         "optional_values",
         "strings"
       ]
+    },
+    {
+      "slug": "leap",
+      "uuid": "669b6523-0dfe-4ccc-b16e-51ee6a8e7e0b",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 1,
+      "topics": [
+        "conditionals",
+        "integers"
+      ]
     }
   ]
 }
