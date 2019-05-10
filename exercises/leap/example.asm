@@ -5,7 +5,7 @@ leap_year:
     mov eax, edi
     cdq
     mov ecx, 4
-    div ecx
+    idiv ecx
     cmp edx, 0
     jne .or
 
@@ -13,7 +13,7 @@ leap_year:
     mov eax, edi
     cdq
     mov ecx, 100
-    div ecx
+    idiv ecx
     cmp edx, 0
     jne .return_true
 
@@ -22,7 +22,7 @@ leap_year:
     mov eax, edi
     cdq
     mov ecx, 400
-    div ecx
+    idiv ecx
     cmp edx, 0
     jne .return_false
 
