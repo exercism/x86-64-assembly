@@ -39,6 +39,16 @@
         "conditionals",
         "integers"
       ]
+    },
+    {
+      "slug": "resistor-color",
+      "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 1,
+      "topics": [
+        "arrays"
+      ]
     }
   ]
 }
