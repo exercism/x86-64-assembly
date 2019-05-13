@@ -49,6 +49,16 @@
       "topics": [
         "arrays"
       ]
+    },
+    {
+      "slug": "space-age",
+      "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 1,
+      "topics": [
+        "floating_point_numbers"
+      ]
     }
   ]
 }
