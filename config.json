@@ -59,6 +59,17 @@
       "topics": [
         "floating_point_numbers"
       ]
+    },
+    {
+      "slug": "hamming",
+      "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 2,
+      "topics": [
+        "filtering",
+        "strings"
+      ]
     }
   ]
 }
