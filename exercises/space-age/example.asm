@@ -18,6 +18,6 @@ age:
     movss xmm1, [rax + rdi * 4]
     mulss xmm1, [rel earth_year_in_sec]
 
-    cvtsi2ss xmm0, rsi
+    cvtsi2ss xmm0, esi
     divss xmm0, xmm1
     ret
