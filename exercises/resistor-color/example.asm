@@ -39,7 +39,7 @@ color_code:
     cmp dl, byte [rdi + rcx]
     jne .str_loop_end
 .str_loop_start:
-    add ecx, 1
+    inc ecx
     mov dl, byte [rsi + rcx]
     cmp dl, byte [rdi + rcx]
     jne .str_loop_end
@@ -51,7 +51,7 @@ color_code:
     cmp dl, byte [rdi + rcx]
     je .return
 
-    add eax, 1
+    inc eax
     cmp eax, color_array_len
     jne .arr_loop_start
 
