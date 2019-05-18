@@ -20,7 +20,7 @@ two_fer:
     rep movsb
 
     ; Check if name is NULL
-    cmp rax, 0
+    test rax, rax
     jne .not_null
 
     ; Copy "you" into output buffer

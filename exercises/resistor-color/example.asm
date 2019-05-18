@@ -43,7 +43,7 @@ color_code:
     mov dl, byte [rsi + rcx]
     cmp dl, byte [rdi + rcx]
     jne .str_loop_end
-    cmp dl, 0
+    test dl, dl
     jne .str_loop_start
 
 .str_loop_end:
