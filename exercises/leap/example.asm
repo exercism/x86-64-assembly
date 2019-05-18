@@ -31,7 +31,7 @@ leap_year:
     jmp .return
 
 .return_false:
-    mov eax, 0
+    xor eax, eax
 
 .return:
     ret

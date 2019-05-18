@@ -28,13 +28,13 @@ section .text
 global color_code
 color_code:
     ; Loop through the color array
-    mov eax, 0
+    xor eax, eax
 .arr_loop_start:
     mov rdx, color_array
     mov rsi, [rdx + rax * 8]
 
     ; Compare array color with input color
-    mov ecx, 0
+    xor ecx, ecx
     mov dl, byte [rsi + rcx]
     cmp dl, byte [rdi + rcx]
     jne .str_loop_end
