@@ -6,7 +6,7 @@ leap_year:
     cdq
     mov ecx, 4
     idiv ecx
-    cmp edx, 0
+    test edx, edx
     jne .or
 
     ; Check if year is divisible by 100
@@ -14,7 +14,7 @@ leap_year:
     cdq
     mov ecx, 100
     idiv ecx
-    cmp edx, 0
+    test edx, edx
     jne .return_true
 
 .or:
@@ -23,7 +23,7 @@ leap_year:
     cdq
     mov ecx, 400
     idiv ecx
-    cmp edx, 0
+    test edx, edx
     jne .return_false
 
 .return_true:
