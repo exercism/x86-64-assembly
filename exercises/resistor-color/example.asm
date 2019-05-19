@@ -24,44 +24,55 @@ dq white
 
 color_array_len: equ ($ - color_array) / 8
 
+;
+; Map color to number.
+;
+; Parameters:
+;   rdi - color
+;
+; Returns:
+;   rax - array index or -1 if not found
+;
 section .text
 global color_code
 color_code:
-    ; Loop through the color array
-    xor eax, eax
+    xor eax, eax                ; Set loop counter to 0
+    mov r8, color_array         ; Save color array
 .arr_loop_start:
-    mov rdx, color_array
-    mov rsi, [rdx + rax * 8]
+    mov rsi, [r8 + rax * 8]     ; Fetch a color
 
-    ; Compare array color with input color
-    xor ecx, ecx
-    mov dl, byte [rsi + rcx]
-    cmp dl, byte [rdi + rcx]
-    jne .str_loop_end
+    xor ecx, ecx                ; Set inner loop counter to 0
+    mov dl, byte [rsi + rcx]    ; Fetch a byte
+    cmp dl, byte [rdi + rcx]    ; Compare with color parameter
+    jne .str_loop_end           ; Not equal => skip loop
 .str_loop_start:
-    inc ecx
-    mov dl, byte [rsi + rcx]
-    cmp dl, byte [rdi + rcx]
-    jne .str_loop_end
-    test dl, dl
-    jne .str_loop_start
+    inc ecx                     ; Increment inner loop counter
+    mov dl, byte [rsi + rcx]    ; Fetch a byte
+    cmp dl, byte [rdi + rcx]    ; Compare with color parameter
+    jne .str_loop_end           ; Not equal => exit loop
+    test dl, dl                 ; Is it NUL?
+    jne .str_loop_start         ; No => next iteration
 
 .str_loop_end:
-    ; If we found a match, return the index
-    cmp dl, byte [rdi + rcx]
-    je .return
+    cmp dl, byte [rdi + rcx]    ; Found a match?
+    je .return                  ; Yes => return array index
 
-    inc eax
-    cmp eax, color_array_len
-    jne .arr_loop_start
+    inc eax                     ; Increment loop counter
+    cmp eax, color_array_len    ; End of array?
+    jne .arr_loop_start         ; No => next iteration
 
-    ; Return -1 to indicate that no match was found
-    mov eax, -1
+    mov eax, -1                 ; Set return value
 
 .return:
     ret
 
+;
+; Get the array of colors.
+;
+; Returns:
+;   rax - array of colors
+;
 global colors
 colors:
-    mov rax, color_array
+    mov rax, color_array        ; Set return value
     ret
