@@ -1,3 +1,5 @@
+default rel
+
 section .data
 one_for: db "One for "
 one_for_len: equ $ - one_for
@@ -21,14 +23,14 @@ two_fer:
     mov rax, rdi               ; Save name
 
     mov rdi, rsi               ; Set destination to buffer
-    mov rsi, one_for           ; Set source
+    lea rsi, [one_for]         ; Set source
     mov rcx, one_for_len       ; Num bytes to copy
     rep movsb                  ; Copy bytes
 
     test rax, rax              ; Is name NULL?
     jne .copy_name             ; No => copy name into buffer
 
-    mov rsi, you               ; Set source
+    lea rsi, [you]             ; Set source
     mov rcx, you_len           ; Num bytes to copy
     rep movsb                  ; Copy bytes
     jmp .end
@@ -43,7 +45,7 @@ two_fer:
     jne .loop_start            ; No => next iteration
 
 .end:
-    mov rsi, one_for_me        ; Set source
+    lea rsi, [one_for_me]      ; Set source
     mov rcx, one_for_me_len    ; Num bytes to copy
     rep movsb                  ; Copy bytes
     ret

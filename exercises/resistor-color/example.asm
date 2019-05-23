@@ -1,3 +1,5 @@
+default rel
+
 section .data
 black: db "black", 0
 brown: db "brown", 0
@@ -37,7 +39,7 @@ section .text
 global color_code
 color_code:
     xor eax, eax                ; Set loop counter to 0
-    mov r8, color_array         ; Save color array
+    lea r8, [color_array]       ; Save color array
 .arr_loop_start:
     mov rsi, [r8 + rax * 8]     ; Fetch a color
 
@@ -74,5 +76,5 @@ color_code:
 ;
 global colors
 colors:
-    mov rax, color_array        ; Set return value
+    lea rax, [color_array]      ; Set return value
     ret
