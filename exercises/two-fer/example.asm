@@ -8,40 +8,42 @@ you_len: equ $ - you
 one_for_me: db ", one for me.", 0
 one_for_me_len: equ $ - one_for_me
 
+;
+; Given a name, return a string with the message: One for X, one for me.
+;
+; Parameters:
+;   rdi - name
+;   rsi - buffer
+;
 section .text
 global two_fer
 two_fer:
-    mov rax, rdi
+    mov rax, rdi               ; Save name
 
-    ; Copy "One for " into output buffer
-    mov rdi, rsi
-    mov rsi, one_for
-    mov rcx, one_for_len
-    rep movsb
+    mov rdi, rsi               ; Set destination to buffer
+    mov rsi, one_for           ; Set source
+    mov rcx, one_for_len       ; Num bytes to copy
+    rep movsb                  ; Copy bytes
 
-    ; Check if name is NULL
-    test rax, rax
-    jne .not_null
+    test rax, rax              ; Is name NULL?
+    jne .copy_name             ; No => copy name into buffer
 
-    ; Copy "you" into output buffer
-    mov rsi, you
-    mov rcx, you_len
-    rep movsb
+    mov rsi, you               ; Set source
+    mov rcx, you_len           ; Num bytes to copy
+    rep movsb                  ; Copy bytes
     jmp .end
 
-.not_null:
-    ; Copy name into output buffer
-    mov rsi, rax
-    cmp byte [rsi], 0
-    je .end
+.copy_name:
+    mov rsi, rax               ; Set source to name
+    cmp byte [rsi], 0          ; Found NUL?
+    je .end                    ; Yes => skip loop
 .loop_start:
-    movsb
-    cmp byte [rsi], 0
-    jne .loop_start
+    movsb                      ; Copy byte
+    cmp byte [rsi], 0          ; Found NUL?
+    jne .loop_start            ; No => next iteration
 
 .end:
-    ; Copy ", one for me." into output buffer
-    mov rsi, one_for_me
-    mov rcx, one_for_me_len
-    rep movsb
+    mov rsi, one_for_me        ; Set source
+    mov rcx, one_for_me_len    ; Num bytes to copy
+    rep movsb                  ; Copy bytes
     ret
