@@ -5,26 +5,14 @@ LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
 ifeq ($(shell uname -s),Darwin)
-	ALL_CFLAGS = -fno-pie -Wno-unused-command-line-argument
-	ALL_LDFLAGS = -Wl,-no_pie
+	ALL_LDFLAGS = -Wl,-pie -Wl,-fatal_warnings
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
-	ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]no-pie'),)
-		ALL_CFLAGS = -fno-pie
-		ALL_LDFLAGS = -no-pie
-	endif
-	ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]nopie'),)
-		ALL_CFLAGS = -fno-pie
-		ALL_LDFLAGS = -nopie
-	endif
-	ifeq ($(CC),clang)
-		ALL_CFLAGS = -fno-pie -Wno-unused-command-line-argument
-		ALL_LDFLAGS = -nopie
-	endif
+	ALL_LDFLAGS = -pie -Wl,--fatal-warnings
 	ALL_ASFLAGS = -f elf64
 endif
 
-ALL_CFLAGS += -std=c99 -m64 $(CFLAGS)
+ALL_CFLAGS = -std=c99 -fPIE -m64 $(CFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 

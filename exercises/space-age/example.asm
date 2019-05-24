@@ -1,3 +1,5 @@
+default rel
+
 section .data
 earth_year_in_sec: dd 31557600.0
 
@@ -25,10 +27,10 @@ dd 164.79132  ; Neptune
 section .text
 global age
 age:
-    mov rax, orbital_periods
-    movss xmm1, [rax + rdi * 4]            ; Get orbital period
-    mulss xmm1, [rel earth_year_in_sec]    ; Multiply by earth year
+    lea rax, [orbital_periods]
+    movss xmm1, [rax + rdi * 4]        ; Get orbital period
+    mulss xmm1, [earth_year_in_sec]    ; Multiply by earth year
 
-    cvtsi2ss xmm0, esi                     ; Convert seconds to float
-    divss xmm0, xmm1                       ; Divide by orbital period
+    cvtsi2ss xmm0, esi                 ; Convert seconds to float
+    divss xmm0, xmm1                   ; Divide by orbital period
     ret

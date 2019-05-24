@@ -1,8 +1,10 @@
+default rel
+
 section .data
 msg: db "", 0
 
 section .text
 global hello
 hello:
-    mov rax, msg
+    lea rax, [msg]
     ret
