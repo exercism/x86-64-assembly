@@ -27,10 +27,17 @@ void test_orange(void) {
 
 void test_colors(void) {
     TEST_IGNORE();
+    const char **color_array;
+    int size;
     const char *expected[] = {"black", "brown", "red",    "orange", "yellow",
                               "green", "blue",  "violet", "grey",   "white"};
 
-    TEST_ASSERT_EQUAL_STRING_ARRAY(expected, colors(), ARRAY_SIZE(expected));
+    color_array = colors();
+    for (size = 0; color_array[size]; size++)
+        ;
+
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
+    TEST_ASSERT_EQUAL_STRING_ARRAY(expected, color_array, size);
 }
 
 int main(void) {

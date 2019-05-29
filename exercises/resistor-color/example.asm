@@ -23,8 +23,7 @@ dq blue
 dq violet
 dq grey
 dq white
-
-color_array_len: equ ($ - color_array) / 8
+dq 0    ; Sentinel value to indicate end of array
 
 ;
 ; Map color to number.
@@ -40,9 +39,8 @@ global color_code
 color_code:
     xor eax, eax                ; Set loop counter to 0
     lea r8, [color_array]       ; Save color array
-.arr_loop_start:
     mov rsi, [r8 + rax * 8]     ; Fetch a color
-
+.arr_loop_start:
     xor ecx, ecx                ; Set inner loop counter to 0
     mov dl, byte [rsi + rcx]    ; Fetch a byte
     cmp dl, byte [rdi + rcx]    ; Compare with color parameter
@@ -60,7 +58,8 @@ color_code:
     je .return                  ; Yes => return array index
 
     inc eax                     ; Increment loop counter
-    cmp eax, color_array_len    ; End of array?
+    mov rsi, [r8 + rax * 8]     ; Fetch a color
+    test rsi, rsi               ; End of array?
     jne .arr_loop_start         ; No => next iteration
 
     mov eax, -1                 ; Set return value
