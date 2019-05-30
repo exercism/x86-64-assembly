@@ -37,32 +37,33 @@ dq 0    ; Sentinel value to indicate end of array
 section .text
 global color_code
 color_code:
-    xor eax, eax                ; Set loop counter to 0
-    lea r8, [color_array]       ; Save color array
-    mov rsi, [r8 + rax * 8]     ; Fetch a color
+    xor eax, eax               ; Set loop counter to 0
+    lea r8, [color_array]      ; Save color array
+    mov rsi, [r8 + rax * 8]    ; Fetch a color
 .arr_loop_start:
-    xor ecx, ecx                ; Set inner loop counter to 0
-    mov dl, byte [rsi + rcx]    ; Fetch a byte
-    cmp dl, byte [rdi + rcx]    ; Compare with color parameter
-    jne .str_loop_end           ; Not equal => skip loop
+    mov rcx, rdi               ; Save color parameter
+    mov dl, byte [rsi]         ; Fetch a byte
+    cmp dl, byte [rcx]         ; Compare with color parameter
+    jne .str_loop_end          ; Not equal => skip loop
 .str_loop_start:
-    inc ecx                     ; Increment inner loop counter
-    mov dl, byte [rsi + rcx]    ; Fetch a byte
-    cmp dl, byte [rdi + rcx]    ; Compare with color parameter
-    jne .str_loop_end           ; Not equal => exit loop
-    test dl, dl                 ; Is it NUL?
-    jne .str_loop_start         ; No => next iteration
+    inc rsi
+    inc rcx
+    mov dl, byte [rsi]         ; Fetch a byte
+    cmp dl, byte [rcx]         ; Compare with color parameter
+    jne .str_loop_end          ; Not equal => exit loop
+    test dl, dl                ; Is it NUL?
+    jne .str_loop_start        ; No => next iteration
 
 .str_loop_end:
-    cmp dl, byte [rdi + rcx]    ; Found a match?
-    je .return                  ; Yes => return array index
+    cmp dl, byte [rcx]         ; Found a match?
+    je .return                 ; Yes => return array index
 
-    inc eax                     ; Increment loop counter
-    mov rsi, [r8 + rax * 8]     ; Fetch a color
-    test rsi, rsi               ; End of array?
-    jne .arr_loop_start         ; No => next iteration
+    inc eax                    ; Increment loop counter
+    mov rsi, [r8 + rax * 8]    ; Fetch a color
+    test rsi, rsi              ; End of array?
+    jne .arr_loop_start        ; No => next iteration
 
-    mov eax, -1                 ; Set return value
+    mov eax, -1                ; Set return value
 
 .return:
     ret
@@ -75,5 +76,5 @@ color_code:
 ;
 global colors
 colors:
-    lea rax, [color_array]      ; Set return value
+    lea rax, [color_array]     ; Set return value
     ret
