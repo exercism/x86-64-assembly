@@ -14,8 +14,8 @@ dd 84.016846  ; Uranus
 dd 164.79132  ; Neptune
 
 ;
-; Given an age in seconds, calculate how old someone would be on different
-; planets.
+; Given an age in seconds, calculate how old someone is in terms of a given
+; planet's solar years.
 ;
 ; Parameters:
 ;   rdi - planet
