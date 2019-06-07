@@ -26,7 +26,7 @@ dq white
 dq 0    ; Sentinel value to indicate end of array
 
 ;
-; Map color to number.
+; Convert a resistor band's color to its numeric representation.
 ;
 ; Parameters:
 ;   rdi - color
@@ -69,7 +69,7 @@ color_code:
     ret
 
 ;
-; Get the array of colors.
+; Get a list of resistor band colors.
 ;
 ; Returns:
 ;   rax - array of colors

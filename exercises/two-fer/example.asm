@@ -11,7 +11,7 @@ one_for_me: db ", one for me.", 0
 one_for_me_len: equ $ - one_for_me
 
 ;
-; Given a name, return a string with the message: One for X, one for me.
+; Create a sentence of the form "One for X, one for me."
 ;
 ; Parameters:
 ;   rdi - name

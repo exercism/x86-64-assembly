@@ -1,5 +1,5 @@
 ;
-; Calculate the Hamming Distance between two DNA strands.
+; Calculate the Hamming difference between two DNA strands.
 ;
 ; Parameters:
 ;   rdi - strand1
