@@ -1,9 +1,9 @@
 #include "unity/unity.h"
 
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+
 extern int color_code(const char *color);
 extern const char **colors(void);
-
-#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 void setUp(void) {
 }
