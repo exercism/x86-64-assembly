@@ -1,4 +1,4 @@
-#include "unity/unity.h"
+#include "vendor/unity.h"
 
 extern int distance(const char *strand1, const char *strand2);
 
