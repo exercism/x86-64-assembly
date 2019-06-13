@@ -19,7 +19,7 @@ ALL_ASFLAGS += $(ASFLAGS)
 EXERCISE = $(notdir $(CURDIR))
 FILE = $(subst -,_,$(EXERCISE))
 
-OBJS = $(FILE).o $(FILE)_test.o unity/unity.o
+OBJS = $(FILE).o $(FILE)_test.o vendor/unity.o
 
 CC_CMD = $(CC) $(ALL_CFLAGS) -c -o $@ $<
 
@@ -35,10 +35,10 @@ $(FILE).o: $(FILE).asm
 $(FILE)_test.o: $(FILE)_test.c
 	@$(CC_CMD)
 
-unity/unity.o: unity/unity.c unity/unity.h unity/unity_internals.h
+vendor/unity.o: vendor/unity.c vendor/unity.h vendor/unity_internals.h
 	@$(CC_CMD)
 
 clean:
-	@rm -f *.o unity/*.o test-$(EXERCISE)
+	@rm -f *.o vendor/*.o test-$(EXERCISE)
 
 .PHONY: all clean
