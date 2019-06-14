@@ -70,6 +70,17 @@
         "filtering",
         "strings"
       ]
+    },
+    {
+      "slug": "allergies",
+      "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 3,
+      "topics": [
+        "bitwise_operations",
+        "filtering"
+      ]
     }
   ]
 }
