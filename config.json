@@ -81,6 +81,18 @@
         "bitwise_operations",
         "filtering"
       ]
+    },
+    {
+      "slug": "rotational-cipher",
+      "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 4,
+      "topics": [
+        "algorithms",
+        "strings",
+        "transforming"
+      ]
     }
   ]
 }
