@@ -93,6 +93,17 @@
         "strings",
         "transforming"
       ]
+    },
+    {
+      "slug": "matching-brackets",
+      "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
+      "core": true,
+      "unlocked_by": null,
+      "difficulty": 5,
+      "topics": [
+        "parsing",
+        "strings"
+      ]
     }
   ]
 }
