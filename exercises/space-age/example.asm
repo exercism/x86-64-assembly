@@ -1,6 +1,6 @@
 default rel
 
-section .data
+section .rodata
 earth_year_in_sec: dd 31557600.0
 
 orbital_periods:
