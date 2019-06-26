@@ -22,7 +22,7 @@ struct item_list {
 };
 
 extern bool allergic_to(enum item item, unsigned int score);
-extern void list(int score, struct item_list *list);
+extern void list(unsigned int score, struct item_list *list);
 
 void setUp(void) {
 }
