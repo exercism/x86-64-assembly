@@ -1,6 +1,6 @@
 default rel
 
-section .data
+section .rodata
 black: db "black", 0
 brown: db "brown", 0
 red: db "red", 0

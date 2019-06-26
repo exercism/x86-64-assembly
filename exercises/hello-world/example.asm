@@ -1,6 +1,6 @@
 default rel
 
-section .data
+section .rodata
 msg: db "Hello, World!", 0
 
 ;

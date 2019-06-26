@@ -1,6 +1,6 @@
 default rel
 
-section .data
+section .rodata
 one_for: db "One for "
 one_for_len: equ $ - one_for
 
