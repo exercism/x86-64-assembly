@@ -1,3 +1,5 @@
+// Version: 2.0.0
+
 #include <stdbool.h>
 
 #include "vendor/unity.h"
@@ -234,96 +236,85 @@ void test_no_allergies(void) {
     struct item_list item_list;
 
     list(0, &item_list);
-
     TEST_ASSERT_EQUAL_INT(0, item_list.size);
 }
 
 void test_just_eggs(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {EGGS};
+    struct item_list item_list;
 
     list(1, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_just_peanuts(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {PEANUTS};
+    struct item_list item_list;
 
     list(2, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_just_strawberries(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {STRAWBERRIES};
+    struct item_list item_list;
 
     list(8, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_eggs_and_peanuts(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {EGGS, PEANUTS};
+    struct item_list item_list;
 
     list(3, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_more_than_eggs_but_not_peanuts(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {EGGS, SHELLFISH};
+    struct item_list item_list;
 
     list(5, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_lots_of_stuff(void) {
     TEST_IGNORE();
-    struct item_list item_list;
     int expected[] = {STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
+    struct item_list item_list;
 
     list(248, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_everything(void) {
     TEST_IGNORE();
+    int expected[] = {EGGS, PEANUTS, SHELLFISH, STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
     struct item_list item_list;
-    int expected[] = {EGGS,     PEANUTS,   SHELLFISH, STRAWBERRIES,
-                      TOMATOES, CHOCOLATE, POLLEN,    CATS};
 
     list(255, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
 void test_no_allergen_score_parts(void) {
     TEST_IGNORE();
+    int expected[] = {EGGS, SHELLFISH, STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
     struct item_list item_list;
-    int expected[] = {EGGS,      SHELLFISH, STRAWBERRIES, TOMATOES,
-                      CHOCOLATE, POLLEN,    CATS};
 
     list(509, &item_list);
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
