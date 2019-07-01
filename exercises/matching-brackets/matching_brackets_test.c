@@ -1,3 +1,5 @@
+// Version: 2.0.0
+
 #include <stdbool.h>
 
 #include "vendor/unity.h"
@@ -12,103 +14,119 @@ void tearDown(void) {
 
 void test_paired_square_brackets(void) {
     const char *value = "[]";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_empty_string(void) {
     TEST_IGNORE();
     const char *value = "";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_unpaired_brackets(void) {
     TEST_IGNORE();
     const char *value = "[[";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_wrong_ordered_brackets(void) {
     TEST_IGNORE();
     const char *value = "}{";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_wrong_closing_bracket(void) {
     TEST_IGNORE();
     const char *value = "{]";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_paired_with_whitespace(void) {
     TEST_IGNORE();
     const char *value = "{ }";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_partially_paired_brackets(void) {
     TEST_IGNORE();
     const char *value = "{[])";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_simple_nested_brackets(void) {
     TEST_IGNORE();
     const char *value = "{[]}";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_several_paired_brackets(void) {
     TEST_IGNORE();
     const char *value = "{}[]";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_paired_and_nested_brackets(void) {
     TEST_IGNORE();
     const char *value = "([{}({}[])])";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_unopened_closing_brackets(void) {
     TEST_IGNORE();
     const char *value = "{[)][]}";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_unpaired_and_nested_brackets(void) {
     TEST_IGNORE();
     const char *value = "([{])";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_paired_and_wrong_nested_brackets(void) {
     TEST_IGNORE();
     const char *value = "[({]})";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_paired_and_incomplete_brackets(void) {
     TEST_IGNORE();
     const char *value = "{}[";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_too_many_closing_brackets(void) {
     TEST_IGNORE();
     const char *value = "[]]";
+
     TEST_ASSERT_FALSE(is_paired(value));
 }
 
 void test_math_expression(void) {
     TEST_IGNORE();
     const char *value = "(((185 + 223.85) * 15) - 543)/2";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
 void test_complex_latex_expression(void) {
     TEST_IGNORE();
-    const char *value = "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ "
-                        "\\mathrm{e}^{x} &... x^2 \\end{array}\\right)";
+    const char *value = "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)";
+
     TEST_ASSERT_TRUE(is_paired(value));
 }
 
