@@ -1,3 +1,5 @@
+// Version: 1.0.0
+
 #include "vendor/unity.h"
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
@@ -27,15 +29,12 @@ void test_orange(void) {
 
 void test_colors(void) {
     TEST_IGNORE();
-    const char **color_array;
+    const char **color_array = colors();
+    const char *expected[] = {"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"};
     int size;
-    const char *expected[] = {"black", "brown", "red",    "orange", "yellow",
-                              "green", "blue",  "violet", "grey",   "white"};
 
-    color_array = colors();
     for (size = 0; color_array[size]; size++)
         ;
-
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
     TEST_ASSERT_EQUAL_STRING_ARRAY(expected, color_array, size);
 }

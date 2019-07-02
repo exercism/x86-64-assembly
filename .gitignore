@@ -5,3 +5,4 @@ bin/configlet.exe
 build/
 **/test-*
 **/*.o
+*.pyc

@@ -1,3 +1,5 @@
+// Version: 1.2.0
+
 #include "vendor/unity.h"
 
 #define BUFFER_SIZE 256
@@ -86,8 +88,7 @@ void test_rotate_all_letters(void) {
     char buffer[BUFFER_SIZE];
 
     rotate("The quick brown fox jumps over the lazy dog.", 13, buffer);
-    TEST_ASSERT_EQUAL_STRING("Gur dhvpx oebja sbk whzcf bire gur ynml qbt.",
-                             buffer);
+    TEST_ASSERT_EQUAL_STRING("Gur dhvpx oebja sbk whzcf bire gur ynml qbt.", buffer);
 }
 
 int main(void) {
@@ -101,5 +102,6 @@ int main(void) {
     RUN_TEST(test_rotate_spaces);
     RUN_TEST(test_rotate_numbers);
     RUN_TEST(test_rotate_punctuation);
+    RUN_TEST(test_rotate_all_letters);
     return UNITY_END();
 }
