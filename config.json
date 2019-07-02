@@ -104,6 +104,17 @@
         "parsing",
         "strings"
       ]
+    },
+    {
+      "slug": "rna-transcription",
+      "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
+      "core": false,
+      "unlocked_by": "hello-world",
+      "difficulty": 1,
+      "topics": [
+        "strings",
+        "transforming"
+      ]
     }
   ]
 }
