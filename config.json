@@ -135,6 +135,17 @@
       "topics": [
         "strings"
       ]
+    },
+    {
+      "slug": "isogram",
+      "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
+      "core": false,
+      "unlocked_by": "two-fer",
+      "difficulty": 3,
+      "topics": [
+        "filtering",
+        "strings"
+      ]
     }
   ]
 }
