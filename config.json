@@ -115,6 +115,16 @@
         "strings",
         "transforming"
       ]
+    },
+    {
+      "slug": "reverse-string",
+      "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
+      "core": false,
+      "unlocked_by": "hello-world",
+      "difficulty": 1,
+      "topics": [
+        "strings"
+      ]
     }
   ]
 }
