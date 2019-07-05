@@ -146,6 +146,16 @@
         "filtering",
         "strings"
       ]
+    },
+    {
+      "slug": "grains",
+      "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
+      "core": false,
+      "unlocked_by": "leap",
+      "difficulty": 2,
+      "topics": [
+        "integers"
+      ]
     }
   ]
 }
