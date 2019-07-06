@@ -125,6 +125,16 @@
       "topics": [
         "strings"
       ]
+    },
+    {
+      "slug": "pangram",
+      "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
+      "core": false,
+      "unlocked_by": "hello-world",
+      "difficulty": 2,
+      "topics": [
+        "strings"
+      ]
     }
   ]
 }
