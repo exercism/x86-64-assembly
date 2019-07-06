@@ -156,6 +156,18 @@
       "topics": [
         "integers"
       ]
+    },
+    {
+      "slug": "difference-of-squares",
+      "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
+      "core": false,
+      "unlocked_by": "resistor-color",
+      "difficulty": 1,
+      "topics": [
+        "integers",
+        "loops",
+        "math"
+      ]
     }
   ]
 }
