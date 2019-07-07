@@ -3,7 +3,7 @@
 set -e
 
 run_tests() {
-    local file="${1/-/_}"
+    local file="${1//-/_}"
 
     cd "$1"
 
