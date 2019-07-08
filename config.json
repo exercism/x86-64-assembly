@@ -168,6 +168,17 @@
         "loops",
         "math"
       ]
+    },
+    {
+      "slug": "binary-search",
+      "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
+      "core": false,
+      "unlocked_by": "allergies",
+      "difficulty": 3,
+      "topics": [
+        "arrays",
+        "searching"
+      ]
     }
   ]
 }
