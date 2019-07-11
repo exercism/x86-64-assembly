@@ -4,20 +4,23 @@
 ;
 ; Parameters:
 ;   rdi - square
-;
 ; Returns:
-;   rax - The number of grains on the square
+;   rax - number of grains on the square
 ;
 section .text
 global square
 square:
-    xor eax, eax     ; Set return value
-    test edi, edi    ; Is square <= 0?
-    jle .return      ; Yes => return 0
-    cmp edi, 64      ; Is square > 64?
-    jg .return       ; Yes => return 0
-    dec edi
-    bts rax, rdi     ; Set return value
+    xor eax, eax   ; Initialize number of grains
+
+    test edi, edi  ; Compare square with 0
+    jle .return    ; If less or equal, return 0
+
+    cmp edi, 64    ; Compare square with max number of squares
+    jg .return     ; If greater, return 0
+
+    dec edi        ; Decrement square to represent a bit-position
+    bts rax, rdi   ; Return the number of grains on the square
+
 .return:
     ret
 
@@ -25,9 +28,9 @@ square:
 ; Calculate the total number of grains on the chessboard.
 ;
 ; Returns:
-;   rax - The total number of grains on the board
+;   rax - total number of grains on the board
 ;
 global total
 total:
-    mov rax, -1      ; Set return value
+    mov rax, -1  ; Return the total number of grains on the board
     ret
