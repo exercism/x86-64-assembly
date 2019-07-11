@@ -5,15 +5,14 @@
 ; Parameters:
 ;   rdi - item
 ;   rsi - score
-;
 ; Returns:
-;   rax - 1 if allergic, else 0
+;   rax - true if allergic, else false
 ;
 section .text
 global allergic_to
 allergic_to:
-    bt esi, edi                     ; Test if item bit is set in score
-    setc al                         ; Set return value
+    bt esi, edi  ; Select the bit in score at the bit-position represented by the item
+    setc al      ; Return true if the bit is set, else false
     ret
 
 ;
@@ -25,21 +24,21 @@ allergic_to:
 ;
 global list
 list:
-    mov rdx, rsi                    ; Save list
-    mov esi, edi                    ; Set score argument
+    mov rcx, rsi                  ; Save list
+    mov esi, edi                  ; Set score
+    xor edx, edx                  ; Set current list index
 
-    xor edi, edi                    ; Set item argument
-    xor ecx, ecx                    ; Set current list index
+    xor edi, edi                  ; Set current item
 .loop_start:
     call allergic_to
-    test al, al                     ; Allergic to item?
-    je .skip                        ; No => skip item
-    mov [rdx + rcx * 4 + 4], edi    ; Add item to list
-    inc ecx                         ; Increment current list index
-.skip:
-    inc edi                         ; Next item
-    cmp edi, 8                      ; Last item?
-    jne .loop_start                 ; No => next iteration
+    test al, al                   ; Check if allergic to item
+    je .next                      ; If not, process next item
+    mov [rcx + rdx * 4 + 4], edi  ; Add item to list
+    inc edx                       ; Increment current list index
+.next:
+    inc edi                       ; Advance to next item
+    cmp edi, 8                    ; See if we reached the last item
+    jne .loop_start               ; If items remain, loop back
 
-    mov [rdx], ecx                  ; Set list size
+    mov [rcx], edx                ; Set list size
     ret
