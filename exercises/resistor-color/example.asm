@@ -23,47 +23,46 @@ dq blue
 dq violet
 dq grey
 dq white
-dq 0    ; Sentinel value to indicate end of array
+dq 0  ; Sentinel value to indicate end of array
 
 ;
 ; Convert a resistor band's color to its numeric representation.
 ;
 ; Parameters:
 ;   rdi - color
-;
 ; Returns:
-;   rax - array index or -1 if not found
+;   rax - the resistor band's numeric representation or -1 if not found
 ;
 section .text
 global color_code
 color_code:
-    xor eax, eax               ; Set loop counter to 0
-    lea r8, [color_array]      ; Save color array
-    mov rsi, [r8 + rax * 8]    ; Fetch a color
+    xor eax, eax              ; Initialize array index
+    lea rcx, [color_array]    ; Load color array
+    mov rdx, [rcx + rax * 8]  ; Read color from array
 .arr_loop_start:
-    mov rcx, rdi               ; Save color parameter
-    mov dl, byte [rsi]         ; Fetch a byte
-    cmp dl, byte [rcx]         ; Compare with color parameter
-    jne .str_loop_end          ; Not equal => skip loop
+    mov rsi, rdi              ; Save target color
+
+    mov r8b, byte [rdx]       ; Read char from color
+    cmp r8b, byte [rsi]       ; Compare with char from target color
+    jne .str_loop_end         ; If not equal, skip loop
 .str_loop_start:
-    inc rsi
-    inc rcx
-    mov dl, byte [rsi]         ; Fetch a byte
-    cmp dl, byte [rcx]         ; Compare with color parameter
-    jne .str_loop_end          ; Not equal => exit loop
-    test dl, dl                ; Is it NUL?
-    jne .str_loop_start        ; No => next iteration
+    inc rdx                   ; Advance color to next char
+    inc rsi                   ; Advance target color to next char
+    mov r8b, byte [rdx]       ; Read char from color
+    cmp r8b, byte [rsi]       ; Compare with char from target color
+    jne .str_loop_end         ; If not equal, exit loop
+    test r8b, r8b             ; See if we reached end of color
+    jne .str_loop_start       ; If chars remain, loop back
 
 .str_loop_end:
-    cmp dl, byte [rcx]         ; Found a match?
-    je .return                 ; Yes => return array index
+    cmp r8b, byte [rsi]       ; Check if we found a match
+    je .return                ; If we found a match, return the array index
+    inc eax                   ; Increment array index
+    mov rdx, [rcx + rax * 8]  ; Read color from array
+    test rdx, rdx             ; See if we reached end of array
+    jne .arr_loop_start       ; If colors remain, loop back
 
-    inc eax                    ; Increment loop counter
-    mov rsi, [r8 + rax * 8]    ; Fetch a color
-    test rsi, rsi              ; End of array?
-    jne .arr_loop_start        ; No => next iteration
-
-    mov eax, -1                ; Set return value
+    mov eax, -1               ; Return -1
 
 .return:
     ret
@@ -72,9 +71,9 @@ color_code:
 ; Get a list of resistor band colors.
 ;
 ; Returns:
-;   rax - array of colors
+;   rax - a list of colors
 ;
 global colors
 colors:
-    lea rax, [color_array]     ; Set return value
+    lea rax, [color_array]  ; Return the list of colors
     ret
