@@ -3,9 +3,8 @@
 ;
 ; Parameters:
 ;   rdi - value
-;
 ; Returns:
-;   rax - 1 if paired, else 0
+;   rax - true if paired, else false
 ;
 section .text
 global is_paired
@@ -13,12 +12,12 @@ is_paired:
     push rbp
     mov rbp, rsp
 
-    xor eax, eax             ; Set return value
+    xor eax, eax           ; Initialize return value
 
-    cmp byte [rdi], 0        ; Found NUL?
-    je .loop_end             ; Yes => skip loop
+    cmp byte [rdi], 0      ; Check if value is an empty string
+    je .loop_end           ; If empty, skip loop
 .loop_start:
-    movzx ecx, byte [rdi]    ; Fetch a byte
+    movzx ecx, byte [rdi]  ; Read char from value
     cmp cl, '['
     je .opening
     cmp cl, '{'
@@ -26,42 +25,42 @@ is_paired:
     cmp cl, '('
     jne .not_opening
 .opening:
-    push rcx                 ; Push opening bracket or brace
-    jmp .skip
+    push rcx               ; Push opening bracket or brace on stack
+    jmp .next
 .not_opening:
     cmp cl, ']'
     je .bracket
     cmp cl, '}'
     je .brace
     cmp cl, ')'
-    jne .skip
-    cmp rsp, rbp             ; Is stack empty?
-    je .return               ; Yes => return false
-    pop rdx
-    cmp dl, '('              ; Found matching paren?
-    jne .return              ; No => return false
-    jmp .skip
+    jne .next
+    cmp rsp, rbp           ; Check if stack is empty
+    je .return             ; If empty, return false
+    pop rcx                ; Pop the stack
+    cmp cl, '('            ; Check if matching paren
+    jne .return            ; If not, return false
+    jmp .next
 .bracket:
-    cmp rsp, rbp             ; Is stack empty?
-    je .return               ; Yes => return false
-    pop rdx
-    cmp dl, '['              ; Found matching bracket?
-    jne .return              ; No => return false
-    jmp .skip
+    cmp rsp, rbp           ; Check if stack is empty
+    je .return             ; If empty, return false
+    pop rcx                ; Pop the stack
+    cmp cl, '['            ; Check if matching bracket
+    jne .return            ; If not, return false
+    jmp .next
 .brace:
-    cmp rsp, rbp             ; Is stack empty?
-    je .return               ; Yes => return false
-    pop rdx
-    cmp dl, '{'              ; Found matching brace?
-    jne .return              ; No => return false
-.skip:
-    inc rdi
-    cmp byte [rdi], 0        ; Found NUL?
-    jne .loop_start          ; No => next iteration
+    cmp rsp, rbp           ; Check if stack is empty
+    je .return             ; If empty, return false
+    pop rcx                ; Pop the stack
+    cmp cl, '{'            ; Check if matching brace
+    jne .return            ; If not, return false
+.next:
+    inc rdi                ; Advance value to next char
+    cmp byte [rdi], 0      ; See if we reached end of value
+    jne .loop_start        ; If chars remain, loop back
 
 .loop_end:
-    cmp rsp, rbp             ; Is stack empty?
-    sete al                  ; Yes => return true
+    cmp rsp, rbp           ; Check if stack is empty
+    sete al                ; If empty, return true
 .return:
     leave
     ret
