@@ -7,25 +7,25 @@
 section .text
 global reverse
 reverse:
-    xor eax, eax                 ; Set string length
-    cmp byte [rdi], 0            ; Found NUL?
-    je .return                   ; Yes => return
+    xor eax, eax               ; Initialize string length
+    cmp byte [rdi], 0          ; Check if value is an empty string
+    je .return                 ; If empty, return
 .len_loop_start:
-    inc eax                      ; Increment string length
-    cmp byte [rdi + rax], 0      ; Found NUL?
-    jne .len_loop_start          ; No => next iteration
+    inc eax                    ; Increment string length
+    cmp byte [rdi + rax], 0    ; See if we reached end of value
+    jne .len_loop_start        ; If chars remain, loop back
 
-    xor ecx, ecx                 ; Start counter
-    dec eax                      ; End counter
+    xor ecx, ecx               ; Set start index to 0
+    dec eax                    ; Set end index to string length - 1
 .rev_loop_start:
-    mov dl, byte [rdi + rcx]     ; Save start byte
-    mov r8b, byte [rdi + rax]    ; Save end byte
-    mov byte [rdi + rax], dl     ; Set start byte to end
-    mov byte [rdi + rcx], r8b    ; Set end byte to start
-    inc ecx
-    dec eax
-    cmp ecx, eax                 ; Swapped every byte?
-    jl .rev_loop_start           ; No => next iteration
+    mov dl, byte [rdi + rcx]   ; Save char at start index
+    mov sil, byte [rdi + rax]  ; Save char at end index
+    mov byte [rdi + rax], dl   ; Set char at start to end
+    mov byte [rdi + rcx], sil  ; Set char at end to start
+    inc ecx                    ; Increment start index
+    dec eax                    ; Decrement end index
+    cmp ecx, eax               ; See if we swapped every char
+    jl .rev_loop_start         ; If chars remain, loop back
 
 .return:
     ret
