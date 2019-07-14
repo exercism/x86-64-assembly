@@ -10,38 +10,37 @@
 section .text
 global rotate
 rotate:
-    mov rcx, rdx             ; Save buffer
+    mov rcx, rdx           ; Save buffer
 
-    cmp byte [rdi], 0        ; Found NUL?
-    je .loop_end             ; Yes => skip loop
+    cmp byte [rdi], 0      ; Check if text is an empty string
+    je .loop_end           ; If empty, skip loop
 .loop_start:
-    movzx eax, byte [rdi]    ; Fetch a byte
-    mov edx, eax             ; Save byte
-
+    movzx eax, byte [rdi]  ; Read char from text
+    mov edx, eax           ; Save char
     lea r8d, [rax - 'a']
-    cmp r8d, 26              ; Is lowercase?
-    jae .is_upper            ; No => check if uppercase
-    mov r8d, 'a'
+    cmp r8d, 26            ; Check if char is lowercase
+    jae .is_upper          ; If not, check if uppercase
+    mov r8d, 'a'           ; Save 'a'
     jmp .rot
 .is_upper:
     lea r8d, [rax - 'A']
-    cmp r8d, 26              ; Is uppercase?
-    jae .skip                ; No => skip
-    mov r8d, 'A'
+    cmp r8d, 26            ; Check if char is uppercase
+    jae .next              ; If not, process next char
+    mov r8d, 'A'           ; Save 'A'
 .rot:
-    sub eax, r8d             ; Subtract 'a' or 'A'
-    add eax, esi             ; Add shift_key
-    cdq
+    sub eax, r8d           ; Subtract 'a' or 'A' from char
+    add eax, esi           ; Add shift_key
+    cdq                    ; Sign-extend eax into edx
     mov r9d, 26
-    idiv r9d                 ; Divide by 26
-    add edx, r8d             ; Add 'a' or 'A' to remainder
-.skip:
-    mov byte [rcx], dl       ; Store result in buffer
-    inc rcx
-    inc rdi
-    cmp byte [rdi], 0        ; Found NUL?
-    jne .loop_start          ; No => next iteration
+    idiv r9d               ; Divide by 26
+    add edx, r8d           ; Add 'a' or 'A' to remainder
+.next:
+    mov byte [rcx], dl     ; Store result in buffer
+    inc rcx                ; Advance buffer to next char
+    inc rdi                ; Advance text to next char
+    cmp byte [rdi], 0      ; See if we reached end of text
+    jne .loop_start        ; If chars remain, loop back
 
 .loop_end:
-    mov byte [rcx], 0        ; Null-terminate buffer
+    mov byte [rcx], 0      ; Null-terminate buffer
     ret
