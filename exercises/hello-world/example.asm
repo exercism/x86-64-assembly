@@ -7,10 +7,10 @@ msg: db "Hello, World!", 0
 ; The classical introductory exercise. Just say "Hello, World!"
 ;
 ; Returns:
-;   rax - msg
+;   rax - the string "Hello, World!"
 ;
 section .text
 global hello
 hello:
-    lea rax, [msg]    ; Set return value
+    lea rax, [msg]  ; Return the string "Hello, World!"
     ret

@@ -20,32 +20,32 @@ one_for_me_len: equ $ - one_for_me
 section .text
 global two_fer
 two_fer:
-    mov rax, rdi               ; Save name
+    mov rax, rdi             ; Save name
 
-    mov rdi, rsi               ; Set destination to buffer
-    lea rsi, [one_for]         ; Set source
-    mov rcx, one_for_len       ; Num bytes to copy
-    rep movsb                  ; Copy bytes
+    mov rdi, rsi             ; Set destination to buffer
+    lea rsi, [one_for]       ; Set source
+    mov rcx, one_for_len     ; Set string length
+    rep movsb                ; Append string to buffer
 
-    test rax, rax              ; Is name NULL?
-    jne .copy_name             ; No => copy name into buffer
+    test rax, rax            ; Check if name is provided
+    jne .copy_name           ; If so, append name to buffer
 
-    lea rsi, [you]             ; Set source
-    mov rcx, you_len           ; Num bytes to copy
-    rep movsb                  ; Copy bytes
+    lea rsi, [you]           ; Set source
+    mov rcx, you_len         ; Set string length
+    rep movsb                ; Append string to buffer
     jmp .end
 
 .copy_name:
-    mov rsi, rax               ; Set source to name
-    cmp byte [rsi], 0          ; Found NUL?
-    je .end                    ; Yes => skip loop
+    mov rsi, rax             ; Set source to name
+    cmp byte [rsi], 0        ; Check if name is an empty string
+    je .end                  ; If empty, skip loop
 .loop_start:
-    movsb                      ; Copy byte
-    cmp byte [rsi], 0          ; Found NUL?
-    jne .loop_start            ; No => next iteration
+    movsb                    ; Append char to buffer
+    cmp byte [rsi], 0        ; See if we reached end of name
+    jne .loop_start          ; If chars remain, loop back
 
 .end:
-    lea rsi, [one_for_me]      ; Set source
-    mov rcx, one_for_me_len    ; Num bytes to copy
-    rep movsb                  ; Copy bytes
+    lea rsi, [one_for_me]    ; Set source
+    mov rcx, one_for_me_len  ; Set string length
+    rep movsb                ; Append string to buffer
     ret

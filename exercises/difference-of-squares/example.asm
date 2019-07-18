@@ -3,21 +3,21 @@
 ;
 ; Parameters:
 ;   rdi - number
-;
 ; Returns:
-;   rax - the sum
+;   rax - square of the sum
 ;
 section .text
 global square_of_sum
 square_of_sum:
-    xor eax, eax           ; Set the sum
-    xor ecx, ecx           ; Set loop counter
+    xor eax, eax     ; Initialize sum
+
+    xor ecx, ecx     ; Set current number
 .loop_start:
-    add eax, ecx           ; Update the sum
-    inc ecx
-    cmp ecx, edi           ; Loop counter > number?
-    jle .loop_start        ; No => next iteration
-    imul eax               ; Square the sum
+    add eax, ecx     ; Add current number to sum
+    inc ecx          ; Increment current number
+    cmp ecx, edi     ; See if we reached the last number
+    jle .loop_start  ; If numbers remain, loop back
+    imul eax         ; Square the sum
     ret
 
 ;
@@ -25,21 +25,21 @@ square_of_sum:
 ;
 ; Parameters:
 ;   rdi - number
-;
 ; Returns:
-;   rax - the sum
+;   rax - sum of the squares
 ;
 global sum_of_squares
 sum_of_squares:
-    xor eax, eax           ; Set the sum
-    xor ecx, ecx           ; Set loop counter
+    xor eax, eax     ; Initialize sum
+
+    xor ecx, ecx     ; Set current number
 .loop_start:
-    mov edx, ecx
-    imul edx, edx
-    add eax, edx           ; Update the sum
-    inc ecx
-    cmp ecx, edi           ; Loop counter > number?
-    jle .loop_start        ; No => next iteration
+    mov edx, ecx     ; Save current number
+    imul edx, edx    ; Square it
+    add eax, edx     ; Add result to sum
+    inc ecx          ; Increment current number
+    cmp ecx, edi     ; See if we reached the last number
+    jle .loop_start  ; If numbers remain, loop back
     ret
 
 ;
@@ -48,16 +48,16 @@ sum_of_squares:
 ;
 ; Parameters:
 ;   rdi - number
-;
 ; Returns:
-;   rax - the difference
+;   rax - the difference between the square of the sum and the sum of the
+;         squares
 ;
 global difference_of_squares
 difference_of_squares:
-    push rbx               ; Save rbx
+    push rbx      ; Save caller's rbx
     call sum_of_squares
-    mov ebx, eax           ; Save the sum
+    mov ebx, eax  ; Save result
     call square_of_sum
-    sub eax, ebx           ; Calculate the difference
-    pop rbx                ; Restore rbx
+    sub eax, ebx  ; Calculate the difference
+    pop rbx       ; Restore caller's rbx
     ret

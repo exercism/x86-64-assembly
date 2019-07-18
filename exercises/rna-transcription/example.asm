@@ -8,8 +8,8 @@
 section .text
 global to_rna
 to_rna:
-    cmp byte[rdi], 0       ; Found NUL?
-    je .loop_end           ; Yes => skip loop
+    cmp byte[rdi], 0   ; Check if dna is an empty string
+    je .loop_end       ; If empty, skip loop
 .loop_start:
     cmp byte [rdi], 'C'
     je .cytosine
@@ -30,10 +30,11 @@ to_rna:
 .thymine:
     mov byte [rsi], 'A'
 .next:
-    inc rdi
-    inc rsi
-    cmp byte [rdi], 0      ; Found NUL?
-    jne .loop_start        ; No => next iteration
+    inc rdi            ; Advance dna to next char
+    inc rsi            ; Advance buffer to next char
+    cmp byte [rdi], 0  ; See if we reached end of dna
+    jne .loop_start    ; If chars remain, loop back
+
 .loop_end:
-    mov byte [rsi], 0      ; Null-terminate buffer
+    mov byte [rsi], 0  ; Null-terminate buffer
     ret
