@@ -16,7 +16,7 @@ is_pangram:
 .loop_start:
     movzx ecx, byte [rdi]  ; Read char from sentence
     or ecx, 32             ; If uppercase, convert to lowercase
-    sub ecx, 'a'           ; Subtract 'a' to get a number between 0 and 26
+    sub ecx, 'a'
     cmp ecx, 26            ; Check if alphabetic
     jae .next              ; If not, process next char
     bts eax, ecx           ; Mark letter as used in bitmap
