@@ -2,7 +2,7 @@
 
 #include "vendor/unity.h"
 
-extern void reverse(char *value);
+extern void reverse(char *str);
 
 void setUp(void) {
 }
@@ -11,50 +11,50 @@ void tearDown(void) {
 }
 
 void test_an_empty_string(void) {
-    char value[] = "";
+    char str[] = "";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("", str);
 }
 
 void test_a_word(void) {
     TEST_IGNORE();
-    char value[] = "robot";
+    char str[] = "robot";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("tobor", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("tobor", str);
 }
 
 void test_a_capitalized_word(void) {
     TEST_IGNORE();
-    char value[] = "Ramen";
+    char str[] = "Ramen";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("nemaR", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("nemaR", str);
 }
 
 void test_a_sentence_with_punctuation(void) {
     TEST_IGNORE();
-    char value[] = "I'm hungry!";
+    char str[] = "I'm hungry!";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("!yrgnuh m'I", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("!yrgnuh m'I", str);
 }
 
 void test_a_palindrome(void) {
     TEST_IGNORE();
-    char value[] = "racecar";
+    char str[] = "racecar";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("racecar", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("racecar", str);
 }
 
 void test_an_evensized_word(void) {
     TEST_IGNORE();
-    char value[] = "drawer";
+    char str[] = "drawer";
 
-    reverse(value);
-    TEST_ASSERT_EQUAL_STRING("reward", value);
+    reverse(str);
+    TEST_ASSERT_EQUAL_STRING("reward", str);
 }
 
 int main(void) {

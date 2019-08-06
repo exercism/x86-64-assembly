@@ -2,17 +2,17 @@
 ; Reverse a string.
 ;
 ; Parameters:
-;   rdi - value
+;   rdi - str
 ;
 section .text
 global reverse
 reverse:
     xor eax, eax               ; Initialize string length
-    cmp byte [rdi], 0          ; Check if value is an empty string
+    cmp byte [rdi], 0          ; Check if input string is empty
     je .return                 ; If empty, return
 .len_loop_start:
     inc eax                    ; Increment string length
-    cmp byte [rdi + rax], 0    ; See if we reached end of value
+    cmp byte [rdi + rax], 0    ; See if we reached end of input string
     jne .len_loop_start        ; If chars remain, loop back
 
     xor ecx, ecx               ; Set start index to 0
