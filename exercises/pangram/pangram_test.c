@@ -4,7 +4,7 @@
 
 #include "vendor/unity.h"
 
-extern bool is_pangram(const char *sentence);
+extern bool is_pangram(const char *str);
 
 void setUp(void) {
 }

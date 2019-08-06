@@ -3,7 +3,7 @@ FUNC_PROTO = """\
 
 #include "vendor/unity.h"
 
-extern bool is_pangram(const char *sentence);
+extern bool is_pangram(const char *str);
 """
 
 def gen_func_body(prop, inp, expected):
