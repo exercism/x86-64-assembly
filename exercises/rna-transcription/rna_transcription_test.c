@@ -4,7 +4,7 @@
 
 #define BUFFER_SIZE 256
 
-extern void to_rna(const char *dna, char *buffer);
+extern void to_rna(const char *strand, char *buffer);
 
 void setUp(void) {
 }
