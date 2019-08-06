@@ -1,7 +1,7 @@
 FUNC_PROTO = """\
 #include "vendor/unity.h"
 
-extern uint64_t square(int square);
+extern uint64_t square(int number);
 extern uint64_t total(void);
 """
 
