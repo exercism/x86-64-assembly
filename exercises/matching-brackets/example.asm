@@ -2,7 +2,7 @@
 ; Make sure the brackets and braces all match.
 ;
 ; Parameters:
-;   rdi - value
+;   rdi - str
 ; Returns:
 ;   rax - true if paired, else false
 ;
@@ -14,10 +14,10 @@ is_paired:
 
     xor eax, eax           ; Initialize return value
 
-    cmp byte [rdi], 0      ; Check if value is an empty string
+    cmp byte [rdi], 0      ; Check if input string is empty
     je .loop_end           ; If empty, skip loop
 .loop_start:
-    movzx ecx, byte [rdi]  ; Read char from value
+    movzx ecx, byte [rdi]  ; Read char from input string
     cmp cl, '['
     je .opening
     cmp cl, '{'
@@ -54,8 +54,8 @@ is_paired:
     cmp cl, '{'            ; Check if matching brace
     jne .return            ; If not, return false
 .next:
-    inc rdi                ; Advance value to next char
-    cmp byte [rdi], 0      ; See if we reached end of value
+    inc rdi                ; Advance input string to next char
+    cmp byte [rdi], 0      ; See if we reached the end
     jne .loop_start        ; If chars remain, loop back
 
 .loop_end:
