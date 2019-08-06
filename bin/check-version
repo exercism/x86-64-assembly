@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import re
+import sys
+import urllib.request
+
+
+def download_canonical_data(exercise):
+    url = f"https://raw.githubusercontent.com/exercism/problem-specifications/master/exercises/{exercise}/canonical-data.json"
+    with urllib.request.urlopen(url) as f:
+        return json.loads(f.read().decode())
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("exercise")
+    args = parser.parse_args()
+    data = download_canonical_data(args.exercise)
+    version = data["version"]
+    exercise = args.exercise.replace("-", "_")
+    path = f"{sys.path[0]}/../exercises/{args.exercise}/{exercise}_test.c"
+    with open(path, "r") as f:
+        line = f.readline()
+    p = re.compile(r"// Version: (\d+\.\d+\.\d+)")
+    m = p.match(line)
+    if m:
+        current_version = m.group(1)
+        if version != current_version:
+            print(f"A new version of {args.exercise} ({version}) is available.")
+        else:
+            print(f"{args.exercise} is up to date.")
+    else:
+        print(f"Version is missing for {args.exercise}.")
+
+
+if __name__ == "__main__":
+    main()
