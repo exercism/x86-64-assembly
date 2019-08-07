@@ -40,16 +40,16 @@ color_code:
     lea rcx, [color_array]    ; Load color array
     mov rdx, [rcx + rax * 8]  ; Read color from array
 .arr_loop_start:
-    mov rsi, rdi              ; Save target color
+    mov rsi, rdi              ; Save input color
 
     mov r8b, byte [rdx]       ; Read char from color
-    cmp r8b, byte [rsi]       ; Compare with char from target color
+    cmp r8b, byte [rsi]       ; Compare with char from input color
     jne .str_loop_end         ; If not equal, skip loop
 .str_loop_start:
     inc rdx                   ; Advance color to next char
-    inc rsi                   ; Advance target color to next char
+    inc rsi                   ; Advance input color to next char
     mov r8b, byte [rdx]       ; Read char from color
-    cmp r8b, byte [rsi]       ; Compare with char from target color
+    cmp r8b, byte [rsi]       ; Compare with char from input color
     jne .str_loop_end         ; If not equal, exit loop
     test r8b, r8b             ; See if we reached end of color
     jne .str_loop_start       ; If chars remain, loop back
