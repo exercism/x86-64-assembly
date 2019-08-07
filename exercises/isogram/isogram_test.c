@@ -4,7 +4,7 @@
 
 #include "vendor/unity.h"
 
-extern bool is_isogram(const char *phrase);
+extern bool is_isogram(const char *str);
 
 void setUp(void) {
 }

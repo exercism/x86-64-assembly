@@ -3,7 +3,7 @@ FUNC_PROTO = """\
 
 #define BUFFER_SIZE 256
 
-extern void to_rna(const char *dna, char *buffer);
+extern void to_rna(const char *strand, char *buffer);
 """
 
 def gen_func_body(prop, inp, expected):

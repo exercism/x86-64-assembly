@@ -3,7 +3,7 @@
 ; on each square doubles.
 ;
 ; Parameters:
-;   rdi - square
+;   rdi - number
 ; Returns:
 ;   rax - number of grains on the square
 ;
@@ -12,13 +12,13 @@ global square
 square:
     xor eax, eax   ; Initialize number of grains
 
-    test edi, edi  ; Compare square with 0
+    test edi, edi  ; Compare input number with 0
     jle .return    ; If less or equal, return 0
 
-    cmp edi, 64    ; Compare square with max number of squares
+    cmp edi, 64    ; Compare input number with max number of squares
     jg .return     ; If greater, return 0
 
-    dec edi        ; Decrement square to represent a bit-position
+    dec edi        ; Decrement input number to represent a bit-position
     bts rax, rdi   ; Return the number of grains on the square
 
 .return:

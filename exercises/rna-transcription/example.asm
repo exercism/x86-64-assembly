@@ -2,13 +2,13 @@
 ; Given a DNA strand, return its RNA Complement Transcription.
 ;
 ; Parameters:
-;   rdi - dna
+;   rdi - strand
 ;   rsi - buffer
 ;
 section .text
 global to_rna
 to_rna:
-    cmp byte[rdi], 0   ; Check if dna is an empty string
+    cmp byte[rdi], 0   ; Check if strand is an empty string
     je .loop_end       ; If empty, skip loop
 .loop_start:
     cmp byte [rdi], 'C'
@@ -30,9 +30,9 @@ to_rna:
 .thymine:
     mov byte [rsi], 'A'
 .next:
-    inc rdi            ; Advance dna to next char
+    inc rdi            ; Advance strand to next char
     inc rsi            ; Advance buffer to next char
-    cmp byte [rdi], 0  ; See if we reached end of dna
+    cmp byte [rdi], 0  ; See if we reached end of strand
     jne .loop_start    ; If chars remain, loop back
 
 .loop_end:

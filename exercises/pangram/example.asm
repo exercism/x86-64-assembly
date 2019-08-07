@@ -2,7 +2,7 @@
 ; Determine if a sentence is a pangram.
 ;
 ; Parameters:
-;   rdi - sentence
+;   rdi - str
 ; Returns:
 ;   rax - true if pangram, else false
 ;
@@ -11,18 +11,18 @@ global is_pangram
 is_pangram:
     xor eax, eax           ; Initialize bitmap of used letters
 
-    cmp byte [rdi], 0      ; Check if sentence is an empty string
+    cmp byte [rdi], 0      ; Check if input string is empty
     je .loop_end           ; If empty, skip loop
 .loop_start:
-    movzx ecx, byte [rdi]  ; Read char from sentence
+    movzx ecx, byte [rdi]  ; Read char from input string
     or ecx, 32             ; If uppercase, convert to lowercase
     sub ecx, 'a'
     cmp ecx, 26            ; Check if alphabetic
     jae .next              ; If not, process next char
     bts eax, ecx           ; Mark letter as used in bitmap
 .next:
-    inc rdi                ; Advance sentence to next char
-    cmp byte [rdi], 0      ; See if we reached end of sentence
+    inc rdi                ; Advance input string to next char
+    cmp byte [rdi], 0      ; See if we reached the end
     jne .loop_start        ; If chars remain, loop back
 
 .loop_end:
