@@ -11,7 +11,7 @@ global square_of_sum
 square_of_sum:
     xor eax, eax     ; Initialize sum
 
-    xor ecx, ecx     ; Set current number
+    mov ecx, 1       ; Set current number
 .loop_start:
     add eax, ecx     ; Add current number to sum
     inc ecx          ; Increment current number
@@ -32,7 +32,7 @@ global sum_of_squares
 sum_of_squares:
     xor eax, eax     ; Initialize sum
 
-    xor ecx, ecx     ; Set current number
+    mov ecx, 1       ; Set current number
 .loop_start:
     mov edx, ecx     ; Save current number
     imul edx, edx    ; Square it
