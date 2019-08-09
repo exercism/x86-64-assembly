@@ -33,8 +33,8 @@ void test_colors(void) {
     const char *expected[] = {"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"};
     int size;
 
-    for (size = 0; color_array[size]; size++)
-        ;
+    for (size = 0; color_array[size]; size++) {
+    }
     TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
     TEST_ASSERT_EQUAL_STRING_ARRAY(expected, color_array, size);
 }
