@@ -6,8 +6,8 @@
 * The Netwide Assembler (NASM)
 
 Please note that this track only supports the calling convention of the System
-V AMD64 ABI. If you are running Windows, you will either have to install
-Windows Subsystem for Linux (WSL) or set up a Linux virtual machine.
+V AMD64 ABI. Windows users will need to install Windows Subsystem for Linux
+(WSL), or set up a Linux virtual machine.
 
 ### Linux
 
@@ -34,8 +34,5 @@ $ brew install nasm
 ```
 
 ### Windows
-
-The Windows Subsystem for Linux (WSL) enables you to run Linux binaries
-natively on Windows.
 
 To install WSL, see https://docs.microsoft.com/en-us/windows/wsl/install-win10.
