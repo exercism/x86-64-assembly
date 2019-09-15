@@ -1,7 +1,7 @@
 {
   "track_id": "x86-64-assembly",
   "language": "x86-64 Assembly",
-  "active": false,
+  "active": true,
   "blurb": "x86-64 assembly is a low-level programming language, typically used in boot loaders, device drivers, and operating system kernels.",
   "ignore_pattern": "[Ee]xample",
   "solution_pattern": "[Ee]xample",
