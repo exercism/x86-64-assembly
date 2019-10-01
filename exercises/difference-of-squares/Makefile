@@ -16,29 +16,28 @@ ALL_CFLAGS = -std=c99 -fPIE -m64 $(CFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 
-EXERCISE = $(notdir $(CURDIR))
-FILE = $(subst -,_,$(EXERCISE))
-
-OBJS = $(FILE).o $(FILE)_test.o vendor/unity.o
+C_OBJS = $(patsubst %.c,%.o,$(wildcard *.c))
+AS_OBJS = $(patsubst %.asm,%.o,$(wildcard *.asm))
+ALL_OBJS = $(filter-out example.o,$(C_OBJS) $(AS_OBJS) vendor/unity.o)
 
 CC_CMD = $(CC) $(ALL_CFLAGS) -c -o $@ $<
 
-all: test-$(EXERCISE)
+all: tests
 	@./$<
 
-test-$(EXERCISE): $(OBJS)
-	@$(CC) $(ALL_CFLAGS) $(ALL_LDFLAGS) -o $@ $(OBJS)
+tests: $(ALL_OBJS)
+	@$(CC) $(ALL_CFLAGS) $(ALL_LDFLAGS) -o $@ $(ALL_OBJS)
 
-$(FILE).o: $(FILE).asm
+%.o: %.asm
 	@$(AS) $(ALL_ASFLAGS) -o $@ $<
 
-$(FILE)_test.o: $(FILE)_test.c
+%.o: %.c
 	@$(CC_CMD)
 
 vendor/unity.o: vendor/unity.c vendor/unity.h vendor/unity_internals.h
 	@$(CC_CMD)
 
 clean:
-	@rm -f *.o vendor/*.o test-$(EXERCISE)
+	@rm -f *.o vendor/*.o tests
 
 .PHONY: all clean
