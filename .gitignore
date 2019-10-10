@@ -3,6 +3,6 @@
 bin/configlet
 bin/configlet.exe
 build/
-**/test-*
+**/tests
 **/*.o
 *.pyc
