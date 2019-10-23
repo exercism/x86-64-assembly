@@ -1,10 +1,8 @@
 // Version: 1.7.0
 
-#include <stdbool.h>
-
 #include "vendor/unity.h"
 
-extern bool is_isogram(const char *str);
+extern int is_isogram(const char *str);
 
 void setUp(void) {
 }

@@ -11,6 +11,7 @@
 section .text
 global allergic_to
 allergic_to:
+    xor eax, eax ; Set return value
     bt esi, edi  ; Select the bit in score at the bit-position represented by the item
     setc al      ; Return true if the bit is set, else false
     ret

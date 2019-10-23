@@ -9,17 +9,18 @@
 section .text
 global is_isogram
 is_isogram:
-    xor eax, eax           ; Initialize bitmap of used letters
+    xor eax, eax           ; Set return value
+    xor ecx, ecx           ; Initialize bitmap of used letters
 
     cmp byte [rdi], 0      ; Check if input string is empty
     je .loop_end           ; If empty, skip loop
 .loop_start:
-    movzx ecx, byte [rdi]  ; Read char from input string
-    or ecx, 32             ; If uppercase, convert to lowercase
-    sub ecx, 'a'
-    cmp ecx, 26            ; Check if alphabetic
+    movzx edx, byte [rdi]  ; Read char from input string
+    or edx, 32             ; If uppercase, convert to lowercase
+    sub edx, 'a'
+    cmp edx, 26            ; Check if alphabetic
     jae .next              ; If not, process next char
-    bts eax, ecx           ; Mark letter as used in bitmap
+    bts ecx, edx           ; Mark letter as used in bitmap
     jc .loop_end           ; If letter has already been used, return false
 .next:
     inc rdi                ; Advance input string to next char
