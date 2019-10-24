@@ -1,6 +1,4 @@
 FUNC_PROTO = """\
-#include <stdbool.h>
-
 #include "vendor/unity.h"
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
@@ -22,7 +20,7 @@ struct item_list {
     enum item items[MAX_ITEMS];
 };
 
-extern bool allergic_to(enum item item, unsigned int score);
+extern int allergic_to(enum item item, unsigned int score);
 extern void list(unsigned int score, struct item_list *list);
 """
 

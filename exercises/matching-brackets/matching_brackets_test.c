@@ -1,10 +1,8 @@
 // Version: 2.0.0
 
-#include <stdbool.h>
-
 #include "vendor/unity.h"
 
-extern bool is_paired(const char *str);
+extern int is_paired(const char *str);
 
 void setUp(void) {
 }

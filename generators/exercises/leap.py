@@ -1,9 +1,7 @@
 FUNC_PROTO = """\
-#include <stdbool.h>
-
 #include "vendor/unity.h"
 
-extern bool leap_year(int year);
+extern int leap_year(int year);
 """
 
 def gen_func_body(prop, inp, expected):

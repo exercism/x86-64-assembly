@@ -1,9 +1,7 @@
 FUNC_PROTO = """\
-#include <stdbool.h>
-
 #include "vendor/unity.h"
 
-extern bool is_isogram(const char *str);
+extern int is_isogram(const char *str);
 """
 
 def gen_func_body(prop, inp, expected):
