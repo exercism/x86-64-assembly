@@ -6,3 +6,4 @@
 * [The Intel Processor Manuals](https://software.intel.com/en-us/articles/intel-sdm)
 * [The AMD Processor Manuals](https://developer.amd.com/resources/developer-guides-manuals/)
 * [Agner Fog's optimization guides](https://www.agner.org/optimize/)
+* [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/)
