@@ -20,7 +20,6 @@ void test_no_name_given(void) {
 }
 
 void test_a_name_given(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     two_fer("Alice", buffer);
@@ -28,7 +27,6 @@ void test_a_name_given(void) {
 }
 
 void test_another_name_given(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     two_fer("Bob", buffer);

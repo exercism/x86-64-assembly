@@ -18,17 +18,14 @@ void test_black(void) {
 }
 
 void test_white(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(9, color_code("white"));
 }
 
 void test_orange(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(3, color_code("orange"));
 }
 
 void test_colors(void) {
-    TEST_IGNORE();
     const char **color_array = colors();
     const char *expected[] = {"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"};
     int size;

@@ -20,7 +20,6 @@ void test_empty_rna_sequence(void) {
 }
 
 void test_rna_complement_of_cytosine_is_guanine(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     to_rna("C", buffer);
@@ -28,7 +27,6 @@ void test_rna_complement_of_cytosine_is_guanine(void) {
 }
 
 void test_rna_complement_of_guanine_is_cytosine(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     to_rna("G", buffer);
@@ -36,7 +34,6 @@ void test_rna_complement_of_guanine_is_cytosine(void) {
 }
 
 void test_rna_complement_of_thymine_is_adenine(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     to_rna("T", buffer);
@@ -44,7 +41,6 @@ void test_rna_complement_of_thymine_is_adenine(void) {
 }
 
 void test_rna_complement_of_adenine_is_uracil(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     to_rna("A", buffer);
@@ -52,7 +48,6 @@ void test_rna_complement_of_adenine_is_uracil(void) {
 }
 
 void test_rna_complement(void) {
-    TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
     to_rna("ACGTGGTCTTAA", buffer);

@@ -15,42 +15,34 @@ void test_empty_strands(void) {
 }
 
 void test_single_letter_identical_strands(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(0, distance("A", "A"));
 }
 
 void test_single_letter_different_strands(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(1, distance("G", "T"));
 }
 
 void test_long_identical_strands(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(0, distance("GGACTGAAATCTG", "GGACTGAAATCTG"));
 }
 
 void test_long_different_strands(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(9, distance("GGACGGATTCTG", "AGGACGGATTCT"));
 }
 
 void test_disallow_first_strand_longer(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(-1, distance("AATG", "AAA"));
 }
 
 void test_disallow_second_strand_longer(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(-1, distance("ATA", "AGTG"));
 }
 
 void test_disallow_left_empty_strand(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(-1, distance("", "G"));
 }
 
 void test_disallow_right_empty_strand(void) {
-    TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT(-1, distance("G", ""));
 }
 

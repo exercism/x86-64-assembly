@@ -35,202 +35,162 @@ void test_eggs_not_allergic_to_anything(void) {
 }
 
 void test_allergic_only_to_eggs(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(EGGS, 1));
 }
 
 void test_allergic_to_eggs_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(EGGS, 3));
 }
 
 void test_allergic_to_something_but_not_eggs(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(EGGS, 2));
 }
 
 void test_eggs_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(EGGS, 255));
 }
 
 void test_peanuts_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(PEANUTS, 0));
 }
 
 void test_allergic_only_to_peanuts(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(PEANUTS, 2));
 }
 
 void test_allergic_to_peanuts_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(PEANUTS, 7));
 }
 
 void test_allergic_to_something_but_not_peanuts(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(PEANUTS, 5));
 }
 
 void test_peanuts_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(PEANUTS, 255));
 }
 
 void test_shellfish_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(SHELLFISH, 0));
 }
 
 void test_allergic_only_to_shellfish(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(SHELLFISH, 4));
 }
 
 void test_allergic_to_shellfish_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(SHELLFISH, 14));
 }
 
 void test_allergic_to_something_but_not_shellfish(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(SHELLFISH, 10));
 }
 
 void test_shellfish_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(SHELLFISH, 255));
 }
 
 void test_strawberries_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(STRAWBERRIES, 0));
 }
 
 void test_allergic_only_to_strawberries(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(STRAWBERRIES, 8));
 }
 
 void test_allergic_to_strawberries_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(STRAWBERRIES, 28));
 }
 
 void test_allergic_to_something_but_not_strawberries(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(STRAWBERRIES, 20));
 }
 
 void test_strawberries_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(STRAWBERRIES, 255));
 }
 
 void test_tomatoes_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(TOMATOES, 0));
 }
 
 void test_allergic_only_to_tomatoes(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(TOMATOES, 16));
 }
 
 void test_allergic_to_tomatoes_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(TOMATOES, 56));
 }
 
 void test_allergic_to_something_but_not_tomatoes(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(TOMATOES, 40));
 }
 
 void test_tomatoes_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(TOMATOES, 255));
 }
 
 void test_chocolate_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(CHOCOLATE, 0));
 }
 
 void test_allergic_only_to_chocolate(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CHOCOLATE, 32));
 }
 
 void test_allergic_to_chocolate_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CHOCOLATE, 112));
 }
 
 void test_allergic_to_something_but_not_chocolate(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(CHOCOLATE, 80));
 }
 
 void test_chocolate_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CHOCOLATE, 255));
 }
 
 void test_pollen_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(POLLEN, 0));
 }
 
 void test_allergic_only_to_pollen(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(POLLEN, 64));
 }
 
 void test_allergic_to_pollen_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(POLLEN, 224));
 }
 
 void test_allergic_to_something_but_not_pollen(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(POLLEN, 160));
 }
 
 void test_pollen_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(POLLEN, 255));
 }
 
 void test_cats_not_allergic_to_anything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(CATS, 0));
 }
 
 void test_allergic_only_to_cats(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CATS, 128));
 }
 
 void test_allergic_to_cats_and_something_else(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CATS, 192));
 }
 
 void test_allergic_to_something_but_not_cats(void) {
-    TEST_IGNORE();
     TEST_ASSERT_FALSE(allergic_to(CATS, 64));
 }
 
 void test_cats_allergic_to_everything(void) {
-    TEST_IGNORE();
     TEST_ASSERT_TRUE(allergic_to(CATS, 255));
 }
 
 void test_no_allergies(void) {
-    TEST_IGNORE();
     struct item_list item_list;
 
     list(0, &item_list);
@@ -238,7 +198,6 @@ void test_no_allergies(void) {
 }
 
 void test_just_eggs(void) {
-    TEST_IGNORE();
     int expected[] = {EGGS};
     struct item_list item_list;
 
@@ -248,7 +207,6 @@ void test_just_eggs(void) {
 }
 
 void test_just_peanuts(void) {
-    TEST_IGNORE();
     int expected[] = {PEANUTS};
     struct item_list item_list;
 
@@ -258,7 +216,6 @@ void test_just_peanuts(void) {
 }
 
 void test_just_strawberries(void) {
-    TEST_IGNORE();
     int expected[] = {STRAWBERRIES};
     struct item_list item_list;
 
@@ -268,7 +225,6 @@ void test_just_strawberries(void) {
 }
 
 void test_eggs_and_peanuts(void) {
-    TEST_IGNORE();
     int expected[] = {EGGS, PEANUTS};
     struct item_list item_list;
 
@@ -278,7 +234,6 @@ void test_eggs_and_peanuts(void) {
 }
 
 void test_more_than_eggs_but_not_peanuts(void) {
-    TEST_IGNORE();
     int expected[] = {EGGS, SHELLFISH};
     struct item_list item_list;
 
@@ -288,7 +243,6 @@ void test_more_than_eggs_but_not_peanuts(void) {
 }
 
 void test_lots_of_stuff(void) {
-    TEST_IGNORE();
     int expected[] = {STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
     struct item_list item_list;
 
@@ -298,7 +252,6 @@ void test_lots_of_stuff(void) {
 }
 
 void test_everything(void) {
-    TEST_IGNORE();
     int expected[] = {EGGS, PEANUTS, SHELLFISH, STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
     struct item_list item_list;
 
@@ -308,7 +261,6 @@ void test_everything(void) {
 }
 
 void test_no_allergen_score_parts(void) {
-    TEST_IGNORE();
     int expected[] = {EGGS, SHELLFISH, STRAWBERRIES, TOMATOES, CHOCOLATE, POLLEN, CATS};
     struct item_list item_list;
 

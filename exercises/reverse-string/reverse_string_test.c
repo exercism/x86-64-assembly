@@ -18,7 +18,6 @@ void test_an_empty_string(void) {
 }
 
 void test_a_word(void) {
-    TEST_IGNORE();
     char str[] = "robot";
 
     reverse(str);
@@ -26,7 +25,6 @@ void test_a_word(void) {
 }
 
 void test_a_capitalized_word(void) {
-    TEST_IGNORE();
     char str[] = "Ramen";
 
     reverse(str);
@@ -34,7 +32,6 @@ void test_a_capitalized_word(void) {
 }
 
 void test_a_sentence_with_punctuation(void) {
-    TEST_IGNORE();
     char str[] = "I'm hungry!";
 
     reverse(str);
@@ -42,7 +39,6 @@ void test_a_sentence_with_punctuation(void) {
 }
 
 void test_a_palindrome(void) {
-    TEST_IGNORE();
     char str[] = "racecar";
 
     reverse(str);
@@ -50,7 +46,6 @@ void test_a_palindrome(void) {
 }
 
 void test_an_evensized_word(void) {
-    TEST_IGNORE();
     char str[] = "drawer";
 
     reverse(str);
