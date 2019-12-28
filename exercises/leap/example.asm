@@ -1,3 +1,5 @@
+%include "debug.asm"
+
 ;
 ; Given a year, report if it is a leap year.
 ;
@@ -9,6 +11,8 @@
 section .text
 global leap_year
 leap_year:
+    debugd32 edi
+
     mov eax, edi       ; Set dividend to year
     cdq                ; Sign-extend eax into edx
     mov ecx, 4         ; Set divisor
