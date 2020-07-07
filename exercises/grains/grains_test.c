@@ -2,7 +2,7 @@
 
 #include "vendor/unity.h"
 
-extern uint64_t square(int number);
+extern uint64_t square(int64_t number);
 extern uint64_t total(void);
 
 void setUp(void) {
