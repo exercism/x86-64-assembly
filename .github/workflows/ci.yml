@@ -32,9 +32,11 @@ jobs:
       - name: Instal project dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
         run: |
-          curl -O https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/macosx/nasm-2.14.02-macosx.zip
-          unzip nasm-2.14.02-macosx.zip
-          echo PATH=$(pwd)/nasm-2.14.02 >> $GITHUB_PATH
+          export NASM_VERSION=2.14.02
+          curl -O https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/macosx/nasm-${NASM_VERSION}-macosx.zip
+          unzip nasm-${NASM_VERSION}-macosx.zip
+          echo PATH=$(pwd)/nasm-${NASM_VERSION} >> $GITHUB_PATH
+          which nasm
  
       - name: Run exercism/x86-64-assembly ci (runs tests) for all exercises
         env:
