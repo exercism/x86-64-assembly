@@ -36,9 +36,7 @@ jobs:
           export NASM_VERSION=2.14.02
           curl -O https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/macosx/nasm-${NASM_VERSION}-macosx.zip
           unzip nasm-${NASM_VERSION}-macosx.zip
-          ls -al nasm-${NASM_VERSION}
-          echo PATH=$(pwd)/nasm-${NASM_VERSION} >> $GITHUB_PATH
-          which nasm
+          echo $(pwd)/nasm-${NASM_VERSION} >> $GITHUB_PATH
  
       - name: Run exercism/x86-64-assembly ci (runs tests) for all exercises
         env:
