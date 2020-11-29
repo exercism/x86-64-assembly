@@ -1,0 +1,43 @@
+name: x86-64-assembly / main
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            compiler: gcc
+          - os: ubuntu-latest
+            compiler: clang
+          - os: macos-latest
+            compiler: clang
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install project dependencies (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y nasm
+
+      - name: Instal project dependencies (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          curl -O https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/macosx/nasm-2.14.02-macosx.zip
+          unzip nasm-2.14.02-macosx.zip
+          echo PATH=$(pwd)/nasm-2.14.02 >> $GITHUB_PATH
+ 
+      - name: Run exercism/x86-64-assembly ci (runs tests) for all exercises
+        env:
+          CC: ${{ matrix.compiler }}
+          CC_FOR_BUILD: ${{ matrix.compiler }}
+        run: bin/verify-exercises

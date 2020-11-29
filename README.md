@@ -1,6 +1,7 @@
 # Exercism x86-64 Assembly Track
 
-[![Build Status](https://travis-ci.org/exercism/x86-64-assembly.svg?branch=master)](https://travis-ci.org/exercism/x86-64-assembly)
+[![Configlet Status](https://github.com/exercism/x86-64-assembly/workflows/configlet/badge.svg)]
+[![Exercise Test Status](https://github.com/exercism/x86-64-assembly/workflows/x86-64-assembly%20%2F%20main/badge.svg)]
 
 Exercism exercises in x86-64 Assembly.
 
