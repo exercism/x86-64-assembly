@@ -11,6 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
           sudo apt-get update -q
           sudo apt-get install -y nasm
 
-      - name: Instal project dependencies (macOS)
+      - name: Install project dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
         run: |
           export NASM_VERSION=2.14.02
