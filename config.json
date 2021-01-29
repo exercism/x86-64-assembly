@@ -19,6 +19,16 @@
   "solution_pattern": "[Ee]xample",
   "test_pattern": "[Tt]est",
   "exercises": {
+    "concept": [
+      {
+        "slug": "basics",
+        "uuid": "0e1dd0cf-cdd7-48a9-861e-7253b5d3cabd",
+        "concepts": [
+          "basics"
+        ],
+        "prerequisites": []
+      }
+    ],
     "practice": [
       {
         "slug": "hello-world",
