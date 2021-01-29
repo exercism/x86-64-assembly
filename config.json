@@ -118,6 +118,16 @@
       ]
     },
     {
+      "slug": "reverse-string",
+      "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
+      "core": false,
+      "unlocked_by": "hello-world",
+      "difficulty": 1,
+      "topics": [
+        "strings"
+      ]
+    },
+    {
       "slug": "rna-transcription",
       "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
       "core": false,
@@ -126,16 +136,6 @@
       "topics": [
         "strings",
         "transforming"
-      ]
-    },
-    {
-      "slug": "reverse-string",
-      "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
-      "core": false,
-      "unlocked_by": "hello-world",
-      "difficulty": 1,
-      "topics": [
-        "strings"
       ]
     },
     {
@@ -149,6 +149,16 @@
       ]
     },
     {
+      "slug": "grains",
+      "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
+      "core": false,
+      "unlocked_by": "leap",
+      "difficulty": 2,
+      "topics": [
+        "integers"
+      ]
+    },
+    {
       "slug": "isogram",
       "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
       "core": false,
@@ -157,16 +167,6 @@
       "topics": [
         "filtering",
         "strings"
-      ]
-    },
-    {
-      "slug": "grains",
-      "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
-      "core": false,
-      "unlocked_by": "leap",
-      "difficulty": 2,
-      "topics": [
-        "integers"
       ]
     },
     {
