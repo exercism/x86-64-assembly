@@ -18,178 +18,180 @@
   "ignore_pattern": "[Ee]xample",
   "solution_pattern": "[Ee]xample",
   "test_pattern": "[Tt]est",
-  "exercises": [
-    {
-      "slug": "hello-world",
-      "name": "Hello World",
-      "uuid": "edfc05bc-1458-4047-8d64-eea38e155f20",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "strings"
-      ]
-    },
-    {
-      "slug": "leap",
-      "name": "Leap",
-      "uuid": "669b6523-0dfe-4ccc-b16e-51ee6a8e7e0b",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "conditionals",
-        "integers"
-      ]
-    },
-    {
-      "slug": "two-fer",
-      "name": "Two Fer",
-      "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "optional_values",
-        "strings"
-      ]
-    },
-    {
-      "slug": "resistor-color",
-      "name": "Resistor Color",
-      "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "arrays"
-      ]
-    },
-    {
-      "slug": "space-age",
-      "name": "Space Age",
-      "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "floating_point_numbers"
-      ]
-    },
-    {
-      "slug": "hamming",
-      "name": "Hamming",
-      "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
-      "prerequisites": [],
-      "difficulty": 2,
-      "topics": [
-        "filtering",
-        "strings"
-      ]
-    },
-    {
-      "slug": "allergies",
-      "name": "Allergies",
-      "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
-      "prerequisites": [],
-      "difficulty": 3,
-      "topics": [
-        "bitwise_operations",
-        "filtering"
-      ]
-    },
-    {
-      "slug": "rotational-cipher",
-      "name": "Rotational Cipher",
-      "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
-      "prerequisites": [],
-      "difficulty": 4,
-      "topics": [
-        "algorithms",
-        "strings",
-        "transforming"
-      ]
-    },
-    {
-      "slug": "matching-brackets",
-      "name": "Matching Brackets",
-      "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
-      "prerequisites": [],
-      "difficulty": 5,
-      "topics": [
-        "parsing",
-        "strings"
-      ]
-    },
-    {
-      "slug": "reverse-string",
-      "name": "Reverse String",
-      "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "strings"
-      ]
-    },
-    {
-      "slug": "rna-transcription",
-      "name": "Rna Transcription",
-      "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "strings",
-        "transforming"
-      ]
-    },
-    {
-      "slug": "pangram",
-      "name": "Pangram",
-      "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
-      "prerequisites": [],
-      "difficulty": 2,
-      "topics": [
-        "strings"
-      ]
-    },
-    {
-      "slug": "grains",
-      "name": "Grains",
-      "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
-      "prerequisites": [],
-      "difficulty": 2,
-      "topics": [
-        "integers"
-      ]
-    },
-    {
-      "slug": "isogram",
-      "name": "Isogram",
-      "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
-      "prerequisites": [],
-      "difficulty": 3,
-      "topics": [
-        "filtering",
-        "strings"
-      ]
-    },
-    {
-      "slug": "difference-of-squares",
-      "name": "Difference Of Squares",
-      "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
-      "prerequisites": [],
-      "difficulty": 1,
-      "topics": [
-        "integers",
-        "loops",
-        "math"
-      ]
-    },
-    {
-      "slug": "binary-search",
-      "name": "Binary Search",
-      "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
-      "prerequisites": [],
-      "difficulty": 3,
-      "topics": [
-        "arrays",
-        "searching"
-      ]
-    }
-  ]
+  "exercises": {
+    "practice": [
+      {
+        "slug": "hello-world",
+        "name": "Hello World",
+        "uuid": "edfc05bc-1458-4047-8d64-eea38e155f20",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "strings"
+        ]
+      },
+      {
+        "slug": "leap",
+        "name": "Leap",
+        "uuid": "669b6523-0dfe-4ccc-b16e-51ee6a8e7e0b",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "conditionals",
+          "integers"
+        ]
+      },
+      {
+        "slug": "two-fer",
+        "name": "Two Fer",
+        "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "optional_values",
+          "strings"
+        ]
+      },
+      {
+        "slug": "resistor-color",
+        "name": "Resistor Color",
+        "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "arrays"
+        ]
+      },
+      {
+        "slug": "space-age",
+        "name": "Space Age",
+        "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "floating_point_numbers"
+        ]
+      },
+      {
+        "slug": "hamming",
+        "name": "Hamming",
+        "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "filtering",
+          "strings"
+        ]
+      },
+      {
+        "slug": "allergies",
+        "name": "Allergies",
+        "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "bitwise_operations",
+          "filtering"
+        ]
+      },
+      {
+        "slug": "rotational-cipher",
+        "name": "Rotational Cipher",
+        "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "algorithms",
+          "strings",
+          "transforming"
+        ]
+      },
+      {
+        "slug": "matching-brackets",
+        "name": "Matching Brackets",
+        "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "parsing",
+          "strings"
+        ]
+      },
+      {
+        "slug": "reverse-string",
+        "name": "Reverse String",
+        "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "strings"
+        ]
+      },
+      {
+        "slug": "rna-transcription",
+        "name": "Rna Transcription",
+        "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "strings",
+          "transforming"
+        ]
+      },
+      {
+        "slug": "pangram",
+        "name": "Pangram",
+        "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "strings"
+        ]
+      },
+      {
+        "slug": "grains",
+        "name": "Grains",
+        "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "integers"
+        ]
+      },
+      {
+        "slug": "isogram",
+        "name": "Isogram",
+        "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "filtering",
+          "strings"
+        ]
+      },
+      {
+        "slug": "difference-of-squares",
+        "name": "Difference Of Squares",
+        "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "integers",
+          "loops",
+          "math"
+        ]
+      },
+      {
+        "slug": "binary-search",
+        "name": "Binary Search",
+        "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays",
+          "searching"
+        ]
+      }
+    ]
+  }
 }
