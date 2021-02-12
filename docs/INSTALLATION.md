@@ -1,6 +1,6 @@
 # Installation
 
-### Requirements
+## Requirements
 
 * A 64-bit x86 CPU
 * A modern C compiler
@@ -11,7 +11,7 @@ Please note that this track only supports the calling convention of the System
 V AMD64 ABI. Windows users will need to install Windows Subsystem for Linux
 (WSL), or set up a Linux virtual machine.
 
-### Linux
+## Linux
 
 Install the required software using your system's package manager:
 
@@ -21,7 +21,7 @@ Install the required software using your system's package manager:
 * Arch Linux: `$ sudo pacman -S gcc make nasm`
 * OpenSUSE: `$ sudo zypper install gcc make nasm`
 
-### macOS
+## macOS
 
 Install the Xcode Command Line Tools:
 
@@ -35,6 +35,6 @@ Install NASM using [Homebrew](http://brew.sh/):
 $ brew install nasm
 ```
 
-### Windows
+## Windows
 
 To install WSL, see https://docs.microsoft.com/en-us/windows/wsl/install-win10.
