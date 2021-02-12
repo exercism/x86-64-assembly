@@ -1,4 +1,4 @@
-## Recommended Learning Resources
+# Recommended Learning Resources
 
 * [The NASM Manual](https://www.nasm.us/doc/)
 * [Compiler Explorer](https://godbolt.org/)

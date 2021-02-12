@@ -1,3 +1,5 @@
+# Installation
+
 ### Requirements
 
 * A 64-bit x86 CPU
