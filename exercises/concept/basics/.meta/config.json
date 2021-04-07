@@ -7,8 +7,12 @@
     "csharp/basics"
   ],
   "files": {
-    "solution": [],
-    "test": [],
+    "solution": [
+      "basics.asm"
+    ],
+    "test": [
+      "basics_test.asm"
+    ],
     "exemplar": [
       ".meta/exemplar.asm"
     ]
