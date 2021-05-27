@@ -28,7 +28,7 @@
       "%{snake_slug}.asm"
     ],
     "test": [
-      "%{snake_slug}_test.asm"
+      "%{snake_slug}_test.c"
     ],
     "example": [
       "example.asm"

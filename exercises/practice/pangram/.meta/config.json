@@ -2,15 +2,9 @@
   "blurb": "Determine if a sentence is a pangram.",
   "authors": [],
   "files": {
-    "solution": [
-      "pangram.asm"
-    ],
-    "test": [
-      "pangram_test.asm"
-    ],
-    "example": [
-      "example.asm"
-    ]
+    "solution": ["pangram.asm"],
+    "test": ["pangram_test.c"],
+    "example": ["example.asm"]
   },
   "source": "Wikipedia",
   "source_url": "https://en.wikipedia.org/wiki/Pangram"

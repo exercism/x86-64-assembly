@@ -2,15 +2,9 @@
   "blurb": "Create an implementation of the rotational cipher, also sometimes called the Caesar cipher.",
   "authors": [],
   "files": {
-    "solution": [
-      "rotational_cipher.asm"
-    ],
-    "test": [
-      "rotational_cipher_test.asm"
-    ],
-    "example": [
-      "example.asm"
-    ]
+    "solution": ["rotational_cipher.asm"],
+    "test": ["rotational_cipher_test.c"],
+    "example": ["example.asm"]
   },
   "source": "Wikipedia",
   "source_url": "https://en.wikipedia.org/wiki/Caesar_cipher"
