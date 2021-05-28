@@ -14,7 +14,6 @@
   "online_editor": {
     "indent_style": "space",
     "indent_size": 4,
-    "ace_editor_language": "assembly_x86",
     "highlightjs_language": "x86asm"
   },
   "test_runner": {
