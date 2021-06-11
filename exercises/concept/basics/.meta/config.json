@@ -1,20 +1,10 @@
 {
   "blurb": "TODO: add blurb for basics exercise",
-  "authors": [
-    "bergjohan"
-  ],
-  "forked_from": [
-    "csharp/basics"
-  ],
+  "authors": ["bergjohan"],
+  "forked_from": ["csharp/basics"],
   "files": {
-    "solution": [
-      "basics.asm"
-    ],
-    "test": [
-      "basics_test.asm"
-    ],
-    "exemplar": [
-      ".meta/exemplar.asm"
-    ]
+    "solution": ["basics.asm"],
+    "test": ["basics_test.c"],
+    "exemplar": [".meta/exemplar.asm"]
   }
 }

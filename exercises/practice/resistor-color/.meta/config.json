@@ -2,15 +2,9 @@
   "blurb": "Convert a resistor band's color to its numeric representation",
   "authors": [],
   "files": {
-    "solution": [
-      "resistor_color.asm"
-    ],
-    "test": [
-      "resistor_color_test.asm"
-    ],
-    "example": [
-      "example.asm"
-    ]
+    "solution": ["resistor_color.asm"],
+    "test": ["resistor_color_test.c"],
+    "example": ["example.asm"]
   },
   "source": "Maud de Vries, Erik Schierboom",
   "source_url": "https://github.com/exercism/problem-specifications/issues/1458"
