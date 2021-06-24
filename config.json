@@ -248,5 +248,16 @@
     }
   ],
   "key_features": [],
-  "tags": []
+  "tags": [
+    "paradigm/imperative",
+    "paradigm/procedural",
+    "typing/static",
+    "typing/weak",
+    "execution_mode/compiled",
+    "platform/windows",
+    "platform/mac",
+    "platform/linux",
+    "runtime/standalone_executable",
+    "used_for/embedded_systems"
+  ]
 }
