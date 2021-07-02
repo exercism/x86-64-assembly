@@ -1,6 +1,8 @@
 {
   "blurb": "Implement a binary search algorithm.",
-  "authors": [],
+  "authors": [
+    "bergjohan"
+  ],
   "files": {
     "solution": ["binary_search.asm"],
     "test": ["binary_search_test.c"],

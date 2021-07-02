@@ -1,6 +1,8 @@
 {
   "blurb": "The classical introductory exercise. Just say \"Hello, World!\"",
-  "authors": [],
+  "authors": [
+    "bergjohan"
+  ],
   "files": {
     "solution": ["hello_world.asm"],
     "test": ["hello_world_test.c"],

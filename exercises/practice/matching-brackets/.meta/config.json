@@ -1,6 +1,8 @@
 {
   "blurb": "Make sure the brackets and braces all match.",
-  "authors": [],
+  "authors": [
+    "bergjohan"
+  ],
   "files": {
     "solution": ["matching_brackets.asm"],
     "test": ["matching_brackets_test.c"],

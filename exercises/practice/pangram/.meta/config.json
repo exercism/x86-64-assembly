@@ -1,6 +1,8 @@
 {
   "blurb": "Determine if a sentence is a pangram.",
-  "authors": [],
+  "authors": [
+    "bergjohan"
+  ],
   "files": {
     "solution": ["pangram.asm"],
     "test": ["pangram_test.c"],

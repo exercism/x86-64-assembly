@@ -1,6 +1,8 @@
 {
   "blurb": "Reverse a string",
-  "authors": [],
+  "authors": [
+    "bergjohan"
+  ],
   "files": {
     "solution": ["reverse_string.asm"],
     "test": ["reverse_string_test.c"],
