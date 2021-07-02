@@ -1,3 +1,5 @@
+# Hints
+
 ## General
 
 - You need to make the functions [visible to other files][global].
