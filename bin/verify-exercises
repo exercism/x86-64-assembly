@@ -3,17 +3,27 @@
 set -e
 
 run_tests() {
-    local file="${1//-/_}"
-
     cd "$1"
 
+    exercise_name=$(basename $1)
+    local file="${exercise_name//-/_}"
+
     sed -i.bak 's#TEST_IGNORE();#// &#' "${file}"_test.c
-    mv example.asm "${file}".asm
+
+    # concept exercises have "exemplar" solutions (ideal, to be strived to)
+    if [ -f .meta/exemplar.asm ]; then
+      mv .meta/exemplar.asm "${file}".asm
+    fi
+
+    # practice exercises have "example" solutions (one of many possible solutions with no single ideal approach)
+    if [ -f example.asm ]; then
+      mv example.asm "${file}".asm
+    fi
 
     make clean
     make
 
-    cd ..
+    cd ../..
 }
 
 main() {
@@ -24,15 +34,19 @@ main() {
 
     cd build
 
-    if [[ $# -gt 0 ]]; then
-        for exercise in "$@"; do
-            run_tests "${exercise}"
-        done
-    else
-        for exercise in *; do
-            run_tests "${exercise}"
-        done
+    exercises=`echo */*`
+
+    if [[ ! -z "$@" ]]; then
+      pattern=$(echo "$@" | sed 's/ /|/g')
+      exercises=$(find $exercises -maxdepth 0 | grep -E "$pattern")
     fi
+
+    # test each exercise
+    for exercise in $exercises; do
+      if [ -d ${exercise} ]; then
+        run_tests "${exercise}"
+      fi
+    done
 
 }
 
