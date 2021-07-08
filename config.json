@@ -19,9 +19,6 @@
   "test_runner": {
     "average_run_time": 1.0
   },
-  "ignore_pattern": "[Ee]xample",
-  "solution_pattern": "[Ee]xample",
-  "test_pattern": "[Tt]est",
   "files": {
     "solution": [
       "%{snake_slug}.asm"
