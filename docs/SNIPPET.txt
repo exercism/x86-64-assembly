@@ -1,0 +1,10 @@
+default rel
+
+section .rodata
+msg: db "Assembly is awesome!", 0
+
+section .text
+global hello
+hello:
+    lea rax, [msg]
+    ret
