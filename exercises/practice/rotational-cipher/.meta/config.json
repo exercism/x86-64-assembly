@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["rotational_cipher.asm"],
-    "test": ["rotational_cipher_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "rotational_cipher.asm"
+    ],
+    "test": [
+      "rotational_cipher_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Wikipedia",
   "source_url": "https://en.wikipedia.org/wiki/Caesar_cipher"

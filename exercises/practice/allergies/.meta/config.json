@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["allergies.asm"],
-    "test": ["allergies_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "allergies.asm"
+    ],
+    "test": [
+      "allergies_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Jumpstart Lab Warm-up",
   "source_url": "http://jumpstartlab.com"

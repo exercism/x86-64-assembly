@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["grains.asm"],
-    "test": ["grains_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "grains.asm"
+    ],
+    "test": [
+      "grains_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "JavaRanch Cattle Drive, exercise 6",
   "source_url": "http://www.javaranch.com/grains.jsp"
