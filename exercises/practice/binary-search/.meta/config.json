@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["binary_search.asm"],
-    "test": ["binary_search_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "binary_search.asm"
+    ],
+    "test": [
+      "binary_search_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Wikipedia",
   "source_url": "http://en.wikipedia.org/wiki/Binary_search_algorithm"

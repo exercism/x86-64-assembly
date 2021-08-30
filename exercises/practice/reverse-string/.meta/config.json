@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["reverse_string.asm"],
-    "test": ["reverse_string_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "reverse_string.asm"
+    ],
+    "test": [
+      "reverse_string_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Introductory challenge to reverse an input string",
   "source_url": "https://medium.freecodecamp.org/how-to-reverse-a-string-in-javascript-in-3-different-ways-75e4763c68cb"

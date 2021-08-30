@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["space_age.asm"],
-    "test": ["space_age_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "space_age.asm"
+    ],
+    "test": [
+      "space_age_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial.",
   "source_url": "http://pine.fm/LearnToProgram/?Chapter=01"

@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["hamming.asm"],
-    "test": ["hamming_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "hamming.asm"
+    ],
+    "test": [
+      "hamming_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "The Calculating Point Mutations problem at Rosalind",
   "source_url": "http://rosalind.info/problems/hamm/"

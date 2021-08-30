@@ -4,9 +4,15 @@
     "bergjohan"
   ],
   "files": {
-    "solution": ["rna_transcription.asm"],
-    "test": ["rna_transcription_test.c"],
-    "example": ["example.asm"]
+    "solution": [
+      "rna_transcription.asm"
+    ],
+    "test": [
+      "rna_transcription_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
   },
   "source": "Hyperphysics",
   "source_url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html"
