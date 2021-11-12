@@ -1,7 +1,7 @@
 {
   "blurb": "TODO: add blurb for basics exercise",
   "authors": ["bergjohan"],
-  "forked_from": ["csharp/basics"],
+  "forked_from": ["csharp/lucians-luscious-lasagna"],
   "files": {
     "solution": ["basics.asm"],
     "test": ["basics_test.c"],
