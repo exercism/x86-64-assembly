@@ -244,7 +244,38 @@
       "name": "Basics"
     }
   ],
-  "key_features": [],
+  "key_features": [
+    {
+      "icon": "widely-used",
+      "title": "Widely Used",
+      "content": "x86-64 has been the dominant ISA for personal computers since 2010."
+    },
+    {
+      "icon": "fast",
+      "title": "Fast",
+      "content": "Nothing runs faster than pure assembly."
+    },
+    {
+      "icon": "cross-platform",
+      "title": "Cross-platform",
+      "content": "x86-64 has been adopted by AMD, Intel and VIA."
+    },
+    {
+      "icon": "stable",
+      "title": "Stable",
+      "content": "With an enormous install base, changes since introduction in 2000 have been minimal."
+    },
+    {
+      "icon": "powerful",
+      "title": "Powerful",
+      "content": "x86-64 powers the most capable desktop CPUs in the world."
+    },
+    {
+      "icon": "documentation",
+      "title": "Well documented",
+      "content": "Owing to its wide-spread and foundational use, every aspect of x86-64 has been exactingly documented."
+    }
+  ],
   "tags": [
     "paradigm/imperative",
     "paradigm/procedural",
