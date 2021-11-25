@@ -248,22 +248,22 @@
     {
       "icon": "widely-used",
       "title": "Widely Used",
-      "content": "x86-64 has been the dominant ISA for personal computers since 2010."
+      "content": "x86-64 has been the dominant instruction set for personal computer CPUs since 2010."
     },
     {
       "icon": "fast",
       "title": "Fast",
-      "content": "Nothing runs faster than pure assembly."
+      "content": "As an assembly language, x86-64 cannot be beaten in pure execution speed."
     },
     {
       "icon": "cross-platform",
       "title": "Cross-platform",
-      "content": "x86-64 has been adopted by AMD, Intel and VIA."
+      "content": "x86-64 has been adopted by AMD, Intel and VIA for their CPUs."
     },
     {
       "icon": "stable",
       "title": "Stable",
-      "content": "With an enormous install base, changes since introduction in 2000 have been minimal."
+      "content": "With an enormous install base relying on stability, changes since introduction have been minimal."
     },
     {
       "icon": "powerful",
@@ -272,8 +272,8 @@
     },
     {
       "icon": "documentation",
-      "title": "Well documented",
-      "content": "Owing to its wide-spread and foundational use, every aspect of x86-64 has been exactingly documented."
+      "title": "Detailed documentation",
+      "content": "Given its wide-spread and critical application, x86-64 has been exactingly documented."
     }
   ],
   "tags": [
