@@ -244,7 +244,38 @@
       "name": "Basics"
     }
   ],
-  "key_features": [],
+  "key_features": [
+    {
+      "icon": "widely-used",
+      "title": "Widely Used",
+      "content": "x86-64 has been the dominant instruction set for personal computer CPUs since 2010."
+    },
+    {
+      "icon": "fast",
+      "title": "Fast",
+      "content": "As an assembly language, x86-64 cannot be beaten in pure execution speed."
+    },
+    {
+      "icon": "cross-platform",
+      "title": "Cross-platform",
+      "content": "x86-64 has been adopted by AMD, Intel and VIA for their CPUs."
+    },
+    {
+      "icon": "stable",
+      "title": "Stable",
+      "content": "With an enormous install base relying on stability, changes since introduction have been minimal."
+    },
+    {
+      "icon": "powerful",
+      "title": "Powerful",
+      "content": "x86-64 powers the most capable desktop CPUs in the world."
+    },
+    {
+      "icon": "documentation",
+      "title": "Detailed documentation",
+      "content": "Given its wide-spread and critical application, x86-64 has been exactingly documented."
+    }
+  ],
   "tags": [
     "paradigm/imperative",
     "paradigm/procedural",
