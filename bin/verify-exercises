@@ -16,8 +16,8 @@ run_tests() {
     fi
 
     # practice exercises have "example" solutions (one of many possible solutions with no single ideal approach)
-    if [ -f example.asm ]; then
-      mv example.asm "${file}".asm
+    if [ -f .meta/example.asm ]; then
+      mv .meta/example.asm "${file}".asm
     fi
 
     make clean
