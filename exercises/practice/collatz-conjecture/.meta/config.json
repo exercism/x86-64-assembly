@@ -11,7 +11,7 @@
       "collatz_conjecture_test.c"
     ],
     "example": [
-      ".meta/example.go"
+      ".meta/example.asm"
     ]
   },
   "source": "An unsolved problem in mathematics named after mathematician Lothar Collatz",
