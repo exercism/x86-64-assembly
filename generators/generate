@@ -83,12 +83,12 @@ def main():
     parser.add_argument("exercise")
     args = parser.parse_args()
     data = download_canonical_data(args.exercise)
-    version = data["version"]
+    version = data.get("version", 0)
     cases = flatten_cases(data)
     exercise = args.exercise.replace("-", "_")
     mod = importlib.import_module("exercises." + exercise)
     s = gen_test_file(mod, version, cases)
-    path = f"{sys.path[0]}/../exercises/{args.exercise}/{exercise}_test.c"
+    path = f"{sys.path[0]}/../exercises/practice/{args.exercise}/{exercise}_test.c"
     with open(path, "w") as f:
         f.write(s)
 
