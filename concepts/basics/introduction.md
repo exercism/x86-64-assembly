@@ -49,8 +49,8 @@ identity:
 ```
 
 For the arithmetic operations addition, subtraction, and multiplication, we can
-use the `add`, `sub`, and `imul` instructions. They take two operands, a source
-operand (first operand), and a destination operand (second operand), performs
+use the `add`, `sub`, and `imul` instructions. They take two operands, a destination
+operand (first operand), and a source operand (second operand), performs
 the arithmetic operation, and stores the result in the destination operand.
 Here's an example of a function that takes two arguments, adds them together,
 and returns the result:
