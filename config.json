@@ -234,6 +234,20 @@
           "arrays",
           "searching"
         ]
+      },
+      {
+        "slug": "collatz-conjecture",
+        "name": "Collatz Conjecture",
+        "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "conditionals",
+          "loops",
+          "integers",
+          "math"
+        ]
       }
     ]
   },
