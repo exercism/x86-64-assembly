@@ -34,6 +34,11 @@ list_shift:
         ; Provide your implementation here
         ret
 
+global list_delete
+list_delete:
+        ; Provide your implementation here
+        ret
+
 global list_destroy
 list_destroy:
         ; Provide your implementation here
