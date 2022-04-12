@@ -1,14 +1,14 @@
 AS = nasm
 
 CFLAGS = -g -Wall -Wextra -pedantic -Werror
-LDFLAGS = -no-pie
+LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
 ifeq ($(shell uname -s),Darwin)
 	ALL_LDFLAGS = -Wl,-pie -Wl,-fatal_warnings
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
-	ALL_LDFLAGS = -pie -Wl,--fatal-warnings
+	ALL_LDFLAGS = -no-pie -Wl,--fatal-warnings
 	ALL_ASFLAGS = -f elf64
 endif
 
