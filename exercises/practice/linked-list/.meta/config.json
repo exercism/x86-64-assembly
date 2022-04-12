@@ -1,0 +1,19 @@
+{
+  "blurb": "Implement a doubly linked list",
+  "authors": [
+    "sudhackar"
+  ],
+  "contributors": [],
+  "files": {
+    "solution": [
+      "linked_list.asm"
+    ],
+    "test": [
+      "linked_list_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "source": "Classic computer science topic"
+}
