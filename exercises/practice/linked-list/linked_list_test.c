@@ -3,43 +3,32 @@
 #include <stddef.h>
 #include "vendor/unity.h"
 
-typedef int ll_data_t;
-
-struct list_node {
-   struct list_node *prev, *next;
-   ll_data_t data;
-};
-
-struct list {
-   struct list_node *first, *last;
-};
-
 // constructs a new (empty) list
-extern struct list *list_create(void);
+extern void *list_create(void);
 
 // counts the items on a list
-extern size_t list_count(const struct list *list);
+extern size_t list_count(const void *list);
 
 // inserts item at back of a list
-extern void list_push(struct list *list, ll_data_t item_data);
+extern void list_push(void *list, int item_data);
 
 // removes item from back of a list
-extern ll_data_t list_pop(struct list *list);
+extern int list_pop(void *list);
 
 // inserts item at front of a list
-extern void list_unshift(struct list *list, ll_data_t item_data);
+extern void list_unshift(void *list, int item_data);
 
 // removes item from front of a list
-extern ll_data_t list_shift(struct list *list);
+extern int list_shift(void *list);
 
 // deletes a node that holds the matching data
-extern void list_delete(struct list *list, ll_data_t data);
+extern void list_delete(void *list, int data);
 
 // destroys an entire list
 // list will be a dangling pointer after calling this method on it
-extern void list_destroy(struct list *list);
+extern void list_destroy(void *list);
 
-struct list *list = NULL;
+void *list = NULL;
 
 void setUp(void)
 {
