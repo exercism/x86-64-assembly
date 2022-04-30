@@ -1,8 +1,16 @@
 section .text
+; simple node struct for linked list
+struc node
+        .prev:  resq    1
+        .next:  resq    1
+        .data:  resd    1
+endstruc
 
-extern exit
-extern malloc
-extern free
+; simple struct to store first and last nodes
+struc list
+        .first  resq    1
+        .last   resq    1
+endstruc
 
 global list_create
 list_create:

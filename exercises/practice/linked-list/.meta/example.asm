@@ -1,228 +1,200 @@
+default rel
 section .text
 
-extern exit
-extern malloc
-extern free
-
-assert:
-        test    rdi, rdi
-        jne     .L1
-        push    rax
-        or      edi, -1
-        call    exit
-.L1:
-        ret
-
 global list_create
-list_create:
-        push    rcx
-        mov     edi, 16
-        call    malloc
-        test    rax, rax
-        je      .L7
-        mov     qword [rax], 0
-        mov     qword [rax+8], 0
-.L7:
-        pop     rdx
-        ret
-
 global list_count
-list_count:
-        push    rbx
-        mov     rbx, rdi
-        call    assert
-        mov     rdx, qword [rbx]
-        xor     eax, eax
-.L15:
-        test    rdx, rdx
-        je      .L13
-        mov     rdx, qword [rdx+8]
-        inc     rax
-        jmp     .L15
-.L13:
-        pop     rbx
-        ret
-
 global list_push
-list_push:
-        push    r12
-        push    rbp
-        mov     ebp, esi
-        push    rbx
-        mov     rbx, rdi
-        call    assert
-        mov     edi, 24
-        mov     r12, qword [rbx+8]
-        call    malloc
-        test    rax, rax
-        je      .L17
-        cmp     qword [rbx], 0
-        mov     qword [rax], r12
-        mov     qword [rax+8], 0
-        mov     DWORD [rax+16], ebp
-        mov     qword [rbx+8], rax
-        jne     .L19
-        mov     qword [rbx], rax
-        jmp     .L17
-.L19:
-        mov     qword [r12+8], rax
-.L17:
-        pop     rbx
-        pop     rbp
-        pop     r12
-        ret
-
 global list_pop
-list_pop:
-        push    r12
-        push    rbp
-        push    rbx
-        mov     rbx, rdi
-        call    assert
-        mov     rbp, qword [rbx+8]
-        mov     rdi, rbp
-        call    assert
-        mov     rax, qword [rbp+0]
-        mov     r12d, DWORD [rbp+16]
-        mov     qword [rbx+8], rax
-        cmp     rbp, qword [rbx]
-        jne     .L25
-        mov     qword [rbx], 0
-        jmp     .L26
-.L25:
-        mov     qword [rax+8], 0
-.L26:
-        mov     rdi, rbp
-        call    free
-        mov     eax, r12d
-        pop     rbx
-        pop     rbp
-        pop     r12
-        ret
-
 global list_unshift
-list_unshift:
-        push    r12
-        push    rbp
-        mov     ebp, esi
-        push    rbx
-        mov     rbx, rdi
-        call    assert
-        mov     edi, 24
-        mov     r12, qword [rbx]
-        call    malloc
-        test    rax, rax
-        je      .L28
-        cmp     qword [rbx+8], 0
-        mov     qword [rax], 0
-        mov     qword [rax+8], r12
-        mov     DWORD [rax+16], ebp
-        mov     qword [rbx], rax
-        jne     .L30
-        mov     qword [rbx+8], rax
-        jmp     .L28
-.L30:
-        mov     qword [r12], rax
-.L28:
-        pop     rbx
-        pop     rbp
-        pop     r12
-        ret
-
 global list_shift
-list_shift:
-        push    r12
-        push    rbp
-        push    rbx
-        mov     rbx, rdi
-        call    assert
-        mov     rbp, qword [rbx]
-        mov     rdi, rbp
-        call    assert
-        mov     rax, qword [rbp+8]
-        mov     r12d, DWORD [rbp+16]
-        mov     qword [rbx], rax
-        cmp     rbp, qword [rbx+8]
-        jne     .L36
-        mov     qword [rbx+8], 0
-        jmp     .L37
-.L36:
-        mov     qword [rax], 0
-.L37:
-        mov     rdi, rbp
-        call    free
-        mov     eax, r12d
-        pop     rbx
-        pop     rbp
-        pop     r12
-        ret
-
 global list_delete
-list_delete:
-        push    rbp
-        mov     ebp, esi
-        push    rbx
-        mov     rbx, rdi
-        push    rcx
-        call    assert
-        mov     rcx, qword [rbx]
-        mov     rdi, rcx
-.L41:
-        test    rdi, rdi
-        je      .L39
-        mov     rdx, qword [rdi+8]
-        cmp     DWORD [rdi+16], ebp
-        je      .L48
-        mov     rdi, rdx
-        jmp     .L41
-.L48:
-        mov     rax, qword [rdi]
-        cmp     rdi, rcx
-        jne     .L42
-        mov     qword [rbx], rdx
-        jmp     .L43
-.L42:
-        mov     qword [rax+8], rdx
-.L43:
-        cmp     qword [rbx+8], rdi
-        jne     .L44
-        mov     qword [rbx+8], rax
-        jmp     .L45
-.L44:
-        mov     rdx, qword [rdi+8]
-        mov     qword [rdx], rax
-.L45:
-        pop     rdx
-        pop     rbx
-        pop     rbp
-        jmp     free
-.L39:
-        pop     rax
-        pop     rbx
-        pop     rbp
+global list_destroy
+
+struc node
+        .prev:  resq    1
+        .next:  resq    1
+        .data:  resd    1
+endstruc
+
+struc list
+        .first  resq    1
+        .last   resq    1
+endstruc
+
+get_list:
+        mov     dword [curridx], 0
+        lea     rax, [m]
+        ret
+get_node:
+        movsx   rax, dword [curridx]
+        lea     edx, [rax+1]
+        imul    rax, rax, node_size
+        mov     dword [curridx], edx
+        lea     rdx, [glob]
+        add     rax, rdx
+        ret
+zero_list:
+        mov     qword [rdi+list.first], 0
+        mov     qword [rdi+list.last], 0
         ret
 
-global list_destroy
+list_node_create:
+        mov     ecx, edx
+        call    get_node
+        test    rax, rax
+        je      .err
+        mov     qword [rax+node.prev], rdi
+        mov     qword [rax+node.next], rsi
+        mov     dword [rax+node.data], ecx
+.err:
+        ret
+list_create:
+        call    get_list
+        test    rax, rax
+        je      .err
+        mov     qword [rax+list.first], 0
+        mov     qword [rax+list.last], 0
+.err:
+        ret
+list_count:
+        mov     rdx, qword [rdi+list.first]
+        xor     eax, eax
+.loop_count:
+        test    rdx, rdx
+        je      .fin_loop_count
+        mov     rdx, qword [rdx+node.next]
+        inc     rax
+        jmp     .loop_count
+.fin_loop_count:
+        ret
+list_push:
+        mov     r8, rdi
+        mov     rdi, qword [rdi+list.last]
+        mov     edx, esi
+        xor     esi, esi
+        call    list_node_create
+        test    rax, rax
+        je      .err
+        cmp     qword [r8+list.first], 0
+        mov     qword [r8+list.last], rax
+        jne     .first_set
+        mov     qword [r8+list.first], rax
+        ret
+.first_set:
+        mov     rdx, qword [rax+node.prev]
+        mov     qword [rdx+node.next], rax
+.err:
+        ret
+list_pop:
+        mov     rax, qword [rdi+list.last]
+        mov     rdx, qword [rax+node.prev]
+        mov     r8d, dword [rax+node.data]
+        mov     qword [rdi+list.last], rdx
+        cmp     qword [rdi+list.first], rax
+        jne     .set_prev_next
+        mov     qword [rdi+list.first], 0
+        jmp     .empty
+.set_prev_next:
+        mov     qword [rdx+node.next], 0
+.empty:
+        mov     qword [rax+node.prev], 0
+        mov     qword [rax+node.next], 0
+        mov     dword [rax+node.data], 0
+        mov     eax, r8d
+        ret
+list_unshift:
+        mov     edx, esi
+        mov     rsi, qword [rdi+list.first]
+        mov     r8, rdi
+        xor     edi, edi
+        call    list_node_create
+        test    rax, rax
+        je      .err
+        cmp     qword [r8+list.last], 0
+        mov     qword [r8+list.first], rax
+        jne     .set_next_prev
+        mov     qword [r8+list.last], rax
+        ret
+.set_next_prev:
+        mov     rdx, qword [rax+node.next]
+        mov     qword [rdx+node.prev], rax
+.err:
+        ret
+list_shift:
+        mov     rax, qword [rdi+list.first]
+        mov     rdx, qword [rax+node.next]
+        mov     r8d, dword [rax+node.data]
+        mov     qword [rdi+list.first], rdx
+        cmp     qword [rdi+list.last], rax
+        jne     .set_next_prev
+        mov     qword [rdi+list.last], 0
+        jmp     .zero
+.set_next_prev:
+        mov     qword [rdx+node.prev], 0
+.zero:
+        mov     qword [rax+node.prev], 0
+        mov     qword [rax+node.next], 0
+        mov     dword [rax+node.data], 0
+        mov     eax, r8d
+        ret
+list_delete:
+        mov     r8, qword [rdi+list.first]
+        mov     rax, r8
+.search_loop:
+        test    rax, rax
+        je      .err
+        mov     rdx, qword [rax+node.next]
+        cmp     dword [rax+node.data], esi
+        jne     .next
+        mov     rcx, qword [rax+node.prev]
+        cmp     rax, r8
+        jne     .set_prev_next
+        mov     qword [rdi+list.first], rdx
+        jmp     .last_compare
+.set_prev_next:
+        mov     qword [rcx+node.next], rdx
+.last_compare:
+        cmp     qword [rdi+list.last], rax
+        jne     .set_next_prev
+        mov     qword [rdi+list.last], rcx
+        jmp     .zero
+.set_next_prev:
+        mov     rdx, qword [rax+node.next]
+        mov     qword [rdx+node.prev], rcx
+.zero:
+        mov     qword [rax+node.prev], 0
+        mov     qword [rax+node.next], 0
+        mov     dword [rax+node.data], 0
+        ret
+.next:
+        mov     rax, rdx
+        jmp     .search_loop
+.err:
+        ret
 list_destroy:
         test    rdi, rdi
-        je      .L49
-        push    rbp
-        mov     rbp, rdi
-        push    rbx
-        push    rdx
-        mov     rdi, qword [rdi]
-.L52:
-        test    rdi, rdi
-        je      .L51
-        mov     rbx, qword [rdi+8]
-        call    free
-        mov     rdi, rbx
-        jmp     .L52
-.L51:
-        pop     rax
-        mov     rdi, rbp
-        pop     rbx
-        pop     rbp
-        jmp     free
-.L49:
+        je      .err
+        mov     rax, qword [rdi+list.first]
+.loop:
+        test    rax, rax
+        je      .zero
+        mov     rdx, qword [rax+node.next]
+        mov     qword [rax+node.prev], 0
+        mov     qword [rax+node.next], 0
+        mov     dword [rax+node.data], 0
+        mov     rax, rdx
+        jmp     .loop
+.zero:
+        mov     qword [rdi+list.first], 0
+        mov     qword [rdi+list.last], 0
+.err:
         ret
+section .data
+currm:
+        dq 0
+m:
+        times list_size db 0
+curridx:
+        dq 0
+glob:
+        times node_size*0x10 db 0
