@@ -1,16 +1,33 @@
-section .text
-; simple node struct for linked list
-struc node
-        .prev:  resq    1
-        .next:  resq    1
-        .data:  resd    1
+; a Node in the doubly linked-list
+struc Node
+        ; pointer to previous node
+        .Prev:  resq    1
+        ; pointer to next node
+        .Next:  resq    1
+        ; int data
+        .Data:  resd    1
 endstruc
 
-; simple struct to store first and last nodes
-struc list
-        .first  resq    1
-        .last   resq    1
+; references to start and end of a list
+struc List
+        ; pointer to First node in the List
+        .First  resq    1
+        ; pointer to Last node in the list
+        .Last   resq    1
 endstruc
+
+section .bss
+; store the single instance of List to store pointers to First and Last nodes
+list:
+        resb List_size
+; space for 16 nodes which will be "allocated" sequentially
+nodes:
+        resb 0x10*Node_size
+; an integer that has the next available node from nodes to "allocate"
+currnodeidx:
+        resq 1
+
+section .text
 
 global list_create
 list_create:
