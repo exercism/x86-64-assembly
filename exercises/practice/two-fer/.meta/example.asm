@@ -49,3 +49,7 @@ two_fer:
     mov rcx, one_for_me_len  ; Set string length
     rep movsb                ; Append string to buffer
     ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif

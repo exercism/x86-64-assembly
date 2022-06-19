@@ -22,3 +22,7 @@ elapsed_time_in_minutes:
     call preparation_time_in_minutes
     add rax, rsi
     ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
