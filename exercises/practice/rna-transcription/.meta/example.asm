@@ -38,3 +38,7 @@ to_rna:
 .loop_end:
     mov byte [rsi], 0  ; Null-terminate buffer
     ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
