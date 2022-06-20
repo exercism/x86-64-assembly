@@ -248,6 +248,19 @@
           "integers",
           "math"
         ]
+      },
+      {
+        "slug": "triangle",
+        "name": "Triangle",
+        "uuid": "1284e091-163a-454d-9123-413e4050b671",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "floats",
+          "math",
+          "structs"
+        ]
       }
     ]
   },
