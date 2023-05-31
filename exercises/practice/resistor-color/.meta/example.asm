@@ -12,6 +12,7 @@ violet: db "violet", 0
 grey: db "grey", 0
 white: db "white", 0
 
+section .data
 color_array:
 dq black
 dq brown
