@@ -83,6 +83,20 @@
         ]
       },
       {
+        "slug": "square-root",
+        "name": "Square Root",
+        "uuid": "8dcd4afd-7ef8-4bd1-85e1-b070357c970a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "conditionals",
+          "loops",
+          "integers",
+          "math"
+        ]
+      },
+      {
         "slug": "resistor-color",
         "name": "Resistor Color",
         "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
