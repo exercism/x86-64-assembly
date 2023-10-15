@@ -49,10 +49,14 @@ nucleotide_counts:
     mov r11, -1
 
 .report:
-    mov qword [rsi], r8       ; Report adenine count
-    mov qword [rsi + 4], r9   ; Report cytosine count
-    mov qword [rsi + 8], r10  ; Report guanine count
-    mov qword [rsi + 12], r11 ; Report thymine count
+    mov rax, r8               ; Report adenine count
+    mov dword [rsi], eax
+    mov rax, r9               ; Report cytosine count
+    mov dword [rsi + 4], eax
+    mov rax, r10              ; Report guanine count
+    mov dword [rsi + 8], eax
+    mov rax, r11              ; Report thymine count
+    mov dword [rsi + 12], eax
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
