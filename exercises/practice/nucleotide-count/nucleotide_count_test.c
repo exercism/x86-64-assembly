@@ -9,7 +9,7 @@ enum nucleotide {
     THYMINE
 };
 
-extern void nucleotide_counts(const char* strand, int* counts);
+extern void nucleotide_counts(const char* strand, int64_t* counts);
 
 void setUp(void) {
 }
@@ -19,7 +19,7 @@ void tearDown(void) {
 
 
 void test_empty_strand(void) {
-    int counts[4];
+    int64_t counts[4];
 
     nucleotide_counts("", counts);
     TEST_ASSERT_EQUAL_INT(0, counts[ADENINE]);
@@ -30,7 +30,7 @@ void test_empty_strand(void) {
 
 void test_can_count_one_nucleotide_in_single_character_input(void) {
     TEST_IGNORE();
-    int counts[4];
+    int64_t counts[4];
 
     nucleotide_counts("G", counts);
     TEST_ASSERT_EQUAL_INT(0, counts[ADENINE]);
@@ -41,7 +41,7 @@ void test_can_count_one_nucleotide_in_single_character_input(void) {
 
 void test_strand_with_repeated_nucleotide(void) {
     TEST_IGNORE();
-    int counts[4];
+    int64_t counts[4];
 
     nucleotide_counts("GGGGGGG", counts);
     TEST_ASSERT_EQUAL_INT(0, counts[ADENINE]);
@@ -52,7 +52,7 @@ void test_strand_with_repeated_nucleotide(void) {
 
 void test_strand_with_multiple_nucleotides(void) {
     TEST_IGNORE();
-    int counts[4];
+    int64_t counts[4];
 
     nucleotide_counts("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC", counts);
     TEST_ASSERT_EQUAL_INT(20, counts[ADENINE]);
@@ -63,7 +63,7 @@ void test_strand_with_multiple_nucleotides(void) {
 
 void test_strand_with_invalid_nucleotides(void) {
     TEST_IGNORE();
-    int counts[4];
+    int64_t counts[4];
 
     nucleotide_counts("AGXXACT", counts);
     TEST_ASSERT_EQUAL_INT(-1, counts[ADENINE]);
