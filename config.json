@@ -131,6 +131,17 @@
         ]
       },
       {
+        "slug": "queen-attack",
+        "name": "Queen Attack",
+        "uuid": "360852bf-c2f0-4fba-990a-49813fd069c1",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "conditionals"
+        ]
+      },
+      {
         "slug": "allergies",
         "name": "Allergies",
         "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
