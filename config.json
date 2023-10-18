@@ -275,6 +275,14 @@
         ]
       },
       {
+        "slug": "pop-count",
+        "name": "Pop Count",
+        "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "triangle",
         "name": "Triangle",
         "uuid": "1284e091-163a-454d-9123-413e4050b671",
