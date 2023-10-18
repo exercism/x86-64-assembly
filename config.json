@@ -154,6 +154,18 @@
         ]
       },
       {
+        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
+        "slug": "nucleotide-count",
+        "name": "Nucleotide Count",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays",
+          "strings"
+        ]
+      },
+      {
         "slug": "rotational-cipher",
         "name": "Rotational Cipher",
         "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
