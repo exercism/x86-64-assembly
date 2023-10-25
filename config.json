@@ -108,6 +108,17 @@
         ]
       },
       {
+        "slug": "resistor-color-duo",
+        "name": "Resistor Color Duo",
+        "uuid": "d2a983d7-3e9a-43fd-a916-23d51401c68e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays"
+        ]
+      },
+      {
         "slug": "space-age",
         "name": "Space Age",
         "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
