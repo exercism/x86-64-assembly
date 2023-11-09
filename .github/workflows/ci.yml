@@ -14,11 +14,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             compiler: gcc
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             compiler: clang
-          - os: macos-latest
+          - os: macos-12
             compiler: clang
 
     steps:
