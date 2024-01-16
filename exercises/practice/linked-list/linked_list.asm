@@ -16,6 +16,10 @@ struc List
         .Last   resq    1
 endstruc
 
+; this code can be run across different OS
+; don't rely on libc or syscalls for memory
+; instead rely on the OS to provide
+; an arena like allocation in the .bss
 section .bss
 ; store the single instance of List to store pointers to First and Last nodes
 list:

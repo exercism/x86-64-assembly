@@ -3,7 +3,8 @@
 #include <stddef.h>
 #include "vendor/unity.h"
 
-// constructs a new (empty) list
+// constructs a new (empty) list - called during setup
+// recommend : don't rely on `malloc`/`calloc`
 extern void list_create(void);
 
 // counts the items on a list
@@ -24,8 +25,8 @@ extern int list_shift();
 // deletes a node that holds the matching data
 extern void list_delete(int data);
 
-// destroys an entire list
-// list will be a dangling pointer after calling this method on it
+// destroys an entire list - called during teardown
+// recommend : clear pointer and values for this run
 extern void list_destroy();
 
 
