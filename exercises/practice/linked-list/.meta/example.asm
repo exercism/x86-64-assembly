@@ -73,6 +73,10 @@ list_create:
 .err:
         ret
 list_count:
+        lea     rax, [list]
+        test    rax, rax
+        je      .fin_loop_count
+        mov     rdi, rax
         mov     rdx, qword [rdi+List.First]
         xor     eax, eax
 .loop_count:
@@ -84,9 +88,12 @@ list_count:
 .fin_loop_count:
         ret
 list_push:
-        mov     r8, rdi
-        mov     rdi, qword [rdi+List.Last]
-        mov     edx, esi
+        lea     rax, [list]
+        test    rax, rax
+        je      .err
+        mov     r8, rax
+        mov     edx, edi
+        mov     rdi, qword [r8+List.Last]
         xor     esi, esi
         call    list_node_create
         test    rax, rax
@@ -102,6 +109,7 @@ list_push:
 .err:
         ret
 list_pop:
+        lea     rdi, [list]
         mov     rax, qword [rdi+List.Last]
         mov     rdx, qword [rax+Node.Prev]
         mov     r8d, dword [rax+Node.Data]
@@ -119,7 +127,8 @@ list_pop:
         mov     eax, r8d
         ret
 list_unshift:
-        mov     edx, esi
+        mov     edx, edi
+        lea     rdi, [list]
         mov     rsi, qword [rdi+List.First]
         mov     r8, rdi
         xor     edi, edi
@@ -137,6 +146,7 @@ list_unshift:
 .err:
         ret
 list_shift:
+        lea     rdi, [list]
         mov     rax, qword [rdi+List.First]
         mov     rdx, qword [rax+Node.Next]
         mov     r8d, dword [rax+Node.Data]
@@ -154,6 +164,8 @@ list_shift:
         mov     eax, r8d
         ret
 list_delete:
+        mov     esi, edi
+        lea     rdi, [list]
         mov     r8, qword [rdi+List.First]
         mov     rax, r8
 .search_loop:
@@ -188,8 +200,10 @@ list_delete:
 .err:
         ret
 list_destroy:
-        test    rdi, rdi
+        call    get_list
+        test    rax, rax
         je      .err
+        mov     rdi, rax
         mov     rax, qword [rdi+List.First]
 .loop:
         test    rax, rax

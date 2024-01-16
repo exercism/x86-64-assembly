@@ -250,6 +250,27 @@
         ]
       },
       {
+        "slug": "pop-count",
+        "name": "Eliud's Eggs",
+        "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
+        "slug": "triangle",
+        "name": "Triangle",
+        "uuid": "1284e091-163a-454d-9123-413e4050b671",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "floats",
+          "math",
+          "structs"
+        ]
+      },
+      {
         "slug": "linked-list",
         "name": "Linked List",
         "uuid": "b79e66ed-54b3-43da-a4ce-884d81447ce5",
