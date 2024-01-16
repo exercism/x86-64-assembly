@@ -17,7 +17,7 @@
     "highlightjs_language": "x86asm"
   },
   "test_runner": {
-    "average_run_time": 1.0
+    "average_run_time": 1
   },
   "files": {
     "solution": [
@@ -83,12 +83,37 @@
         ]
       },
       {
+        "slug": "square-root",
+        "name": "Square Root",
+        "uuid": "8dcd4afd-7ef8-4bd1-85e1-b070357c970a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "conditionals",
+          "loops",
+          "integers",
+          "math"
+        ]
+      },
+      {
         "slug": "resistor-color",
         "name": "Resistor Color",
         "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
+        "topics": [
+          "arrays"
+        ]
+      },
+      {
+        "slug": "resistor-color-duo",
+        "name": "Resistor Color Duo",
+        "uuid": "d2a983d7-3e9a-43fd-a916-23d51401c68e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
         "topics": [
           "arrays"
         ]
@@ -117,6 +142,17 @@
         ]
       },
       {
+        "slug": "queen-attack",
+        "name": "Queen Attack",
+        "uuid": "360852bf-c2f0-4fba-990a-49813fd069c1",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "conditionals"
+        ]
+      },
+      {
         "slug": "allergies",
         "name": "Allergies",
         "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
@@ -126,6 +162,18 @@
         "topics": [
           "bitwise_operations",
           "filtering"
+        ]
+      },
+      {
+        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
+        "slug": "nucleotide-count",
+        "name": "Nucleotide Count",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays",
+          "strings"
         ]
       },
       {
@@ -166,7 +214,7 @@
       },
       {
         "slug": "rna-transcription",
-        "name": "Rna Transcription",
+        "name": "RNA Transcription",
         "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
         "practices": [],
         "prerequisites": [],
@@ -211,8 +259,20 @@
         ]
       },
       {
+        "slug": "isbn-verifier",
+        "name": "Isbn Verifier",
+        "uuid": "f8f770a3-a47b-4404-ae7f-a94af4d8d87f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "loops",
+          "strings"
+        ]
+      },
+      {
         "slug": "difference-of-squares",
-        "name": "Difference Of Squares",
+        "name": "Difference of Squares",
         "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
         "practices": [],
         "prerequisites": [],
