@@ -329,6 +329,19 @@
           "math",
           "structs"
         ]
+      },
+      {
+        "slug": "raindrops",
+        "name": "Raindrops",
+        "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "conditionals",
+          "integers",
+          "strings"
+        ]
       }
     ]
   },
