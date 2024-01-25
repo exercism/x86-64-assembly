@@ -342,6 +342,19 @@
           "integers",
           "strings"
         ]
+      },
+      {
+        "slug": "acronym",
+        "name": "Acronym",
+        "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "loops",
+          "strings"
+        ]
       }
     ]
   },
