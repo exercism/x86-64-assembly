@@ -1,0 +1,20 @@
+{
+  "blurb": "Convert a long phrase to its acronym.",
+  "authors": [
+    "sudhackar"
+  ],
+  "contributors": [],
+  "files": {
+    "solution": [
+      "acronym.asm"
+    ],
+    "test": [
+      "acronym_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "source": "Julien Vanier",
+  "source_url": "https://github.com/monkbroc"
+}
