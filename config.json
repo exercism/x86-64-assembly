@@ -355,6 +355,20 @@
           "loops",
           "strings"
         ]
+      },
+      {
+        "slug": "roman-numerals",
+        "name": "Roman Numerals",
+        "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "integers",
+          "loops",
+          "strings"
+        ]
       }
     ]
   },
