@@ -331,6 +331,46 @@
         ]
       },
       {
+        "slug": "raindrops",
+        "name": "Raindrops",
+        "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "conditionals",
+          "integers",
+          "strings"
+        ]
+      },
+      {
+        "slug": "acronym",
+        "name": "Acronym",
+        "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "loops",
+          "strings"
+        ]
+      },
+      {
+        "slug": "roman-numerals",
+        "name": "Roman Numerals",
+        "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "integers",
+          "loops",
+          "strings"
+        ]
+      },
+      {
         "slug": "linked-list",
         "name": "Linked List",
         "uuid": "b79e66ed-54b3-43da-a4ce-884d81447ce5",

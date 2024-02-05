@@ -33,3 +33,7 @@ age:
     cvtsi2ss xmm0, esi               ; Convert seconds to float
     divss xmm0, xmm1                 ; Divide by orbital period
     ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif

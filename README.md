@@ -1,7 +1,7 @@
 # Exercism x86-64 Assembly Track
 
-[![Configlet Status](https://github.com/exercism/x86-64-assembly/workflows/configlet/badge.svg)]
-[![Exercise Test Status](https://github.com/exercism/x86-64-assembly/workflows/x86-64-assembly%20%2F%20main/badge.svg)]
+[![Configlet Status](https://github.com/exercism/x86-64-assembly/workflows/configlet/badge.svg)](https://github.com/exercism/x86-64-assembly/actions/workflows/configlet.yml)
+[![Exercise Test Status](https://github.com/exercism/x86-64-assembly/workflows/x86-64-assembly%20%2F%20main/badge.svg)](https://github.com/exercism/x86-64-assembly/actions/workflows/ci.yml)
 
 Exercism exercises in x86-64 Assembly.
 

@@ -30,3 +30,7 @@ is_pangram:
     cmp ecx, 0x3FFFFFF     ; Check if every letter of the alphabet is used
     sete al                ; If so, return true, else return false
     ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif

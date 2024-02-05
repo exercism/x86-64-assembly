@@ -14,15 +14,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             compiler: gcc
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             compiler: clang
-          - os: macos-latest
+          - os: macos-12
             compiler: clang
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
       - name: Install project dependencies (Linux)
         if: ${{ runner.os == 'Linux' }}
