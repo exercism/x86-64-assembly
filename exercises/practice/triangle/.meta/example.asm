@@ -21,6 +21,7 @@ triangle_equality:
 
 global is_equilateral:
 is_equilateral:
+        xor     eax, eax
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
@@ -45,6 +46,8 @@ is_equilateral:
         ret
 global is_isosceles:
 is_isosceles:
+        xor     eax, eax
+        xor     ecx, ecx
         movsd   xmm5, QWORD [rsp+8]
         movsd   xmm6, QWORD [rsp+16]
         movsd   xmm4, QWORD [rsp+24]
@@ -72,6 +75,7 @@ is_isosceles:
 
 global is_scalene
 is_scalene:
+        xor     eax, eax
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
