@@ -22,6 +22,7 @@ triangle_equality:
 global is_equilateral:
 is_equilateral:
         xor     eax, eax
+        xor     edx, edx
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
         push    QWORD [rsp+24]
