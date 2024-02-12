@@ -1,0 +1,16 @@
+{
+  "authors": ["D3usXMachina"],
+  "files": {
+    "solution": [
+      "protein_translation.asm"
+    ],
+    "test": [
+      "protein_translation_test.c"
+    ],
+    "example": [
+      "example.asm"
+    ]
+  },
+  "blurb": "Translate RNA sequences into proteins.",
+  "source": "Tyler Long"
+}
