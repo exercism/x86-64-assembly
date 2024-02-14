@@ -8,7 +8,7 @@
       "protein_translation_test.c"
     ],
     "example": [
-      "example.asm"
+      ".meta/example.asm"
     ]
   },
   "blurb": "Translate RNA sequences into proteins.",
