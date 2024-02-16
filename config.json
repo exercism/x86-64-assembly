@@ -369,6 +369,19 @@
           "loops",
           "strings"
         ]
+      },
+      {
+        "slug": "linked-list",
+        "name": "Linked List",
+        "uuid": "b79e66ed-54b3-43da-a4ce-884d81447ce5",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "functions",
+          "pointers",
+          "structs"
+        ]
       }
     ]
   },
