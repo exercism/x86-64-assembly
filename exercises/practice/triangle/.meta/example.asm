@@ -49,6 +49,7 @@ global is_isosceles:
 is_isosceles:
         xor     eax, eax
         xor     ecx, ecx
+        xor     edx, edx
         movsd   xmm5, QWORD [rsp+8]
         movsd   xmm6, QWORD [rsp+16]
         movsd   xmm4, QWORD [rsp+24]
