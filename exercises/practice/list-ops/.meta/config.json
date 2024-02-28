@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "danilopiazza"
+  ],
+  "files": {
+    "solution": [
+      "list_ops.asm"
+    ],
+    "test": [
+      "list_ops_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Implement basic list operations."
+}
