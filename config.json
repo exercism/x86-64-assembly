@@ -382,6 +382,19 @@
           "pointers",
           "structs"
         ]
+      },
+      {
+        "slug": "list-ops",
+        "name": "List Ops",
+        "uuid": "784f7a0c-bf28-4b99-be6a-cafc3efbca3d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "arrays",
+          "functions",
+          "loops"
+        ]
       }
     ]
   },
