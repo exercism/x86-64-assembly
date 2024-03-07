@@ -395,6 +395,20 @@
           "functions",
           "loops"
         ]
+      },
+      {
+        "slug": "protein-translation",
+        "name": "Protein Translation",
+        "uuid": "2d598782-0c71-486e-8bea-7fe03f934f9f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "loops",
+          "strings",
+          "arrays"
+        ]
       }
     ]
   },
