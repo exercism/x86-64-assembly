@@ -9,32 +9,32 @@
 section .text
 global is_armstrong_number
 is_armstrong_number:
-    mov rbp, rsp              ; Save copy of stack pointer
-    mov rsi, rsp              ; Save copy of stack pointer
+    mov r8, rsp               ; Save copy of stack pointer
+    mov r9, rsp               ; Save copy of stack pointer
     mov rax, rdi              ; number, with lowest digits progressively removed
-    mov rbx, 10
+    mov r10, 10
 
 extract_digit:
     xor rdx, rdx              ; Clear rdx
-    div rbx                   ; Unsigned divide rdx:rax by rbx
+    div r10                   ; Unsigned divide rdx:rax by r10
     push rdx                  ; Store remainder
     test rax, rax
     jnz extract_digit         ; repeat while rax is not 0
 
-    sub rsi, rsp
-    sar rsi, 3                ; Count of digits
+    sub r9, rsp
+    sar r9, 3                 ; Count of digits
 
 process_digit:
-    pop rbx                   ; current digit
+    pop r10                   ; current digit
     mov rax, 1                ; current digit, raised to power of 0, 1, ...
-    mov rcx, rsi
+    mov rcx, r9
 
 multiply:
-    mul rbx
+    mul r10
     loop multiply
 
-    sub rdi, rax              ; rax has current digit, raised to power rsi
-    cmp rsp, rbp
+    sub rdi, rax              ; rax has current digit, raised to power r9
+    cmp rsp, r8
     jne process_digit         ; repeat while there are digits on the stack
 
     xor rax, rax
