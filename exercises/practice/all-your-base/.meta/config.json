@@ -10,7 +10,7 @@
       "all_your_base_test.c"
     ],
     "example": [
-      "example.asm"
+      ".meta/example.asm"
     ]
   },
   "blurb": "Convert a number, represented as a sequence of digits in one base, to any other base."

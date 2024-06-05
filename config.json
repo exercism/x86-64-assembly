@@ -26,7 +26,7 @@
       "%{snake_slug}_test.c"
     ],
     "example": [
-      "example.asm"
+      ".meta/example.asm"
     ],
     "exemplar": [
       ".meta/exemplar.asm"
