@@ -1,6 +1,5 @@
 section .text
 global rebase
-extern printf
 
 rebase:
     ; Argument registers
