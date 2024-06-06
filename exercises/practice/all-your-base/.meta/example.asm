@@ -19,7 +19,7 @@ rebase:
     ; First, check the bases
     ; remember - ints are 32 bits!
     cmp edx, 2
-    jl .bad_base 
+    jl .bad_base
 
     cmp r8d, 2
     jl .bad_base
@@ -27,13 +27,13 @@ rebase:
     ; Part 1 - Parse the input digits
     ; %r9d - digit's index
     ; %eax - sum & result
-    ; %r10 - next digit 
+    ; %r10 - next digit
     xor r9, r9
     xor rax, rax
 
 .parse_digits:
     xor r10, r10
-    
+
     cmp r9d, esi
     je .convert
 
@@ -51,7 +51,7 @@ rebase:
 
     imul eax, edx
     add rax, r10
-    
+
     inc r9d
     jmp .parse_digits
 
@@ -70,7 +70,7 @@ rebase:
     inc rbx
     cmp eax, 0
     jg .get_digits_loop
-    
+
     ; Copy the number of digits to return
     mov eax, ebx
 
