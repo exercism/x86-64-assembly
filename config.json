@@ -343,6 +343,14 @@
         ]
       },
       {
+        "slug": "run-length-encoding",
+        "name": "Run Length Encoding",
+        "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "acronym",
         "name": "Acronym",
         "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
