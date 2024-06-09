@@ -7,26 +7,26 @@ FUNC_PROTO = """\
 extern void list_create(void);
 
 // counts the items on a list
-extern size_t list_count();
+extern size_t list_count(void);
 
 // inserts item at back of a list
 extern void list_push(int item_data);
 
 // removes item from back of a list
-extern int list_pop();
+extern int list_pop(void);
 
 // inserts item at front of a list
 extern void list_unshift(int item_data);
 
 // removes item from front of a list
-extern int list_shift();
+extern int list_shift(void);
 
 // deletes a node that holds the matching data
 extern void list_delete(int data);
 
 // destroys an entire list - called during teardown
 // recommend : clear pointer and values for this run
-extern void list_destroy();
+extern void list_destroy(void);
 
 """
 
