@@ -356,6 +356,17 @@
         ]
       },
       {
+        "slug": "armstrong-numbers",
+        "name": "Armstrong Numbers",
+        "uuid": "756465b7-40e9-4295-8f2c-7108cdef5ace",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "loops"
+        ]
+      },
+      {
         "slug": "roman-numerals",
         "name": "Roman Numerals",
         "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
