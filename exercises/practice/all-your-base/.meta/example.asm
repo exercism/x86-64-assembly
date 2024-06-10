@@ -10,10 +10,6 @@ rebase:
     ; %r8d - output base
 
     xor rax, rax
-    xor rbx, rbx
-
-    ; Return
-    ; %rax - number of digits in output array
 
     ; First, check the bases
     ; remember - ints are 32 bits!
@@ -23,7 +19,7 @@ rebase:
     cmp r8d, 2
     jl .bad_base
 
-    ; Part 1 - Parse the input digits
+    ; Part 1 - Parse the number from the input
     ; %r9d - digit's index
     ; %eax - sum & result
     ; %r10 - next digit
@@ -38,7 +34,7 @@ rebase:
 
     ; Load next digit to add
     mov r10d, dword [rdi + (r9 * 4)]
-
+    
     cmp r9d, esi
     je .convert
 
@@ -56,34 +52,43 @@ rebase:
 
 .convert:
     ; Part 2 - Convert the number back to a list of digits
-    ; %rbx - number of output digits
+    ; %r9 - number of output digits
     ; %edx - will have the next digit
-    xor rbx, rbx
+    xor r9, r9
 
 .get_digits_loop:
     xor rdx, rdx
 
     div r8d
-    push rdx
 
-    inc rbx
+    ; Copy remainder to array
+    mov [rcx + 4 * r9], rdx
+
+    inc r9
     cmp eax, 0
     jg .get_digits_loop
 
     ; Copy the number of digits to return
-    mov eax, ebx
+    mov rax, r9
 
-    cmp ebx, 0
-    je .return
-
-    xor rbx, rbx
+    ; The digits are reversed. So reverse them to get the result.
+    ; %rcx track the address from the beginning of list
+    ; %r9 track the address from the end
+    lea r9, [rcx + 4*(rax - 1)]
 
 .add_to_list:
-    pop r10
-    mov dword [rcx + (rbx* 4)], r10d
-    inc rbx
-    cmp rbx, rax
-    jne .add_to_list
+    cmp rcx, r9
+    jge .return
+
+    mov r10d, dword [rcx]
+    mov r11d, dword [r9]
+
+    mov dword [r9], r10d
+    mov dword [rcx], r11d 
+
+    add rcx, 4
+    sub r9, 4
+    jmp .add_to_list
 
 .return:
     ret

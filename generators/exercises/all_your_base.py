@@ -1,4 +1,5 @@
 FUNC_PROTO = """\
+#include "stdint.h"
 #include "vendor/unity.h"
 
 #define BUFFER_SIZE 100
@@ -6,22 +7,22 @@ FUNC_PROTO = """\
 #define BAD_BASE -1
 #define BAD_DIGIT -2
 
-extern int rebase(const int* in_digits, int digits_count, int in_base, int* out_array, int out_base);
+extern int32_t rebase(const int32_t* in_digits, int32_t digits_count, int32_t in_base, int32_t* out_array, int32_t out_base);
 """
 
 def gen_func_body(prop, inp, expected):
     str_list = []
     if (len(inp["digits"]) > 0):
         in_digits = str(inp["digits"]).replace("[", "{").replace("]", "}")
-        str_list.append(f"int in_digits[] = {in_digits};\n")
+        str_list.append(f"int32_t in_digits[] = {in_digits};\n")
         in_size = "ARRAY_SIZE(in_digits)"
     else:
-        str_list.append("const int* in_digits = NULL;\n")
+        str_list.append("const int32_t* in_digits = NULL;\n")
         in_size = "0"
-    str_list.append("int out_digits[BUFFER_SIZE];\n")
+    str_list.append("int32_t out_digits[BUFFER_SIZE];\n")
     if type(expected) is list:
         expected = str(expected).replace("[", "{").replace("]", "}")
-        str_list.append(f"int expected[] = {expected};\n\n")
+        str_list.append(f"int32_t expected[] = {expected};\n\n")
         str_list.append(f"TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), {prop}(in_digits, {in_size}, {inp['inputBase']}, out_digits, {inp['outputBase']}));\n")
         str_list.append(f"TEST_ASSERT_EQUAL_INT_ARRAY(expected, out_digits, ARRAY_SIZE(expected));\n");
     else:
