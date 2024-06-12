@@ -34,9 +34,6 @@ rebase:
 
     ; Load next digit to add
     mov r10d, dword [rdi + (r9 * 4)]
-    
-    cmp r9d, esi
-    je .convert
 
     test r10d, r10d
     js .bad_digit
@@ -51,7 +48,8 @@ rebase:
     jmp .parse_digits
 
 .convert:
-    ; Part 2 - Convert the number back to a list of digits
+    ; Part 2 - Convert the number back to a list of digits. Note, this
+    ;          algorithm will produce the digits in reverse order.
     ; %r9 - number of output digits
     ; %edx - will have the next digit
     xor r9, r9
@@ -71,12 +69,12 @@ rebase:
     ; Copy the number of digits to return
     mov rax, r9
 
-    ; The digits are reversed. So reverse them to get the result.
+    ; Reverse the digits to get the final result.
     ; %rcx track the address from the beginning of list
     ; %r9 track the address from the end
     lea r9, [rcx + 4*(rax - 1)]
 
-.add_to_list:
+.reverse_list:
     cmp rcx, r9
     jge .return
 
@@ -88,7 +86,7 @@ rebase:
 
     add rcx, 4
     sub r9, 4
-    jmp .add_to_list
+    jmp .reverse_list
 
 .return:
     ret
