@@ -1,9 +1,7 @@
 {
-  "blurb": "Implement a doubly linked list",
   "authors": [
     "sudhackar"
   ],
-  "contributors": [],
   "files": {
     "solution": [
       "linked_list.asm"
@@ -15,5 +13,6 @@
       ".meta/example.asm"
     ]
   },
+  "blurb": "Implement a doubly linked list",
   "source": "Classic computer science topic"
 }
