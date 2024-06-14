@@ -1,4 +1,4 @@
-// Version: 2.0.0
+// Version: 2.0.1
 
 #include "vendor/unity.h"
 
@@ -100,6 +100,13 @@ void test_paired_and_wrong_nested_brackets(void) {
     TEST_ASSERT_FALSE(is_paired(str));
 }
 
+void test_paired_and_wrong_nested_brackets_but_innermost_are_correct(void) {
+    TEST_IGNORE();
+    const char *str = "[({}])";
+
+    TEST_ASSERT_FALSE(is_paired(str));
+}
+
 void test_paired_and_incomplete_brackets(void) {
     TEST_IGNORE();
     const char *str = "{}[";
@@ -110,6 +117,20 @@ void test_paired_and_incomplete_brackets(void) {
 void test_too_many_closing_brackets(void) {
     TEST_IGNORE();
     const char *str = "[]]";
+
+    TEST_ASSERT_FALSE(is_paired(str));
+}
+
+void test_early_unexpected_brackets(void) {
+    TEST_IGNORE();
+    const char *str = ")()";
+
+    TEST_ASSERT_FALSE(is_paired(str));
+}
+
+void test_early_mismatched_brackets(void) {
+    TEST_IGNORE();
+    const char *str = "{)()";
 
     TEST_ASSERT_FALSE(is_paired(str));
 }
@@ -143,8 +164,11 @@ int main(void) {
     RUN_TEST(test_unopened_closing_brackets);
     RUN_TEST(test_unpaired_and_nested_brackets);
     RUN_TEST(test_paired_and_wrong_nested_brackets);
+    RUN_TEST(test_paired_and_wrong_nested_brackets_but_innermost_are_correct);
     RUN_TEST(test_paired_and_incomplete_brackets);
     RUN_TEST(test_too_many_closing_brackets);
+    RUN_TEST(test_early_unexpected_brackets);
+    RUN_TEST(test_early_mismatched_brackets);
     RUN_TEST(test_math_expression);
     RUN_TEST(test_complex_latex_expression);
     return UNITY_END();
