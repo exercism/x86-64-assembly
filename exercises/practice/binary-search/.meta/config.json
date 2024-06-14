@@ -1,5 +1,4 @@
 {
-  "blurb": "Implement a binary search algorithm.",
   "authors": [
     "bergjohan"
   ],
@@ -14,6 +13,7 @@
       ".meta/example.asm"
     ]
   },
+  "blurb": "Implement a binary search algorithm.",
   "source": "Wikipedia",
   "source_url": "http://en.wikipedia.org/wiki/Binary_search_algorithm"
 }
