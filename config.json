@@ -330,6 +330,14 @@
         ]
       },
       {
+        "slug": "atbash-cipher",
+        "name": "Atbash Cipher",
+        "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "raindrops",
         "name": "Raindrops",
         "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
