@@ -7,6 +7,7 @@ import re
 import sys
 import textwrap
 import urllib.request
+import tomllib
 
 
 def camel_to_snake(s):
@@ -88,10 +89,16 @@ def gen_test_file(mod, version, cases):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("exercise")
+    parser.add_argument("-i", "--ignore-toml", action="store_true")
     args = parser.parse_args()
     data = download_canonical_data(args.exercise)
     version = data.get("version", 0)
     cases = flatten_cases(data)
+    if not args.ignore_toml:
+        test_toml = f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
+        with open(test_toml, "rb") as f:
+            test_toml = tomllib.load(f)
+        cases = list(filter(lambda case : test_toml.get(case['uuid'],{}).get('include', True), cases))
     exercise = args.exercise.replace("-", "_")
     mod = importlib.import_module("exercises." + exercise)
     s = gen_test_file(mod, version, cases)
