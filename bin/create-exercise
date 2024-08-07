@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+
+die() { echo "$*" >&2; exit 1; }
+
+if [[ $PWD != $(realpath "$(dirname "$0")/..") ]]; then
+    die "You must be in the track root directory."
+fi
+if [[ -z $1 ]]; then
+    die "usage: $0 exercise_slug"
+fi
+
+slug=$1
+
+existing=$( jq --arg slug "${slug}" '.exercises.practice[] | select(.slug == $slug)' config.json )
+if [[ -n ${existing} ]]; then
+    die "${slug} already exists in config.json"
+fi
+
+pascal=${slug^}
+while [[ ${pascal} =~ (.*)-(.*) ]]; do
+    pascal=${BASH_REMATCH[1]}${BASH_REMATCH[2]^}
+done
+
+if [[ -z $author ]]; then
+    echo
+    read -rp "What's your github username? " author
+fi
+
+read -p "What's the difficulty for ${slug}? " difficulty
+
+bin/fetch-configlet
+bin/configlet create --practice-exercise "${slug}" --author "${author}" --difficulty "${difficulty}"
+
+cp exercises/practice/hello-world/.gitignore exercises/practice/${slug}/.gitignore
+cp exercises/practice/hello-world/Makefile exercises/practice/${slug}/Makefile
+cp -r exercises/practice/hello-world/vendor exercises/practice/${slug}/vendor
