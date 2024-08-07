@@ -22,8 +22,6 @@ while [[ ${pascal} =~ (.*)-(.*) ]]; do
     pascal=${BASH_REMATCH[1]}${BASH_REMATCH[2]^}
 done
 
-snake="${slug//-/_}"
-
 if [[ -z $author ]]; then
     echo
     read -rp "What's your github username? " author
@@ -37,7 +35,3 @@ bin/configlet create --practice-exercise "${slug}" --author "${author}" --diffic
 cp exercises/practice/hello-world/.gitignore exercises/practice/${slug}/.gitignore
 cp exercises/practice/hello-world/Makefile exercises/practice/${slug}/Makefile
 cp -r exercises/practice/hello-world/vendor exercises/practice/${slug}/vendor
-
-touch exercises/practice/${slug}/${snake}.asm
-touch exercises/practice/${slug}/${snake}_test.c
-touch exercises/practice/${slug}/.meta/example.asm
