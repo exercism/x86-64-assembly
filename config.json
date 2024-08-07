@@ -431,6 +431,14 @@
         ]
       },
       {
+        "slug": "pascals-triangle",
+        "name": "Pascal's Triangle",
+        "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "all-your-base",
         "name": "All Your Base",
         "uuid": "02d07b3b-86a2-404f-9d95-170602315a35",
