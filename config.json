@@ -1,5 +1,4 @@
 {
-  "track_id": "x86-64-assembly",
   "language": "x86-64 Assembly",
   "slug": "x86-64-assembly",
   "active": true,
@@ -27,7 +26,7 @@
       "%{snake_slug}_test.c"
     ],
     "example": [
-      "example.asm"
+      ".meta/example.asm"
     ],
     "exemplar": [
       ".meta/exemplar.asm"
@@ -165,9 +164,9 @@
         ]
       },
       {
-        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
         "slug": "nucleotide-count",
         "name": "Nucleotide Count",
+        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
         "practices": [],
         "prerequisites": [],
         "difficulty": 3,
@@ -331,6 +330,14 @@
         ]
       },
       {
+        "slug": "atbash-cipher",
+        "name": "Atbash Cipher",
+        "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "raindrops",
         "name": "Raindrops",
         "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
@@ -344,6 +351,14 @@
         ]
       },
       {
+        "slug": "run-length-encoding",
+        "name": "Run Length Encoding",
+        "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "acronym",
         "name": "Acronym",
         "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
@@ -355,6 +370,25 @@
           "loops",
           "strings"
         ]
+      },
+      {
+        "slug": "armstrong-numbers",
+        "name": "Armstrong Numbers",
+        "uuid": "756465b7-40e9-4295-8f2c-7108cdef5ace",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "loops"
+        ]
+      },
+      {
+        "slug": "prime-factors",
+        "name": "Prime Factors",
+        "uuid": "fc9bb707-337c-4cf4-ba7d-7569a71958c0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
       },
       {
         "slug": "roman-numerals",
@@ -409,12 +443,37 @@
           "strings",
           "arrays"
         ]
+      },
+      {
+        "slug": "pascals-triangle",
+        "name": "Pascal's Triangle",
+        "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
+        "slug": "all-your-base",
+        "name": "All Your Base",
+        "uuid": "02d07b3b-86a2-404f-9d95-170602315a35",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 8
+      },
+      {
+        "slug": "knapsack",
+        "name": "Knapsack",
+        "uuid": "2ef39cbc-801b-437e-96ec-71f3439388e4",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 9
       }
+    ],
+    "foregone": [
+      "parallel-letter-frequency",
+      "bank-account"
     ]
   },
-  "foregone": [
-    "parallel-letter-frequency"
-  ],
   "concepts": [
     {
       "uuid": "96a9995c-c428-4759-b995-05da80f14f02",
@@ -424,46 +483,46 @@
   ],
   "key_features": [
     {
-      "icon": "widely-used",
       "title": "Widely Used",
-      "content": "x86-64 has been the dominant instruction set for personal computer CPUs since 2010."
+      "content": "x86-64 has been the dominant instruction set for personal computer CPUs since 2010.",
+      "icon": "widely-used"
     },
     {
-      "icon": "fast",
       "title": "Fast",
-      "content": "As an assembly language, x86-64 cannot be beaten in pure execution speed."
+      "content": "As an assembly language, x86-64 cannot be beaten in pure execution speed.",
+      "icon": "fast"
     },
     {
-      "icon": "cross-platform",
       "title": "Cross-platform",
-      "content": "x86-64 has been adopted by AMD, Intel and VIA for their CPUs."
+      "content": "x86-64 has been adopted by AMD, Intel and VIA for their CPUs.",
+      "icon": "cross-platform"
     },
     {
-      "icon": "stable",
       "title": "Stable",
-      "content": "With an enormous install base relying on stability, changes since introduction have been minimal."
+      "content": "With an enormous install base relying on stability, changes since introduction have been minimal.",
+      "icon": "stable"
     },
     {
-      "icon": "powerful",
       "title": "Powerful",
-      "content": "x86-64 powers the most capable desktop CPUs in the world."
+      "content": "x86-64 powers the most capable desktop CPUs in the world.",
+      "icon": "powerful"
     },
     {
-      "icon": "documentation",
       "title": "Detailed documentation",
-      "content": "Given its wide-spread and critical application, x86-64 has been exactingly documented."
+      "content": "Given its wide-spread and critical application, x86-64 has been exactingly documented.",
+      "icon": "documentation"
     }
   ],
   "tags": [
+    "execution_mode/compiled",
     "paradigm/imperative",
     "paradigm/procedural",
+    "platform/linux",
+    "platform/mac",
+    "platform/windows",
+    "runtime/standalone_executable",
     "typing/static",
     "typing/weak",
-    "execution_mode/compiled",
-    "platform/windows",
-    "platform/mac",
-    "platform/linux",
-    "runtime/standalone_executable",
     "used_for/embedded_systems"
   ]
 }

@@ -27,14 +27,21 @@ def download_canonical_data(exercise):
 
 
 def flatten_cases(data):
-    cases = []
+    cases_by_id = {}
     for i in data["cases"]:
         if "cases" in i:
             for j in i["cases"]:
-                cases.append(j)
+                add_case(cases_by_id, j)
         else:
-            cases.append(i)
-    return cases
+            add_case(cases_by_id, i)
+    return [cases_by_id[uuid] for uuid in cases_by_id] 
+
+
+def add_case(cases_by_id, case):
+    if "reimplements" in case:
+        cases_by_id[case["reimplements"]] = case
+    else:
+        cases_by_id[case["uuid"]] = case
 
 
 def gen_main(cases):
