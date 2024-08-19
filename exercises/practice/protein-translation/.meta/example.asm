@@ -28,6 +28,7 @@ section .text
 
 global proteins
 proteins:                 ;;extern const char **proteins(const char *rna);
+   push rbx
    cld
    lea rdx, [rel output]
    xor eax, eax           ; clear upper bits
@@ -47,6 +48,7 @@ proteins:                 ;;extern const char **proteins(const char *rna);
 .terminate:
    mov qword [rdx], 0
    lea rax, [rel output]
+   pop rbx
    ret
 
 find_codon:               ; in: rbx ; out: rsi, rdi ; uses: rcx
