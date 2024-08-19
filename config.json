@@ -431,6 +431,20 @@
         ]
       },
       {
+        "slug": "protein-translation",
+        "name": "Protein Translation",
+        "uuid": "2d598782-0c71-486e-8bea-7fe03f934f9f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "loops",
+          "strings",
+          "arrays"
+        ]
+      },
+      {
         "slug": "pascals-triangle",
         "name": "Pascal's Triangle",
         "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
