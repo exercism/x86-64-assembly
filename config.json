@@ -129,6 +129,14 @@
         ]
       },
       {
+        "slug": "bob",
+        "name": "Bob",
+        "uuid": "6d8927ca-2aaa-4af4-bb38-c307b2105e41",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "hamming",
         "name": "Hamming",
         "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
