@@ -8,7 +8,7 @@ ifeq ($(shell uname -s),Darwin)
 ifeq ($(shell sysctl -n hw.optional.arm64 2>/dev/null),1)
 	ALL_CFLAGS = -target x86_64-apple-darwin
 endif
-	ALL_LDFLAGS = -Wl,-pie -Wl,-fatal_warnings
+	ALL_LDFLAGS = -Wl,-pie
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
 	ALL_LDFLAGS = -pie -Wl,--fatal-warnings
