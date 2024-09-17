@@ -18,7 +18,7 @@ jobs:
             compiler: gcc
           - os: ubuntu-22.04
             compiler: clang
-          - os: macos-12
+          - os: macos-14
             compiler: clang
 
     steps:

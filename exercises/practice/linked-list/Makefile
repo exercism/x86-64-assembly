@@ -5,14 +5,17 @@ LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
 ifeq ($(shell uname -s),Darwin)
-	ALL_LDFLAGS = -Wl,-pie -Wl,-fatal_warnings
+ifeq ($(shell sysctl -n hw.optional.arm64 2>/dev/null),1)
+	ALL_CFLAGS = -target x86_64-apple-darwin
+endif
+	ALL_LDFLAGS = -Wl,-pie
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
 	ALL_LDFLAGS = -pie -Wl,--fatal-warnings
 	ALL_ASFLAGS = -f elf64
 endif
 
-ALL_CFLAGS = -std=c99 -fPIE -m64 $(CFLAGS)
+ALL_CFLAGS += -std=c99 -fPIE -m64 $(CFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 
