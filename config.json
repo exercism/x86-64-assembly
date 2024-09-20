@@ -303,6 +303,14 @@
         ]
       },
       {
+        "slug": "scrabble-score",
+        "name": "Scrabble Score",
+        "uuid": "1ddc9312-b16f-41fe-91c2-a1181d32fb15",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "collatz-conjecture",
         "name": "Collatz Conjecture",
         "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
