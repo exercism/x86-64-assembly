@@ -21,7 +21,7 @@ ALL_ASFLAGS += $(ASFLAGS)
 
 C_OBJS = $(patsubst %.c,%.o,$(wildcard *.c))
 AS_OBJS = $(patsubst %.asm,%.o,$(wildcard *.asm))
-ALL_OBJS = $(C_OBJS) $(AS_OBJS)
+ALL_OBJS = $(filter-out exemplar.o,$(C_OBJS) $(AS_OBJS))
 
 CC_CMD = $(CC) $(ALL_CFLAGS) -c -o $@ $<
 
