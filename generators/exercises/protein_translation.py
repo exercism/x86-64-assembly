@@ -3,11 +3,12 @@ from string import Template
 FUNC_PROTO = """\
 #include "vendor/unity.h"
 
-extern const char **proteins(const char *rna);
+extern const char **proteins(const char *rna, const char **buffer);
 """
 
 TEST_FUNCTION_TEMPLATE = Template("""
-const char **names = proteins(${rna_strand});
+const char *buffer[10];
+const char **names = proteins(${rna_strand}, buffer);
 
 int size;
 for (size = 0; names[size]; size++) {}
