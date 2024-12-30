@@ -13,4 +13,5 @@ int main(void) {
     assert(8 == preparation_time_in_minutes(4));
     assert(32 == elapsed_time_in_minutes(1, 30));
     assert(16 == elapsed_time_in_minutes(4, 8));
+    return 0;
 }
