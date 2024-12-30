@@ -442,6 +442,14 @@
         ]
       },
       {
+        "slug": "phone-number",
+        "name": "Phone Number",
+        "uuid": "5d6e344e-7ed6-4476-82f6-02be41266e39",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "list-ops",
         "name": "List Ops",
         "uuid": "784f7a0c-bf28-4b99-be6a-cafc3efbca3d",
