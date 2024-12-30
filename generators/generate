@@ -28,12 +28,16 @@ def download_canonical_data(exercise):
 
 def flatten_cases(data):
     cases_by_id = {}
-    for i in data["cases"]:
-        if "cases" in i:
-            for j in i["cases"]:
-                add_case(cases_by_id, j)
+
+    def traverse(node):
+        nonlocal cases_by_id
+        if "cases" in node:
+            for child in node["cases"]:
+                traverse(child)
         else:
-            add_case(cases_by_id, i)
+            add_case(cases_by_id, node)
+
+    traverse(data)
     return [cases_by_id[uuid] for uuid in cases_by_id] 
 
 
