@@ -461,6 +461,14 @@
         ]
       },
       {
+        "slug": "luhn",
+        "name": "Luhn",
+        "uuid": "0dd26cf2-d613-4a03-93a3-49d2960d2154",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "pascals-triangle",
         "name": "Pascal's Triangle",
         "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
