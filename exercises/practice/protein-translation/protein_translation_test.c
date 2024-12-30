@@ -2,7 +2,7 @@
 
 #include "vendor/unity.h"
 
-extern const char **proteins(const char *rna);
+extern const char **proteins(const char *rna, const char **buffer);
 
 void setUp(void) {
 }
@@ -12,7 +12,8 @@ void tearDown(void) {
 
 void test_empty_rna_sequence_results_in_no_proteins(void) {
 
-    const char **names = proteins("");
+    const char *buffer[10];
+    const char **names = proteins("", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -22,7 +23,8 @@ void test_empty_rna_sequence_results_in_no_proteins(void) {
 void test_methionine_rna_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("AUG");
+    const char *buffer[10];
+    const char **names = proteins("AUG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -35,7 +37,8 @@ void test_methionine_rna_sequence(void) {
 void test_phenylalanine_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUU");
+    const char *buffer[10];
+    const char **names = proteins("UUU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -48,7 +51,8 @@ void test_phenylalanine_rna_sequence_1(void) {
 void test_phenylalanine_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUC");
+    const char *buffer[10];
+    const char **names = proteins("UUC", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -61,7 +65,8 @@ void test_phenylalanine_rna_sequence_2(void) {
 void test_leucine_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUA");
+    const char *buffer[10];
+    const char **names = proteins("UUA", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -74,7 +79,8 @@ void test_leucine_rna_sequence_1(void) {
 void test_leucine_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUG");
+    const char *buffer[10];
+    const char **names = proteins("UUG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -87,7 +93,8 @@ void test_leucine_rna_sequence_2(void) {
 void test_serine_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UCU");
+    const char *buffer[10];
+    const char **names = proteins("UCU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -100,7 +107,8 @@ void test_serine_rna_sequence_1(void) {
 void test_serine_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UCC");
+    const char *buffer[10];
+    const char **names = proteins("UCC", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -113,7 +121,8 @@ void test_serine_rna_sequence_2(void) {
 void test_serine_rna_sequence_3(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UCA");
+    const char *buffer[10];
+    const char **names = proteins("UCA", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -126,7 +135,8 @@ void test_serine_rna_sequence_3(void) {
 void test_serine_rna_sequence_4(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UCG");
+    const char *buffer[10];
+    const char **names = proteins("UCG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -139,7 +149,8 @@ void test_serine_rna_sequence_4(void) {
 void test_tyrosine_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UAU");
+    const char *buffer[10];
+    const char **names = proteins("UAU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -152,7 +163,8 @@ void test_tyrosine_rna_sequence_1(void) {
 void test_tyrosine_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UAC");
+    const char *buffer[10];
+    const char **names = proteins("UAC", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -165,7 +177,8 @@ void test_tyrosine_rna_sequence_2(void) {
 void test_cysteine_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGU");
+    const char *buffer[10];
+    const char **names = proteins("UGU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -178,7 +191,8 @@ void test_cysteine_rna_sequence_1(void) {
 void test_cysteine_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGC");
+    const char *buffer[10];
+    const char **names = proteins("UGC", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -191,7 +205,8 @@ void test_cysteine_rna_sequence_2(void) {
 void test_tryptophan_rna_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGG");
+    const char *buffer[10];
+    const char **names = proteins("UGG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -204,7 +219,8 @@ void test_tryptophan_rna_sequence(void) {
 void test_stop_codon_rna_sequence_1(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UAA");
+    const char *buffer[10];
+    const char **names = proteins("UAA", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -214,7 +230,8 @@ void test_stop_codon_rna_sequence_1(void) {
 void test_stop_codon_rna_sequence_2(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UAG");
+    const char *buffer[10];
+    const char **names = proteins("UAG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -224,7 +241,8 @@ void test_stop_codon_rna_sequence_2(void) {
 void test_stop_codon_rna_sequence_3(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGA");
+    const char *buffer[10];
+    const char **names = proteins("UGA", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -234,7 +252,8 @@ void test_stop_codon_rna_sequence_3(void) {
 void test_sequence_of_two_protein_codons_translates_into_proteins(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUUUUU");
+    const char *buffer[10];
+    const char **names = proteins("UUUUUU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -247,7 +266,8 @@ void test_sequence_of_two_protein_codons_translates_into_proteins(void) {
 void test_sequence_of_two_different_protein_codons_translates_into_proteins(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUAUUG");
+    const char *buffer[10];
+    const char **names = proteins("UUAUUG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -260,7 +280,8 @@ void test_sequence_of_two_different_protein_codons_translates_into_proteins(void
 void test_translate_rna_strand_into_correct_protein_list(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("AUGUUUUGG");
+    const char *buffer[10];
+    const char **names = proteins("AUGUUUUGG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -273,7 +294,8 @@ void test_translate_rna_strand_into_correct_protein_list(void) {
 void test_translation_stops_if_stop_codon_at_beginning_of_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UAGUGG");
+    const char *buffer[10];
+    const char **names = proteins("UAGUGG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -283,7 +305,8 @@ void test_translation_stops_if_stop_codon_at_beginning_of_sequence(void) {
 void test_translation_stops_if_stop_codon_at_end_of_twocodon_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGGUAG");
+    const char *buffer[10];
+    const char **names = proteins("UGGUAG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -296,7 +319,8 @@ void test_translation_stops_if_stop_codon_at_end_of_twocodon_sequence(void) {
 void test_translation_stops_if_stop_codon_at_end_of_threecodon_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("AUGUUUUAA");
+    const char *buffer[10];
+    const char **names = proteins("AUGUUUUAA", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -309,7 +333,8 @@ void test_translation_stops_if_stop_codon_at_end_of_threecodon_sequence(void) {
 void test_translation_stops_if_stop_codon_in_middle_of_threecodon_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGGUAGUGG");
+    const char *buffer[10];
+    const char **names = proteins("UGGUAGUGG", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -322,7 +347,8 @@ void test_translation_stops_if_stop_codon_in_middle_of_threecodon_sequence(void)
 void test_translation_stops_if_stop_codon_in_middle_of_sixcodon_sequence(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UGGUGUUAUUAAUGGUUU");
+    const char *buffer[10];
+    const char **names = proteins("UGGUGUUAUUAAUGGUUU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}
@@ -335,7 +361,8 @@ void test_translation_stops_if_stop_codon_in_middle_of_sixcodon_sequence(void) {
 void test_incomplete_rna_sequence_can_translate_if_valid_until_a_stop_codon(void) {
     TEST_IGNORE();
 
-    const char **names = proteins("UUCUUCUAAUGGU");
+    const char *buffer[10];
+    const char **names = proteins("UUCUUCUAAUGGU", buffer);
 
     int size;
     for (size = 0; names[size]; size++) {}

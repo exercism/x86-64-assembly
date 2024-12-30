@@ -21,16 +21,14 @@ codon_map:
 
 protein_list: dq Methionine, Phenylalanine, Leucine, Serine, Tyrosine, Cysteine, Tryptophan, 0
 
-section .bss
-output: resq 10
-
 section .text
 
 global proteins
 proteins:                 ;;extern const char **proteins(const char *rna);
    push rbx
    cld
-   lea rdx, [rel output]
+   mov r8, rsi
+   mov rdx, r8
    xor eax, eax           ; clear upper bits
 .next_codon:
    mov rbx, rdi           ; after call to find_codon, rdi points to the next codon
@@ -47,7 +45,7 @@ proteins:                 ;;extern const char **proteins(const char *rna);
    jmp .next_codon
 .terminate:
    mov qword [rdx], 0
-   lea rax, [rel output]
+   mov rax, r8
    pop rbx
    ret
 
