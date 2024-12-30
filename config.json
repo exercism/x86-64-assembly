@@ -534,8 +534,11 @@
       }
     ],
     "foregone": [
-      "parallel-letter-frequency",
-      "bank-account"
+      "bank-account",
+      "dnd-character",
+      "grep",
+      "lens-person",
+      "parallel-letter-frequency"
     ]
   },
   "concepts": [
