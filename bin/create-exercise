@@ -32,6 +32,5 @@ read -p "What's the difficulty for ${slug}? " difficulty
 bin/fetch-configlet
 bin/configlet create --practice-exercise "${slug}" --author "${author}" --difficulty "${difficulty}"
 
-cp exercises/practice/hello-world/.gitignore exercises/practice/${slug}/.gitignore
 cp exercises/practice/hello-world/Makefile exercises/practice/${slug}/Makefile
 cp -r exercises/practice/hello-world/vendor exercises/practice/${slug}/vendor
