@@ -47,6 +47,33 @@
     ],
     "practice": [
       {
+        "slug": "collatz-conjecture",
+        "name": "Collatz Conjecture",
+        "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "conditionals",
+          "loops",
+          "integers",
+          "math"
+        ]
+      },
+      {
+        "slug": "difference-of-squares",
+        "name": "Difference of Squares",
+        "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "integers",
+          "loops",
+          "math"
+        ]
+      },
+      {
         "slug": "hello-world",
         "name": "Hello World",
         "uuid": "edfc05bc-1458-4047-8d64-eea38e155f20",
@@ -70,15 +97,37 @@
         ]
       },
       {
-        "slug": "two-fer",
-        "name": "Two Fer",
-        "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
+        "slug": "rna-transcription",
+        "name": "RNA Transcription",
+        "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
         "topics": [
-          "optional_values",
+          "strings",
+          "transforming"
+        ]
+      },
+      {
+        "slug": "reverse-string",
+        "name": "Reverse String",
+        "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
           "strings"
+        ]
+      },
+      {
+        "slug": "space-age",
+        "name": "Space Age",
+        "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "floating_point_numbers"
         ]
       },
       {
@@ -96,45 +145,40 @@
         ]
       },
       {
-        "slug": "resistor-color",
-        "name": "Resistor Color",
-        "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3,
-        "topics": [
-          "arrays"
-        ]
-      },
-      {
-        "slug": "resistor-color-duo",
-        "name": "Resistor Color Duo",
-        "uuid": "d2a983d7-3e9a-43fd-a916-23d51401c68e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3,
-        "topics": [
-          "arrays"
-        ]
-      },
-      {
-        "slug": "space-age",
-        "name": "Space Age",
-        "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
+        "slug": "triangle",
+        "name": "Triangle",
+        "uuid": "1284e091-163a-454d-9123-413e4050b671",
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
         "topics": [
-          "floating_point_numbers"
+          "floats",
+          "math",
+          "structs"
         ]
       },
       {
-        "slug": "bob",
-        "name": "Bob",
-        "uuid": "6d8927ca-2aaa-4af4-bb38-c307b2105e41",
+        "slug": "two-fer",
+        "name": "Two Fer",
+        "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 3
+        "difficulty": 1,
+        "topics": [
+          "optional_values",
+          "strings"
+        ]
+      },
+      {
+        "slug": "grains",
+        "name": "Grains",
+        "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "integers"
+        ]
       },
       {
         "slug": "hamming",
@@ -145,6 +189,17 @@
         "difficulty": 2,
         "topics": [
           "filtering",
+          "strings"
+        ]
+      },
+      {
+        "slug": "pangram",
+        "name": "Pangram",
+        "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
           "strings"
         ]
       },
@@ -172,86 +227,32 @@
         ]
       },
       {
-        "slug": "nucleotide-count",
-        "name": "Nucleotide Count",
-        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
+        "slug": "binary-search",
+        "name": "Binary Search",
+        "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
         "practices": [],
         "prerequisites": [],
         "difficulty": 3,
         "topics": [
           "arrays",
-          "strings"
+          "searching"
         ]
       },
       {
-        "slug": "rotational-cipher",
-        "name": "Rotational Cipher",
-        "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
+        "slug": "bob",
+        "name": "Bob",
+        "uuid": "6d8927ca-2aaa-4af4-bb38-c307b2105e41",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 4,
-        "topics": [
-          "algorithms",
-          "strings",
-          "transforming"
-        ]
+        "difficulty": 3
       },
       {
-        "slug": "matching-brackets",
-        "name": "Matching Brackets",
-        "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
+        "slug": "eliuds-eggs",
+        "name": "Eliud's Eggs",
+        "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 5,
-        "topics": [
-          "parsing",
-          "strings"
-        ]
-      },
-      {
-        "slug": "reverse-string",
-        "name": "Reverse String",
-        "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "strings"
-        ]
-      },
-      {
-        "slug": "rna-transcription",
-        "name": "RNA Transcription",
-        "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "strings",
-          "transforming"
-        ]
-      },
-      {
-        "slug": "pangram",
-        "name": "Pangram",
-        "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "strings"
-        ]
-      },
-      {
-        "slug": "grains",
-        "name": "Grains",
-        "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "integers"
-        ]
+        "difficulty": 3
       },
       {
         "slug": "isogram",
@@ -266,40 +267,37 @@
         ]
       },
       {
-        "slug": "isbn-verifier",
-        "name": "Isbn Verifier",
-        "uuid": "f8f770a3-a47b-4404-ae7f-a94af4d8d87f",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4,
-        "topics": [
-          "loops",
-          "strings"
-        ]
-      },
-      {
-        "slug": "difference-of-squares",
-        "name": "Difference of Squares",
-        "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "integers",
-          "loops",
-          "math"
-        ]
-      },
-      {
-        "slug": "binary-search",
-        "name": "Binary Search",
-        "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
+        "slug": "nucleotide-count",
+        "name": "Nucleotide Count",
+        "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
         "practices": [],
         "prerequisites": [],
         "difficulty": 3,
         "topics": [
           "arrays",
-          "searching"
+          "strings"
+        ]
+      },
+      {
+        "slug": "resistor-color",
+        "name": "Resistor Color",
+        "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays"
+        ]
+      },
+      {
+        "slug": "resistor-color-duo",
+        "name": "Resistor Color Duo",
+        "uuid": "d2a983d7-3e9a-43fd-a916-23d51401c68e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3,
+        "topics": [
+          "arrays"
         ]
       },
       {
@@ -309,70 +307,6 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 3
-      },
-      {
-        "slug": "collatz-conjecture",
-        "name": "Collatz Conjecture",
-        "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "conditionals",
-          "loops",
-          "integers",
-          "math"
-        ]
-      },
-      {
-        "slug": "eliuds-eggs",
-        "name": "Eliud's Eggs",
-        "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
-        "slug": "triangle",
-        "name": "Triangle",
-        "uuid": "1284e091-163a-454d-9123-413e4050b671",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "floats",
-          "math",
-          "structs"
-        ]
-      },
-      {
-        "slug": "atbash-cipher",
-        "name": "Atbash Cipher",
-        "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 5
-      },
-      {
-        "slug": "raindrops",
-        "name": "Raindrops",
-        "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 5,
-        "topics": [
-          "conditionals",
-          "integers",
-          "strings"
-        ]
-      },
-      {
-        "slug": "run-length-encoding",
-        "name": "Run Length Encoding",
-        "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 5
       },
       {
         "slug": "acronym",
@@ -399,23 +333,13 @@
         ]
       },
       {
-        "slug": "prime-factors",
-        "name": "Prime Factors",
-        "uuid": "fc9bb707-337c-4cf4-ba7d-7569a71958c0",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4
-      },
-      {
-        "slug": "roman-numerals",
-        "name": "Roman Numerals",
-        "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
+        "slug": "isbn-verifier",
+        "name": "Isbn Verifier",
+        "uuid": "f8f770a3-a47b-4404-ae7f-a94af4d8d87f",
         "practices": [],
         "prerequisites": [],
         "difficulty": 4,
         "topics": [
-          "conditionals",
-          "integers",
           "loops",
           "strings"
         ]
@@ -450,17 +374,12 @@
         "difficulty": 4
       },
       {
-        "slug": "list-ops",
-        "name": "List Ops",
-        "uuid": "784f7a0c-bf28-4b99-be6a-cafc3efbca3d",
+        "slug": "prime-factors",
+        "name": "Prime Factors",
+        "uuid": "fc9bb707-337c-4cf4-ba7d-7569a71958c0",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 5,
-        "topics": [
-          "arrays",
-          "functions",
-          "loops"
-        ]
+        "difficulty": 4
       },
       {
         "slug": "protein-translation",
@@ -475,6 +394,87 @@
           "strings",
           "arrays"
         ]
+      },
+      {
+        "slug": "roman-numerals",
+        "name": "Roman Numerals",
+        "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "conditionals",
+          "integers",
+          "loops",
+          "strings"
+        ]
+      },
+      {
+        "slug": "rotational-cipher",
+        "name": "Rotational Cipher",
+        "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4,
+        "topics": [
+          "algorithms",
+          "strings",
+          "transforming"
+        ]
+      },
+      {
+        "slug": "atbash-cipher",
+        "name": "Atbash Cipher",
+        "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
+        "slug": "list-ops",
+        "name": "List Ops",
+        "uuid": "784f7a0c-bf28-4b99-be6a-cafc3efbca3d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "arrays",
+          "functions",
+          "loops"
+        ]
+      },
+      {
+        "slug": "matching-brackets",
+        "name": "Matching Brackets",
+        "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "parsing",
+          "strings"
+        ]
+      },
+      {
+        "slug": "raindrops",
+        "name": "Raindrops",
+        "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5,
+        "topics": [
+          "conditionals",
+          "integers",
+          "strings"
+        ]
+      },
+      {
+        "slug": "run-length-encoding",
+        "name": "Run Length Encoding",
+        "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
       },
       {
         "slug": "luhn",
@@ -534,8 +534,11 @@
       }
     ],
     "foregone": [
-      "parallel-letter-frequency",
-      "bank-account"
+      "bank-account",
+      "dnd-character",
+      "grep",
+      "lens-person",
+      "parallel-letter-frequency"
     ]
   },
   "concepts": [

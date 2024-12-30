@@ -1,5 +1,7 @@
 {
-  "authors": ["D3usXMachina"],
+  "authors": [
+    "D3usXMachina"
+  ],
   "files": {
     "solution": [
       "protein_translation.asm"
