@@ -21,7 +21,7 @@ ALL_ASFLAGS += $(ASFLAGS)
 
 C_OBJS = $(patsubst %.c,%.o,$(wildcard *.c))
 AS_OBJS = $(patsubst %.asm,%.o,$(wildcard *.asm))
-ALL_OBJS = $(filter-out exemplar.o,$(C_OBJS) $(AS_OBJS))
+ALL_OBJS = $(filter-out exemplar.o,$(C_OBJS) $(AS_OBJS) vendor/unity.o)
 
 CC_CMD = $(CC) $(ALL_CFLAGS) -c -o $@ $<
 
@@ -37,7 +37,10 @@ tests: $(ALL_OBJS)
 %.o: %.c
 	@$(CC_CMD)
 
+vendor/unity.o: vendor/unity.c vendor/unity.h vendor/unity_internals.h
+	@$(CC_CMD)
+
 clean:
-	@rm -f *.o tests
+	@rm -f *.o vendor/*.o tests
 
 .PHONY: all clean
