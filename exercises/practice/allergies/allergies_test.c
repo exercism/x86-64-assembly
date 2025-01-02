@@ -317,6 +317,16 @@ void test_no_allergen_score_parts(void) {
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
+static void test_no_allergen_score_parts_without_highest_valid_score(void) {
+    TEST_IGNORE();
+    int expected[] = {EGGS};
+    struct item_list item_list;
+
+    list(257, &item_list);
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), item_list.size);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_eggs_not_allergic_to_anything);
@@ -368,5 +378,6 @@ int main(void) {
     RUN_TEST(test_lots_of_stuff);
     RUN_TEST(test_everything);
     RUN_TEST(test_no_allergen_score_parts);
+    RUN_TEST(test_no_allergen_score_parts_without_highest_valid_score);
     return UNITY_END();
 }
