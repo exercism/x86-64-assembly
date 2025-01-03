@@ -211,6 +211,14 @@ void test_3001_is_mmmi(void) {
     TEST_ASSERT_EQUAL_STRING("MMMI", buffer);
 }
 
+void test_3888_is_mmmdccclxxxviii(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+
+    roman(3888, buffer);
+    TEST_ASSERT_EQUAL_STRING("MMMDCCCLXXXVIII", buffer);
+}
+
 void test_3999_is_mmmcmxcix(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE];
@@ -246,6 +254,7 @@ int main(void) {
     RUN_TEST(test_1666_is_mdclxvi);
     RUN_TEST(test_3000_is_mmm);
     RUN_TEST(test_3001_is_mmmi);
+    RUN_TEST(test_3888_is_mmmdccclxxxviii);
     RUN_TEST(test_3999_is_mmmcmxcix);
     return UNITY_END();
 }
