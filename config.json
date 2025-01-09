@@ -485,6 +485,14 @@
         "difficulty": 5
       },
       {
+        "slug": "food-chain",
+        "name": "Food Chain",
+        "uuid": "5d4da9ec-5b46-4609-b942-6be556884ef3",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "luhn",
         "name": "Luhn",
         "uuid": "0dd26cf2-d613-4a03-93a3-49d2960d2154",
