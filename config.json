@@ -423,6 +423,14 @@
         ]
       },
       {
+        "slug": "twelve-days",
+        "name": "Twelve Days",
+        "uuid": "404a8125-db44-48b3-b981-49a368815001",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "atbash-cipher",
         "name": "Atbash Cipher",
         "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
