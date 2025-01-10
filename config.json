@@ -333,6 +333,14 @@
         ]
       },
       {
+        "slug": "bottle-song",
+        "name": "Bottle Song",
+        "uuid": "dd05684a-90d4-44f6-915f-eea8843bb7b0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "isbn-verifier",
         "name": "Isbn Verifier",
         "uuid": "f8f770a3-a47b-4404-ae7f-a94af4d8d87f",
