@@ -541,6 +541,14 @@
         "difficulty": 6
       },
       {
+        "slug": "pig-latin",
+        "name": "Pig Latin",
+        "uuid": "e49e6d68-fa96-4a2d-b560-9af0ca7fccb1",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "affine-cipher",
         "name": "Affine Cipher",
         "uuid": "08480307-7d42-49ed-b6b7-2080bba8894e",
