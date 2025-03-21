@@ -358,6 +358,31 @@ void test_translation_stops_if_stop_codon_in_middle_of_sixcodon_sequence(void) {
     TEST_ASSERT_EQUAL_STRING_ARRAY(expected, names, size);
 }
 
+void test_sequence_of_two_nonstop_codons_does_not_translate_to_a_stop_codon(void) {
+    TEST_IGNORE();
+
+    const char *buffer[10];
+    const char **names = proteins("AUGAUG", buffer);
+
+    int size;
+    for (size = 0; names[size]; size++) {}
+    TEST_ASSERT_EQUAL_INT(2, size);
+
+    const char *expected[] = {"Methionine", "Methionine"};
+    TEST_ASSERT_EQUAL_STRING_ARRAY(expected, names, size);
+}
+
+void test_unknown_amino_acids_not_part_of_a_codon_cant_translate(void) {
+    TEST_IGNORE();
+
+    const char *buffer[10];
+    const char **names = proteins("XYZ", buffer);
+
+    int size;
+    for (size = 0; names[size]; size++) {}
+    TEST_ASSERT_EQUAL_INT(0, size);
+}
+
 void test_incomplete_rna_sequence_can_translate_if_valid_until_a_stop_codon(void) {
     TEST_IGNORE();
 
@@ -400,6 +425,8 @@ int main(void) {
     RUN_TEST(test_translation_stops_if_stop_codon_at_end_of_threecodon_sequence);
     RUN_TEST(test_translation_stops_if_stop_codon_in_middle_of_threecodon_sequence);
     RUN_TEST(test_translation_stops_if_stop_codon_in_middle_of_sixcodon_sequence);
+    RUN_TEST(test_sequence_of_two_nonstop_codons_does_not_translate_to_a_stop_codon);
+    RUN_TEST(test_unknown_amino_acids_not_part_of_a_codon_cant_translate);
     RUN_TEST(test_incomplete_rna_sequence_can_translate_if_valid_until_a_stop_codon);
     return UNITY_END();
 }
