@@ -97,6 +97,17 @@
         ]
       },
       {
+        "slug": "reverse-string",
+        "name": "Reverse String",
+        "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "strings"
+        ]
+      },
+      {
         "slug": "rna-transcription",
         "name": "RNA Transcription",
         "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
@@ -106,17 +117,6 @@
         "topics": [
           "strings",
           "transforming"
-        ]
-      },
-      {
-        "slug": "reverse-string",
-        "name": "Reverse String",
-        "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "strings"
         ]
       },
       {
