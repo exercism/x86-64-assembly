@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "minesweeper.asm"
+    ],
+    "test": [
+      "minesweeper_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Add the numbers to a minesweeper board."
+}
