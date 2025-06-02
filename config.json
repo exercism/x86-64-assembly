@@ -597,6 +597,14 @@
         "difficulty": 8
       },
       {
+        "slug": "game-of-life",
+        "name": "Conway's Game of Life",
+        "uuid": "c4b9b208-1284-406d-86d5-eb5c3b0128ae",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 8
+      },
+      {
         "slug": "knapsack",
         "name": "Knapsack",
         "uuid": "2ef39cbc-801b-437e-96ec-71f3439388e4",
