@@ -557,6 +557,14 @@
         "difficulty": 7
       },
       {
+        "slug": "minesweeper",
+        "name": "Minesweeper",
+        "uuid": "5f717115-0688-424d-959f-33f5c83e44cb",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7
+      },
+      {
         "slug": "state-of-tic-tac-toe",
         "name": "State of Tic-Tac-Toe",
         "uuid": "768258f0-5b87-4582-a47c-8b1a836c2219",
