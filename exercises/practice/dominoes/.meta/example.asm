@@ -130,3 +130,7 @@ can_chain:
         xor     rax, rax
         add     rsp, 16                 ; restore stack pointer
         ret
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif
