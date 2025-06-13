@@ -525,6 +525,14 @@
         "difficulty": 6
       },
       {
+        "slug": "intergalactic-transmission",
+        "name": "Intergalactic Transmission",
+        "uuid": "c24ff280-84fe-4d70-a0ef-94748da57d40",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "luhn",
         "name": "Luhn",
         "uuid": "0dd26cf2-d613-4a03-93a3-49d2960d2154",
