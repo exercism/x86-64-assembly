@@ -565,12 +565,21 @@
         "difficulty": 7
       },
       {
+        "slug": "flower-field",
+        "name": "Flower Field",
+        "uuid": "bb250fb5-0d8a-49d2-bcce-6fd107117c16",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7
+      },
+      {
         "slug": "minesweeper",
         "name": "Minesweeper",
         "uuid": "5f717115-0688-424d-959f-33f5c83e44cb",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 7
+        "difficulty": 7,
+        "status": "deprecated"
       },
       {
         "slug": "state-of-tic-tac-toe",
