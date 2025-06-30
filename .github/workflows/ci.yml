@@ -16,7 +16,7 @@ jobs:
         include:
           - os: ubuntu-24.04
             compiler: gcc
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             compiler: clang
           - os: macos-14
             compiler: clang
