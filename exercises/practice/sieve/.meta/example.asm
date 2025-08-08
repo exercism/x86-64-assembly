@@ -61,6 +61,7 @@ remove_composites:
     add rax, rcx
     cmp rax, r8
     jge next_factor
+
     mov byte [r11 + rax - 2], 0
     jmp remove_composites
 
