@@ -19,3 +19,4 @@ def gen_func_body(prop, inp, expected):
         str_list.append(f"TEST_ASSERT_EQUAL_UINT32(ARRAY_SIZE(expected), {prop}(buffer, {limit}));\n")
         str_list.append(f'TEST_ASSERT_EQUAL_UINT32_ARRAY(expected, buffer, ARRAY_SIZE(expected));\n')
     return "".join(str_list)
+"\n"
