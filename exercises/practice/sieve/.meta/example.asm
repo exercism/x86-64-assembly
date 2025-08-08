@@ -25,6 +25,7 @@ primes:
     mov rdi, rsi
     mov rcx, r8
     mov al, 1 
+    cld
     rep stosb
 
     ; loops over the array to get factors
@@ -53,8 +54,7 @@ sieve_end:
     
 store_prime:
     mov rax, rcx
-    mov dword [rdi], eax
-    add rdi, 4
+    stosd
     inc r9
     
 remove_composites:
