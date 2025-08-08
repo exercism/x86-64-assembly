@@ -120,6 +120,14 @@
         ]
       },
       {
+        "slug": "sieve",
+        "name": "Sieve",
+        "uuid": "6cc147ff-65cb-417d-9883-6b7cf910e828",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
+      },
+      {
         "slug": "space-age",
         "name": "Space Age",
         "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
