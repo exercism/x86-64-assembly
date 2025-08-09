@@ -10,7 +10,7 @@ global score
 score:
     ; xmm0 - a double representing x
     ; xmm1 - a double representing y
-    ; output is a uint64_t in rax
+    ; output is a uint8_t in al
 
     mulsd xmm0, xmm0 ; x^2
     mulsd xmm1, xmm1 ; y^2
@@ -30,13 +30,14 @@ score:
     movsd xmm1, qword [inner_radius]
     ucomisd xmm0, xmm1
     ja inside_middle_circle ; if distance is greater than inner circle, it's between inner and mid
-
+    ; otherwise, it's inside inner circle
+    
     ; instructions fall through, accumulating values to give the total for each case
-    add rax, 5
+    add al, 5
 inside_middle_circle:
-    add rax, 4
+    add al, 4
 inside_outer_circle:
-    add rax, 1
+    add al, 1
 outside_target:
     ret
 
