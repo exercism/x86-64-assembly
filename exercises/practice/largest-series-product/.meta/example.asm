@@ -33,7 +33,7 @@ count_input_string:
 end_count:
     cmp r8, r10
     jg insufficient_digits
-    
+
     sub r10, r8
     inc r10 ; num of windows
 
@@ -42,7 +42,7 @@ end_count:
 window_loop:
     inc r8
     cmp r8, r10
-    jge end_window_loop 
+    jge end_window_loop
 
     mov rsi, r9 ; restore input pointer
     add rsi, r8 ; start of window
@@ -57,7 +57,7 @@ accumulate_window:
     mov dl, byte [rsi + rcx]
     sub dl, '0'
     cmp dl, 0
-    je ignore_window ; if value is 0, all windows containing it result in 0 
+    je ignore_window ; if value is 0, all windows containing it result in 0
                      ; they can, therefore, be excluded
 
     imul r11, rdx ; accumulate product
@@ -91,5 +91,3 @@ end_window_loop:
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits
 %endif
-
-

@@ -158,6 +158,6 @@ def main():
         args = ["clang-format", "-i", path]
         subprocess.run(args, check=True)
 
+
 if __name__ == "__main__":
     main()
-

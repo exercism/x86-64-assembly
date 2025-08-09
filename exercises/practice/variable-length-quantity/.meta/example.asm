@@ -9,11 +9,11 @@ encode:
     ; rdx - size of input array as size_t (uint64_t)
     ; return is size of output buffer as a uint64_t in rax
 
-    ; This is the translation to assembly of my solution for JS 
+    ; This is the translation to assembly of my solution for JS
     ;
     ; I mask each integer with max significant byte (all bits set, save the last)
     ; The result is pushed to the stack and the integer is shifted 7 bits to the right
-    ; Then, while the integer is non-zero, this process is repeated 
+    ; Then, while the integer is non-zero, this process is repeated
     ; but setting the last bit on each resulting byte
     ; At the end, the resulting array is moved to the buffer in reverse order (LIFO)
     ; There's a counter for the num of resulting bytes for the integer, so as to set boundaries for this transfer
@@ -38,7 +38,7 @@ encode:
     lodsd ; current integer
 
     mov r9, r10
-    and r9, rax ; byte filled only with significant bits 
+    and r9, rax ; byte filled only with significant bits
 
     dec rsp
     inc r8
@@ -75,7 +75,7 @@ encode:
 
     loop .main_loop ; continues until end of input array
 
-    ; sets rax with the difference between rbp and rsp, 
+    ; sets rax with the difference between rbp and rsp,
     ; which is the total num of bytes added to the buffer
 
     mov rax, rbp
@@ -95,7 +95,7 @@ decode:
     ; This is the translation to assembly of my solution for JS
     ;
     ; I continuosly extract bytes from input array until its end
-    ; While this byte has the last bit set, I remove its last bit (using XOR) 
+    ; While this byte has the last bit set, I remove its last bit (using XOR)
     ; and shift it left 7 bits
     ; before accumulating the result using OR
     ; Once the last bit is not set, the accumulating result is added to output
@@ -116,7 +116,7 @@ decode:
     dec rdx ; extracts a value from input and decrements size counter
 
     xor r9, r9 ; accumulator
-.inner_loop:    
+.inner_loop:
     mov r10, r11
     and r10, rax
 

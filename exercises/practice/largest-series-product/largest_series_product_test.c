@@ -113,4 +113,3 @@ int main(void) {
     RUN_TEST(test_large_span);
     return UNITY_END();
 }
-

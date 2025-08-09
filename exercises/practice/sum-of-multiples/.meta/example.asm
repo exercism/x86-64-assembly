@@ -7,14 +7,14 @@ sum:
     ; return is a uint64_t in rax
 
     mov r8, rdi
-    
+
     ; prologue
     push rbp
     mov rbp, rsp
     sub rsp, r8 ; array of bytes representing each potential multiple
                 ; limit is exclusive
 
-    
+
     lea rdi, [rsp]
     mov rcx, r8
     mov al, 0
@@ -30,9 +30,9 @@ extract_factor:
 
     lodsq
     cmp rax, 0
-    jle extract_factor ; zero has no multiple other than itself and doesn't contribute to the sum. 
+    jle extract_factor ; zero has no multiple other than itself and doesn't contribute to the sum.
                        ; negative numbers are not factors
-                       
+
     mov r9, rax
 fill_multiples:
     cmp r9, r8

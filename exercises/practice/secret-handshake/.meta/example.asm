@@ -3,7 +3,7 @@ default rel
 section .rodata
     wink db "wink, "
     wink_len dq $-wink
-    
+
     double_blink db "double blink, "
     double_blink_len dq $-double_blink
 
@@ -48,7 +48,7 @@ section .text
     mov rcx, qword [rcx] ; dereferences array pointer to get pointer to actual length
     mov rcx, qword [rcx] ; dereferences pointer to get actual length
 
-    rep movsb ; moves the string to buffer    
+    rep movsb ; moves the string to buffer
 
     jmp %%loop
 %%end:
@@ -68,11 +68,11 @@ commands:
     cld
 
     xor r10, r10 ; flag to know if any string was added
-    
+
     bt r8, 4
     jc reversed_string
 
-    add_string -1, inc, 4 
+    add_string -1, inc, 4
     jmp end_commands
 
 reversed_string:
@@ -83,7 +83,7 @@ end_commands:
     cmp r10, 0
     cmovne r10, rax ; if r10 different than 0, moves separator length to r10
 
-    sub rdi, r10 ; r10 is decremented by separator length 
+    sub rdi, r10 ; r10 is decremented by separator length
                  ; or by nothing if no string added
 
     mov byte [rdi], 0 ; appends NULL

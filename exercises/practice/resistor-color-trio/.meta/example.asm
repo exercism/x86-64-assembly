@@ -26,7 +26,7 @@ section .data
     giga_mul dq 1_000_000_000
     mega_mul dq 1_000_000
     kilo_mul dq 1_000
-    
+
 section .text
 global label
 
@@ -41,7 +41,7 @@ global label
     mov rsi, r11 ; current color string
     lodsb ; gets size
     mov rcx, rax ; stores size in rcx for REP
-    add r11, rax 
+    add r11, rax
     add r11, 2 ; r11 points to start of the color, so it must be increment by the string size
                ; plus 1 for the size at the start and plus 1 to get to next color
     rep cmpsb
@@ -118,7 +118,7 @@ global label
     imul rax, r9, 10 ; remainder is multiplied by 10
     mov r11, qword [%1]
     div r11 ; and then divided by the multiple, to get just the digit
-    
+
     add al, '0' ; transforms into a char
     stosb
 %endif
@@ -132,7 +132,7 @@ global label
 %endif
 
 %endmacro
-   
+
 label:
     ; rdi - output char buffer
     ; rsi - input string array
@@ -140,10 +140,10 @@ label:
     ; return is void
 
     ; Part of this solution comes from my solution to resistor color duo
-    ; 
+    ;
 
     ; both rdi and rsi are used by find_color and must be preserved beforehand
-    mov rdx, rdi 
+    mov rdx, rdi
     mov r10, rsi
 
     find_color [r10]
@@ -156,7 +156,7 @@ label:
     ; rax holds third color value
 
     mov rdi, rdx ; restore rdi
-    
+
     imul r10, r8, 10
     add r10, r9 ; r10 holds the accumulated value for the two first colors
 add_zeros:
@@ -202,7 +202,7 @@ end:
     ; adds NULL
     mov al, 0
     stosb
-    ret   
+    ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits

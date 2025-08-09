@@ -5,7 +5,7 @@ SUPERLIST equ 3
 
 section .text
 global sublist
- 
+
 sublist:
     ; rdi - array of int64_t (first list)
     ; rsi - size of first array as uint64_t
@@ -15,13 +15,13 @@ sublist:
 
     xchg rsi, rdx ; for using cmpsq
 
-    cmp rdx, rcx 
+    cmp rdx, rcx
     je .check_equality ; if lengths are the same, lists must be equal or unequal
     jg .check_superlist ; if first list is larger, it must be a superlist or unequal
     ; otherwise, second list is larger and first must be sublist or unequal
 
 .check_sublist:
-    cmp rdx, 0 
+    cmp rdx, 0
     je .sublist ; empty list is sublist of any list
                 ; except of other empty list, which is equal (but this is covered in .check_equality)
 
@@ -105,7 +105,7 @@ sublist:
     ; sizes are equal, there's no need to change rcx for repe
     repe cmpsq
     jne .unequal
-    
+
     mov rax, EQUAL
     ret
 
@@ -116,4 +116,3 @@ sublist:
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits
 %endif
-

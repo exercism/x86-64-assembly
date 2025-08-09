@@ -12,13 +12,13 @@ truncate:
     ; 3 bytes UTF-8 have the first byte with three leading bits on and the fourth off
     ; and 4 bytes UTF-8 have the first byte with four leading bits on and the fifth off
     ;
-    ; In every case where there are more than 1 byte, 
+    ; In every case where there are more than 1 byte,
     ; the non-leading bytes have the leading bit on and the second off
     ;
     ; This is a straightforward implementation which moves all the necessary bytes in the same iteration
     ; after checking for the bits in the leading byte
     ; it'd probably be safer, in case of invalid chars, to process one byte at a time and stop when reaching NULL
-    
+
     mov rcx, 5
 main_loop:
     mov r8b, byte [rsi]
@@ -47,7 +47,7 @@ ASCII:
 end:
     mov al, 0
     stosb ; adds NULL to the end, in case it wasn't added in the loop
-    
+
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64

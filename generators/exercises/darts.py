@@ -4,6 +4,7 @@ FUNC_PROTO = """\
 extern uint8_t score(double x, double y);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     x = inp["x"]

@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern void truncate(char *buffer, const char *phrase);
 """
 
+
 def extra_cases():
     return [
         {
