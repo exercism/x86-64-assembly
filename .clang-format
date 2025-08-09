@@ -1,0 +1,10 @@
+---
+BasedOnStyle: Google
+
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+ColumnLimit: 140
+IndentWidth: 4
+PointerAlignment: Right
+SortIncludes: Never
+...

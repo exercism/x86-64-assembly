@@ -34,6 +34,15 @@ Generate the test cases with the following command:
 ./generators/generate <exercise name>
 ```
 
+## pre-commit
+
+You may choose to install [pre-commit](https://pre-commit.com/) hooks using
+
+```
+pip install pre-commit
+pre-commit install
+```
+
 ## Contributing Guide
 
 Please see the [contributing guide](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md).
