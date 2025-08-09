@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern void to_rna(const char *strand, char *buffer);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     dna = inp["dna"]

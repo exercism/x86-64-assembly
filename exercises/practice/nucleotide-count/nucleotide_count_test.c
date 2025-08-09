@@ -17,7 +17,6 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-
 void test_empty_strand(void) {
     int64_t counts[4];
 

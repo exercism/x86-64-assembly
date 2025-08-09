@@ -7,9 +7,10 @@ extern void encode(char *buffer, const char *phrase, int a, int b);
 extern void decode(char *buffer, const char *phrase, int a, int b);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
-    if expected.__class__ == dict:
+    if isinstance(expected, dict):
         expected = ""
     phrase = inp["phrase"]
     a = inp["key"]["a"]

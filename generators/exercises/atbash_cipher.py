@@ -7,6 +7,7 @@ extern void encode(char *buffer, const char *phrase);
 extern void decode(char *buffer, const char *phrase);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     phrase = inp["phrase"]

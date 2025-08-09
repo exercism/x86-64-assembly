@@ -4,6 +4,7 @@ FUNC_PROTO = """\
 extern int is_paired(const char *str);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     value = inp["value"].replace("\\", "\\\\")

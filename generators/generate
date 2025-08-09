@@ -38,7 +38,7 @@ def flatten_cases(data):
             add_case(cases_by_id, node)
 
     traverse(data)
-    return [cases_by_id[uuid] for uuid in cases_by_id] 
+    return [cases_by_id[uuid] for uuid in cases_by_id]
 
 
 def add_case(cases_by_id, case):
@@ -99,10 +99,16 @@ def main():
     version = data.get("version", 0)
     cases = flatten_cases(data)
     if not args.ignore_toml:
-        test_toml = f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
+        test_toml = (
+            f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
+        )
         with open(test_toml, "rb") as f:
             test_toml = tomllib.load(f)
-        cases = list(filter(lambda case : test_toml.get(case['uuid'],{}).get('include', True), cases))
+        cases = list(
+            filter(
+                lambda case: test_toml.get(case["uuid"], {}).get("include", True), cases
+            )
+        )
     exercise = args.exercise.replace("-", "_")
     mod = importlib.import_module("exercises." + exercise)
     s = gen_test_file(mod, version, cases)

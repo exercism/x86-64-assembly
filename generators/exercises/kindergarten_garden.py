@@ -6,10 +6,11 @@ FUNC_PROTO = """\
 extern void plants(char *buffer, const char *diagram, const char *student);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
-    diagram = inp['diagram'].replace('\n', '\\n')
-    student = inp['student']
+    diagram = inp["diagram"].replace("\n", "\\n")
+    student = inp["student"]
     expected = ", ".join(expected)
     str_list.append("char buffer[BUFFER_SIZE];\n\n")
     str_list.append(f'{prop}(buffer, "{diagram}", "{student}");\n')
