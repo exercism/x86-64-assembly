@@ -24,6 +24,3 @@ def gen_func_body(prop, inp, expected):
             "TEST_ASSERT_EQUAL_UINT32_ARRAY(expected, buffer, ARRAY_SIZE(expected));\n"
         )
     return "".join(str_list)
-
-
-"\n"
