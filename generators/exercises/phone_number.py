@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern void clean(char *buffer, const char *phrase);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     phrase = inp["phrase"]

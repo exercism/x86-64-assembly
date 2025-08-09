@@ -20,13 +20,14 @@ const char *expected[] = {${expected}};
 TEST_ASSERT_EQUAL_STRING_ARRAY(expected, names, size);
 """)
 
+
 def gen_func_body(_, input, expected):
     func_body = TEST_FUNCTION_TEMPLATE.substitute(
-        rna_strand='\"' + input["strand"] + '\"',
-        expected_size=len(expected) if "error" not in expected else 0
+        rna_strand='"' + input["strand"] + '"',
+        expected_size=len(expected) if "error" not in expected else 0,
     )
     if expected and "error" not in expected:
         func_body += EXPECTED_TEST_TEMPALTE.substitute(
-            expected=', '.join(['\"' + x + '\"' for x in expected])
+            expected=", ".join(['"' + x + '"' for x in expected])
         )
     return func_body

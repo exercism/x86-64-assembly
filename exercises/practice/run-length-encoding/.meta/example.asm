@@ -87,7 +87,7 @@ decode:
     mov byte [rdi], r8b                 ; write byte to output buffer
     inc rdi
     dec rax
-    jg .decode_out                      ; repeat rax times 
+    jg .decode_out                      ; repeat rax times
 
     xor rax, rax
 

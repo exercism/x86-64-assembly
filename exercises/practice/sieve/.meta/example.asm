@@ -10,7 +10,7 @@ primes:
     cmp esi, 2
     jl sieve_end ; if limit is less than 2 returns right away
 
-    ; prologue 
+    ; prologue
     ; creates an array of bytes on the stack to represent possible primes
     mov r8d, esi
     inc r8d ; limit is inclusive
@@ -24,7 +24,7 @@ primes:
     mov r10, rdi
     mov rdi, rsi
     mov rcx, r8
-    mov al, 1 
+    mov al, 1
     cld
     rep stosb
 
@@ -51,12 +51,12 @@ next_factor:
 
 sieve_end:
     ret
-    
+
 store_prime:
     mov rax, rcx
     stosd
     inc r9
-    
+
 remove_composites:
     add rax, rcx
     cmp rax, r8

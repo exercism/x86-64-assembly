@@ -9,35 +9,31 @@
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
-extern int append(const int *first_array, const int first_array_size, const int *second_array, const int second_array_size, int *result_array);
+extern int append(const int *first_array, const int first_array_size, const int *second_array, const int second_array_size,
+                  int *result_array);
 extern int filter(const int *array, const int array_size, bool (*filter_predicate)(int), int *result_array);
 extern int map(const int *array, const int array_size, int (*map_transform)(int), int *result_array);
 extern int foldl(const int *array, const int array_size, int initial, int (*fold_accumulate)(int, int));
 extern int foldr(const int *array, const int array_size, int initial, int (*fold_accumulate)(int, int));
 extern int reverse(const int *array, const int array_size, int *result_array);
 
-static bool filter_odd(int x)
-{
+static bool filter_odd(int x) {
     return x % 2 == 1;
 }
 
-static int map_increment(int x)
-{
+static int map_increment(int x) {
     return x + 1;
 }
 
-static int fold_multiply(int acc, int el)
-{
+static int fold_multiply(int acc, int el) {
     return el * acc;
 }
 
-static int fold_add(int acc, int el)
-{
+static int fold_add(int acc, int el) {
     return el + acc;
 }
 
-static int fold_divide(int acc, int el)
-{
+static int fold_divide(int acc, int el) {
     return acc == 0 ? 0 : el / acc;
 }
 

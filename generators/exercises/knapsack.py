@@ -12,6 +12,7 @@ typedef struct {
 extern uint32_t maximumValue(Item *items, uint32_t count, uint32_t maxWeight);
 """
 
+
 def gen_func_body(prop, inp, expected):
     count = len(inp["items"])
     if count == 0:
@@ -23,8 +24,8 @@ def gen_func_body(prop, inp, expected):
             item_list.append(f"    {{{i['value']}, {i['weight']}}}")
 
         text = f"Item items[{count}] = {{\n"
-        text += ',\n'.join(item_list)
-    
+        text += ",\n".join(item_list)
+
         text += "\n};\n"
         text += f"TEST_ASSERT_EQUAL_UINT32({expected}, maximumValue(items, ARRAY_SIZE(items), {inp['maximumWeight']}));\n"
     return text

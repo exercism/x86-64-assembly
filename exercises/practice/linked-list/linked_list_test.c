@@ -29,14 +29,11 @@ extern void list_delete(int data);
 // recommend : clear pointer and values for this run
 extern void list_destroy(void);
 
-
-void setUp(void)
-{
-   list_create();
+void setUp(void) {
+    list_create();
 }
 
-void tearDown(void)
-{
+void tearDown(void) {
     list_destroy();
 }
 

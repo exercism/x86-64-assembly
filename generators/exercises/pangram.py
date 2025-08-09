@@ -4,8 +4,9 @@ FUNC_PROTO = """\
 extern int is_pangram(const char *str);
 """
 
+
 def gen_func_body(prop, inp, expected):
-    sentence = inp["sentence"].replace('"', "\\\"")
+    sentence = inp["sentence"].replace('"', '\\"')
     if expected:
         s = f'TEST_ASSERT_TRUE({prop}("{sentence}"));\n'
     else:

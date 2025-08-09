@@ -29,8 +29,7 @@ void test_one_piece(void) {
         "nail",
         NULL,
     };
-    const char *expected =
-        "And all for the want of a nail.\n";
+    const char *expected = "And all for the want of a nail.\n";
     char buffer[BUFFER_SIZE];
 
     recite(buffer, strings);
@@ -74,14 +73,7 @@ void test_three_pieces(void) {
 void test_full_proverb(void) {
     TEST_IGNORE();
     const char *strings[] = {
-        "nail",
-        "shoe",
-        "horse",
-        "rider",
-        "message",
-        "battle",
-        "kingdom",
-        NULL,
+        "nail", "shoe", "horse", "rider", "message", "battle", "kingdom", NULL,
     };
     const char *expected =
         "For want of a nail the shoe was lost.\n"
@@ -100,11 +92,7 @@ void test_full_proverb(void) {
 void test_four_pieces_modernized(void) {
     TEST_IGNORE();
     const char *strings[] = {
-        "pin",
-        "gun",
-        "soldier",
-        "battle",
-        NULL,
+        "pin", "gun", "soldier", "battle", NULL,
     };
     const char *expected =
         "For want of a pin the gun was lost.\n"
