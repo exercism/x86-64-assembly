@@ -11,6 +11,7 @@ sum:
     ; prologue
     push rbp
     mov rbp, rsp
+    and rsp, 0xFFFFFFFFFFFFFFF0 ; Align stack to 16 bytes
     sub rsp, r8 ; array of bytes representing each potential multiple
                 ; limit is exclusive
 
