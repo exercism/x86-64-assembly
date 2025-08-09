@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# This script updates all exercises with the contents from the `templates` directory.
+# If everything is up-to-date (i.e., the script did not make any changes), it returns with
+# an exit code of 0. Otherwise, a non-zero exit code is returned.
+
+set -eo pipefail
+
+die() { echo "$*" >&2; exit 3; }
+
+hash_dir() {
+    (cd "$1" && find . ! -name "*.o" -type f | sort --unique | xargs cat) | md5sum
+}
+
+if [[ $PWD != $(realpath "$(dirname "$0")/..") ]]; then
+    die "You must be in the track root directory."
+fi
+
+vendor_hash=$(hash_dir templates/vendor)
+
+num_updated=0
+for exercise_dir in exercises/practice/*; do
+    makefile=${exercise_dir}/Makefile
+    if ! cmp -s templates/Makefile "${makefile}"; then
+        echo "Updating ${makefile}"
+        cp templates/Makefile "${makefile}"
+        num_updated=$((num_updated + 1))
+    fi
+
+    current_vendor_hash=$(hash_dir "${exercise_dir}/vendor")
+    if [[ "${current_vendor_hash}" != "${vendor_hash}" ]]; then
+        echo "Updating ${exercise_dir}/vendor"
+        rm -rf "${exercise_dir}/vendor"
+        cp -r templates/vendor "${exercise_dir}"
+        num_updated=$((num_updated + 1))
+    fi
+done
+
+[[ ${num_updated} -eq 0 ]] || exit 1
+
+echo "Everything up-to-date."

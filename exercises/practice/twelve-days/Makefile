@@ -1,6 +1,6 @@
 AS = nasm
 
-CFLAGS = -g -Wall -Wextra -pedantic -Werror
+CFLAGS = -g -Wall -Wextra -pedantic -Werror -std=c2x -Wno-gnu-binary-literal
 LDFLAGS =
 ASFLAGS = -g -F dwarf -Werror
 
