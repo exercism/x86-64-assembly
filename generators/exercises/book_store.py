@@ -7,9 +7,10 @@ FUNC_PROTO = """\
 extern int64_t total(int64_t count, const int16_t *basket);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
-    if (len(inp["basket"]) > 0):
+    if len(inp["basket"]) > 0:
         basket = str(inp["basket"]).replace("[", "{").replace("]", "}")
         str_list.append(f"int16_t basket[] = {basket};\n")
         count = "ARRAY_SIZE(basket)"

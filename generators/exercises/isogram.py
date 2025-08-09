@@ -4,6 +4,7 @@ FUNC_PROTO = """\
 extern int is_isogram(const char *str);
 """
 
+
 def gen_func_body(prop, inp, expected):
     phrase = inp["phrase"]
     if expected:

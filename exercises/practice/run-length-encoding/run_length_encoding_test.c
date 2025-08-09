@@ -64,8 +64,9 @@ void test_encode_long_run(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
-    encode(buffer, "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-        ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+    encode(buffer,
+           "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+           ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
     TEST_ASSERT_EQUAL_STRING("123:", buffer);
 }
 
@@ -137,8 +138,7 @@ void test_consistency_with_punctuation(void) {
     TEST_ASSERT_EQUAL_STRING("\t\t///::::\xB0@@@[[```{{{{", buffer2);
 }
 
-int main(void)
-{
+int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_encode_empty_string);
     RUN_TEST(test_encode_single_characters_only_are_encoded_without_count);

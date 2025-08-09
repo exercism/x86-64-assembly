@@ -44,7 +44,7 @@ done:
 ;   cl - count to next space
 encode:
     cld                                 ; rsi/rdi will be incremented with each lodsb/stosb
-    mov cl, 6                           ; immediately before the 6th byte, we will insert a space 
+    mov cl, 6                           ; immediately before the 6th byte, we will insert a space
     jmp .encode_in
 
 
