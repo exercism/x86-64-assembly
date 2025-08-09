@@ -61,6 +61,14 @@
         ]
       },
       {
+        "slug": "darts",
+        "name": "Darts",
+        "uuid": "98887d08-92b7-4559-8133-4c05453bfe14",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
+      },
+      {
         "slug": "difference-of-squares",
         "name": "Difference of Squares",
         "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
@@ -118,14 +126,6 @@
           "strings",
           "transforming"
         ]
-      },
-      {
-        "slug": "sieve",
-        "name": "Sieve",
-        "uuid": "6cc147ff-65cb-417d-9883-6b7cf910e828",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 5
       },
       {
         "slug": "space-age",
@@ -520,6 +520,14 @@
         "slug": "run-length-encoding",
         "name": "Run-Length Encoding",
         "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
+        "slug": "sieve",
+        "name": "Sieve",
+        "uuid": "6cc147ff-65cb-417d-9883-6b7cf910e828",
         "practices": [],
         "prerequisites": [],
         "difficulty": 5
