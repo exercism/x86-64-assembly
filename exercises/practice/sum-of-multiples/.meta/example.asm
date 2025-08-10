@@ -7,14 +7,14 @@ sum:
     ; return is a uint64_t in rax
 
     mov r8, rdi
-
+    
     ; prologue
     push rbp
     mov rbp, rsp
-    and rsp, 0xFFFFFFFFFFFFFFF0 ; Align stack to 16 bytes
     sub rsp, r8 ; array of bytes representing each potential multiple
                 ; limit is exclusive
 
+    
     lea rdi, [rsp]
     mov rcx, r8
     mov al, 0
@@ -44,14 +44,14 @@ fill_multiples:
 
 end_extraction:
     xor rax, rax ; accumulator
-    mov rcx, r9
+    mov rcx, r8
 accumulate_factors:
     mov r10b, byte [rdi + rcx]
     xor r11, r11
     cmp r10b, 1
     cmove r11, rcx ; conditional move reduces branching and makes the loop a bit more tight
                    ; it also makes using LOOP easier, reducing overall code size
-    add rax, r11 
+    add rax, r11
     loop accumulate_factors
 
 end_sum:
