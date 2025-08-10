@@ -150,15 +150,15 @@ say:
     jmp add_single
 
 add_billion:
-    add_multiple 1_000_000_000, billion, billion_size
+    add_multiple 1_000_000_000, [billion], [billion_size]
     ret
 
 add_million:
-    add_multiple 1_000_000, million, million_size
+    add_multiple 1_000_000, [million], [million_size]
     ret
 
 add_thousand:
-    add_multiple 1_000, thousand, thousand_size
+    add_multiple 1_000, [thousand], [thousand_size]
     ret
 
 add_hundred:
