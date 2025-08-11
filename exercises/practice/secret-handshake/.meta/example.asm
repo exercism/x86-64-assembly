@@ -85,7 +85,7 @@ end_commands:
 
     sub rdi, r10 ; r10 is decremented by separator length 
                  ; or by nothing if no string added
-                 
+
     mov byte [rdi], 0 ; appends NULL
     ret
 
