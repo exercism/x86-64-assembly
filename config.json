@@ -606,6 +606,14 @@
         "status": "deprecated"
       },
       {
+        "slug": "say",
+        "name": "Say",
+        "uuid": "56fbd855-0e23-4380-a5ce-1a6996250497",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7
+      },
+      {
         "slug": "state-of-tic-tac-toe",
         "name": "State of Tic-Tac-Toe",
         "uuid": "768258f0-5b87-4582-a47c-8b1a836c2219",
