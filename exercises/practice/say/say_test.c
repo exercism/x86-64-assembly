@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 #include <stdint.h>
@@ -148,6 +146,27 @@ void test_numbers_above_999999999999_are_out_of_range(void) {
     TEST_ASSERT_EQUAL_STRING("", buffer);
 }
 
+void test_additional_big_number(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    say(buffer, 19011016013);
+    TEST_ASSERT_EQUAL_STRING("nineteen billion eleven million sixteen thousand thirteen", buffer);
+}
+
+void test_different_big_number(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    say(buffer, 812000070017);
+    TEST_ASSERT_EQUAL_STRING("eight hundred twelve billion seventy thousand seventeen", buffer);
+}
+
+void test_alternative_big_number(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    say(buffer, 60010015018);
+    TEST_ASSERT_EQUAL_STRING("sixty billion ten million fifteen thousand eighteen", buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_zero);
@@ -169,5 +188,8 @@ int main(void) {
     RUN_TEST(test_a_big_number);
     RUN_TEST(test_numbers_below_zero_are_out_of_range);
     RUN_TEST(test_numbers_above_999999999999_are_out_of_range);
+    RUN_TEST(test_additional_big_number);
+    RUN_TEST(test_different_big_number);
+    RUN_TEST(test_alternative_big_number);
     return UNITY_END();
 }
