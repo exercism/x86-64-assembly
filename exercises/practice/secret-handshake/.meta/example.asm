@@ -39,11 +39,11 @@ section .text
     mov r11, rdx
     shl r11, 3 ; each pointer is a qword
 
-    lea rsi, qword [codes] ; points to beginning of codes array
+    lea rsi, [codes] ; points to beginning of codes array
     add rsi, r11 ; points to relevant string pointer
     mov rsi, qword [rsi] ; dereferences string pointer, to get actual string
 
-    lea rcx, qword [lens] ; points to beginning of the lens array
+    lea rcx, [lens] ; points to beginning of the lens array
     add rcx, r11 ; points to relevant length
     mov rcx, qword [rcx] ; dereferences array pointer to get pointer to actual length
     mov rcx, qword [rcx] ; dereferences pointer to get actual length
