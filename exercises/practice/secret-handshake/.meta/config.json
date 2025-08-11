@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "secret_handshake.asm"
+    ],
+    "test": [
+      "secret_handshake_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Given a decimal number, convert it to the appropriate sequence of events for a secret handshake.",
+  "source": "Bert, in Mary Poppins",
+  "source_url": "https://www.imdb.com/title/tt0058331/quotes/?item=qt0437047"
+}

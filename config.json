@@ -317,6 +317,14 @@
         "difficulty": 3
       },
       {
+        "slug": "secret-handshake",
+        "name": "Secret Handshake",
+        "uuid": "bdd1677b-3faa-4456-8431-9362a5a2ee6e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "acronym",
         "name": "Acronym",
         "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
