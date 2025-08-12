@@ -4,7 +4,7 @@ section .text
 
 global transform
 transform:
-    ; rdi - buffer output of a struct NewMap formed of a char and a int32_t
+    ; rdi - buffer output of a struct NewMapEntry formed of a char and a int32_t
     ; rsi - input array of a struct LegacyMap, with a key (int32_t), 
     ; a size for its values array (uint8_t) and the corresponding array of chars
     ; rdx - size of input array as a uint64_t
@@ -18,7 +18,7 @@ transform:
     ; Second, both structs hold elements of different sizes so alignment is a factor
     ;
     ; Sizeof LegacyMap is 32. Offsets are 0 (key), 4 (values_size) and 5 (values)
-    ; Sizeof NewMap is 8. Offsets are 0 (key) and 4 (value)
+    ; Sizeof NewMapEntry is 8. Offsets are 0 (key) and 4 (value)
 
     push r12 ; extra register needed
 
@@ -54,12 +54,12 @@ find_current_letter:
     jmp mapping_loop ; letter is not associated to current key
 add_to_output:
     tolower(al)
-    stosb ; saves letter as key in NewMap
+    stosb ; saves letter as key in NewMapEntry
 
-    add rdi, 3 ; padding due to alignment of NewMap
+    add rdi, 3 ; padding due to alignment of NewMapEntry
 
     mov eax, r11d
-    stosd ; saves int32_t as value in NewMap
+    stosd ; saves int32_t as value in NewMapEntry
 
     inc r12 ; increments output array length
 finish_mapping:
