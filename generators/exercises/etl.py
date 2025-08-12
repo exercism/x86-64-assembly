@@ -14,9 +14,9 @@ typedef struct {
 typedef struct {
     char key;
     int32_t value;
-} NewMap;
+} NewMapEntry;
 
-extern size_t transform(NewMap *output, const LegacyMap *input, size_t input_size);
+extern size_t transform(NewMapEntry *output, const LegacyMap *input, size_t input_size);
 """
 
 def gen_func_body(prop, inp, expected):
@@ -30,8 +30,8 @@ def gen_func_body(prop, inp, expected):
         input_str += f'{values}'.replace("[", "{").replace("]", "}") + "},\n"
     input_str += "};\n"
 
-    input_str += "NewMap buffer[ALPHABET_SIZE];\n"
-    input_str += "const NewMap expected[] = {\n"
+    input_str += "NewMapEntry buffer[ALPHABET_SIZE];\n"
+    input_str += "const NewMapEntry expected[] = {\n"
     for key, value in expected.items():
         input_str += "    {" + "'" + f'{key}' "', " + f'{value}' + "},\n"
     input_str += "};\n\n"
@@ -40,7 +40,8 @@ def gen_func_body(prop, inp, expected):
     input_str += "TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), length);\n"
     input_str += "for (size_t i = 0; i < length; ++i) {\n"
     input_str += "    TEST_ASSERT_EQUAL_UINT8(expected[i].key, buffer[i].key);\n"
-    input_str += "    TEST_ASSERT_EQUAL_INT32(expected[i].value, buffer[i].value);\n}\n"
+    input_str += "    TEST_ASSERT_EQUAL_INT32(expected[i].value, buffer[i].value);\n"
+    input_str += "}\n"
         
     return input_str
 

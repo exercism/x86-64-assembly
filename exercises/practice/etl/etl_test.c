@@ -15,9 +15,9 @@ typedef struct {
 typedef struct {
     char key;
     int32_t value;
-} NewMap;
+} NewMapEntry;
 
-extern size_t transform(NewMap *output, const LegacyMap *input, size_t input_size);
+extern size_t transform(NewMapEntry *output, const LegacyMap *input, size_t input_size);
 
 void setUp(void) {
 }
@@ -29,8 +29,8 @@ void test_single_letter(void) {
     const LegacyMap input[] = {
         {1, 1, {'A'}},
     };
-    NewMap buffer[ALPHABET_SIZE];
-    const NewMap expected[] = {
+    NewMapEntry buffer[ALPHABET_SIZE];
+    const NewMapEntry expected[] = {
         {'a', 1},
     };
 
@@ -48,8 +48,8 @@ void test_single_score_with_multiple_letters(void) {
     const LegacyMap input[] = {
         {1, 5, {'A', 'E', 'I', 'O', 'U'}},
     };
-    NewMap buffer[ALPHABET_SIZE];
-    const NewMap expected[] = {
+    NewMapEntry buffer[ALPHABET_SIZE];
+    const NewMapEntry expected[] = {
         {'a', 1},
         {'e', 1},
         {'i', 1},
@@ -72,8 +72,8 @@ void test_multiple_scores_with_multiple_letters(void) {
         {1, 2, {'A', 'E'}},
         {2, 2, {'D', 'G'}},
     };
-    NewMap buffer[ALPHABET_SIZE];
-    const NewMap expected[] = {
+    NewMapEntry buffer[ALPHABET_SIZE];
+    const NewMapEntry expected[] = {
         {'a', 1},
         {'d', 2},
         {'e', 1},
@@ -100,8 +100,8 @@ void test_multiple_scores_with_differing_numbers_of_letters(void) {
         {8, 2, {'J', 'X'}},
         {10, 2, {'Q', 'Z'}},
     };
-    NewMap buffer[ALPHABET_SIZE];
-    const NewMap expected[] = {
+    NewMapEntry buffer[ALPHABET_SIZE];
+    const NewMapEntry expected[] = {
         {'a', 1},
         {'b', 3},
         {'c', 3},
