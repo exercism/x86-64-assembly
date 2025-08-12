@@ -263,6 +263,14 @@
         "difficulty": 3
       },
       {
+        "slug": "etl",
+        "name": "ETL",
+        "uuid": "c397e4b3-d1cf-40a3-9829-c2268a875e40",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "isogram",
         "name": "Isogram",
         "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
