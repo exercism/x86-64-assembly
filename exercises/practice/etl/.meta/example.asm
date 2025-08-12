@@ -22,7 +22,9 @@ transform:
 
     push r12 ; extra register needed
 
+    cld
     xor rcx, rcx
+
     mov r10, rsi ; saves pointer to input array
     mov r8b, 'A' ; current letter
     xor r12, r12 ; counter of elements in output array
