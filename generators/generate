@@ -4,10 +4,16 @@ import argparse
 import importlib
 import json
 import re
+import subprocess
 import sys
 import textwrap
-import urllib.request
-import tomllib
+
+# tomllib is available in the standard library as of Python 3.11
+# When using an older release, we use the compatible tomli
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
 
 def camel_to_snake(s):
@@ -20,10 +26,18 @@ def desc_to_funcname(desc):
     return re.sub("[^a-z0-9_]", "", s)
 
 
-def download_canonical_data(exercise):
-    url = f"https://raw.githubusercontent.com/exercism/problem-specifications/master/exercises/{exercise}/canonical-data.json"
-    with urllib.request.urlopen(url) as f:
-        return json.loads(f.read().decode())
+def read_canonical_data(exercise):
+    prefix = "Using cached 'problem-specifications' dir: "
+    args = ["bin/configlet", "info", "-o", "-v", "d"]
+    info = subprocess.run(
+        args, capture_output=True, check=True, text=True
+    ).stdout.split("\n")
+    cache_dir = [line[len(prefix) :] for line in info if line.startswith(prefix)]
+    if len(cache_dir) != 1:
+        raise Exception("Could not determine 'problem-specifications' dir")
+    path = f"{cache_dir[0]}/exercises/{exercise}/canonical-data.json"
+    with open(path, "r") as f:
+        return json.loads(f.read())
 
 
 def flatten_cases(data):
@@ -38,7 +52,7 @@ def flatten_cases(data):
             add_case(cases_by_id, node)
 
     traverse(data)
-    return [cases_by_id[uuid] for uuid in cases_by_id] 
+    return [cases_by_id[uuid] for uuid in cases_by_id]
 
 
 def add_case(cases_by_id, case):
@@ -48,11 +62,19 @@ def add_case(cases_by_id, case):
         cases_by_id[case["uuid"]] = case
 
 
-def gen_main(cases):
+def gen_funcname(mod, case):
+    if hasattr(mod, "describe"):
+        description = mod.describe(case)
+    else:
+        description = case["description"]
+    return desc_to_funcname(description)
+
+
+def gen_main(mod, cases):
     str_list = []
     str_list.append("int main(void) {\n    UNITY_BEGIN();\n")
     for case in cases:
-        funcname = desc_to_funcname(case["description"])
+        funcname = gen_funcname(mod, case)
         str_list.append(f"    RUN_TEST({funcname});\n")
     str_list.append("    return UNITY_END();\n}\n")
     return "".join(str_list)
@@ -60,7 +82,7 @@ def gen_main(cases):
 
 def gen_test_case(mod, case, test_ignore):
     str_list = []
-    funcname = desc_to_funcname(case["description"])
+    funcname = gen_funcname(mod, case)
     str_list.append(f"void {funcname}(void) {{\n")
     if test_ignore:
         str_list.append("    TEST_IGNORE();\n")
@@ -80,32 +102,55 @@ def gen_test_cases(mod, cases):
     return "".join(str_list)
 
 
-def gen_test_file(mod, version, cases):
+def gen_test_file(mod, cases):
     str_list = []
-    str_list.append(f"// Version: {version}\n\n")
     str_list.append(mod.FUNC_PROTO)
     str_list.append("\nvoid setUp(void) {\n}\n\nvoid tearDown(void) {\n}\n\n")
     str_list.append(gen_test_cases(mod, cases))
-    str_list.append(gen_main(cases))
+    str_list.append(gen_main(mod, cases))
     return "".join(str_list)
+
+
+def filter_unicode(cases):
+    return [
+        case
+        for case in cases
+        if "scenarios" not in case or "unicode" not in case["scenarios"]
+    ]
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("exercise")
     parser.add_argument("-i", "--ignore-toml", action="store_true")
+    parser.add_argument(
+        "-f",
+        "--format",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="format test file with clang-format",
+    )
     args = parser.parse_args()
-    data = download_canonical_data(args.exercise)
-    version = data.get("version", 0)
+    data = read_canonical_data(args.exercise)
     cases = flatten_cases(data)
+    cases = filter_unicode(cases)
     if not args.ignore_toml:
-        test_toml = f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
+        test_toml = (
+            f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
+        )
         with open(test_toml, "rb") as f:
             test_toml = tomllib.load(f)
-        cases = list(filter(lambda case : test_toml.get(case['uuid'],{}).get('include', True), cases))
+        cases = list(
+            filter(
+                lambda case: test_toml.get(case["uuid"], {}).get("include", True), cases
+            )
+        )
     exercise = args.exercise.replace("-", "_")
     mod = importlib.import_module("exercises." + exercise)
-    s = gen_test_file(mod, version, cases)
+    if hasattr(mod, "extra_cases"):
+        cases = cases[:]
+        cases.extend(mod.extra_cases())
+    s = gen_test_file(mod, cases)
     path = f"{sys.path[0]}/../exercises/practice/{args.exercise}/{exercise}_test.c"
     with open(path, "w") as f:
         f.write(s)
@@ -113,3 +158,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
