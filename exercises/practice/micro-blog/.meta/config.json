@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "micro_blog.asm"
+    ],
+    "test": [
+      "micro_blog_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Given an input string, truncate it to 5 characters."
+}
