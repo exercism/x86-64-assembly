@@ -8,19 +8,51 @@ triplets_with_sum:
     ; output arrays should be modified in place and have the same side
     ; said size should be returned as a uint64_t in rax
 
+    ; The algorithm is
+    ; There are two nested loops
+    ;
+    ; On the outer loop, start from sum - 2, which is the maximum value for c
+    ; if c is smaller than 1/3 of sum, end loop
+    ; because for a c below this minimum, as a <= b <= c, then either a or b would surely be greater than c
+    ;
+    ; calculate the diff between the sum and current c, which is a + b
+    ; then calculate half diff, which is the maximum value for a
+    ; because otherwise b would be smaller than a and the triplet would already be counted
+    ;
+    ; On the inner loop, start from 1, which is the minimum value for a
+    ; if a is larger than previously calculated hald diff, end loop
+    ;
+    ; otherwise, b is diff - a
+    ; check if a² + b² == c²
+    ; if it is, add to arrays and increment counter
+
+    push rbx
     push r12
     push r13
     push r14
     push r15
 
+    mov r12, rdx
+    xor rdx, rdx
+    mov rax, rdi
+    mov rbx, 3
+
+    div rbx    ; min value for c is 1/3 of sum
+               ; if c is smaller than this
+               ; the minimum of the largest between a and b
+               ; is greater than c
+
+    mov rbx, rax
     xor rax, rax ; size of triplet arrays
+
+    mov rdx, r12
     mov r11, rdi
     dec r11
 main_loop:
     dec r11 ; current c
 
-    cmp r11, 1
-    jl end_loop
+    cmp r11, rbx
+    jl end_loop ; smaller than this, then either a or b is greater than c
 
     mov r8, rdi
     sub r8, r11 ; diff between sum and c
@@ -72,6 +104,7 @@ end_loop:
     pop r14
     pop r13
     pop r12
+    pop rbx
 
     ret
 
