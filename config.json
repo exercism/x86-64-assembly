@@ -283,6 +283,14 @@
         ]
       },
       {
+        "slug": "micro-blog",
+        "name": "Micro Blog",
+        "uuid": "8211f366-ff44-40cf-989b-53a427505353",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "nucleotide-count",
         "name": "Nucleotide Count",
         "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
