@@ -5,7 +5,7 @@ triplets_with_sum:
     ; rsi - output array of uint64_t for side a
     ; rdx - output array of uint64_t for side b
     ; rcx - output array of uint64_t for side c
-    ; output arrays should be modified in place and have the same side
+    ; output arrays should be modified in place and have the same size
     ; said size should be returned as a uint64_t in rax
 
     ; The algorithm is
