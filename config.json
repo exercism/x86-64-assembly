@@ -605,6 +605,14 @@
         "difficulty": 6
       },
       {
+        "slug": "pythagorean-triplet",
+        "name": "Pythagorean Triplet",
+        "uuid": "d44ac8b3-4f0a-41ab-a830-79b2161fa157",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "affine-cipher",
         "name": "Affine Cipher",
         "uuid": "08480307-7d42-49ed-b6b7-2080bba8894e",
