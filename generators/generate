@@ -154,8 +154,9 @@ def main():
     path = f"{sys.path[0]}/../exercises/practice/{args.exercise}/{exercise}_test.c"
     with open(path, "w") as f:
         f.write(s)
-
+    if args.format:
+        args = ["clang-format", "-i", path]
+        subprocess.run(args, check=True)
 
 if __name__ == "__main__":
     main()
-    
