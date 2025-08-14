@@ -341,6 +341,14 @@
         "difficulty": 3
       },
       {
+        "slug": "sublist",
+        "name": "Sublist",
+        "uuid": "9876f5db-d23c-49c0-bf99-c24f4efe5622",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "acronym",
         "name": "Acronym",
         "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",

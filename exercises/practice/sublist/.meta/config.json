@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "sublist.asm"
+    ],
+    "test": [
+      "sublist_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Write a function to determine if a list is a sublist of another list."
+}
