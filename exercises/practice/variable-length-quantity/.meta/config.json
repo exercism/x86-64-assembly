@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "variable_length_quantity.asm"
+    ],
+    "test": [
+      "variable_length_quantity_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Implement variable length quantity encoding and decoding.",
+  "source": "A poor Splice developer having to implement MIDI encoding/decoding.",
+  "source_url": "https://splice.com"
+}
