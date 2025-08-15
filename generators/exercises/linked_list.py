@@ -30,14 +30,15 @@ extern void list_destroy(void);
 
 """
 
+
 def gen_func_body(prop, inp, expected):
     body = ""
     for op in inp.get("operations", []):
         if "expected" in op:
-            body += f'TEST_ASSERT_EQUAL({op["expected"]}, list_{op["operation"]}());\n'
+            body += f"TEST_ASSERT_EQUAL({op['expected']}, list_{op['operation']}());\n"
         else:
             if "value" in op:
-                body += f'list_{op["operation"]}({op["value"]});\n'
+                body += f"list_{op['operation']}({op['value']});\n"
             else:
-                body += f'list_{op["operation"]}();\n'
+                body += f"list_{op['operation']}();\n"
     return body

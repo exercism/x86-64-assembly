@@ -20,7 +20,7 @@ maximumValue:
     mov r11, rdx
     sub r11d, r10d
     js .skip_item
-   
+
     ; Next step is to find what value in can get with the item
     dec esi
     add rdi, 8
@@ -34,7 +34,7 @@ maximumValue:
 
     ; What value can we get if item was included?
     call maximumValue
-    
+
     pop rdi
     pop rsi
     pop rdx
@@ -51,7 +51,7 @@ maximumValue:
 
     pop r11
 
-    ; Which value is higher?    
+    ; Which value is higher?
     cmp rax, r11
     jge .return
 
@@ -71,4 +71,3 @@ maximumValue:
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits
 %endif
-

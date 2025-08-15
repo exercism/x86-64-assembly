@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern int find(int *array, int size, int value);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     array = str(inp["array"]).replace("[", "{").replace("]", "}")
@@ -14,7 +15,11 @@ def gen_func_body(prop, inp, expected):
         expected = -1
     if inp["array"]:
         str_list.append(f"int array[] = {array};\n\n")
-        str_list.append(f"TEST_ASSERT_EQUAL_INT({expected}, {prop}(array, ARRAY_SIZE(array), {value}));\n")
+        str_list.append(
+            f"TEST_ASSERT_EQUAL_INT({expected}, {prop}(array, ARRAY_SIZE(array), {value}));\n"
+        )
     else:
-        str_list.append(f"TEST_ASSERT_EQUAL_INT({expected}, {prop}(NULL, 0, {value}));\n")
+        str_list.append(
+            f"TEST_ASSERT_EQUAL_INT({expected}, {prop}(NULL, 0, {value}));\n"
+        )
     return "".join(str_list)

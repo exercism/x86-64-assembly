@@ -26,7 +26,7 @@ void test_two_of_the_same_book(void) {
 
 void test_empty_basket(void) {
     TEST_IGNORE();
-    const int16_t* basket = NULL;
+    const int16_t *basket = NULL;
     TEST_ASSERT_EQUAL_INT(0, total(0, basket));
 }
 

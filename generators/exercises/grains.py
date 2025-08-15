@@ -5,6 +5,7 @@ extern uint64_t square(int64_t number);
 extern uint64_t total(void);
 """
 
+
 def gen_func_body(prop, inp, expected):
     if type(expected) is not int:
         expected = 0

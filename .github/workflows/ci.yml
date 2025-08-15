@@ -37,7 +37,7 @@ jobs:
           curl -O https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/macosx/nasm-${NASM_VERSION}-macosx.zip
           unzip nasm-${NASM_VERSION}-macosx.zip
           echo $(pwd)/nasm-${NASM_VERSION} >> $GITHUB_PATH
- 
+
       - name: Run exercism/x86-64-assembly ci (runs tests) for all exercises
         env:
           CC: ${{ matrix.compiler }}

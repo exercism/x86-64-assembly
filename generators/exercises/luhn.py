@@ -4,6 +4,7 @@ FUNC_PROTO = """\
 extern int valid(const char *str);
 """
 
+
 def gen_func_body(prop, inp, expected):
     value = inp["value"]
     if expected:
