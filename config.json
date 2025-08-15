@@ -544,6 +544,14 @@
         ]
       },
       {
+        "slug": "nth-prime",
+        "name": "Nth Prime",
+        "uuid": "68fe9b99-a203-42f8-bb2c-758689cbfccd",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "perfect-numbers",
         "name": "Perfect Numbers",
         "uuid": "9f3e26d6-a2c0-42fe-84b4-3c60e805471a",
