@@ -54,7 +54,7 @@ global label
 
 %macro suffix 1
     lea rsi, [%1]
-    mov rcx, 4 all suffixes strings have 4 of size
+    mov rcx, 4 ; all suffixes strings have 4 of size
     rep movsb
 %endmacro
 
