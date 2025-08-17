@@ -325,6 +325,14 @@
         ]
       },
       {
+        "slug": "resistor-color-trio",
+        "name": "Resistor Color Trio",
+        "uuid": "bfabb02a-74ef-4fe1-8a2c-70f7556ebb15",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "scrabble-score",
         "name": "Scrabble Score",
         "uuid": "1ddc9312-b16f-41fe-91c2-a1181d32fb15",
