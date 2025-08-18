@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern void two_fer(const char *name, char *buffer);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     name = inp["name"]

@@ -1,16 +1,16 @@
 // Version: 0
 
-#include <string.h> 
+#include <string.h>
 
 #include "vendor/unity.h"
 
 #define BUFFER_SIZE 0x100
 char out[BUFFER_SIZE];
 
-extern void abbreviate(const char* in, char* out);
+extern void abbreviate(const char *in, char *out);
 
 void tearDown(void) {
-    memset(out, 0, BUFFER_SIZE*sizeof(char)); 
+    memset(out, 0, BUFFER_SIZE * sizeof(char));
 }
 
 void setUp(void) {

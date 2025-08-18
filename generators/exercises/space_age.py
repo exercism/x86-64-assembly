@@ -15,6 +15,7 @@ enum planet {
 extern float age(enum planet planet, int seconds);
 """
 
+
 def gen_func_body(prop, inp, expected):
     planet = inp["planet"].upper()
     seconds = inp["seconds"]

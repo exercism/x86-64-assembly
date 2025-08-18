@@ -14,8 +14,7 @@ void test_first_day_a_partridge_in_a_pear_tree(void) {
     char buffer[BUFFER_SIZE];
 
     recite(buffer, 1, 1);
-    const char expected[] =
-        "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n";
+    const char expected[] = "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -24,8 +23,7 @@ void test_second_day_two_turtle_doves(void) {
     char buffer[BUFFER_SIZE];
 
     recite(buffer, 2, 2);
-    const char expected[] =
-        "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n";
+    const char expected[] = "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -45,7 +43,8 @@ void test_fourth_day_four_calling_birds(void) {
 
     recite(buffer, 4, 4);
     const char expected[] =
-        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge "
+        "in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -55,7 +54,8 @@ void test_fifth_day_five_gold_rings(void) {
 
     recite(buffer, 5, 5);
     const char expected[] =
-        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, "
+        "and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -65,7 +65,8 @@ void test_sixth_day_six_geesealaying(void) {
 
     recite(buffer, 6, 6);
     const char expected[] =
-        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French "
+        "Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -75,7 +76,8 @@ void test_seventh_day_seven_swansaswimming(void) {
 
     recite(buffer, 7, 7);
     const char expected[] =
-        "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four "
+        "Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -85,7 +87,8 @@ void test_eighth_day_eight_maidsamilking(void) {
 
     recite(buffer, 8, 8);
     const char expected[] =
-        "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five "
+        "Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -95,7 +98,8 @@ void test_ninth_day_nine_ladies_dancing(void) {
 
     recite(buffer, 9, 9);
     const char expected[] =
-        "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six "
+        "Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -105,7 +109,9 @@ void test_tenth_day_ten_lordsaleaping(void) {
 
     recite(buffer, 10, 10);
     const char expected[] =
-        "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven "
+        "Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge "
+        "in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -115,7 +121,9 @@ void test_eleventh_day_eleven_pipers_piping(void) {
 
     recite(buffer, 11, 11);
     const char expected[] =
-        "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight "
+        "Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle "
+        "Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -125,7 +133,9 @@ void test_twelfth_day_twelve_drummers_drumming(void) {
 
     recite(buffer, 12, 12);
     const char expected[] =
-        "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, "
+        "nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, "
+        "three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -147,9 +157,12 @@ void test_recites_three_verses_from_the_middle_of_the_song(void) {
 
     recite(buffer, 4, 6);
     const char expected[] =
-        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge "
+        "in a Pear Tree.\n"
+        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, "
+        "and a Partridge in a Pear Tree.\n"
+        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French "
+        "Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
@@ -162,15 +175,27 @@ void test_recites_the_whole_song(void) {
         "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n"
         "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n"
         "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-        "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
+        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge "
+        "in a Pear Tree.\n"
+        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, "
+        "and a Partridge in a Pear Tree.\n"
+        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French "
+        "Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
+        "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four "
+        "Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
+        "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five "
+        "Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
+        "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six "
+        "Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
+        "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven "
+        "Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge "
+        "in a Pear Tree.\n"
+        "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight "
+        "Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle "
+        "Doves, and a Partridge in a Pear Tree.\n"
+        "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, "
+        "nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, "
+        "three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n";
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 

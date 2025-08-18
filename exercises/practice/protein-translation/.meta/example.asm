@@ -39,7 +39,7 @@ proteins:                 ;;extern const char **proteins(const char *rna);
    cmp al, 7              ; STOP codon
    je .terminate
    lea rbx, [rel protein_list]
-   mov rbx, [rbx + 8*rax] 
+   mov rbx, [rbx + 8*rax]
    mov qword [rdx], rbx
    add rdx, 8
    jmp .next_codon
@@ -66,9 +66,8 @@ find_codon:               ; in: rbx ; out: rsi, rdi ; uses: rcx
    ret                    ; rsi points to the codon nr, rdi points to the next codon
 .invalid_codon:
    xor esi, esi
-   ret 
+   ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits
 %endif
-

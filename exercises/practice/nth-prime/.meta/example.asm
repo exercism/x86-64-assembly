@@ -29,7 +29,7 @@ prime:
     ; prologue
     push rbp
     mov rbp, rsp
-    sub rsp, 8 
+    sub rsp, 8
     mov qword [rsp], 2 ; stack array starts with one element: 2
 
     mov r8, 1 ; counter for size of array
@@ -43,7 +43,7 @@ get_factor:
     mov rcx, r8 ; for using LOOP
 check_prime:
     mov r10, qword [rsp + 8*rcx - 8] ; iteratively gets all previous primes
-    
+
     mov rax, r9 ; for dividing
     xor rdx, rdx ; for dividing
     div r10

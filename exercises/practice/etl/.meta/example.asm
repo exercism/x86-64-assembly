@@ -5,7 +5,7 @@ section .text
 global transform
 transform:
     ; rdi - buffer output of a struct NewMapEntry formed of a char and a int32_t
-    ; rsi - input array of a struct LegacyMap, with a key (int32_t), 
+    ; rsi - input array of a struct LegacyMap, with a key (int32_t),
     ; a size for its values array (uint8_t) and the corresponding array of chars
     ; rdx - size of input array as a uint64_t
     ; return is size of the output buffer as a uint64_t in rax
@@ -40,7 +40,7 @@ mapping_loop:
     add rsi, r11
 
     lodsd ; loads key
-    mov r11d, eax ; saves key  
+    mov r11d, eax ; saves key
 
     lodsb ; loads values_size
     mov cl, al

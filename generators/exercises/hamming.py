@@ -4,6 +4,7 @@ FUNC_PROTO = """\
 extern int distance(const char *strand1, const char *strand2);
 """
 
+
 def gen_func_body(prop, inp, expected):
     strand1 = inp["strand1"]
     strand2 = inp["strand2"]

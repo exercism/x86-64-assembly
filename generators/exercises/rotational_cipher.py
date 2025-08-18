@@ -6,6 +6,7 @@ FUNC_PROTO = """\
 extern void rotate(const char *text, int shift_key, char *buffer);
 """
 
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     text = inp["text"]

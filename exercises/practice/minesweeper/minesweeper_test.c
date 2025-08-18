@@ -15,10 +15,8 @@ void tearDown(void) {
 }
 
 void test_no_rows(void) {
-    const char *minefield =
-        "";
-    const char *expected =
-        "";
+    const char *minefield = "";
+    const char *expected = "";
     char buffer[BUFFER_SIZE];
 
     annotate(buffer, minefield);
@@ -27,10 +25,8 @@ void test_no_rows(void) {
 
 void test_no_columns(void) {
     TEST_IGNORE();
-    const char *minefield =
-        "\n";
-    const char *expected =
-        "\n";
+    const char *minefield = "\n";
+    const char *expected = "\n";
     char buffer[BUFFER_SIZE];
 
     annotate(buffer, minefield);
@@ -103,10 +99,8 @@ void test_space_surrounded_by_mines(void) {
 
 void test_horizontal_line(void) {
     TEST_IGNORE();
-    const char *minefield =
-        " * * \n";
-    const char *expected =
-        "1*2*1\n";
+    const char *minefield = " * * \n";
+    const char *expected = "1*2*1\n";
     char buffer[BUFFER_SIZE];
 
     annotate(buffer, minefield);
@@ -115,10 +109,8 @@ void test_horizontal_line(void) {
 
 void test_horizontal_line_mines_at_edges(void) {
     TEST_IGNORE();
-    const char *minefield =
-        "*   *\n";
-    const char *expected =
-        "*1 1*\n";
+    const char *minefield = "*   *\n";
+    const char *expected = "*1 1*\n";
     char buffer[BUFFER_SIZE];
 
     annotate(buffer, minefield);

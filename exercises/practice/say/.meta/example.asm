@@ -3,8 +3,8 @@ default rel
 section .rodata
     zero db "zero", 0
     zero_size dq $-zero
-    
-    singles db "one", 0, "two", 0, "three", 0, 
+
+    singles db "one", 0, "two", 0, "three", 0,
             db "four", 0, "five", 0, "six", 0, "seven", 0,
             db "eight", 0, "nine", 0
     teens db "ten", 0, "eleven", 0, "twelve", 0, "thirteen", 0
@@ -12,7 +12,7 @@ section .rodata
           db "seventeen", 0, "eighteen", 0, "nineteen", 0
     tens db  "twenty", 0, "thirty", 0, "forty", 0, "fifty", 0,
          db  "sixty", 0, "seventy", 0, "eighty", 0, "ninety", 0
-    
+
     billion db "billion", 0
     billion_size dq $-billion
 
@@ -37,7 +37,7 @@ section .text
 %endmacro
 
 %macro add_number 0
-%%get_value: 
+%%get_value:
     cmp r10, 0
     je %%move_value ; number corresponds to current rdi position
     dec r10 ; will be decremented until position in rdi corresponds to the number
@@ -130,22 +130,22 @@ say:
 
     cmp r10, 100
     jge add_hundred
-    
+
     mov rax, r10
     xor rdx, rdx
     mov r8, 10
     div r8
-    
+
     lea rsi, [tens]
     mov r10, rax ; multiple of ten
     sub r10, 2 ; tens array start at twenty, which is quotient 2
     add_number
-    
+
     cmp rdx, 0 ; as there was no recursion, didn't need to push/pop rdx
     je end_say
 
     add_separator '-'
-    
+
     mov r10, rdx
     jmp add_single
 

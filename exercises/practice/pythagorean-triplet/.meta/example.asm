@@ -61,7 +61,7 @@ main_loop:
     shr r12, 1 ; max value for a
                ; if a is greater than half the difference
                ; then b is smaller than a and repeating triplets appear
-    
+
     xor r9, r9
 second_loop:
     inc r9 ; current a

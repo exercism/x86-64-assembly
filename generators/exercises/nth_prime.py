@@ -32,4 +32,3 @@ def gen_func_body(prop, inp, expected):
         return f"TEST_ASSERT_EQUAL_INT64(INVALID_NUMBER, {prop}({number}));\n"
     else:
         return f"TEST_ASSERT_EQUAL_INT64({expected}, {prop}({number}));\n"
-

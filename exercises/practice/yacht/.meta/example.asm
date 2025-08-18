@@ -21,11 +21,11 @@ global score
     add r9d, 5 ; last die
 %%check_straight:
     inc r8
-    cmp byte [rsp + r8 - 1], 1 
+    cmp byte [rsp + r8 - 1], 1
     jne end ; each die in the sequence must have frequency 1, otherwise it's invalid
     cmp r8, r9
     jl %%check_straight
-    
+
     mov rax, 30
     jmp end
 %endmacro
@@ -129,7 +129,7 @@ four_of_a_kind_loop:
 
     shl r10, 2 ; multiply number by 4
     add rax, r10
-    
+
     jmp end
 
 yacht:
@@ -146,7 +146,7 @@ end:
     mov rsp, rbp
     pop rbp
     ret
-   
+
 choice:
     ; the simplest category, it is valid for everything and just sums everything
     mov r8w, word [rsi + 2*rcx - 2]
@@ -163,7 +163,7 @@ numbers:
     add rax, r8
     loop numbers
 
-    ret 
+    ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits

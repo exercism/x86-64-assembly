@@ -58,7 +58,7 @@ add_slices:
 
     mov rsi, r8
     inc r8
-    
+
     mov rdi, r9
     add r9, SLICE_SIZE
 

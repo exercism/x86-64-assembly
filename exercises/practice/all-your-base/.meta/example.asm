@@ -82,7 +82,7 @@ rebase:
     mov r11d, dword [r9]
 
     mov dword [r9], r10d
-    mov dword [rcx], r11d 
+    mov dword [rcx], r11d
 
     add rcx, 4
     sub r9, 4
