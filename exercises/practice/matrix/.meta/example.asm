@@ -7,17 +7,17 @@ global column
 
     mov eax, r10d ; eax now holds number
 
+    xor rdx, rdx
+    mov r10d, 10
+    div r10d ; divide by 10 to account for an extra multiplication in accumulating loop
+
     cmp r9b, 1
-    jne %%divide_num ; if sign flag is not set, proceed with normalization
-    ; otherwise negate num before normalization
+    jne %%store_num ; if sign flag is not set, proceed with storing it
+    ; otherwise negate num before storing it
 
     neg eax
 
-%%divide_num:
-    xor rdx, rdx
-    mov r9d, 10
-    div r9d ; divide by 10 to account for an extra multiplication in accumulating loop
-
+%%store_num:
     stosd ; store number in buffer
 %endmacro
 
@@ -62,12 +62,14 @@ row:
     jmp .row_main_loop
 
 .row_copy:
+    xor r9, r9
     xor r10, r10 ; accumulator for the number
     xor rax, rax
 .check_sign:
     lodsb
     cmp al, '-'
     sete r9b ; sign flag
+    je .prepare_next_iteration
 .row_copy_loop:
     cmp al, 10
     je .end_copy ; newline marks end of the row
@@ -84,7 +86,8 @@ row:
     add r10, rax ; accumulates
     imul r10, r10, 10 ; multiplies by 10 to accumulate in next iteration
                       ; accumulator must be adjusted for an extra multiplication at the end
-    
+
+.prepare_next_iteration:
     lodsb
     jmp .row_copy_loop
 
@@ -95,7 +98,7 @@ row:
 .end_copy:
     store_num ; macro
     mov rax, r8 ; moves counter to rax for returning
-    
+
 	ret
 
 ; size_t column(int32_t *buffer, const char *input, size_t index);
@@ -127,7 +130,7 @@ column:
     ; in search of the next desired element.
 
     xor r8, r8 ; counter
-    mov r11, rdx 
+    mov r11, rdx
 .column_main_loop:
     cmp rdx, 1 ; matrix is 1-indexed
     je .elem_copy ; found desired column
@@ -139,7 +142,7 @@ column:
     je .return ; NULL marks end of input and function returns right away
 
     cmp al, ' ' ; num separator
-    jne .find_next_elem 
+    jne .find_next_elem
 
     dec rdx ; decreases counter until desired column
     jmp .column_main_loop
@@ -151,6 +154,7 @@ column:
     lodsb
     cmp al, '-'
     sete r9b ; sign flag
+    je .prepare_next_iteration
 .elem_copy_loop:
     cmp al, 10
     je .end_num ; newline marks end of the number
@@ -166,8 +170,9 @@ column:
     add r10, rax ; accumulates
     imul r10, r10, 10 ; multiplies by 10 to accumulate in next iteration
                       ; accumulator must be adjusted for an extra multiplication at the end
-    
-    lodsb    
+
+.prepare_next_iteration:
+    lodsb
     jmp .elem_copy_loop
 
 .end_num:
@@ -186,7 +191,7 @@ column:
 
 .return:
     mov rax, r8 ; moves counter to rax for returning
-    
+
 	ret
 
 %ifidn __OUTPUT_FORMAT__,elf64

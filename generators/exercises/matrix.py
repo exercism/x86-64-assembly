@@ -12,6 +12,23 @@ extern size_t column(int32_t *buffer, const char *input, size_t index);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "row with negative numbers",
+            "property": "row",
+            "input": {"string": "1 2 4\n-57 9 -42\n10 0 65", "index": 2},
+            "expected": [-57, 9, -42],
+        },
+        {
+            "description": "column with negative numbers",
+            "property": "column",
+            "input": {"string": "1 2 -4\n-57 9 -42\n10 0 -465", "index": 3},
+            "expected": [-4, -42, -465],
+        },
+    ]
+
+
 def array_literal(numbers):
     return str(numbers).replace("[", "{").replace("]", "}")
 

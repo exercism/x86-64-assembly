@@ -94,6 +94,26 @@ void test_extract_column_where_numbers_have_different_widths(void) {
     TEST_ASSERT_EQUAL_INT32_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
+void test_row_with_negative_numbers(void) {
+    TEST_IGNORE();
+    int32_t buffer[BUFFER_SIZE];
+
+    const int32_t expected[] = {-57, 9, -42};
+    const size_t length = row(buffer, "1 2 4\n-57 9 -42\n10 0 65", 2);
+    TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), length);
+    TEST_ASSERT_EQUAL_INT32_ARRAY(expected, buffer, ARRAY_SIZE(expected));
+}
+
+void test_column_with_negative_numbers(void) {
+    TEST_IGNORE();
+    int32_t buffer[BUFFER_SIZE];
+
+    const int32_t expected[] = {-4, -42, -465};
+    const size_t length = column(buffer, "1 2 -4\n-57 9 -42\n10 0 -465", 3);
+    TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), length);
+    TEST_ASSERT_EQUAL_INT32_ARRAY(expected, buffer, ARRAY_SIZE(expected));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_extract_row_from_one_number_matrix);
@@ -104,5 +124,7 @@ int main(void) {
     RUN_TEST(test_can_extract_column);
     RUN_TEST(test_can_extract_column_from_nonsquare_matrix_with_no_corresponding_row);
     RUN_TEST(test_extract_column_where_numbers_have_different_widths);
+    RUN_TEST(test_row_with_negative_numbers);
+    RUN_TEST(test_column_with_negative_numbers);
     return UNITY_END();
 }
