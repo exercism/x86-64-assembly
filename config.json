@@ -430,6 +430,14 @@
         ]
       },
       {
+        "slug": "matrix",
+        "name": "Matrix",
+        "uuid": "0c830b67-80b8-447a-a86d-22775e7d5ce4",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "phone-number",
         "name": "Phone Number",
         "uuid": "5d6e344e-7ed6-4476-82f6-02be41266e39",
