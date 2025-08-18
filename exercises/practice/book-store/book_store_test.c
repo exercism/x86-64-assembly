@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "stdint.h"
 #include "vendor/unity.h"
 
@@ -26,8 +24,7 @@ void test_two_of_the_same_book(void) {
 
 void test_empty_basket(void) {
     TEST_IGNORE();
-    const int16_t *basket = NULL;
-    TEST_ASSERT_EQUAL_INT(0, total(0, basket));
+    TEST_ASSERT_EQUAL_INT(0, total(0, NULL));
 }
 
 void test_two_different_books(void) {

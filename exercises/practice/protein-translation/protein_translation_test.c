@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 extern const char **proteins(const char *rna, const char **buffer);

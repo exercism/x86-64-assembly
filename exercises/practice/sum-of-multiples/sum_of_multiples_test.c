@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 #include <stddef.h>
