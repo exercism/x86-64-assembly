@@ -1,4 +1,4 @@
-name: arm64-assembly / pre-commit checks
+name: x86-64-assembly / pre-commit checks
 
 on:
   push:

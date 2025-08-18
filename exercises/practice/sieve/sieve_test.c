@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 #define BUFFER_SIZE 200
