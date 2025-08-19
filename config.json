@@ -597,6 +597,14 @@
         ]
       },
       {
+        "slug": "rational-numbers",
+        "name": "Rational Numbers",
+        "uuid": "523c3ddc-d61a-4323-b788-5ad0259ac847",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "run-length-encoding",
         "name": "Run-Length Encoding",
         "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
