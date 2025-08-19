@@ -1,5 +1,3 @@
-// Version: 1.2.0
-
 #include "vendor/unity.h"
 
 extern int square_of_sum(int number);

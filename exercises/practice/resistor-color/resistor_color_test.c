@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))

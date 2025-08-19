@@ -1,5 +1,3 @@
-// Version: 2.0.1
-
 #include "vendor/unity.h"
 
 extern int is_paired(const char *str);
