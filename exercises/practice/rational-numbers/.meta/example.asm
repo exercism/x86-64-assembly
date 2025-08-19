@@ -16,7 +16,7 @@ global reduce
 %%end:
 %endmacro
 
-add_rationals:   
+add_rationals:
     ; rdi - first numerator
     ; rsi - first denominator
     ; rdx - second numerator
@@ -104,7 +104,7 @@ abs_rational:
 ; if (n == 0) return 1;
 ; return n & 1 ? x * (int_pow(x, n >> 1) ^ 2) : (int_pow(x, n >> 1) ^ 2);
 ;
-; which makes the exponentiation O(log2n) 
+; which makes the exponentiation O(log2n)
 ; the recursion depth is at most 32 for a 32-bit n
 
 int_pow:
@@ -117,7 +117,7 @@ int_pow:
 
     mov r11, 1
     mov r10, rsi
-    and r10, 1 
+    and r10, 1
     cmovnz r11, rdi ; for n odd, the square of the result must
                     ; be multiplied by the base.
                     ; 1 is mempty of multiplication in case of n even
@@ -129,9 +129,9 @@ int_pow:
     call int_pow
 
     pop r11 ; restores r11
-    
+
     imul rax, rax ; int_pow(x, n >> 1) ^ 2
-    imul rax, r11 ; n odd -> (int_pow(x, n >> 1) ^ 2) * x 
+    imul rax, r11 ; n odd -> (int_pow(x, n >> 1) ^ 2) * x
                   ; n even -> (int_pow(x, n >> 1) ^ 2) * 1
 
     ret
@@ -183,7 +183,7 @@ exprational:
 ; if (n == 0) return 1;
 ; return n & 1 ? x * (int_pow(x, n >> 1) ^ 2) : (int_pow(x, n >> 1) ^ 2);
 ;
-; which makes the exponentiation O(log2n) 
+; which makes the exponentiation O(log2n)
 ; the recursion depth is at most 32 for a 32-bit n
 
 float_pow:
@@ -197,7 +197,7 @@ float_pow:
     mov rax, 1
     cvtsi2ss xmm3, rax
     mov r10, rsi
-    and r10, 1 
+    and r10, 1
     jz .even ; for n odd, the square of the result must
              ; be multiplied by the base.
              ; 1 is mempty of multiplication in case of n even
@@ -213,15 +213,15 @@ float_pow:
 
     movss xmm3, dword [rsp]
     add rsp, 4 ; restores base and the stack
-    
+
     mulss xmm0, xmm0 ; float_pow(x, n >> 1) ^ 2
-    mulss xmm0, xmm3 ; n odd -> (float_pow(x, n >> 1) ^ 2) * x 
+    mulss xmm0, xmm3 ; n odd -> (float_pow(x, n >> 1) ^ 2) * x
                      ; n even -> (float_pow(x, n >> 1) ^ 2) * 1
 
     ret
 
 .ret_1:
-    ; base case 
+    ; base case
 
     mov rax, 1
     cvtsi2ss xmm0, rax
@@ -232,7 +232,7 @@ float_pow:
 ; the algorithm is a binary search that searchs for a which satisfies:
 ; a ^ n == x
 ;
-; As a binary search, the time complexity is O(log2n) 
+; As a binary search, the time complexity is O(log2n)
 
 rootN:
     ; calculates the nth-root of an integer
@@ -241,7 +241,7 @@ rootN:
     ; return is a float in xmm0
 
     cvtsi2ss xmm7, rax ; value
-    mov r8, 0 
+    mov r8, 0
     cvtsi2ss xmm6, r8 ; low = 0
 
     add r8, rax
@@ -252,7 +252,7 @@ rootN:
 
 .bsearch:
     ucomiss xmm6, xmm8
-    jae .end_search ; while (low < high) 
+    jae .end_search ; while (low < high)
 
     movss xmm1, xmm6 ; mid = low
     addss xmm1, xmm8 ; mid = low + high
@@ -264,7 +264,7 @@ rootN:
 
     pop rsi ; restores exponent for next iteration
 
-    ucomiss xmm0, xmm7 
+    ucomiss xmm0, xmm7
     je .end_search ; found mid, so that mid ^ n == x
     jb .increase_low ; mid ^ n < x -> low = mid
     ; otherwise high = mid
@@ -378,7 +378,7 @@ reduce:
     cmp r11b, 1
     jne .return ; non negative number may return right away
     ; otherwise numerator must be negated
-    
+
     neg rdi
 .return:
     mov rax, rdi
