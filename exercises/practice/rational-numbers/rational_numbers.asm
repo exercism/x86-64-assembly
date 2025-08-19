@@ -1,30 +1,31 @@
 section .text
-global add
-global sub
-global mul
-global div
-global rational_absolute
+
+global add_rationals
+global sub_rationals
+global mul_rationals
+global div_rationals
+global abs_rational
 global exprational
 global expreal
 global reduce
 
-add:
+add_rationals:
     ; Provide your implementation here
     ret
 
-sub:
+sub_rationals:
     ; Provide your implementation here
     ret
 
-mul:
+mul_rationals:
     ; Provide your implementation here
     ret
 
-div:
+div_rationals:
     ; Provide your implementation here
     ret
 
-rational_absolute:
+abs_rational:
     ; Provide your implementation here
     ret
 

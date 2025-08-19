@@ -8,11 +8,11 @@ typedef struct {
     int64_t denominator;
 } rational_t;
 
-extern rational_t add(rational_t r1, rational_t r2);
-extern rational_t sub(rational_t r1, rational_t r2);
-extern rational_t mul(rational_t r1, rational_t r2);
-extern rational_t div(rational_t r1, rational_t r2);
-extern rational_t rational_absolute(rational_t r);
+extern rational_t add_rationals(rational_t r1, rational_t r2);
+extern rational_t sub_rationals(rational_t r1, rational_t r2);
+extern rational_t mul_rationals(rational_t r1, rational_t r2);
+extern rational_t div_rationals(rational_t r1, rational_t r2);
+extern rational_t abs_rational(rational_t r);
 extern rational_t exprational(rational_t r, int64_t n);
 extern float expreal(int64_t x, rational_t r);
 extern rational_t reduce(rational_t r);
@@ -37,13 +37,21 @@ def gen_func_body(prop, inp, expected):
         str_list.append(f"TEST_ASSERT_EQUAL_INT64(expected.denominator, result.denominator);\n")    
     elif prop == "abs" or prop == "reduce":
         if prop == "abs":
-            prop = "rational_absolute"
+            prop = "abs_rational"
         str_list.append(f"rational_t r = {array_literal(inp["r"])};\n")
         str_list.append(f"const rational_t result = {prop}(r);\n")
         str_list.append(f"const rational_t expected = {array_literal(expected)};\n")
         str_list.append(f"TEST_ASSERT_EQUAL_INT64(expected.numerator, result.numerator);\n")
         str_list.append(f"TEST_ASSERT_EQUAL_INT64(expected.denominator, result.denominator);\n") 
     else:
+        if prop == "mul":
+            prop = "mul_rationals"
+        elif prop == "div":
+            prop = "div_rationals"
+        elif prop == "sub":
+            prop = "sub_rationals"
+        elif prop == "add":
+            prop = "add_rationals"
         str_list.append(f"rational_t r1 = {array_literal(inp["r1"])};\n")
         str_list.append(f"rational_t r2 = {array_literal(inp["r2"])};\n")
         str_list.append(f"const rational_t result = {prop}(r1, r2);\n")

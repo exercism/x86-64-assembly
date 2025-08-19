@@ -1,10 +1,10 @@
 section .text
 
-global add
-global sub
-global mul
-global div
-global rational_absolute
+global add_rationals
+global sub_rationals
+global mul_rationals
+global div_rationals
+global abs_rational
 global exprational
 global expreal
 global reduce
@@ -16,7 +16,7 @@ global reduce
 %%end:
 %endmacro
 
-add:   
+add_rationals:   
     ; rdi - first numerator
     ; rsi - first denominator
     ; rdx - second numerator
@@ -37,7 +37,7 @@ add:
 
     ret
 
-sub:
+sub_rationals:
     ; rdi - first numerator
     ; rsi - first denominator
     ; rdx - second numerator
@@ -49,11 +49,11 @@ sub:
 
     neg rdx
 
-    call add
+    call add_rationals
 
     ret
 
-mul:
+mul_rationals:
     ; rdi - first numerator
     ; rsi - first denominator
     ; rdx - second numerator
@@ -68,7 +68,7 @@ mul:
 
     ret
 
-div:
+div_rationals:
     ; rdi - first numerator
     ; rsi - first denominator
     ; rdx - second numerator
@@ -80,11 +80,11 @@ div:
 
     xchg rdx, rcx
 
-    call mul 
+    call mul_rationals
 
     ret
 
-rational_absolute:
+abs_rational:
     ; rdi - first numerator
     ; rsi - first denominator
     ; rax - result numerator
