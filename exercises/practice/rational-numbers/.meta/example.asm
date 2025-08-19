@@ -33,9 +33,7 @@ add_rationals:
     add rdi, rdx ; numerator = x + y
     mov rsi, r8 ; denominator = common multiple
 
-    call reduce ; reduce to eliminate common factors
-
-    ret
+    jmp reduce ; reduce to eliminate common factors
 
 sub_rationals:
     ; rdi - first numerator
@@ -49,9 +47,7 @@ sub_rationals:
 
     neg rdx
 
-    call add_rationals
-
-    ret
+    jmp add_rationals
 
 mul_rationals:
     ; rdi - first numerator
@@ -64,9 +60,7 @@ mul_rationals:
     imul rdi, rdx ; numerator = numerator1 * numerator2
     imul rsi, rcx ; denominator = denominator1 * denominator2
 
-    call reduce ; reduce to eliminate common factors
-
-    ret
+    jmp reduce ; reduce to eliminate common factors
 
 div_rationals:
     ; rdi - first numerator
@@ -80,9 +74,7 @@ div_rationals:
 
     xchg rdx, rcx
 
-    call mul_rationals
-
-    ret
+    jmp mul_rationals
 
 abs_rational:
     ; rdi - first numerator
@@ -96,50 +88,6 @@ abs_rational:
     call reduce
     ABS rax
 
-    ret
-
-; helper for calculating x^n, for x integer and n non-negative integer
-; the code is roughly equivalent to:
-;
-; if (n == 0) return 1;
-; return n & 1 ? x * (int_pow(x, n >> 1) ^ 2) : (int_pow(x, n >> 1) ^ 2);
-;
-; which makes the exponentiation O(log2n)
-; the recursion depth is at most 32 for a 32-bit n
-
-int_pow:
-    ; rdi - x
-    ; rsi - n
-    ; return is a int64_t in rax
-
-    cmp rsi, 0
-    je .ret_1 ; base case: n == 0 -> return 1
-
-    mov r11, 1
-    mov r10, rsi
-    and r10, 1
-    cmovnz r11, rdi ; for n odd, the square of the result must
-                    ; be multiplied by the base.
-                    ; 1 is mempty of multiplication in case of n even
-
-    push r11 ; preserves r11
-
-    shr rsi, 1 ; exponent divided by 2
-
-    call int_pow
-
-    pop r11 ; restores r11
-
-    imul rax, rax ; int_pow(x, n >> 1) ^ 2
-    imul rax, r11 ; n odd -> (int_pow(x, n >> 1) ^ 2) * x
-                  ; n even -> (int_pow(x, n >> 1) ^ 2) * 1
-
-    ret
-
-.ret_1:
-    ; base case
-
-    mov rax, 1
     ret
 
 exprational:
@@ -158,23 +106,81 @@ exprational:
     neg rdx
 
 .positive:
-    mov r8, rsi
-    mov rsi, rdx
+    mov rcx, rdx
+    mov rax, 1
+    mov rdx, 1
+.loop:
+    cmp rcx, 0
+    je .end
 
-    call int_pow ; numerator ^ n
+    mov r10, rcx
+    and r10, 1
+    jz .even
 
-    mov r9, rax ; saves partial result
+    imul rax, rdi
+    imul rdx, rsi
 
-    mov rdi, r8
-    mov rsi, rdx
+    dec rcx
+    jmp .loop
+.even:
+    imul rdi, rdi
+    imul rsi, rsi
 
-    call int_pow ; denominator ^ n
+    shr rcx, 1
+    jmp .loop
 
-    mov rsi, rax ; denominator = denominator ^ n
-    mov rdi, r9 ; numertor = numerator ^ n
+.end:
+    cmp rax, 0
+    setl r9b
 
-    call reduce ; reduce (shouldn't be necessary if input is already reduced)
+    cmp rdx, 0
+    setl r10b
 
+    ABS rax
+    ABS rdx
+
+    xor r9b, r10b
+    je .ret
+
+    neg rax
+.ret:
+    ret
+
+; helper for calculating x^n, for x integer and n non-negative integer
+; the code is roughly equivalent to:
+;
+; if (n == 0) return 1;
+; return n & 1 ? x * (int_pow(x, n >> 1) ^ 2) : (int_pow(x, n >> 1) ^ 2);
+;
+; which makes the exponentiation O(log2n)
+; the recursion depth is at most 32 for a 32-bit n
+
+int_pow:
+    ; rdi - x
+    ; rsi - n
+    ; return is a int64_t in rax
+
+    mov rax, 1
+.loop:
+    cmp rsi, 0
+    je .end
+
+    mov rcx, rsi
+    and rcx, 1
+    jz .even
+
+    imul rax, rdi
+
+    dec rsi
+    jmp .loop
+
+.even:
+    imul rdi, rdi
+
+    shr rsi, 1
+    jmp .loop
+
+.end:
     ret
 
 ; helper for calculating x^n, for x float and n non-negative integer
@@ -191,40 +197,27 @@ float_pow:
     ; rsi - n
     ; return is a float in xmm0
 
+    mov r10, 1
+    cvtsi2ss xmm0, r10
+.loop:
     cmp rsi, 0
-    je .ret_1 ; base case: n == 0 -> return 1
+    je .end
 
-    mov rax, 1
-    cvtsi2ss xmm3, rax
-    mov r10, rsi
-    and r10, 1
-    jz .even ; for n odd, the square of the result must
-             ; be multiplied by the base.
-             ; 1 is mempty of multiplication in case of n even
+    mov rcx, rsi
+    and rcx, 1
+    jz .even
 
-    movss xmm3, xmm1
+    mulss xmm0, xmm1
+
+    dec rsi
+    jmp .loop
 .even:
-    sub rsp, 4
-    movss dword [rsp], xmm3 ; preserves base in the stack
+    mulss xmm1, xmm1
 
-    shr rsi, 1 ; exponent divided by 2
+    shr rsi, 1
+    jmp .loop
 
-    call float_pow
-
-    movss xmm3, dword [rsp]
-    add rsp, 4 ; restores base and the stack
-
-    mulss xmm0, xmm0 ; float_pow(x, n >> 1) ^ 2
-    mulss xmm0, xmm3 ; n odd -> (float_pow(x, n >> 1) ^ 2) * x
-                     ; n even -> (float_pow(x, n >> 1) ^ 2) * 1
-
-    ret
-
-.ret_1:
-    ; base case
-
-    mov rax, 1
-    cvtsi2ss xmm0, rax
+.end:
     ret
 
 ; helper for calculating the nth-root of x, for x int64_t and n non-negative integer
@@ -258,26 +251,27 @@ rootN:
     addss xmm1, xmm8 ; mid = low + high
     divss xmm1, xmm5 ; mid = (low + high) / 2
 
-    push rsi ; preserves exponent for next iteration
+    movss xmm2, xmm1 ; saves mid
+    mov r11, rsi
 
     call float_pow ; mid ^ n
 
-    pop rsi ; restores exponent for next iteration
+    mov rsi, r11
 
     ucomiss xmm0, xmm7
     je .end_search ; found mid, so that mid ^ n == x
     jb .increase_low ; mid ^ n < x -> low = mid
     ; otherwise high = mid
 
-    movss xmm8, xmm1 ; high = mid
+    movss xmm8, xmm2 ; high = mid
     jmp .bsearch
 
 .increase_low:
-    movss xmm6, xmm1 ; low = mid
+    movss xmm6, xmm2 ; low = mid
     jmp .bsearch
 
 .end_search:
-    movss xmm0, xmm1
+    movss xmm0, xmm2
     ret
 
 expreal:
