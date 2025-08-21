@@ -201,6 +201,14 @@
         ]
       },
       {
+        "slug": "high-scores",
+        "name": "High Scores",
+        "uuid": "808128e8-d23c-40d6-a642-dd3eec3c13cc",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "pangram",
         "name": "Pangram",
         "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
