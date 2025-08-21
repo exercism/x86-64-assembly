@@ -15,15 +15,15 @@ global find_fewest_coins
 find_fewest_coins:
     ; rdi - output uint64_t buffer
     ; rsi - input uint64_t array representing coins
-    ; rdx - target value
-    ; rcx - size of input array
+    ; rdx - size of input array
+    ; rcx - target value
     ; return is the size of the output buffer as a int64_t, in rax
 
     ; The algorithm is:
     ;
     ; First, check for invalid target n
     ;
-    ; Then, create a map in the stack between keys 1..n -> a node
+    ; Then, create a map in the stack between keys 1..n to a node
     ; This node has 8 bytes:
     ; -> 4 for previous value in the path (parent)
     ; -> 2 for the last coin added to get to key
@@ -35,7 +35,7 @@ find_fewest_coins:
     ; Then, initial values, corresponding to coins present in the input array, are added
     ; Each coin has NULL for parent, itself as coin and 1 for length
     ;
-    ; Then, there's a main loop which continues as long as a flag is set or the target is set in the map.
+    ; Then, there's a main loop which continues as long as a flag is set or the target is not found in the map.
     ; This flag is cleared at the beginning of the loop and set only when a new key/val is added to the map
     ;
     ; Inside the main loop, there's a map loop, which iterates over all keys in the map
@@ -54,6 +54,8 @@ find_fewest_coins:
     ; until the leaf is reached.
     ;
     ; At this point, the only thing remaining is sorting the output array, which is done with a quicksort
+
+    xchg rdx, rcx
 
     cmp rdx, 0
     jl .negative_target
@@ -200,7 +202,7 @@ find_fewest_coins:
     inc r9
     mov qword [rdi + 8*r9], r10
 
-    ; the stack isn't needed anymore, after inserting in output
+    ; the stack isn't needed anymore, after inserting to output
     ; epilogue
     mov rsp, rbp
     pop rbp

@@ -11,7 +11,7 @@ FUNC_PROTO = """\
 #define NEGATIVE_TARGET -1
 #define UNREACHABLE_TARGET -2
 
-extern int64_t find_fewest_coins(uint64_t *buffer, const uint64_t *coins, int64_t target, size_t coins_size);
+extern int64_t find_fewest_coins(uint64_t *buffer, const uint64_t *coins, size_t coins_count, int64_t target);
 """
 
 
@@ -27,20 +27,20 @@ def gen_func_body(prop, inp, expected):
     str_list.append(f"const uint64_t coins[] = {coins};\n")
     if target < 0:
         str_list.append(
-            f"TEST_ASSERT_EQUAL_INT64(NEGATIVE_TARGET, {prop}(buffer, coins, {target}, ARRAY_SIZE(coins)));\n"
+            f"TEST_ASSERT_EQUAL_INT64(NEGATIVE_TARGET, {prop}(buffer, coins, ARRAY_SIZE(coins), {target}));\n"
         )
     elif "error" in expected:
         str_list.append(
-            f"TEST_ASSERT_EQUAL_INT64(UNREACHABLE_TARGET, {prop}(buffer, coins, {target}, ARRAY_SIZE(coins)));\n"
+            f"TEST_ASSERT_EQUAL_INT64(UNREACHABLE_TARGET, {prop}(buffer, coins, ARRAY_SIZE(coins), {target}));\n"
         )
     elif len(expected) == 0:
         str_list.append(
-            f"TEST_ASSERT_EQUAL_INT64(0, {prop}(buffer, coins, {target},ARRAY_SIZE(coins)));\n"
+            f"TEST_ASSERT_EQUAL_INT64(0, {prop}(buffer, coins, ARRAY_SIZE(coins), {target}));\n"
         )
     else:
         str_list.append(f"const uint64_t expected[] = {array_literal(expected)};\n")
         str_list.append(
-            f"TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), {prop}(buffer, coins, {target}, ARRAY_SIZE(coins)));\n"
+            f"TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), {prop}(buffer, coins, ARRAY_SIZE(coins), {target}));\n"
         )
         str_list.append(
             "TEST_ASSERT_EQUAL_UINT64_ARRAY(expected, buffer, ARRAY_SIZE(expected));\n"
