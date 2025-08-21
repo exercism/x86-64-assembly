@@ -734,6 +734,14 @@
         "difficulty": 8
       },
       {
+        "slug": "change",
+        "name": "Change",
+        "uuid": "93cfe2a0-bea5-4c1f-8c04-898e05340e58",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 8
+      },
+      {
         "slug": "dominoes",
         "name": "Dominoes",
         "uuid": "19cf1050-af02-4071-be87-18947026321e",
