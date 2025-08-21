@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 extern int score(const char *score);
