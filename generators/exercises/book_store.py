@@ -14,9 +14,10 @@ def gen_func_body(prop, inp, expected):
         basket = str(inp["basket"]).replace("[", "{").replace("]", "}")
         str_list.append(f"int16_t basket[] = {basket};\n")
         count = "ARRAY_SIZE(basket)"
+        str_list.append(
+            f"TEST_ASSERT_EQUAL_INT({expected}, {prop}({count}, basket));\n"
+        )
     else:
-        str_list.append("const int16_t* basket = NULL;\n")
-        count = "0"
+        str_list.append(f"TEST_ASSERT_EQUAL_INT({expected}, {prop}(0, NULL));\n")
 
-    str_list.append(f"TEST_ASSERT_EQUAL_INT({expected}, {prop}({count}, basket));\n")
     return "".join(str_list)

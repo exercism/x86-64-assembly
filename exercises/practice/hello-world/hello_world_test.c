@@ -1,5 +1,3 @@
-// Version: 1.1.0
-
 #include "vendor/unity.h"
 
 extern const char *hello(void);

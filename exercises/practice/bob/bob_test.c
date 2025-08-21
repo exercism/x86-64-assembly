@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 extern const char *response(const char *hey_bob);
@@ -129,6 +127,12 @@ void test_alternate_silence(void) {
     TEST_ASSERT_EQUAL_STRING("Fine. Be that way!", response(str));
 }
 
+void test_multiple_line_question(void) {
+    TEST_IGNORE();
+    char str[] = "\nDoes this cryogenic chamber make\n me look fat?";
+    TEST_ASSERT_EQUAL_STRING("Sure.", response(str));
+}
+
 void test_starting_with_whitespace(void) {
     TEST_IGNORE();
     char str[] = "         hmmmmmmm...";
@@ -153,12 +157,6 @@ void test_nonquestion_ending_with_whitespace(void) {
     TEST_ASSERT_EQUAL_STRING("Whatever.", response(str));
 }
 
-void test_multiple_line_question(void) {
-    TEST_IGNORE();
-    char str[] = "\nDoes this cryogenic chamber make\n me look fat?";
-    TEST_ASSERT_EQUAL_STRING("Sure.", response(str));
-}
-
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_stating_something);
@@ -181,10 +179,10 @@ int main(void) {
     RUN_TEST(test_silence);
     RUN_TEST(test_prolonged_silence);
     RUN_TEST(test_alternate_silence);
+    RUN_TEST(test_multiple_line_question);
     RUN_TEST(test_starting_with_whitespace);
     RUN_TEST(test_ending_with_whitespace);
     RUN_TEST(test_other_whitespace);
     RUN_TEST(test_nonquestion_ending_with_whitespace);
-    RUN_TEST(test_multiple_line_question);
     return UNITY_END();
 }
