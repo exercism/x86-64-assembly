@@ -13,7 +13,7 @@ global release_names
 
 %macro get_random_between 2
 %%try:
-    rdseed rax ; random()
+    rdrand rax ; random()
     jnc %%try
 
     xor r8, r8
