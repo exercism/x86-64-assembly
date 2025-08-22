@@ -6,9 +6,9 @@
 #define BUFFER_SIZE 20
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 
-extern int32_t latest(const int32_t *scores, size_t length);
-extern int32_t personal_best(const int32_t *scores, size_t length);
-extern size_t personal_top_three(int32_t *buffer, const int32_t *scores, size_t length);
+extern int32_t latest(size_t scores_count, const int32_t *scores);
+extern int32_t personal_best(size_t scores_count, const int32_t *scores);
+extern size_t personal_top_three(int32_t *buffer, const int32_t *scores, size_t scores_count);
 
 void setUp(void) {
 }
@@ -22,13 +22,13 @@ void test_list_of_scores(void) {
 void test_latest_score(void) {
     TEST_IGNORE();
     const int32_t scores[] = {100, 0, 90, 30};
-    TEST_ASSERT_EQUAL_INT32(30, latest(scores, ARRAY_SIZE(scores)));
+    TEST_ASSERT_EQUAL_INT32(30, latest(ARRAY_SIZE(scores), scores));
 }
 
 void test_personal_best(void) {
     TEST_IGNORE();
     const int32_t scores[] = {40, 100, 70};
-    TEST_ASSERT_EQUAL_INT32(100, personal_best(scores, ARRAY_SIZE(scores)));
+    TEST_ASSERT_EQUAL_INT32(100, personal_best(ARRAY_SIZE(scores), scores));
 }
 
 void test_personal_top_three_from_a_list_of_scores(void) {
@@ -86,5 +86,6 @@ int main(void) {
     RUN_TEST(test_personal_top_when_there_is_a_tie);
     RUN_TEST(test_personal_top_when_there_are_less_than_3);
     RUN_TEST(test_personal_top_when_there_is_only_one);
+
     return UNITY_END();
 }

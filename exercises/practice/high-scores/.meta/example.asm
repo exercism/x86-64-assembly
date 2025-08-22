@@ -5,26 +5,26 @@ global personal_best
 global personal_top_three
 
 latest:
-    ; accesses the last element in the array in rdi
-    ; using the size in rsi
+    ; accesses the last element in the array in rsi
+    ; using the size in rdi
     ; and moves that element to eax, for returning it
 
-    mov eax, dword [rdi + 4*rsi - 4]
+    mov eax, dword [rsi + 4*rdi - 4]
     ret
 
 personal_best:
-    ; iterates over the elements in the array in rdi
-    ; using the size in rsi
+    ; iterates over the elements in the array in rsi
+    ; using the size in rdi
     ; continously compares the element with an accumulator starting as 0
     ; and, if the element is greater, moves it to the accumulator
     ; for returning it
 
     xor rax, rax
-    mov rcx, rsi
+    mov rcx, rdi
 .accumulate:
-    cmp eax, dword [rdi + 4*rcx - 4]
+    cmp eax, dword [rsi + 4*rcx - 4]
     jg .continue
-    mov eax, dword [rdi + 4*rcx - 4]
+    mov eax, dword [rsi + 4*rcx - 4]
 .continue:
     loop .accumulate
     ret

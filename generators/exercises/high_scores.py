@@ -7,9 +7,9 @@ FUNC_PROTO = """\
 #define BUFFER_SIZE 20
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 
-extern int32_t latest(const int32_t *scores, size_t length);
-extern int32_t personal_best(const int32_t *scores, size_t length);
-extern size_t personal_top_three(int32_t *buffer, const int32_t *scores, size_t length);
+extern int32_t latest(size_t scores_count, const int32_t *scores);
+extern int32_t personal_best(size_t scores_count, const int32_t *scores);
+extern size_t personal_top_three(int32_t *buffer, const int32_t *scores, size_t scores_count);
 """
 
 
@@ -42,6 +42,6 @@ def gen_func_body(prop, inp, expected):
     else:
         str_list.append(f"const int32_t scores[] = {array_literal(inp['scores'])};\n")
         str_list.append(
-            f"TEST_ASSERT_EQUAL_INT32({expected}, {prop}(scores, ARRAY_SIZE(scores)));\n"
+            f"TEST_ASSERT_EQUAL_INT32({expected}, {prop}(ARRAY_SIZE(scores), scores));\n"
         )
     return "".join(str_list)
