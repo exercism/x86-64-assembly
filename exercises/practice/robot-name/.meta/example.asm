@@ -5,6 +5,9 @@ MAX_NUM_OF_NAMES equ 676_000
 section .bss
     hash_table resb MAX_NUM_OF_NAMES
 
+section .data
+    big_mersenne dq 18446744073709551615
+
 section .text
 
 global create_name
@@ -12,9 +15,12 @@ global reset_name
 global release_names
 
 %macro get_random_between 2
-%%try:
-    rdrand rax ; random()
-    jnc %%try
+    rdtsc
+    shl rdx, 32
+    xor rax, rdx
+
+    shl rax, 1
+    xor rax, qword [big_mersenne]
 
     xor r8, r8
     mov r8, %2
