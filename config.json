@@ -484,6 +484,14 @@
         "difficulty": 4
       },
       {
+        "slug": "robot-name",
+        "name": "Robot Name",
+        "uuid": "50e4fc90-9441-4b20-ac83-78ce9bb2bb58",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "roman-numerals",
         "name": "Roman Numerals",
         "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
