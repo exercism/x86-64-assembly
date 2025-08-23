@@ -16,12 +16,9 @@ global release_names
 
 %macro get_random_between 2
     rdtsc
-    shl rdx, 32
     xor rax, rdx
 
     lea rdx, [big_mersenne]
-
-    shl rax, 32
     xor rax, qword [rdx]
 
     xor r8, r8
