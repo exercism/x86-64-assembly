@@ -16,11 +16,12 @@ global release_names
 
 %macro get_random_between 2
     rdtsc
+    shl rdx, 32
     xor rax, rdx
 
     lea rdx, [big_mersenne]
 
-    shl rax, 1
+    shl rax, 32
     xor rax, qword [rdx]
 
     xor r8, r8
@@ -37,26 +38,37 @@ global release_names
 
 %macro hash_name 0
     xor rax, rax
-    xor r9, r9
 
     mov al, byte [rdi]
-    sub al, 'A'
+    sub al, 'A' ; 0 to 25
+
+    xor r9, r9
 
     mov r9b, byte [rdi + 1]
-    sub r9b, 'A'
-    imul rax, r9
+    sub r9b, 'A' ; 0 to 25
+    imul r9, r9, 26 ; 0, 26, 52, etc
+    add rax, r9
+
+    xor r9, r9
 
     mov r9b, byte [rdi + 2]
     sub r9b, '0'
-    imul rax, r9
+    imul r9, r9, (26*26) ; 0,
+    add rax, r9
+
+    xor r9, r9
 
     mov r9b, byte [rdi + 3]
     sub r9b, '0'
-    imul rax, r9
+    imul r9, r9, (26*26*10)
+    add rax, r9
+
+    xor r9, r9
 
     mov r9b, byte [rdi + 4]
     sub r9b, '0'
-    imul rax, r9
+    imul r9, r9, (26*26*10*10)
+    add rax, r9
 %endmacro
 
 reset_name:
@@ -87,7 +99,6 @@ create_name:
 
     mov byte [r11 + rax], 1 ; set the value in hash_table
     mov byte [rdi + 5], 0 ; append NULL
-
     ret
 
 release_names:

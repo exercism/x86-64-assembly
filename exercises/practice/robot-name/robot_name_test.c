@@ -29,12 +29,15 @@ void check_name_validity(const char *name) {
 }
 
 size_t hash_name(const char *name) {
-    size_t hash = 1;
+    size_t hash = 0;
+    size_t multiplier = 1;
     for (size_t i = 0; i < 2; ++i) {
-        hash *= name[i] - 'A';
+        hash += multiplier * (name[i] - 'A');
+        multiplier *= 26;
     }
     for (size_t i = 2; i < 5; ++i) {
-        hash *= name[i] - '0';
+        hash += multiplier * (name[i] - '0');
+        multiplier *= 10;
     }
     return hash;
 }
@@ -116,7 +119,7 @@ void test_names_are_unique(void) {
     uint8_t hash_table[MAX_NUM_OF_NAMES] = {0};
     uint32_t non_unique_elements = 0;
 
-    for (size_t i = 0; i < 1000; ++i) {
+    for (size_t i = 0; i < 10000; ++i) {
         char buffer[NAME_SIZE];
 
         create_name(buffer);
@@ -202,7 +205,7 @@ void test_names_are_unique_after_reset(void) {
 
     uint32_t non_unique_elements = 0;
 
-    for (size_t i = 0; i < 1000; ++i) {
+    for (size_t i = 0; i < 10000; ++i) {
         reset_name(buffer);
         check_name_validity(buffer);
 
