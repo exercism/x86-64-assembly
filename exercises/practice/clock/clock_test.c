@@ -1,6 +1,7 @@
 #include "vendor/unity.h"
 
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef struct {
     uint8_t hour;
