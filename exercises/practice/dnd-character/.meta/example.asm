@@ -19,6 +19,7 @@ global make_dnd_character
 ;
 ; The seed chosen was the "Borosh-Niederreiter multiplier for modulus 2^32"
 ; in line with: https://github.com/cslarsen/mersenne-twister/blob/master/mersenne-twister.cpp
+; This seed is xor-ed with the CPU time-stamp
 ;
 ; This exercise was a good opportunity to see how GCC handles the "translation" between C and x86-64 assembly
 ; Here's the godbolt for the wikipedia implementation mentioned above: https://godbolt.org/z/acEoj15xz
@@ -39,10 +40,10 @@ mt_init:
     lea r11, [mt_state]
 
     rdtsc
-    xor rax, rdi
+    xor rdi, rax
 
-    mov dword [rsp], eax  ; seed
-    mov dword [r11], eax
+    mov dword [rsp], edi  ; seed
+    mov dword [r11], edi
 
     mov r10, 1 ; i
 .mt_init_loop:
@@ -197,38 +198,44 @@ ability:
 
     mov byte [r11], 1 ; sets flag
 .generate:
-
-    call mt_rand ; generates random number
-    ; rax now holds a random uint32_t
-
-    ; an ability is formed of the sum of 3 out of 4d6
-    ; to generate a valid die result (from 1 to 6),
-    ; only 3 bits are needed out of 32 in the random number
-    ; so it's possible to get the random number modulus 6 + 1 for a valid result
-    ; shift right this number by 3 and repeat the process 3 times
-    ; each valid die result is stored in the stack
-    ; %rep is a NASM directive which repeats the block of instructions the specified num of times
-    ; it's basically an unroll, similar to TIMES, but it works with more than one instruction
-
     ; prologue
     push rbp
     mov rbp, rsp
     sub rsp, 4
 
     mov dword [rsp], 0 ; zero-initializes all 4 bytes
+    mov r9, 6
 
-    mov r10, rax
-    mov r9, 6 ; to get modulus
-%rep 4
+    ; 4 random numbers are generated and normalized to [1-6]
+    ; each valid result is stored in the stack
+
+    call mt_rand
     xor rdx, rdx
-    div r9 ; rdx now holds a num between 0 and 5
-    inc rdx ; rdx now holds a valid num, in [1-6]
+    div r9d
 
-    mov byte [rsp], dl ; num is stored in the stack
-    inc rsp ; stack pointer incremented for next iteration
-    shr r10, 3 ; random number bit shifted 3 positions for next iteration
-    mov rax, r10 ; rax now holds adjusted random num, for next iteration
-%endrep
+    inc rdx
+    mov byte [rsp], dl
+
+    call mt_rand
+    xor rdx, rdx
+    div r9d
+
+    inc rdx
+    mov byte [rsp + 1], dl
+
+    call mt_rand
+    xor rdx, rdx
+    div r9d
+
+    inc rdx
+    mov byte [rsp + 2], dl
+
+    call mt_rand
+    xor rdx, rdx
+    div r9d
+
+    inc rdx
+    mov byte [rsp + 3], dl
 
     ; right now, all 4 valid die results are in the stack
     ; to get the better 3 results, a partial bubble sort is used

@@ -108,8 +108,8 @@ void test_ability_modifier_for_score_18_is_4(void) {
 
 void test_random_ability_is_within_range(void) {
     TEST_IGNORE();
-    const double expected[16] = {0.077191, 0.309273, 0.771244, 1.62036, 2.92855, 4.78457, 7.01961, 9.41295,
-                                 11.4266,  12.886,   13.2706,  12.344,  10.1008, 7.25672, 4.16993, 1.62168};
+    const double expected[16] = {7.71,    30.92,  77.12,   162.03, 292.85,  478.45, 701.96, 941.29,
+                                 1142.66, 1288.6, 1327.06, 1234.4, 1010.08, 725.67, 416.99, 162.16};
 
     double results[16] = {0};
     for (size_t i = 0; i < 10000; ++i) {
@@ -118,17 +118,13 @@ void test_random_ability_is_within_range(void) {
         results[value - 3]++;
     }
 
-    for (size_t i = 0; i < 16; ++i) {
-        results[i] /= 10000;
-    }
-
     double sum_of_frequencies = 0;
     for (size_t i = 0; i < 16; ++i) {
         const double squared = (results[i] - expected[i]) * (results[i] - expected[i]);
         sum_of_frequencies += squared / expected[i];
     }
 
-    TEST_ASSERT_GREATER_OR_EQUAL(37697, (uint32_t)(1000 * sum_of_frequencies));
+    TEST_ASSERT_LESS_OR_EQUAL(37697, (uint32_t)(1000 * sum_of_frequencies));
 }
 
 void test_random_character_is_valid(void) {
