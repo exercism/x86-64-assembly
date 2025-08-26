@@ -824,7 +824,6 @@
     ],
     "foregone": [
       "bank-account",
-      "dnd-character",
       "grep",
       "lens-person",
       "parallel-letter-frequency"

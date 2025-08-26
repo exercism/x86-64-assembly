@@ -1,6 +1,7 @@
 default rel
 
-SEED equ 1812433253
+SEED equ 1812433253 ; Borosh-Niederreiter multiplier for modulus 2^32
+                    ; in line with: https://github.com/cslarsen/mersenne-twister/blob/master/mersenne-twister.cpp
 
 section .bss
     mt_state resd 624 ; array to hold the state of the generator
@@ -37,8 +38,11 @@ mt_init:
 
     lea r11, [mt_state]
 
-    mov dword [rsp], SEED  ; seed
-    mov dword [r11], SEED
+    rdtsc
+    xor rax, rdi
+
+    mov dword [rsp], eax  ; seed
+    mov dword [r11], eax
 
     mov r10, 1 ; i
 .mt_init_loop:
@@ -175,6 +179,7 @@ modifier:
     sub rdi, 10 ; score - 10
     sar rdi, 1 ; signed shift by 1 -> ((score - 10) / 2) rounded down
     mov rax, rdi
+
     ret
 
 ability:
@@ -187,14 +192,79 @@ ability:
     je .generate ; flag set, can skip initialization of mt_state
     ; otherwise, initialize it
 
+    mov rdi, SEED
     call mt_init
 
     mov byte [r11], 1 ; sets flag
 .generate:
-    call mt_rand ; generates random number
 
-    and rax, 15 ; modulus 16, number is now in [0 - 15]
-    add rax, 3 ; number is now in [3 - 18]
+    call mt_rand ; generates random number
+    ; rax now holds a random uint32_t
+
+    ; an ability is formed of the sum of 3 out of 4d6
+    ; to generate a valid die result (from 1 to 6),
+    ; only 3 bits are needed out of 32 in the random number
+    ; so it's possible to get the random number modulus 6 + 1 for a valid result
+    ; shift right this number by 3 and repeat the process 3 times
+    ; each valid die result is stored in the stack
+    ; %rep is a NASM directive which repeats the block of instructions the specified num of times
+    ; it's basically an unroll, similar to TIMES, but it works with more than one instruction
+
+    ; prologue
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4
+
+    mov dword [rsp], 0 ; zero-initializes all 4 bytes
+
+    mov r10, rax
+    mov r9, 6 ; to get modulus
+%rep 4
+    xor rdx, rdx
+    div r9 ; rdx now holds a num between 0 and 5
+    inc rdx ; rdx now holds a valid num, in [1-6]
+
+    mov byte [rsp], dl ; num is stored in the stack
+    inc rsp ; stack pointer incremented for next iteration
+    shr r10, 3 ; random number bit shifted 3 positions for next iteration
+    mov rax, r10 ; rax now holds adjusted random num, for next iteration
+%endrep
+
+    ; right now, all 4 valid die results are in the stack
+    ; to get the better 3 results, a partial bubble sort is used
+    ; by comparing only one of the registers with the other 3
+    ; and exchanging whenever it's greater
+    ; so that in the end this register holds the lesser number
+    ; and the other 3 are then summed for the final result
+
+    xor rax, rax
+    mov r9b, byte [rbp - 4]
+
+    cmp r9b, byte [rbp - 1]
+    jle .comp1
+
+    xchg r9b, byte [rbp - 1]
+
+.comp1:
+    cmp r9b, byte [rbp - 2]
+    jle .comp2
+
+    xchg r9b, byte [rbp - 2]
+
+.comp2:
+    cmp r9b, byte [rbp - 3]
+    jle .get_res
+
+    xchg r9b, byte [rbp - 3]
+
+.get_res:
+    mov al, byte [rbp - 1]
+    add al, byte [rbp - 2]
+    add al, byte [rbp - 3]
+
+    ; epilogue
+    mov rsp, rbp
+    pop rbp
     ret
 
 make_dnd_character:

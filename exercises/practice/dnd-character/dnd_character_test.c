@@ -1,6 +1,7 @@
 #include "vendor/unity.h"
 
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct {
     uint8_t strength;
@@ -107,8 +108,27 @@ void test_ability_modifier_for_score_18_is_4(void) {
 
 void test_random_ability_is_within_range(void) {
     TEST_IGNORE();
-    const uint8_t value = ability();
-    check_valid_score(value);
+    const double expected[16] = {0.077191, 0.309273, 0.771244, 1.62036, 2.92855, 4.78457, 7.01961, 9.41295,
+                                 11.4266,  12.886,   13.2706,  12.344,  10.1008, 7.25672, 4.16993, 1.62168};
+
+    double results[16] = {0};
+    for (size_t i = 0; i < 10000; ++i) {
+        const uint8_t value = ability();
+        check_valid_score(value);
+        results[value - 3]++;
+    }
+
+    for (size_t i = 0; i < 16; ++i) {
+        results[i] /= 10000;
+    }
+
+    double sum_of_frequencies = 0;
+    for (size_t i = 0; i < 16; ++i) {
+        const double squared = (results[i] - expected[i]) * (results[i] - expected[i]);
+        sum_of_frequencies += squared / expected[i];
+    }
+
+    TEST_ASSERT_GREATER_OR_EQUAL(37697, (uint32_t)(1000 * sum_of_frequencies));
 }
 
 void test_random_character_is_valid(void) {
