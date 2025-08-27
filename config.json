@@ -559,6 +559,14 @@
         "difficulty": 5
       },
       {
+        "slug": "dnd-character",
+        "name": "D&D Character",
+        "uuid": "197f8f30-145e-4223-b057-dac995302339",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "house",
         "name": "House",
         "uuid": "a7819b9e-647e-473f-b76a-4954282f13d4",
@@ -816,7 +824,6 @@
     ],
     "foregone": [
       "bank-account",
-      "dnd-character",
       "grep",
       "lens-person",
       "parallel-letter-frequency"
