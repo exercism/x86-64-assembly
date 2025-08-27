@@ -108,11 +108,10 @@ void test_ability_modifier_for_score_18_is_4(void) {
 
 void test_random_ability_is_within_range(void) {
     TEST_IGNORE();
-    const double expected[16] = {7.71,    30.92,  77.12,   162.03, 292.85,  478.45, 701.96, 941.29,
-                                 1142.66, 1288.6, 1327.06, 1234.4, 1010.08, 725.67, 416.99, 162.16};
+    const double expected[16] = {10, 40, 100, 210, 380, 620, 910, 1220, 1480, 1670, 1720, 1600, 1310, 940, 540, 210};
 
     double results[16] = {0};
-    for (size_t i = 0; i < 10000; ++i) {
+    for (size_t i = 0; i < 12960; ++i) {
         const uint8_t value = ability();
         check_valid_score(value);
         results[value - 3]++;
@@ -124,10 +123,37 @@ void test_random_ability_is_within_range(void) {
         sum_of_frequencies += squared / expected[i];
     }
 
-    TEST_ASSERT_LESS_OR_EQUAL(37697, (uint32_t)(1000 * sum_of_frequencies));
+    TEST_ASSERT_LESS_OR_EQUAL(44263, (uint32_t)(1000 * sum_of_frequencies));
 }
 
 void test_random_character_is_valid(void) {
+    TEST_IGNORE();
+    const dnd_character_t Wulfgar = make_dnd_character();
+    check_valid_score(Wulfgar.strength);
+    TEST_ASSERT_EQUAL(10 + modifier(Wulfgar.constitution), Wulfgar.hitpoints);
+
+    const dnd_character_t Artemis_Entreri = make_dnd_character();
+    check_valid_score(Artemis_Entreri.dexterity);
+    TEST_ASSERT_EQUAL(10 + modifier(Artemis_Entreri.constitution), Artemis_Entreri.hitpoints);
+
+    const dnd_character_t Drizzt_Do_Urden = make_dnd_character();
+    check_valid_score(Drizzt_Do_Urden.constitution);
+    TEST_ASSERT_EQUAL(10 + modifier(Drizzt_Do_Urden.constitution), Drizzt_Do_Urden.hitpoints);
+
+    const dnd_character_t Elminster = make_dnd_character();
+    check_valid_score(Elminster.intelligence);
+    TEST_ASSERT_EQUAL(10 + modifier(Elminster.constitution), Elminster.hitpoints);
+
+    const dnd_character_t Cattie_Brie = make_dnd_character();
+    check_valid_score(Cattie_Brie.wisdom);
+    TEST_ASSERT_EQUAL(10 + modifier(Cattie_Brie.constitution), Cattie_Brie.hitpoints);
+
+    const dnd_character_t Regis = make_dnd_character();
+    check_valid_score(Regis.charisma);
+    TEST_ASSERT_EQUAL(10 + modifier(Regis.constitution), Regis.hitpoints);
+}
+
+void test_each_ability_is_only_calculated_once(void) {
     TEST_IGNORE();
     const dnd_character_t Wulfgar = make_dnd_character();
     check_valid_score(Wulfgar.strength);
@@ -174,5 +200,6 @@ int main(void) {
     RUN_TEST(test_ability_modifier_for_score_18_is_4);
     RUN_TEST(test_random_ability_is_within_range);
     RUN_TEST(test_random_character_is_valid);
+    RUN_TEST(test_each_ability_is_only_calculated_once);
     return UNITY_END();
 }

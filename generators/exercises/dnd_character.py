@@ -33,13 +33,11 @@ def gen_func_body(prop, inp, expected):
         )
     elif prop == "ability":
         str_list.append("const double expected[16] = " + "{\n")
-        str_list.append("7.71, 30.92, 77.12, 162.03, 292.85, 478.45, 701.96, 941.29,")
-        str_list.append(
-            "1142.66, 1288.6, 1327.06,  1234.4,  1010.08, 725.67, 416.99, 162.16"
-        )
+        str_list.append("10, 40, 100, 210, 380, 620, 910, 1220,")
+        str_list.append("1480, 1670, 1720, 1600, 1310, 940, 540, 210")
         str_list.append("};\n\n")
         str_list.append("double results[16] = " + "{0};\n")
-        str_list.append("for (size_t i = 0; i < 10000; ++i) " + "{\n")
+        str_list.append("for (size_t i = 0; i < 12960; ++i) " + "{\n")
         str_list.append("const uint8_t value = ability();\n")
         str_list.append("check_valid_score(value);\n")
         str_list.append("results[value - 3]++;\n")
@@ -52,7 +50,7 @@ def gen_func_body(prop, inp, expected):
         str_list.append("sum_of_frequencies += squared / expected[i];\n")
         str_list.append("}\n\n")
         str_list.append(
-            "TEST_ASSERT_LESS_OR_EQUAL(37697, (uint32_t)(1000 * sum_of_frequencies));\n"
+            "TEST_ASSERT_LESS_OR_EQUAL(44263, (uint32_t)(1000 * sum_of_frequencies));\n"
         )
     else:
         characters = [

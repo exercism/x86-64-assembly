@@ -19,7 +19,7 @@ global make_dnd_character
 ;
 ; The seed chosen was the "Borosh-Niederreiter multiplier for modulus 2^32"
 ; in line with: https://github.com/cslarsen/mersenne-twister/blob/master/mersenne-twister.cpp
-; This seed is xor-ed with the CPU time-stamp
+; This seed is xor-ed with the CPU timestamp
 ;
 ; This exercise was a good opportunity to see how GCC handles the "translation" between C and x86-64 assembly
 ; Here's the godbolt for the wikipedia implementation mentioned above: https://godbolt.org/z/acEoj15xz
@@ -210,6 +210,7 @@ ability:
     ; each valid result is stored in the stack
 
     call mt_rand
+    ;; rdrand rax
     xor rdx, rdx
     div r9d
 
@@ -217,6 +218,7 @@ ability:
     mov byte [rsp], dl
 
     call mt_rand
+    ;; rdrand rax
     xor rdx, rdx
     div r9d
 
@@ -224,6 +226,7 @@ ability:
     mov byte [rsp + 1], dl
 
     call mt_rand
+    ;; rdrand rax
     xor rdx, rdx
     div r9d
 
@@ -231,6 +234,7 @@ ability:
     mov byte [rsp + 2], dl
 
     call mt_rand
+    ;; rdrand rax
     xor rdx, rdx
     div r9d
 
