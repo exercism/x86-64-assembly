@@ -209,6 +209,7 @@ ability:
     ; 4 random numbers are generated and normalized to [1-6]
     ; each valid result is stored in the stack
 
+    ; rdtsc
     call mt_rand
     ;; rdrand rax
     xor rdx, rdx
@@ -217,6 +218,7 @@ ability:
     inc rdx
     mov byte [rsp], dl
 
+    ; rdtsc
     call mt_rand
     ;; rdrand rax
     xor rdx, rdx
@@ -225,6 +227,7 @@ ability:
     inc rdx
     mov byte [rsp + 1], dl
 
+    ; rdtsc
     call mt_rand
     ;; rdrand rax
     xor rdx, rdx
@@ -233,6 +236,7 @@ ability:
     inc rdx
     mov byte [rsp + 2], dl
 
+    ; rdtsc
     call mt_rand
     ;; rdrand rax
     xor rdx, rdx

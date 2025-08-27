@@ -1,8 +1,8 @@
 ## x86-64 Assembly Specific Notes
 
-In the x86-64-assembly track, the randomness of the ability() function is checked by a [Chi-squared test][chi-squared-test], considering a [p value][p-value] of 0.001.
+In the x86-64-assembly track, the randomness of the ability() function is checked by a [chi-squared test][chi-squared-test], at the level of [p][p-value] < 0.0001.
 
-This means that there's a 0.01% chance that a truly random ability score, calculated according to the instructions, produces a distribution of values that fails the test.
+This means that if the ability score is being generated according to the instructions, there's less than a 0.01% chance of it producing a distribution of values that fails the test.
 
 Notice that, according to the instructions, an ability score is the sum of the 3 largest out of 4 rolls of an unbiased d6 (six-sided die).
 

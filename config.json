@@ -271,14 +271,6 @@
         "difficulty": 3
       },
       {
-        "slug": "dnd-character",
-        "name": "D&D Character",
-        "uuid": "197f8f30-145e-4223-b057-dac995302339",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
         "slug": "eliuds-eggs",
         "name": "Eliud's Eggs",
         "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
@@ -562,6 +554,14 @@
         "slug": "atbash-cipher",
         "name": "Atbash Cipher",
         "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
+        "slug": "dnd-character",
+        "name": "D&D Character",
+        "uuid": "197f8f30-145e-4223-b057-dac995302339",
         "practices": [],
         "prerequisites": [],
         "difficulty": 5
