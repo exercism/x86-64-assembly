@@ -806,6 +806,14 @@
         "difficulty": 8
       },
       {
+        "slug": "two-bucket",
+        "name": "Two Bucket",
+        "uuid": "63d0e6bb-073d-49ff-ba24-c4dbf6e39399",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 8
+      },
+      {
         "slug": "knapsack",
         "name": "Knapsack",
         "uuid": "2ef39cbc-801b-437e-96ec-71f3439388e4",
