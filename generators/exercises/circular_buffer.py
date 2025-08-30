@@ -3,12 +3,13 @@ FUNC_PROTO = """\
 
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 extern void create_buffer(size_t capacity);
-extern bool read_buffer(int *output);
-extern bool write_buffer(int input);
+extern bool read_buffer(int32_t *output);
+extern bool write_buffer(int32_t input);
 extern void clear_buffer(void);
-extern void overwrite_buffer(int input);
+extern void overwrite_buffer(int32_t input);
 extern void delete_buffer(void);
 """
 
@@ -20,7 +21,7 @@ def gen_func_body(prop, inp, expected):
     index = 1
     for op in inp["operations"]:
         if op["operation"] == "read":
-            str_list.append(f"int output_{index};\n")
+            str_list.append(f"int32_t output_{index};\n")
             str_list.append(
                 f"TEST_ASSERT_EQUAL({str(op['should_succeed']).lower()}, {op['operation']}_buffer(&output_{index}));\n"
             )
