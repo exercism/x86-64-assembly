@@ -567,6 +567,14 @@
         "difficulty": 5
       },
       {
+        "slug": "circular-buffer",
+        "name": "Circular Buffer",
+        "uuid": "ebd57eb1-ea95-4ee6-8e91-bd4853acbee3",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "dnd-character",
         "name": "D&D Character",
         "uuid": "197f8f30-145e-4223-b057-dac995302339",
