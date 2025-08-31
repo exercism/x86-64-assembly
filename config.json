@@ -677,6 +677,14 @@
         "difficulty": 5
       },
       {
+        "slug": "spiral-matrix",
+        "name": "Spiral Matrix",
+        "uuid": "752b0790-40ff-4333-9b1a-a9d4df50f7ec",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "yacht",
         "name": "Yacht",
         "uuid": "dfb8f9b9-3080-4c7e-b259-5fff1df959d9",
