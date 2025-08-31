@@ -85,10 +85,7 @@ answer:
 
     ; This exercise is mostly a careful management of states and transitions
     ; However, it seems arbitrary in places (mostly on how it handles exceptions)
-    ; I must confess I haven't yet understood the logic of defining "What is?" as syntax error and "Who is the presidente of the United States?" as unknown operation
-    ;
-    ; The algorithm is:
-    ; Checks initial
+    ; I must confess I haven't yet understood the logic of defining "What is?" as syntax error and "Who is the president of the United States?" as unknown operation
 
     push r12
     mov r12, rdi
@@ -232,19 +229,22 @@ answer:
     neg rdx
 
     cmp r9b, 1
-    cmove r8, rdx
+    cmove r8, rdx ; if sign flag is set, moves negated number to accumulator
+
+    ; dispatch according to op flag
 
     cmp r11, 1
-    jl .end_initial_num
-    je .syntax_error
+    jl .end_initial_num ; if flag is 0, initial number must be loaded
+    je .syntax_error ; if equal to 1, op was not set and this is a syntax error
 
     cmp r11, 3
-    jl .end_minus
-    je .end_plus
+    jl .end_minus ; flag 2 is subtraction
+    je .end_plus ; flag 3 is addition
 
     cmp r11, 5
-    jl .end_multiplication
-    je .end_division
+    jl .end_multiplication ; flag 4 is multiplication
+    je .end_division ; flag 5 is division
+    ; otherwise op flag is invalid and there's a syntax error
 
     jmp .syntax_error
 
