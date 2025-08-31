@@ -1,3 +1,9 @@
+default rel
+
+SUCCESS equ 0
+SYNTAX_ERROR equ 1
+UNKNOWN_OPERATION equ 2
+
 section .text
 global answer
 
