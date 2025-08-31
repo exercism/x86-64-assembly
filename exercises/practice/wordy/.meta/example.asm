@@ -79,7 +79,7 @@ global answer
 %endmacro
 
 answer:
-    ; rdi - pointer to a int32_t, where the result of evaluating the question should be stored
+    ; rdi - pointer to a int64_t, where the result of evaluating the question should be stored
     ; rsi - string which represents the question
     ; rax should return an error flag
 
