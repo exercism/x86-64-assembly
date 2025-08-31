@@ -1,5 +1,8 @@
+default rel
+
 section .text
 global meetup
+
 meetup:
     ; Provide your implementation here
     ret

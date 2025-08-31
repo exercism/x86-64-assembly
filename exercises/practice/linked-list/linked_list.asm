@@ -1,3 +1,5 @@
+default rel
+
 ; a Node in the doubly linked-list
 struc Node
         ; pointer to previous node

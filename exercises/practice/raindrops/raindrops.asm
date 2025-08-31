@@ -1,5 +1,8 @@
+default rel
+
 section .text
 global convert
+
 convert:
     ; Provide your implementation here
     ret

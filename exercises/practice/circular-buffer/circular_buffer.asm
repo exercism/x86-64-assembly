@@ -1,3 +1,7 @@
+default rel
+
+section .bss
+
 section .text
 
 global create_buffer

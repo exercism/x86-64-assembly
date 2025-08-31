@@ -1,5 +1,8 @@
+default rel
+
 section .text
 global proteins
+
 proteins:
    ; Provide your implementation here
    ret

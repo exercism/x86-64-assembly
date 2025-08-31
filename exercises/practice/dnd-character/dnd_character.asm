@@ -1,3 +1,5 @@
+default rel
+
 section .text
 
 global modifier
