@@ -782,6 +782,14 @@
         "difficulty": 7
       },
       {
+        "slug": "wordy",
+        "name": "Wordy",
+        "uuid": "3ad797ff-f65a-4e93-9ec1-21f8350e2382",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7
+      },
+      {
         "slug": "all-your-base",
         "name": "All Your Base",
         "uuid": "02d07b3b-86a2-404f-9d95-170602315a35",
