@@ -693,6 +693,14 @@
         "difficulty": 5
       },
       {
+        "slug": "split-second-stopwatch",
+        "name": "Split-Second Stopwatch",
+        "uuid": "f5d3d785-1286-45a4-b29c-63b63aee9633",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "yacht",
         "name": "Yacht",
         "uuid": "dfb8f9b9-3080-4c7e-b259-5fff1df959d9",
