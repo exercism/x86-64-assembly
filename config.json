@@ -567,6 +567,14 @@
         "difficulty": 5
       },
       {
+        "slug": "binary-search-tree",
+        "name": "Binary Search Tree",
+        "uuid": "964eb38f-226e-4b24-a7de-a6072394bca7",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "circular-buffer",
         "name": "Circular Buffer",
         "uuid": "ebd57eb1-ea95-4ee6-8e91-bd4853acbee3",
