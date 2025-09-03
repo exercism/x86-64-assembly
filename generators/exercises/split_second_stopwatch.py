@@ -33,10 +33,6 @@ extern const char *current_lap(void);
 extern size_t previous_laps(const char *buffer[]);
 extern void advance_time(const char *by);
 extern const char *total(void);
-
-const char *null_gen(void) {
-    return NULL;
-}
 """
 
 
@@ -77,11 +73,8 @@ def gen_func_body(prop, inp, expected):
             id += 1
         elif op == "current_lap" or op == "total":
             str_list.append(
-                f'const char *const expected_{id} = "{command["expected"]}";'
+                f'TEST_ASSERT_EQUAL_STRING("{command["expected"]}", {op}());'
             )
-            str_list.append(f"const char *result_{id} = null_gen();")
-            str_list.append(f"result_{id} = {op}();")
-            str_list.append(f"TEST_ASSERT_EQUAL_STRING(expected_{id}, result_{id});")
             id += 1
         elif op == "advance_time":
             str_list.append(f'{op}("{command["by"]}");')

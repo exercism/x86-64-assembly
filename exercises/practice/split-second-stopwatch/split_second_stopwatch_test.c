@@ -31,10 +31,6 @@ extern size_t previous_laps(const char *buffer[]);
 extern void advance_time(const char *by);
 extern const char *total(void);
 
-const char *null_gen(void) {
-    return NULL;
-}
-
 void setUp(void) {
 }
 
@@ -49,19 +45,13 @@ void test_new_stopwatch_starts_in_ready_state(void) {
 void test_new_stopwatchs_current_lap_has_no_elapsed_time(void) {
     TEST_IGNORE();
     new();
-    const char *const expected_1 = "00:00:00";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:00", current_lap());
 }
 
 void test_new_stopwatchs_total_has_no_elapsed_time(void) {
     TEST_IGNORE();
     new();
-    const char *const expected_1 = "00:00:00";
-    const char *result_1 = null_gen();
-    result_1 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:00", total());
 }
 
 void test_new_stopwatch_does_not_have_previous_laps(void) {
@@ -91,10 +81,7 @@ void test_start_initiates_time_tracking_for_current_lap(void) {
     new();
     TEST_ASSERT_EQUAL(success, start());
     advance_time("00:00:05");
-    const char *const expected_1 = "00:00:05";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:05", current_lap());
 }
 
 void test_start_initiates_time_tracking_for_total(void) {
@@ -102,10 +89,7 @@ void test_start_initiates_time_tracking_for_total(void) {
     new();
     TEST_ASSERT_EQUAL(success, start());
     advance_time("00:00:23");
-    const char *const expected_1 = "00:00:23";
-    const char *result_1 = null_gen();
-    result_1 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:23", total());
 }
 
 void test_start_cannot_be_called_from_running_state(void) {
@@ -130,10 +114,7 @@ void test_stop_pauses_time_tracking_for_current_lap(void) {
     advance_time("00:00:05");
     TEST_ASSERT_EQUAL(success, stop());
     advance_time("00:00:08");
-    const char *const expected_1 = "00:00:05";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:05", current_lap());
 }
 
 void test_stop_pauses_time_tracking_for_total(void) {
@@ -143,10 +124,7 @@ void test_stop_pauses_time_tracking_for_total(void) {
     advance_time("00:00:13");
     TEST_ASSERT_EQUAL(success, stop());
     advance_time("00:00:44");
-    const char *const expected_1 = "00:00:13";
-    const char *result_1 = null_gen();
-    result_1 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:13", total());
 }
 
 void test_stop_cannot_be_called_from_ready_state(void) {
@@ -181,10 +159,7 @@ void test_start_from_stopped_state_resumes_time_tracking_for_current_lap(void) {
     advance_time("00:00:20");
     TEST_ASSERT_EQUAL(success, start());
     advance_time("00:00:08");
-    const char *const expected_1 = "00:01:28";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:01:28", current_lap());
 }
 
 void test_start_from_stopped_state_resumes_time_tracking_for_total(void) {
@@ -196,10 +171,7 @@ void test_start_from_stopped_state_resumes_time_tracking_for_total(void) {
     advance_time("00:00:44");
     TEST_ASSERT_EQUAL(success, start());
     advance_time("00:00:09");
-    const char *const expected_1 = "00:00:32";
-    const char *result_1 = null_gen();
-    result_1 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:32", total());
 }
 
 void test_lap_adds_current_lap_to_previous_laps(void) {
@@ -230,15 +202,9 @@ void test_lap_resets_current_lap_and_resumes_time_tracking(void) {
     TEST_ASSERT_EQUAL(success, start());
     advance_time("00:08:22");
     TEST_ASSERT_EQUAL(success, lap());
-    const char *const expected_1 = "00:00:00";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:00", current_lap());
     advance_time("00:00:15");
-    const char *const expected_2 = "00:00:15";
-    const char *result_2 = null_gen();
-    result_2 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_2, result_2);
+    TEST_ASSERT_EQUAL_STRING("00:00:15", current_lap());
 }
 
 void test_lap_continues_time_tracking_for_total(void) {
@@ -248,10 +214,7 @@ void test_lap_continues_time_tracking_for_total(void) {
     advance_time("00:00:22");
     TEST_ASSERT_EQUAL(success, lap());
     advance_time("00:00:33");
-    const char *const expected_1 = "00:00:55";
-    const char *result_1 = null_gen();
-    result_1 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:55", total());
 }
 
 void test_lap_cannot_be_called_from_ready_state(void) {
@@ -305,10 +268,7 @@ void test_reset_resets_current_lap(void) {
     advance_time("00:00:10");
     TEST_ASSERT_EQUAL(success, stop());
     TEST_ASSERT_EQUAL(success, reset());
-    const char *const expected_1 = "00:00:00";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("00:00:00", current_lap());
 }
 
 void test_reset_clears_previous_laps(void) {
@@ -349,10 +309,7 @@ void test_supports_very_long_laps(void) {
     new();
     TEST_ASSERT_EQUAL(success, start());
     advance_time("01:23:45");
-    const char *const expected_1 = "01:23:45";
-    const char *result_1 = null_gen();
-    result_1 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_1, result_1);
+    TEST_ASSERT_EQUAL_STRING("01:23:45", current_lap());
     TEST_ASSERT_EQUAL(success, lap());
     const char *buffer_2[BUFFER_SIZE];
     const char *const expected_2[] = {"01:23:45"};
@@ -361,14 +318,8 @@ void test_supports_very_long_laps(void) {
         TEST_ASSERT_EQUAL_STRING(expected_2[i], buffer_2[i]);
     }
     advance_time("04:01:40");
-    const char *const expected_3 = "04:01:40";
-    const char *result_3 = null_gen();
-    result_3 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_3, result_3);
-    const char *const expected_4 = "05:25:25";
-    const char *result_4 = null_gen();
-    result_4 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_4, result_4);
+    TEST_ASSERT_EQUAL_STRING("04:01:40", current_lap());
+    TEST_ASSERT_EQUAL_STRING("05:25:25", total());
     TEST_ASSERT_EQUAL(success, lap());
     const char *buffer_5[BUFFER_SIZE];
     const char *const expected_5[] = {"01:23:45", "04:01:40"};
@@ -377,14 +328,8 @@ void test_supports_very_long_laps(void) {
         TEST_ASSERT_EQUAL_STRING(expected_5[i], buffer_5[i]);
     }
     advance_time("08:43:05");
-    const char *const expected_6 = "08:43:05";
-    const char *result_6 = null_gen();
-    result_6 = current_lap();
-    TEST_ASSERT_EQUAL_STRING(expected_6, result_6);
-    const char *const expected_7 = "14:08:30";
-    const char *result_7 = null_gen();
-    result_7 = total();
-    TEST_ASSERT_EQUAL_STRING(expected_7, result_7);
+    TEST_ASSERT_EQUAL_STRING("08:43:05", current_lap());
+    TEST_ASSERT_EQUAL_STRING("14:08:30", total());
     TEST_ASSERT_EQUAL(success, lap());
     const char *buffer_8[BUFFER_SIZE];
     const char *const expected_8[] = {"01:23:45", "04:01:40", "08:43:05"};
