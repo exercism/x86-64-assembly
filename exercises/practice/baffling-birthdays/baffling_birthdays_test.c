@@ -128,99 +128,6 @@ void test_generate_requested_number_of_birthdates(void) {
     TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
 }
 
-void test_years_are_not_leap_years(void) {
-    TEST_IGNORE();
-    double month_map[12] = {0};
-    double day_map[31] = {0};
-    for (size_t i = 0; i < 365; ++i) {
-        date_t buffer[BUFFER_SIZE] = {0};
-        random_birthdates(buffer, 120);
-        for (size_t j = 0; j < 120; ++j) {
-            TEST_ASSERT(!is_leap(buffer[j].year));
-            TEST_ASSERT_LESS_OR_EQUAL(12, buffer[j].month);
-            TEST_ASSERT(is_valid_day(buffer[j]));
-            month_map[buffer[j].month - 1]++;
-            day_map[buffer[j].day - 1]++;
-        }
-    }
-    double sum_of_month_frequencies = 0;
-    for (size_t i = 0; i < 12; ++i) {
-        const double squared = (month_map[i] - 3650) * (month_map[i] - 3650);
-        sum_of_month_frequencies += squared / 3650;
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(37367, (uint32_t)(1000 * sum_of_month_frequencies));
-    const double day_expected[] = {1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440,
-                                   1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1320, 1320, 840};
-    double sum_of_day_frequencies = 0;
-    for (size_t i = 0; i < 31; ++i) {
-        const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);
-        sum_of_day_frequencies += squared / day_expected[i];
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
-}
-
-void test_months_are_random(void) {
-    TEST_IGNORE();
-    double month_map[12] = {0};
-    double day_map[31] = {0};
-    for (size_t i = 0; i < 365; ++i) {
-        date_t buffer[BUFFER_SIZE] = {0};
-        random_birthdates(buffer, 120);
-        for (size_t j = 0; j < 120; ++j) {
-            TEST_ASSERT(!is_leap(buffer[j].year));
-            TEST_ASSERT_LESS_OR_EQUAL(12, buffer[j].month);
-            TEST_ASSERT(is_valid_day(buffer[j]));
-            month_map[buffer[j].month - 1]++;
-            day_map[buffer[j].day - 1]++;
-        }
-    }
-    double sum_of_month_frequencies = 0;
-    for (size_t i = 0; i < 12; ++i) {
-        const double squared = (month_map[i] - 3650) * (month_map[i] - 3650);
-        sum_of_month_frequencies += squared / 3650;
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(37367, (uint32_t)(1000 * sum_of_month_frequencies));
-    const double day_expected[] = {1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440,
-                                   1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1320, 1320, 840};
-    double sum_of_day_frequencies = 0;
-    for (size_t i = 0; i < 31; ++i) {
-        const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);
-        sum_of_day_frequencies += squared / day_expected[i];
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
-}
-
-void test_days_are_random(void) {
-    TEST_IGNORE();
-    double month_map[12] = {0};
-    double day_map[31] = {0};
-    for (size_t i = 0; i < 365; ++i) {
-        date_t buffer[BUFFER_SIZE] = {0};
-        random_birthdates(buffer, 120);
-        for (size_t j = 0; j < 120; ++j) {
-            TEST_ASSERT(!is_leap(buffer[j].year));
-            TEST_ASSERT_LESS_OR_EQUAL(12, buffer[j].month);
-            TEST_ASSERT(is_valid_day(buffer[j]));
-            month_map[buffer[j].month - 1]++;
-            day_map[buffer[j].day - 1]++;
-        }
-    }
-    double sum_of_month_frequencies = 0;
-    for (size_t i = 0; i < 12; ++i) {
-        const double squared = (month_map[i] - 3650) * (month_map[i] - 3650);
-        sum_of_month_frequencies += squared / 3650;
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(37367, (uint32_t)(1000 * sum_of_month_frequencies));
-    const double day_expected[] = {1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440,
-                                   1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1320, 1320, 840};
-    double sum_of_day_frequencies = 0;
-    for (size_t i = 0; i < 31; ++i) {
-        const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);
-        sum_of_day_frequencies += squared / day_expected[i];
-    }
-    TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
-}
-
 void test_for_one_person(void) {
     TEST_IGNORE();
     TEST_ASSERT_FLOAT_WITHIN(0.1, 0.0, estimated_probability_of_shared_birthday(1));
@@ -253,9 +160,6 @@ int main(void) {
     RUN_TEST(test_multiple_birthdates_with_one_shared_birthday);
     RUN_TEST(test_multiple_birthdates_with_more_than_one_shared_birthday);
     RUN_TEST(test_generate_requested_number_of_birthdates);
-    RUN_TEST(test_years_are_not_leap_years);
-    RUN_TEST(test_months_are_random);
-    RUN_TEST(test_days_are_random);
     RUN_TEST(test_for_one_person);
     RUN_TEST(test_among_ten_people);
     RUN_TEST(test_among_twentythree_people);

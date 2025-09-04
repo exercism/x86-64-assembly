@@ -25,9 +25,6 @@ global estimated_probability_of_shared_birthday
 ;
 ; Here's the godbolt for the wikipedia implementation mentioned above: https://godbolt.org/z/acEoj15xz
 ; I've taken the "magic numbers" from there
-;
-;
-;
 
 mt_init:
     ; prologue
@@ -187,32 +184,32 @@ shared_birthday:
     xor r8, r8 ; flag
     mov rcx, rdi
 .accumulate:
-    lodsd
+    lodsd ; rax holds current value in input array
 
     and rax, rdx ; apply mask
 
-    mov r10, rsp
+    mov r10, rsp ; r10 will serve as counter for end of loop, by comparing with RBP
 .compare_loop:
     cmp r10, rbp
-    jge .end_compare
+    jge .end_compare ; reached end of stack array, adds value to stack
 
-    mov r9d, dword [r10]
+    mov r9d, dword [r10] ; gets current value in stack
     cmp r9d, eax
-    sete r11b
+    sete r11b ; 1 if a match is found, 0 otherwise
 
-    or r8b, r11b
+    or r8b, r11b ; r8 is set on the first match and remains set
 
-    add r10, 4
+    add r10, 4 ; moves to next value in the stack
     jmp .compare_loop
 
 .end_compare:
     sub rsp, 4
-    mov dword [rsp], eax
+    mov dword [rsp], eax ; adds current value to stack
 
     cmp r8, 0
-    loope .accumulate
+    loope .accumulate ; loops while a match isn't found, or until end of array
 
-    mov rax, r8
+    mov rax, r8 ; moves match flag to RAX, for returning
 
     ; epilogue
     mov rsp, rbp
