@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "baffling_birthdays.asm"
+    ],
+    "test": [
+      "baffling_birthdays_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Estimate the birthday paradox's probabilities.",
+  "source": "Erik Schierboom",
+  "source_url": "https://github.com/exercism/problem-specifications/pull/2539"
+}

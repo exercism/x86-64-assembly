@@ -830,6 +830,14 @@
         "difficulty": 8
       },
       {
+        "slug": "baffling-birthdays",
+        "name": "Baffling Birthdays",
+        "uuid": "28d1203e-e12a-49be-aba1-0571f54b3e39",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 8
+      },
+      {
         "slug": "book-store",
         "name": "Book Store",
         "uuid": "799fcb2c-939a-4e7d-b8df-c815acc545c7",
