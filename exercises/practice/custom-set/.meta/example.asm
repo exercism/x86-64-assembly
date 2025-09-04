@@ -20,7 +20,7 @@ default rel
 
 section .bss
     set_arr resq 1020
-    used_sets resb 1020
+    used_sets resb 255
 
 section .text
 
@@ -50,6 +50,18 @@ global delete_set
     shl r11, 5
     lea %1, [set_arr]
     add %1, r11
+%endmacro
+
+%macro id_to_index 2
+    lea %1, [set_arr]
+    shl %2, 5
+    add %1, %2
+%endmacro
+
+%macro index_to_id 2
+    lea %1, [used_sets]
+    shr %2, 5
+    add %1, %2
 %endmacro
 
 create_set:
@@ -82,7 +94,8 @@ create_set:
 .end_insert:
     mov rax, r10
     lea r10, [set_arr]
-    sub rax, r10 ; identifier is the offset from the first set to the actual one being used
+    sub rax, r10
+    shr rax, 5 ; identifier is the index of the set in the sets array
 
     ret
 
@@ -90,8 +103,7 @@ set_empty:
     ; RDI - identifier for the set
     ; return is a boolean in RAX
 
-    lea r10, [set_arr]
-    add r10, rdi
+    id_to_index r10, rdi
 
     mov rax, 1
     mov rcx, 4
@@ -108,8 +120,7 @@ set_contains:
     ; RSI - element (as a int8_t) to be searched
     ; return is a boolean in rax
 
-    lea r10, [set_arr]
-    add r10, rdi
+    id_to_index r10, rdi
 
     xor rax, rax
     xor rcx, rcx
@@ -130,11 +141,8 @@ set_subset:
     ; RSI - identifier for second set
     ; return is a boolean in RAX
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rax, 1
     mov rcx, 4
@@ -154,11 +162,8 @@ set_disjoint:
     ; RSI - identifier for second set
     ; return is a boolean in RAX
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rax, 1
     mov rcx, 4
@@ -178,11 +183,8 @@ set_equal:
     ; RSI - identifier for second set
     ; return is a boolean in RAX
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rax, 1
     mov rcx, 4
@@ -201,8 +203,7 @@ set_add:
     ; RSI - element (as a int8_t) to be added
     ; return is void
 
-    lea r10, [set_arr]
-    add r10, rdi
+    id_to_index r10, rdi
 
     xor rax, rax
     xor rcx, rcx
@@ -224,11 +225,8 @@ set_intersection:
 
     find_empty_set r9
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rcx, 4
 .loop:
@@ -240,6 +238,7 @@ set_intersection:
     mov rax, r9
     lea r9, [set_arr]
     sub rax, r9
+    shr rax, 5
 
     ret
 
@@ -250,11 +249,8 @@ set_difference:
 
     find_empty_set r9
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rcx, 4
 .loop:
@@ -267,6 +263,8 @@ set_difference:
     mov rax, r9
     lea r9, [set_arr]
     sub rax, r9
+    shr rax, 5
+
     ret
 
 set_union:
@@ -276,11 +274,8 @@ set_union:
 
     find_empty_set r9
 
-    lea r10, [set_arr]
-    mov r11, r10
-
-    add r10, rdi
-    add r11, rsi
+    id_to_index r10, rdi
+    id_to_index r11, rsi
 
     mov rcx, 4
 .loop:
@@ -292,14 +287,15 @@ set_union:
     mov rax, r9
     lea r9, [set_arr]
     sub rax, r9
+    shr rax, 5
+
     ret
 
 delete_set:
     ; RDI - set id
     ; return is void
 
-    lea r10, [set_arr]
-    add r10, rdi
+    id_to_index r10, rdi
 
     ; clears all bits in set
 %rep 4
@@ -308,10 +304,7 @@ delete_set:
     %assign i i+1
 %endrep
 
-    ; clears index in used_sets
-    shr rdi, 5
-    lea r10, [used_sets]
-    add r10, rdi
+    index_to_id r10, rdi
     mov byte [r10], 0
 
     ret
