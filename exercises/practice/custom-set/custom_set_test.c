@@ -6,7 +6,7 @@
 
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 
-typedef size_t set_id;
+typedef uint8_t set_id;
 
 extern set_id create_set(size_t input_count, const int8_t *input);
 extern bool set_empty(set_id set);

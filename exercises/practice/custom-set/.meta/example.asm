@@ -11,14 +11,16 @@
 ; Also, set operations that add or search for elements are simple BTS or BT instructions
 ; And operations such as disjoint, subset or equal are also straightforward applications of bitset instructions
 ;
-; To store sets, there's a set_arr which can hold 40 uin64_t, enough for 10 sets
-; And to keep track of used indexes in the array, there's a used_sets array with 10 booleans
+; To store sets, there's a set_arr which can hold 1020 uin64_t, enough for 255 sets
+; And to keep track of used indexes in the array, there's a used_sets array with 1020 booleans
+;
+; If we were to add a length function, this would be just a sum of 4 POPCNT
 
 default rel
 
 section .bss
-    set_arr resq 40
-    used_sets resb 10
+    set_arr resq 1020
+    used_sets resb 1020
 
 section .text
 
