@@ -1,3 +1,5 @@
+INCOMPLETE_SEQUENCE equ -1
+
 section .text
 global encode
 global decode
@@ -7,7 +9,7 @@ encode:
     ; rdi - output buffer of uint8_t
     ; rsi - input array of uint32_t integers
     ; rdx - size of input array as size_t (uint64_t)
-    ; return is size of output buffer as a uint64_t in rax
+    ; return is size of output buffer as a int64_t in rax
 
     ; This is the translation to assembly of my solution for JS
     ;
@@ -90,7 +92,7 @@ decode:
     ; rdi - output buffer of uint32_t
     ; rsi - input array of uint8_t integers
     ; rdx - size of input array as size_t (uint64_t)
-    ; return is size of output buffer as a uint64_t in rax
+    ; return is size of output buffer as a int64_t in rax
 
     ; This is the translation to assembly of my solution for JS
     ;
@@ -123,6 +125,9 @@ decode:
     cmp r10, 0
     je .end_inner_loop ; if last bit is not set, result is ready to push to buffer
 
+    cmp rdx, 0
+    je .error
+
     mov r10, r11
     xor r10, rax ; removes last bit
     or r9, r10 ; accumulates in r9
@@ -142,6 +147,10 @@ decode:
 
 .end_main_loop:
     mov rax, r8 ; moves counter to rax, for returning
+    ret
+
+.error:
+    mov rax, INCOMPLETE_SEQUENCE
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
