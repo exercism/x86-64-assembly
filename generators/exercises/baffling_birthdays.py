@@ -41,12 +41,41 @@ bool is_valid_day(date_t date) {
 """
 
 
+def gen_random_check(prop):
+    return f"""double month_map[12] = {{0}};
+    double day_map[31] = {{0}};
+    for (size_t i = 0; i < 365; ++i) {{
+        date_t buffer[BUFFER_SIZE] = {{0}};
+        {prop}(buffer, 120);
+        for (size_t j = 0; j < 120; ++j) {{
+            TEST_ASSERT(!is_leap(buffer[j].year));
+            TEST_ASSERT_LESS_OR_EQUAL(12, buffer[j].month);
+            TEST_ASSERT(is_valid_day(buffer[j]));
+            month_map[buffer[j].month - 1]++;
+            day_map[buffer[j].day - 1]++;
+        }}
+    }}
+    double sum_of_month_frequencies = 0;
+    for (size_t i = 0; i < 12; ++i) {{
+        const double squared = (month_map[i] - 3650) * (month_map[i] - 3650);
+        sum_of_month_frequencies += squared / 3650;
+    }}
+    TEST_ASSERT_LESS_OR_EQUAL(37367, (uint32_t)(1000 * sum_of_month_frequencies));
+    const double day_expected[] = {{1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1320, 1320, 840}};
+    double sum_of_day_frequencies = 0;
+    for (size_t i = 0; i < 31; ++i) {{
+        const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);
+        sum_of_day_frequencies += squared / day_expected[i];
+        TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
+    }}
+    """
+
+
 def array_literal(numbers):
     return str(numbers).replace("[", "{").replace("]", "}")
 
 
 delta = {"0.0": 0.1, "11.694818": 8.2765, "50.729723": 12.88, "99.915958": 0.83}
-flag = 0
 
 
 def gen_func_body(prop, inp, expected):
@@ -59,45 +88,7 @@ def gen_func_body(prop, inp, expected):
             f"TEST_ASSERT_EQUAL({str(expected).lower()}, {prop}(ARRAY_SIZE(birthdates), birthdates));"
         )
     elif prop == "random_birthdates":
-        if flag == 0:
-            str_list.append("double month_map[12]" + "= {0};")
-            str_list.append("double day_map[31]" + "= {0};")
-            str_list.append("for (size_t i = 0; i < 365; ++i)" + "{")
-            str_list.append("date_t buffer[BUFFER_SIZE]" + "= {0};")
-            str_list.append(f"{prop}(buffer, 120);")
-            str_list.append("for (size_t j = 0; j < 120; ++j)" + "{")
-            str_list.append("TEST_ASSERT(!is_leap(buffer[j].year));")
-            str_list.append("TEST_ASSERT_LESS_OR_EQUAL(12, buffer[j].month);")
-            str_list.append("TEST_ASSERT(is_valid_day(buffer[j]));")
-            str_list.append("month_map[buffer[j].month - 1]++;")
-            str_list.append("day_map[buffer[j].day - 1]++;")
-            str_list.append("}")
-            str_list.append("}")
-            str_list.append("double sum_of_month_frequencies = 0;")
-            str_list.append("for (size_t i = 0; i < 12; ++i) " + "{")
-            str_list.append(
-                "const double squared = (month_map[i] - 3650) * (month_map[i] - 3650);"
-            )
-            str_list.append("sum_of_month_frequencies += squared / 3650;")
-            str_list.append("}")
-            str_list.append(
-                "TEST_ASSERT_LESS_OR_EQUAL(37367, (uint32_t)(1000 * sum_of_month_frequencies))\n;"
-            )
-            str_list.append(
-                "const double day_expected[] = "
-                + "{1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1440, 1320, 1320, 840};"
-            )
-            str_list.append("double sum_of_day_frequencies = 0;")
-            str_list.append("for (size_t i = 0; i < 31; ++i) " + "{")
-            str_list.append(
-                "const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);"
-            )
-            str_list.append("sum_of_day_frequencies += squared / day_expected[i];")
-            str_list.append("}")
-            str_list.append(
-                "TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));"
-            )
-            flag = 1
+        str_list.append(gen_random_check(prop))
     else:
         str_list.append(
             f"TEST_ASSERT_FLOAT_WITHIN({delta[str(expected)]}, {expected}, {prop}({inp['groupSize']}));"

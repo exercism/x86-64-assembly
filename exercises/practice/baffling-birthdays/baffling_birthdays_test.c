@@ -124,8 +124,8 @@ void test_generate_requested_number_of_birthdates(void) {
     for (size_t i = 0; i < 31; ++i) {
         const double squared = (day_map[i] - day_expected[i]) * (day_map[i] - day_expected[i]);
         sum_of_day_frequencies += squared / day_expected[i];
+        TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
     }
-    TEST_ASSERT_LESS_OR_EQUAL(67633, (uint32_t)(1000 * sum_of_day_frequencies));
 }
 
 void test_for_one_person(void) {
