@@ -32,7 +32,7 @@ prime:
     ; then:
     ; log2(ln(2) * log2(n)) / log2(n) < 1 -> 1.8 * log2(ln(2) * log2(n)) / log2(n) < 2
     ; so:
-    ; p(n) <= n * (log2(n) + log2(log2(n))) + 1
+    ; p(n) <= n * (log2(n) + log2(log2(n))) + 1, for n >= 13
     ;
     ; This is the upper bound used here
     ;
@@ -43,7 +43,7 @@ prime:
     ; Since this is the floor(log2(x)) and since we are dealing with a upper bound,
     ; increasing it by 1 is enough to ensure consistency
     ;
-    ; Those transformations also make the upper bound valid for all n > 1 (checked manually)
+    ; Those transformations also make the upper bound valid for all n >= 1 (checked manually)
 
     lzcnt r11, rdi ; floor(log2n)
     inc r11 ; floor(log2(n)) + 1
