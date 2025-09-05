@@ -741,6 +741,14 @@
         "difficulty": 6
       },
       {
+        "slug": "palindrome-products",
+        "name": "Palindrome Products",
+        "uuid": "6e758deb-1a32-413c-bdcd-e1bfba6f70f8",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "pascals-triangle",
         "name": "Pascal's Triangle",
         "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
