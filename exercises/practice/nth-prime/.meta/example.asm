@@ -9,61 +9,97 @@ prime:
     ; rdi - number as a uint64_t
     ; return is an int64_t in rax
 
-    ; The algorithm is a naive approach with brute force
-    ; It uses the stack by reducing the rsp pointer to store last computed prime
-    ; Until a counter reaches the desired n
-    ; This "dynamic array" on the stack starts with 2 and then it only needs to check for odd primes
-    ; The check consists of iterating over the array, dividing the factor for each pre-computed prime
-    ; and checking for non-zero remainder
-    ;
-    ; This approach was chosen primarily to check the speed of assembly even with an inefficient algorithm
-    ; and considering the presence of an additional test case for a very big prime (the 65537th)
-    ;
-    ; A possible more efficient algorithm would estimate upper bound for the nth-prime and use sieve
-    ; There's a FYL2X which computes log2 (x) and can be used to convert between bases to ln (x)
-    ; TODO on a second iteration
-
     cmp rdi, 1
     jl invalid_number ; there's no zeroth prime
 
-    ; prologue
+    ; According to https://t5k.org/howmany.html:
+    ;
+    ; If n >= 13:
+    ; p(n) <= n (ln n + ln (ln n) - 1 + 1.8 * ln (ln n) / ln n)
+    ; and, for all n:
+    ; n (ln n + ln ln n - 1) < p(n)
+    ; where log is the natural logarithm
+    ;
+    ; since log2(x) = ln(x) / ln(2)
+    ; this upper bound is equivalent to:
+    ; p(n) <= n * (ln(2) * (log2(n) + log2(ln(2) * log2(n))) - 1 + 1.8 * log2(ln(2) * log2(n)) / log2(n) )
+    ;
+    ; But, since:
+    ; 1- ln(2) ~ 0.69;
+    ; 2- all numbers are positive;
+    ; 3- log is strictly increasing with n;
+    ; 4- for n >= 2, log2(n) >= 1 and log2(n) <<< n;
+    ; then:
+    ; log2(ln(2) * log2(n)) / log2(n) < 1 -> 1.8 * log2(ln(2) * log2(n)) / log2(n) < 2
+    ; so:
+    ; p(n) <= n * (log2(n) + log2(log2(n))) + 1, for n >= 13
+    ;
+    ; This is the upper bound used here
+    ;
+    ; The advantage of using logarithms in base 2 is that its floor can be approximated with
+    ; the index of the leading bit of a number in binary form
+    ; which can be found with a simple instruction in x86-64 (lzcnt or bsr)
+    ;
+    ; Since this is the floor(log2(x)) and since we are dealing with a upper bound,
+    ; increasing it by 1 is enough to ensure consistency
+    ;
+    ; Those transformations also make the upper bound valid for all n >= 1 (checked manually)
+
+    lzcnt r11, rdi ; floor(log2n)
+    inc r11 ; floor(log2(n)) + 1
+
+    lzcnt r10, r11 ; floor(log2(log2n))
+    inc r10 ; ; floor(log2(log2n)) + 1
+
+    add r10, r11 ; >= log2n + log2(log2n)
+    imul r10, rdi ; >= n*(log2n + log2(log2n))
+    inc r10 ; r10 is now a safe upper bound for a prime table
+
     push rbp
-    mov rbp, rsp
-    sub rsp, 8
-    mov qword [rsp], 2 ; stack array starts with one element: 2
+    mov rsp, rbp
+    sub rsp, r10
 
-    mov r8, 1 ; counter for size of array
-    mov r9, 1 ; last factor (loops starts by adding 2, so the first factor to be examined is 3)
-main_loop:
-    cmp r8, rdi
-    je return ; found the nth-prime
+    ; from now, it's a simple sieve with a counter
 
-get_factor:
-    add r9, 2 ; current factor
-    mov rcx, r8 ; for using LOOP
-check_prime:
-    mov r10, qword [rsp + 8*rcx - 8] ; iteratively gets all previous primes
+    mov rdx, r10
+    mov rcx, r10
 
-    mov rax, r9 ; for dividing
-    xor rdx, rdx ; for dividing
-    div r10
+    mov r10, rdi
+    mov rdi, rsp
+    mov rax, 1
 
-    cmp rdx, 0
-    je get_factor ; if remainder is 0, factors is not prime
+    rep stosb ; initialize table with true
 
-    loop check_prime ; if remainder is non-zero, loops over to next prime in array
-    ; if all primes were checked, factor is not divisible by any and therefore must be prime
+    xor r11, r11 ; counter for nth prime
+    mov r9, 1 ; current prime
 
-store_prime:
-    sub rsp, 8
-    mov qword [rsp], r9 ; adds factor to prime array
-    inc r8 ; increments size counter
+.find_nth_prime:
+    inc r9
 
-    jmp main_loop ; iterates until the nth-prime is found
-return:
-    mov rax, qword [rsp] ; the nth-prime is the last in the array
+    cmp r9, rdx
+    jge .return
 
-    ; epilogue
+    cmp byte [rsp + r9], 1
+    jne .find_nth_prime
+
+    inc r11
+    cmp r11, r10
+    je .return
+
+.clear_composites:
+    lea r8, [rsp + r9]
+.clear_loop:
+    add r8, r9
+
+    cmp r8, rbp
+    jge .find_nth_prime
+
+    mov byte [r8], 0
+    jmp .clear_loop
+
+.return:
+    mov rax, r11
+
     mov rsp, rbp
     pop rbp
     ret
