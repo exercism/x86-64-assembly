@@ -12,20 +12,27 @@ prime:
     cmp rdi, 1
     jl invalid_number ; there's no zeroth prime
 
-    ; Rosser and Schoenfeld’s explicit bounds for primes:
-    ; p(n) < n * (log(n) + log(log(n))), for n >= 6
+    ; According to https://t5k.org/howmany.html:
+    ;
+    ; If n >= 13:
+    ; p(n) <= n (ln n + ln (ln n) - 1 + 1.8 * ln (ln n) / ln n)
+    ; and, for all n:
+    ; n (ln n + ln ln n - 1) < p(n)
     ; where log is the natural logarithm
     ;
     ; since log2(x) = ln(x) / ln(2)
-    ; this is equivalent to:
-    ; p(n) < n * (ln(2) * log2(n) + ln(2) * log2(ln(2) * log2(n))) = n * ln(2) *(log2(n) + log2(ln(2) * log2(n)))
+    ; this upper bound is equivalent to:
+    ; p(n) <= n * (ln(2) * (log2(n) + log2(ln(2) * log2(n))) - 1 + 1.8 * log2(ln(2) * log2(n)) / log2(n) )
     ;
     ; But, since:
-    ; 1- ln(2) < 1;
-    ; 2- all numbers are positive; and
-    ; 3- log is strictly increasing with n
+    ; 1- ln(2) ~ 0.69;
+    ; 2- all numbers are positive;
+    ; 3- log is strictly increasing with n;
+    ; 4- for n >= 2, log2(n) >= 1 and log2(n) <<< n;
     ; then:
-    ; p(n) < n * (log2(n) + log2(log2(n)))
+    ; log2(ln(2) * log2(n)) / log2(n) < 1 -> 1.8 * log2(ln(2) * log2(n)) / log2(n) < 2
+    ; so:
+    ; p(n) <= n * (log2(n) + log2(log2(n))) + 1
     ;
     ; This is the upper bound used here
     ;
@@ -36,16 +43,17 @@ prime:
     ; Since this is the floor(log2(x)) and since we are dealing with a upper bound,
     ; increasing it by 1 is enough to ensure consistency
     ;
-    ; Those transformations also make Rosser and Schoenfeld’s bounds valid for all n > 1
+    ; Those transformations also make the upper bound valid for all n > 1 (checked manually)
 
     lzcnt r11, rdi ; floor(log2n)
-    inc r11
+    inc r11 ; floor(log2(n)) + 1
 
     lzcnt r10, r11 ; floor(log2(log2n))
-    inc r10
+    inc r10 ; ; floor(log2(log2n)) + 1
 
     add r10, r11 ; >= log2n + log2(log2n)
-    imul r10, rdi ; >= n*(log2n + log2(log2n)) ; r10 is now a safe upper bound for a prime table
+    imul r10, rdi ; >= n*(log2n + log2(log2n))
+    inc r10 ; r10 is now a safe upper bound for a prime table
 
     push rbp
     mov rsp, rbp
@@ -53,7 +61,9 @@ prime:
 
     ; from now, it's a simple sieve with a counter
 
+    mov rdx, r10
     mov rcx, r10
+
     mov r10, rdi
     mov rdi, rsp
     mov rax, 1
@@ -65,6 +75,9 @@ prime:
 
 .find_nth_prime:
     inc r9
+
+    cmp r9, rdx
+    jge .return
 
     cmp byte [rsp + r9], 1
     jne .find_nth_prime
