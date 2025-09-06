@@ -15,7 +15,11 @@ void tearDown(void) {
 
 void test_degenerate_case_with_a_single_a_row(void) {
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {"A"};
+    const char *const expected[] = {
+
+        "A"
+
+    };
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'A'));
 
@@ -28,7 +32,15 @@ void test_degenerate_case_with_no_row_containing_3_distinct_groups_of_spaces(voi
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {" A ", "B B", " A "};
+    const char *const expected[] = {
+
+        " A ",
+
+        "B B",
+
+        " A "
+
+    };
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'B'));
 
@@ -41,7 +53,19 @@ void test_smallest_nondegenerate_case_with_odd_diamond_side_length(void) {
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {"  A  ", " B B ", "C   C", " B B ", "  A  "};
+    const char *const expected[] = {
+
+        "  A  ",
+
+        " B B ",
+
+        "C   C",
+
+        " B B ",
+
+        "  A  "
+
+    };
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'C'));
 
@@ -54,7 +78,23 @@ void test_smallest_nondegenerate_case_with_even_diamond_side_length(void) {
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {"   A   ", "  B B  ", " C   C ", "D     D", " C   C ", "  B B  ", "   A   "};
+    const char *const expected[] = {
+
+        "   A   ",
+
+        "  B B  ",
+
+        " C   C ",
+
+        "D     D",
+
+        " C   C ",
+
+        "  B B  ",
+
+        "   A   "
+
+    };
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'D'));
 
@@ -68,32 +108,110 @@ void test_largest_possible_diamond(void) {
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
     const char *const expected[] = {
-        "                         A                         ", "                        B B                        ",
-        "                       C   C                       ", "                      D     D                      ",
-        "                     E       E                     ", "                    F         F                    ",
-        "                   G           G                   ", "                  H             H                  ",
-        "                 I               I                 ", "                J                 J                ",
-        "               K                   K               ", "              L                     L              ",
-        "             M                       M             ", "            N                         N            ",
-        "           O                           O           ", "          P                             P          ",
-        "         Q                               Q         ", "        R                                 R        ",
-        "       S                                   S       ", "      T                                     T      ",
-        "     U                                       U     ", "    V                                         V    ",
-        "   W                                           W   ", "  X                                             X  ",
-        " Y                                               Y ", "Z                                                 Z",
-        " Y                                               Y ", "  X                                             X  ",
-        "   W                                           W   ", "    V                                         V    ",
-        "     U                                       U     ", "      T                                     T      ",
-        "       S                                   S       ", "        R                                 R        ",
-        "         Q                               Q         ", "          P                             P          ",
-        "           O                           O           ", "            N                         N            ",
-        "             M                       M             ", "              L                     L              ",
-        "               K                   K               ", "                J                 J                ",
-        "                 I               I                 ", "                  H             H                  ",
-        "                   G           G                   ", "                    F         F                    ",
-        "                     E       E                     ", "                      D     D                      ",
-        "                       C   C                       ", "                        B B                        ",
-        "                         A                         "};
+
+        "                         A                         ",
+
+        "                        B B                        ",
+
+        "                       C   C                       ",
+
+        "                      D     D                      ",
+
+        "                     E       E                     ",
+
+        "                    F         F                    ",
+
+        "                   G           G                   ",
+
+        "                  H             H                  ",
+
+        "                 I               I                 ",
+
+        "                J                 J                ",
+
+        "               K                   K               ",
+
+        "              L                     L              ",
+
+        "             M                       M             ",
+
+        "            N                         N            ",
+
+        "           O                           O           ",
+
+        "          P                             P          ",
+
+        "         Q                               Q         ",
+
+        "        R                                 R        ",
+
+        "       S                                   S       ",
+
+        "      T                                     T      ",
+
+        "     U                                       U     ",
+
+        "    V                                         V    ",
+
+        "   W                                           W   ",
+
+        "  X                                             X  ",
+
+        " Y                                               Y ",
+
+        "Z                                                 Z",
+
+        " Y                                               Y ",
+
+        "  X                                             X  ",
+
+        "   W                                           W   ",
+
+        "    V                                         V    ",
+
+        "     U                                       U     ",
+
+        "      T                                     T      ",
+
+        "       S                                   S       ",
+
+        "        R                                 R        ",
+
+        "         Q                               Q         ",
+
+        "          P                             P          ",
+
+        "           O                           O           ",
+
+        "            N                         N            ",
+
+        "             M                       M             ",
+
+        "              L                     L              ",
+
+        "               K                   K               ",
+
+        "                J                 J                ",
+
+        "                 I               I                 ",
+
+        "                  H             H                  ",
+
+        "                   G           G                   ",
+
+        "                    F         F                    ",
+
+        "                     E       E                     ",
+
+        "                      D     D                      ",
+
+        "                       C   C                       ",
+
+        "                        B B                        ",
+
+        "                         A                         "
+
+    };
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'Z'));
 
