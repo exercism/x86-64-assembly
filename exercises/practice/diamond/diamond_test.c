@@ -15,11 +15,7 @@ void tearDown(void) {
 
 void test_degenerate_case_with_a_single_a_row(void) {
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {
-
-        "A"
-
-    };
+    const char *const expected[] = {"A"};
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'A'));
 
@@ -32,15 +28,11 @@ void test_degenerate_case_with_no_row_containing_3_distinct_groups_of_spaces(voi
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {
+    const char *const expected[] = {" A ",
 
-        " A ",
+                                    "B B",
 
-        "B B",
-
-        " A "
-
-    };
+                                    " A "};
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'B'));
 
@@ -53,19 +45,15 @@ void test_smallest_nondegenerate_case_with_odd_diamond_side_length(void) {
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {
+    const char *const expected[] = {"  A  ",
 
-        "  A  ",
+                                    " B B ",
 
-        " B B ",
+                                    "C   C",
 
-        "C   C",
+                                    " B B ",
 
-        " B B ",
-
-        "  A  "
-
-    };
+                                    "  A  "};
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'C'));
 
@@ -78,23 +66,19 @@ void test_smallest_nondegenerate_case_with_even_diamond_side_length(void) {
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {
+    const char *const expected[] = {"   A   ",
 
-        "   A   ",
+                                    "  B B  ",
 
-        "  B B  ",
+                                    " C   C ",
 
-        " C   C ",
+                                    "D     D",
 
-        "D     D",
+                                    " C   C ",
 
-        " C   C ",
+                                    "  B B  ",
 
-        "  B B  ",
-
-        "   A   "
-
-    };
+                                    "   A   "};
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'D'));
 
@@ -107,111 +91,107 @@ void test_largest_possible_diamond(void) {
     TEST_IGNORE();
 
     char buffer[BUFFER_SIZE][BUFFER_SIZE];
-    const char *const expected[] = {
+    const char *const expected[] = {"                         A                         ",
 
-        "                         A                         ",
+                                    "                        B B                        ",
 
-        "                        B B                        ",
+                                    "                       C   C                       ",
 
-        "                       C   C                       ",
+                                    "                      D     D                      ",
 
-        "                      D     D                      ",
+                                    "                     E       E                     ",
 
-        "                     E       E                     ",
+                                    "                    F         F                    ",
 
-        "                    F         F                    ",
+                                    "                   G           G                   ",
 
-        "                   G           G                   ",
+                                    "                  H             H                  ",
 
-        "                  H             H                  ",
+                                    "                 I               I                 ",
 
-        "                 I               I                 ",
+                                    "                J                 J                ",
 
-        "                J                 J                ",
+                                    "               K                   K               ",
 
-        "               K                   K               ",
+                                    "              L                     L              ",
 
-        "              L                     L              ",
+                                    "             M                       M             ",
 
-        "             M                       M             ",
+                                    "            N                         N            ",
 
-        "            N                         N            ",
+                                    "           O                           O           ",
 
-        "           O                           O           ",
+                                    "          P                             P          ",
 
-        "          P                             P          ",
+                                    "         Q                               Q         ",
 
-        "         Q                               Q         ",
+                                    "        R                                 R        ",
 
-        "        R                                 R        ",
+                                    "       S                                   S       ",
 
-        "       S                                   S       ",
+                                    "      T                                     T      ",
 
-        "      T                                     T      ",
+                                    "     U                                       U     ",
 
-        "     U                                       U     ",
+                                    "    V                                         V    ",
 
-        "    V                                         V    ",
+                                    "   W                                           W   ",
 
-        "   W                                           W   ",
+                                    "  X                                             X  ",
 
-        "  X                                             X  ",
+                                    " Y                                               Y ",
 
-        " Y                                               Y ",
+                                    "Z                                                 Z",
 
-        "Z                                                 Z",
+                                    " Y                                               Y ",
 
-        " Y                                               Y ",
+                                    "  X                                             X  ",
 
-        "  X                                             X  ",
+                                    "   W                                           W   ",
 
-        "   W                                           W   ",
+                                    "    V                                         V    ",
 
-        "    V                                         V    ",
+                                    "     U                                       U     ",
 
-        "     U                                       U     ",
+                                    "      T                                     T      ",
 
-        "      T                                     T      ",
+                                    "       S                                   S       ",
 
-        "       S                                   S       ",
+                                    "        R                                 R        ",
 
-        "        R                                 R        ",
+                                    "         Q                               Q         ",
 
-        "         Q                               Q         ",
+                                    "          P                             P          ",
 
-        "          P                             P          ",
+                                    "           O                           O           ",
 
-        "           O                           O           ",
+                                    "            N                         N            ",
 
-        "            N                         N            ",
+                                    "             M                       M             ",
 
-        "             M                       M             ",
+                                    "              L                     L              ",
 
-        "              L                     L              ",
+                                    "               K                   K               ",
 
-        "               K                   K               ",
+                                    "                J                 J                ",
 
-        "                J                 J                ",
+                                    "                 I               I                 ",
 
-        "                 I               I                 ",
+                                    "                  H             H                  ",
 
-        "                  H             H                  ",
+                                    "                   G           G                   ",
 
-        "                   G           G                   ",
+                                    "                    F         F                    ",
 
-        "                    F         F                    ",
+                                    "                     E       E                     ",
 
-        "                     E       E                     ",
+                                    "                      D     D                      ",
 
-        "                      D     D                      ",
+                                    "                       C   C                       ",
 
-        "                       C   C                       ",
+                                    "                        B B                        ",
 
-        "                        B B                        ",
-
-        "                         A                         "
-
-    };
+                                    "                         A                         "};
 
     TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), rows(buffer, 'Z'));
 

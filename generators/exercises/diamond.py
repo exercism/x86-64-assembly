@@ -24,11 +24,17 @@ for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
 
 
 def str_array_literal(numbers):
-    return str(numbers).replace("[", "{\n\n").replace("]", "\n\n}").replace("'", '"')
+    return (
+        str(numbers)
+        .replace("[", "{")
+        .replace("]", "}")
+        .replace("'", '"')
+        .replace(",", ",\n\n")
+    )
 
 
 def gen_func_body(prop, inp, expected):
     exp_string = str_array_literal(expected)
     return FUNC_GEN_TEMPLATE.substitute(
-        expected=",\n\n".join(exp_string.split(",")), prop=prop, letter=inp["letter"]
+        expected=exp_string, prop=prop, letter=inp["letter"]
     )
