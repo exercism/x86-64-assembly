@@ -551,6 +551,14 @@
         ]
       },
       {
+        "slug": "saddle-points",
+        "name": "Saddle Points",
+        "uuid": "9cee8cc8-24b5-4f97-a2c0-b5b81e650029",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "sum-of-multiples",
         "name": "Sum of Multiples",
         "uuid": "ce06cacb-ec4e-46f2-a1b7-f496f0db097f",
