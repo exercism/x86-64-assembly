@@ -1,5 +1,3 @@
-// Version: 2.0.1
-
 #include "vendor/unity.h"
 
 extern int is_pangram(const char *str);
@@ -54,11 +52,6 @@ void test_mixed_case_and_punctuation(void) {
     TEST_ASSERT_TRUE(is_pangram("\"Five quacking Zephyrs jolt my wax bed.\""));
 }
 
-void test_case_insensitive(void) {
-    TEST_IGNORE();
-    TEST_ASSERT_FALSE(is_pangram("the quick brown fox jumps over with lazy FX"));
-}
-
 void test_am_and_am_are_26_different_characters_but_not_a_pangram(void) {
     TEST_IGNORE();
     TEST_ASSERT_FALSE(is_pangram("abcdefghijklm ABCDEFGHIJKLM"));
@@ -75,7 +68,6 @@ int main(void) {
     RUN_TEST(test_with_numbers);
     RUN_TEST(test_missing_letters_replaced_by_numbers);
     RUN_TEST(test_mixed_case_and_punctuation);
-    RUN_TEST(test_case_insensitive);
     RUN_TEST(test_am_and_am_are_26_different_characters_but_not_a_pangram);
     return UNITY_END();
 }

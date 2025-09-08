@@ -3,8 +3,8 @@ FUNC_PROTO = """\
 
 typedef enum {
     north,
-    south,
     east,
+    south,
     west
 } direction_t;
 

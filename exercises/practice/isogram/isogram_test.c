@@ -1,5 +1,3 @@
-// Version: 1.7.0
-
 #include "vendor/unity.h"
 
 extern int is_isogram(const char *str);
@@ -74,6 +72,11 @@ void test_same_first_and_last_characters(void) {
     TEST_ASSERT_FALSE(is_isogram("angola"));
 }
 
+void test_word_with_duplicated_character_and_with_two_hyphens(void) {
+    TEST_IGNORE();
+    TEST_ASSERT_FALSE(is_isogram("up-to-date"));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_empty_string);
@@ -89,5 +92,6 @@ int main(void) {
     RUN_TEST(test_madeup_name_that_is_an_isogram);
     RUN_TEST(test_duplicated_character_in_the_middle);
     RUN_TEST(test_same_first_and_last_characters);
+    RUN_TEST(test_word_with_duplicated_character_and_with_two_hyphens);
     return UNITY_END();
 }

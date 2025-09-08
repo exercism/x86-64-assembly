@@ -25,6 +25,15 @@ extern void list(unsigned int score, struct item_list *list);
 """
 
 
+def describe(case):
+    description = case["description"]
+    if "item" in case["input"].keys():
+        item = case["input"]["item"]
+        if item not in description:
+            description = item + " " + description
+    return description
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     score = inp["score"]
