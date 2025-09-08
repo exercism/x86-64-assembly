@@ -86,6 +86,5 @@ int main(void) {
     RUN_TEST(test_personal_top_when_there_is_a_tie);
     RUN_TEST(test_personal_top_when_there_are_less_than_3);
     RUN_TEST(test_personal_top_when_there_is_only_one);
-
     return UNITY_END();
 }

@@ -1,5 +1,3 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 #define ERROR_VALUE -1

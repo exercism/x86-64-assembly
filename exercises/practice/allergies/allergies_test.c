@@ -1,5 +1,3 @@
-// Version: 2.0.0
-
 #include "vendor/unity.h"
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
@@ -317,7 +315,7 @@ void test_no_allergen_score_parts(void) {
     TEST_ASSERT_EQUAL_INT_ARRAY(expected, item_list.items, item_list.size);
 }
 
-static void test_no_allergen_score_parts_without_highest_valid_score(void) {
+void test_no_allergen_score_parts_without_highest_valid_score(void) {
     TEST_IGNORE();
     int expected[] = {EGGS};
     struct item_list item_list;
