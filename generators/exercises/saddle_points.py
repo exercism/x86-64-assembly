@@ -32,7 +32,7 @@ point_t points[BUFFER_SIZE];
 """)
 
 WITH_SADDLE_POINTS_TEMPLATE = Template("""
-${input};
+${input}
 const point_t expected[] = ${expected};
 
 TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), ${prop}(points, rows, ARRAY_SIZE(rows)));
