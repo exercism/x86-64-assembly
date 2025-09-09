@@ -5,7 +5,6 @@ loop_end equ 1
 
 section .bss
     current_pile resb 500
-    pile_size resq 1
 
 section .text
 global simulate_game
