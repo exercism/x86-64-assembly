@@ -30,7 +30,6 @@ typedef struct {
     uint32_t tricks;
 } result_t;
 
-#define BUFFER_SIZE 300
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 
 extern result_t simulate_game(const card_t *playerA, size_t playerA_count, const card_t *playerB, size_t playerB_count);
