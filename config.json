@@ -733,6 +733,14 @@
         "difficulty": 5
       },
       {
+        "slug": "camicia",
+        "name": "Camicia",
+        "uuid": "fdadc7cd-34bd-49d2-89d4-95c883437519",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "food-chain",
         "name": "Food Chain",
         "uuid": "5d4da9ec-5b46-4609-b942-6be556884ef3",
