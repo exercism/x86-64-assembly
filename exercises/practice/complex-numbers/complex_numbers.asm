@@ -78,11 +78,11 @@ real_complex_mul:
     ; Provide your implementation here
     ret
 
-real_complex_div:
+complex_real_div:
     ; Provide your implementation here
     ret
 
-complex_real_div:
+real_complex_div:
     ; Provide your implementation here
     ret
 
