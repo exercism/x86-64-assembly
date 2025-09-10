@@ -607,6 +607,14 @@
         "difficulty": 5
       },
       {
+        "slug": "complex-numbers",
+        "name": "Complex Numbers",
+        "uuid": "297841a7-396b-4fdd-bff0-2e16b6c1635a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "custom-set",
         "name": "Custom Set",
         "uuid": "d7270e9a-7d0f-45fa-bee2-ca7f6d6ea46b",
