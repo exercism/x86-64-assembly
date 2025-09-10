@@ -1,7 +1,5 @@
 #include "vendor/unity.h"
 
-#include <stddef.h>
-
 #define BUFFER_SIZE 100
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 
