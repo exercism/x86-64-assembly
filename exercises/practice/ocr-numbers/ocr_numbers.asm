@@ -1,3 +1,7 @@
+default rel
+
+section .data
+
 section .text
 global convert
 
