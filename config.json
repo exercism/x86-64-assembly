@@ -781,6 +781,14 @@
         "difficulty": 6
       },
       {
+        "slug": "ocr-numbers",
+        "name": "OCR Numbers",
+        "uuid": "2b9c5389-b97e-414e-bdca-a6be784d36e9",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6
+      },
+      {
         "slug": "palindrome-products",
         "name": "Palindrome Products",
         "uuid": "6e758deb-1a32-413c-bdcd-e1bfba6f70f8",
