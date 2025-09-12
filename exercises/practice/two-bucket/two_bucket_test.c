@@ -75,6 +75,24 @@ void test_measure_using_bucket_one_of_size_2_and_bucket_two_of_size_3__start_wit
     TEST_ASSERT_EQUAL(2, result.other_bucket);
 }
 
+void test_measure_using_bucket_one_much_bigger_than_bucket_two(void) {
+    TEST_IGNORE();
+    bucket_result_t result = {0};
+    TEST_ASSERT_EQUAL(SUCCESS, measure(&result, 5, 1, 2, ONE));
+    TEST_ASSERT_EQUAL(6, result.moves);
+    TEST_ASSERT_EQUAL(ONE, result.goal_bucket);
+    TEST_ASSERT_EQUAL(1, result.other_bucket);
+}
+
+void test_measure_using_bucket_one_much_smaller_than_bucket_two(void) {
+    TEST_IGNORE();
+    bucket_result_t result = {0};
+    TEST_ASSERT_EQUAL(SUCCESS, measure(&result, 3, 15, 9, ONE));
+    TEST_ASSERT_EQUAL(6, result.moves);
+    TEST_ASSERT_EQUAL(TWO, result.goal_bucket);
+    TEST_ASSERT_EQUAL(0, result.other_bucket);
+}
+
 void test_not_possible_to_reach_the_goal(void) {
     TEST_IGNORE();
     bucket_result_t result = {0};
@@ -104,6 +122,8 @@ int main(void) {
     RUN_TEST(test_measure_using_bucket_one_of_size_7_and_bucket_two_of_size_11__start_with_bucket_two);
     RUN_TEST(test_measure_one_step_using_bucket_one_of_size_1_and_bucket_two_of_size_3__start_with_bucket_two);
     RUN_TEST(test_measure_using_bucket_one_of_size_2_and_bucket_two_of_size_3__start_with_bucket_one_and_end_with_bucket_two);
+    RUN_TEST(test_measure_using_bucket_one_much_bigger_than_bucket_two);
+    RUN_TEST(test_measure_using_bucket_one_much_smaller_than_bucket_two);
     RUN_TEST(test_not_possible_to_reach_the_goal);
     RUN_TEST(test_with_the_same_buckets_but_a_different_goal_then_it_is_possible);
     RUN_TEST(test_goal_larger_than_both_buckets_is_impossible);
