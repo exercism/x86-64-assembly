@@ -583,6 +583,14 @@
         "difficulty": 4
       },
       {
+        "slug": "word-count",
+        "name": "Word Count",
+        "uuid": "aca8a985-7097-4548-b88e-6d6f822ae916",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "atbash-cipher",
         "name": "Atbash Cipher",
         "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
