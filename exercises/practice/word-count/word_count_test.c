@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 #define BUFFER_SIZE 20
 #define WORD_SIZE 48
@@ -30,12 +31,7 @@ void test_count_one_word(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -52,12 +48,7 @@ void test_count_one_of_each_word(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -74,12 +65,7 @@ void test_multiple_occurrences_of_a_word(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -96,12 +82,7 @@ void test_handles_cramped_lists(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -118,12 +99,7 @@ void test_handles_expanded_lists(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -140,12 +116,7 @@ void test_ignore_punctuation(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -162,12 +133,7 @@ void test_include_numbers(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -184,12 +150,7 @@ void test_normalize_case(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -207,12 +168,7 @@ void test_with_apostrophes(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -229,12 +185,7 @@ void test_with_quotations(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -251,12 +202,7 @@ void test_substrings_from_the_beginning(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -273,12 +219,7 @@ void test_multiple_spaces_not_detected_as_a_word(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -295,12 +236,7 @@ void test_alternating_word_separators_not_detected_as_a_word(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }
@@ -317,12 +253,7 @@ void test_quotation_for_word_with_apostrophe(void) {
     for (size_t i = 0; i < arr_length; ++i) {
         bool flag = false;
         for (size_t j = 0; j < arr_length && !flag; ++j) {
-            if (expected[i].count == buffer[j].count) {
-                const char *fst = expected[i].word;
-                const char *snd = buffer[j].word;
-                while (*fst && *snd && *fst++ == *snd++);
-                flag = !(*fst || *snd);
-            }
+            flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
         }
         TEST_ASSERT_EQUAL(true, flag);
     }

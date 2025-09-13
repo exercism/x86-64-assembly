@@ -7,6 +7,7 @@ FUNC_PROTO = """\
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 #define BUFFER_SIZE 20
 #define WORD_SIZE 48
@@ -29,12 +30,7 @@ TEST_ASSERT_EQUAL_UINT64(arr_length, ${prop}(buffer, "${sentence}"));
 for (size_t i = 0; i < arr_length; ++i) {
     bool flag = false;
     for (size_t j = 0; j < arr_length && !flag; ++j) {
-        if (expected[i].count == buffer[j].count) {
-            const char *fst = expected[i].word;
-            const char *snd = buffer[j].word;
-            while (*fst && *snd && *fst++ == *snd++);
-            flag = !(*fst || *snd);
-        }
+        flag = expected[i].count == buffer[j].count && !strcmp(expected[i].word, buffer[j].word);
     }
     TEST_ASSERT_EQUAL(true, flag);
 }

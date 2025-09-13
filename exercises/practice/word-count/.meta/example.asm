@@ -7,20 +7,16 @@ global count_words
     xor r11, r11
 
     cmp %1, %2
-    jb %%end
+    jl %%end
 
     cmp %1, %3
-    ja %%end
+    jg %%end
 
     inc r11
 %%end:
 %endmacro
 
-%macro is_alpha 1
-    to_lower(%1)
-    is_in_range %1, 'a', 'z'
-%endmacro
-
+%define is_alpha(x) is_in_range x, 'a', 'z'
 %define is_digit(x) is_in_range x, '0', '9'
 
 count_words:
@@ -56,12 +52,13 @@ count_words:
     cmp al, 39 ; 39 is decimal for apostrophe
     je .check_apostrophe
 
-    is_digit(rax)
+    is_digit(al)
 
     cmp r11, 1
     je .store_char ; digits are words
 
-    is_alpha rax
+    to_lower(rax)
+    is_alpha(al)
 
     cmp r11, 1
     jne .end_of_word ; if not apostrophe, digit or alpha, it's a separator
@@ -92,7 +89,8 @@ count_words:
                          ; and apostrophe isn't part of a word
     ; otherwise checks if letter is alpha, since there's no contraction with digits
 
-    is_alpha rax
+    to_lower(rax)
+    is_alpha(al)
 
     cmp r11, 1
     jne .end_of_word ; if letter not alpha, apostrophe is a separator
@@ -131,9 +129,8 @@ count_words:
     repe cmpsb
     jne .check_mapped_words
 
-    mov cl, byte [rdi]
-    test cl, cl
-    jnz .check_mapped_words ; if char at end of output buffer is not null,
+    cmp byte [rdi], 0
+    jne .check_mapped_words ; if char at end of output buffer is not null,
                             ; this is only a partial match, must check next entry in buffer
     ; otherwise, a match was found
 
@@ -143,13 +140,14 @@ count_words:
     mov rdi, r9
     mov rsi, r10
 
+    xor r11, r11
+    xor rdx, rdx ; resets word length
+
     test al, al
-    jz .end_parse ; end of string, this was last word
-    ; otherwise resets word length and continue parsing
+    jnz .get_words ; if not end of string, continue parsing
+    ; otherwise, this was last word
 
-    xor rdx, rdx
-
-    jmp .get_words
+    jmp .end_parse
 
 .insert_new_word:
     mov rsi, rsp
@@ -169,6 +167,7 @@ count_words:
     mov rsi, r10
     inc r8 ; increments size of output buffer
 
+    xor r11, r11
     xor rdx, rdx ; resets word length
 
     test al, al
