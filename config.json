@@ -639,6 +639,14 @@
         "difficulty": 5
       },
       {
+        "slug": "gigasecond",
+        "name": "Gigasecond",
+        "uuid": "d0a8097d-759f-4785-83bc-aa00fec0c365",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "house",
         "name": "House",
         "uuid": "a7819b9e-647e-473f-b76a-4954282f13d4",
