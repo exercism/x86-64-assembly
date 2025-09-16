@@ -130,21 +130,25 @@ def main():
         default=True,
         help="format test file with clang-format",
     )
-    args = parser.parse_args()
-    data = read_canonical_data(args.exercise)
-    cases = flatten_cases(data)
-    cases = filter_unicode(cases)
-    if not args.ignore_toml:
-        test_toml = (
-            f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
-        )
-        with open(test_toml, "rb") as f:
-            test_toml = tomllib.load(f)
-        cases = list(
-            filter(
-                lambda case: test_toml.get(case["uuid"], {}).get("include", True), cases
+    try:
+        args = parser.parse_args()
+        data = read_canonical_data(args.exercise)
+        cases = flatten_cases(data)
+        cases = filter_unicode(cases)
+        if not args.ignore_toml:
+            test_toml = (
+                f"{sys.path[0]}/../exercises/practice/{args.exercise}/.meta/tests.toml"
             )
-        )
+            with open(test_toml, "rb") as f:
+                test_toml = tomllib.load(f)
+            cases = list(
+                filter(
+                    lambda case: test_toml.get(case["uuid"], {}).get("include", True),
+                    cases,
+                )
+            )
+    except OSError:
+        cases = []
     exercise = args.exercise.replace("-", "_")
     mod = importlib.import_module("exercises." + exercise)
     if hasattr(mod, "extra_cases"):

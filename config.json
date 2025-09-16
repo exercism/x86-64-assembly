@@ -567,6 +567,14 @@
         "difficulty": 4
       },
       {
+        "slug": "simple-linked-list",
+        "name": "Simple Linked List",
+        "uuid": "3440c320-08e0-4ac3-93c2-efb7c3c60803",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "sum-of-multiples",
         "name": "Sum of Multiples",
         "uuid": "ce06cacb-ec4e-46f2-a1b7-f496f0db097f",
