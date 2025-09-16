@@ -36,8 +36,11 @@ def read_canonical_data(exercise):
     if len(cache_dir) != 1:
         raise Exception("Could not determine 'problem-specifications' dir")
     path = f"{cache_dir[0]}/exercises/{exercise}/canonical-data.json"
-    with open(path, "r") as f:
-        return json.loads(f.read())
+    try:
+        with open(path, "r") as f:
+            return json.loads(f.read())
+    except OSError:
+        return {"cases": []}
 
 
 def flatten_cases(data):
@@ -130,6 +133,7 @@ def main():
         default=True,
         help="format test file with clang-format",
     )
+
     args = parser.parse_args()
     data = read_canonical_data(args.exercise)
     cases = flatten_cases(data)
@@ -142,7 +146,8 @@ def main():
             test_toml = tomllib.load(f)
         cases = list(
             filter(
-                lambda case: test_toml.get(case["uuid"], {}).get("include", True), cases
+                lambda case: test_toml.get(case["uuid"], {}).get("include", True),
+                cases,
             )
         )
     exercise = args.exercise.replace("-", "_")
