@@ -19,23 +19,23 @@ typedef struct {
     deallocator_t dealloc;
 } list_t;
 
-size_t alloc_count = 0;
-
-void *allocator(size_t sz) {
-    alloc_count++;
-    return malloc(sz);
-}
-
-void deallocator(void *ptr) {
-    alloc_count--;
-    free(ptr);
-}
-
 extern list_t *create_list(allocator_t alloc, deallocator_t dealloc);
 extern void push_list(list_t *list, int64_t data);
 extern int64_t pop_list(list_t *list);
 extern void reverse_list(list_t *list);
 extern void delete_list(list_t *list);
+
+static size_t alloc_count = 0;
+
+static void *allocator(size_t sz) {
+    alloc_count++;
+    return malloc(sz);
+}
+
+static void deallocator(void *ptr) {
+    alloc_count--;
+    free(ptr);
+}
 """
 
 
