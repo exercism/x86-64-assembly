@@ -66,9 +66,7 @@ combinations:
 .check_values:
     inc r9
 
-    mov r10, r8
-    add r10, r9
-    inc r10
+    lea r10, [r8 + r9 + 1]
 
     cmp r10, num_combinations
     je .store

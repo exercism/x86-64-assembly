@@ -19,9 +19,7 @@ uint16_t buffer[BUFFER_SIZE];
 const uint16_t expected[] = ${expected};
 
 TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), ${prop}(buffer, ${sum}, ${size}, 0));
-for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
-    TEST_ASSERT_EQUAL_UINT16(expected[i], buffer[i]);
-}
+TEST_ASSERT_EQUAL_UINT16_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 """)
 
 WITH_EXCLUDE_TEMPLATE = Template("""
@@ -30,9 +28,7 @@ const uint16_t expected[] = ${expected};
 const uint16_t exclude = ${exclude};
 
 TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), ${prop}(buffer, ${sum}, ${size}, exclude));
-for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
-    TEST_ASSERT_EQUAL_UINT16(expected[i], buffer[i]);
-}
+TEST_ASSERT_EQUAL_UINT16_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 """)
 
 
