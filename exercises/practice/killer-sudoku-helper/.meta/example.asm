@@ -2,11 +2,10 @@ section .text
 global combinations
 
 combinations:
-    ; RDI - pointer to output buffer of arrays, each with 10 * 1-byte unsigned integers
-    ; RSI - desired sum as a uint64_t
+    ; RDI - output buffer of a bitset of combinations, as uint16_t
+    ; RSI - desired sum as a uint16_t
     ; RDX - size of combinations as a uint64_t
-    ; RCX - array of elements to be excluded from combinations, each a 1-byte unsigned integer
-    ; R8 - count of excluded elements, as a 8-byte unsigned integer
+    ; RCX - elements to be excluded from combinations, as a bitset
     ; return is a count for elements in output buffer as a uint64_t, in RAX
 
     ; Recursive algorithm
@@ -18,7 +17,7 @@ combinations:
     ;
     ; Base case is when current combination length is equal to desired length
     ; The function then checks if the sum is the desired sum
-    ; If it is, combination is saved in the output buffer
+    ; If it is, combination is saved in the output buffer as a bitset
     ; Otherwise, it returns
     ;
     ; This repeats up to the first function return
@@ -26,26 +25,25 @@ combinations:
     ; As each recursive call starts in the subsequent number,
     ; all numbers in a combination are unique
     ;
-    ; As the function starts at 1 and is stored in the stack before recursing,
-    ; the combinations are saved in ascending order in the buffer
+    ; After getting all combinations, values are sorted using a simple bubble sort
 
     push rbp
     mov rbp, rsp
 
-    sub rsp, 42
-    mov qword [rbp - 42], rsi
-    mov qword [rbp - 34], rcx
-    mov qword [rbp - 26], r8
-    mov word [rbp - 18], 0
-    mov qword [rbp - 16], 0
-    mov qword [rbp - 8], 0
+    sub rsp, 30
+    mov qword [rbp - 30], rdi
+    mov word [rbp - 22], si
+    mov word [rbp - 20], cx
+    mov qword [rbp - 18], 0
+    mov qword [rbp - 10], 0
+    mov word [rbp - 2], 0
 
-%define sum qword [rbp - 42]
-%define excluded_array qword [rbp - 34]
-%define num_excluded qword [rbp - 26]
+%define sum word [rbp - 22]
+%define excluded word [rbp - 20]
 %define current_combination_count byte [rbp - 18]
 %define current_combination rbp - 17
 %define num_combinations qword [rbp - 8]
+%define output qword [rbp - 30]
 
     xor rcx, rcx
     xor rax, rax
@@ -53,6 +51,43 @@ combinations:
     xor r10, r10 ; current digit
 
     call recur
+
+    mov r8, -1
+    mov rsi, output
+    mov rdi, output
+.sort:
+    inc r8
+
+    cmp r8, num_combinations
+    je .end_sort
+
+    lodsw
+    mov r9, -1
+.check_values:
+    inc r9
+
+    mov r10, r8
+    add r10, r9
+    inc r10
+
+    cmp r10, num_combinations
+    je .store
+
+    mov r10w, word [rsi + 2*r9]
+    mov r11w, ax
+
+    cmp r10w, ax
+    cmovl ax, r10w
+    cmovl r10w, r11w
+
+    mov word [rsi + 2*r9], r10w
+    jmp .check_values
+
+.store:
+    stosw
+    jmp .sort
+
+.end_sort:
 
     mov rax, num_combinations
     mov rsp, rbp
@@ -69,20 +104,21 @@ recur:
     cmp r10, 10
     jae .no_insert
 
-    mov r11, excluded_array
-    mov r8, -1
+    xor r8, r8
 .check_excluded:
     inc r8 ; index
 
-    cmp r8, num_excluded
-    je .not_excluded
+    cmp r8, 10
+    jae .not_excluded
 
-    cmp r10b, byte [r11 + r8]
-    je .loop
+    bt excluded, r10w
+    jc .loop
 
     jmp .check_excluded
 
 .not_excluded:
+    xor rax, rax
+
     mov al, current_combination_count
     inc current_combination_count
 
@@ -101,17 +137,22 @@ recur:
     jmp .loop
 
 .check_insert:
-    cmp r9, sum
+    cmp r9w, sum
     jne .no_insert
 
     inc num_combinations
-    lea r11, [rdi + 10]
 
+    xor r8, r8
     lea rsi, [current_combination]
     mov cl, dl
-    rep movsb
+    xor rax, rax
+.accumulate:
+    lodsb
+    bts r8w, ax
+    loop .accumulate
 
-    mov rdi, r11
+    mov rax, r8
+    stosw
 .no_insert:
     ret
 
