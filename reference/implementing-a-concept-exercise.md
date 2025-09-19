@@ -2,7 +2,9 @@
 
 This document describes the steps required to implement a concept exercise in the x86-64-assembly track.
 
-**Please please please read the docs before starting.** Posting PRs without reading these docs will be a lot more frustrating for you during the review cycle, and exhaust Exercism's maintainers' time. So, before diving into the implementation, please read the following documents:
+**Please please please read the docs before starting.**
+Posting PRs without reading these docs will be a lot more frustrating for you during the review cycle, and exhaust Exercism's maintainers' time.
+So, before diving into the implementation, please read the following documents:
 
 - [The features of v3][features-of-v3].
 - [Rationale for v3][rationale-for-v3].
@@ -18,7 +20,8 @@ As this document is generic, the following placeholders are used:
 - `<NAME>`: the name of the exercise (e.g. `Calculator Conundrum`).
 - `<CONCEPT_SLUG>`: the slug of one of the exercise's concepts in kebab-case (e.g. `anonymous-methods`).
 
-Before implementing the exercise, please make sure you have a good understanding of what the exercise should be teaching (and what not). This information can be found in the exercise's GitHub issue.
+Before implementing the exercise, please make sure you have a good understanding of what the exercise should be teaching (and what not).
+This information can be found in the exercise's GitHub issue.
 
 To implement a concept exercise, the following files must be added:
 
@@ -53,7 +56,8 @@ languages
 
 Note that the concept files should be created for each concept the exercise teaches.
 
-All Markdown files should adhere to the [style guide][style-guide], noting the [automatic formatting section][style-guide-auto-formatting]. They should also pass on [pre-commit checks][pre-commit].
+All Markdown files should adhere to the [style guide][style-guide].
+They should also pass on [pre-commit checks][pre-commit].
 
 ## Step 1: Add code files
 
@@ -61,13 +65,15 @@ The code files are track-specific and should be designed to help the student lea
 
 ### Configlet-added files
 
-The configlet should be [fetched][fetcher] and used to add the following x86-64-assembly code files:
+The configlet should be [fetched][fetcher] and [used to add][concepts-entry] the following x86-64-assembly code files:
 
 #### Add `<NAME>.asm` file
 
 **Purpose:** Provide a stub implementation.
 
-- The stub implementation's code should compile. The only exception is for exercises that introduce syntax we _want_ a student to define themselves. In this case, insert a descriptive TODO comment instead of providing stub code.
+- The stub implementation's code should compile.
+The only exception is for exercises that introduce syntax we _want_ a student to define themselves.
+In this case, insert a descriptive TODO comment instead of providing stub code.
 
 For more information, please read [this in-depth description][stub-file] and [watch this video][video-stub-file].
 
@@ -100,7 +106,7 @@ They can be fetched from [the templates folder][templates-folder].
 
 ## Step 2: Add documentation files
 
-How to create the files common to all tracks is described in the [how to implement a concept exercise document][how-to-implement-a-concept-exercise].
+How to create the files common to all tracks is described in the [exercism's docs][concepts-entry].
 
 ## Step 3: Update list of implemented exercises
 
@@ -108,11 +114,12 @@ How to create the files common to all tracks is described in the [how to impleme
 
 ## Inspiration
 
-When implementing an exercise, it can be very useful to look at already implemented x86-64 exercises. You can also check the exercise's [general concepts documents][reference] to see if other languages have already implemented an exercise for that concept.
+When implementing an exercise, it can be very useful to look at already implemented x86-64 exercises.
+You can also check the exercise's [general concepts documents][reference] to see if other languages have already implemented an exercise for that concept.
 
 ## Help
 
-If you have any questions regarding implementing this exercise, please post them as comments in the exercise's GitHub issue.
+If you have any questions regarding implementing this exercise, please post them as comments in the exercise's GitHub issue or PR.
 
 [unity]: https://github.com/ThrowTheSwitch/Unity
 [concept-exercises]: https://github.com/exercism/v3/blob/main/docs/concept-exercises.md
@@ -120,9 +127,7 @@ If you have any questions regarding implementing this exercise, please post them
 [features-of-v3]: https://github.com/exercism/v3/blob/main/docs/features-of-v3.md
 [anatomy-of-a-concept-exercise]: https://www.youtube.com/watch?v=gkbBqd7hPrA
 [reference]: https://github.com/exercism/v3/tree/main/reference/concepts/README.md
-[style-guide]: https://github.com/exercism/v3/blob/main/docs/maintainers/style-guide.md
-[style-guide-auto-formatting]: https://github.com/exercism/v3/blob/main/docs/maintainers/style-guide.md#auto-formatting
-[how-to-implement-a-concept-exercise]: https://github.com/exercism/v3/blob/main/docs/maintainers/generic-how-to-implement-a-concept-exercise.md
+[style-guide]: https://exercism.org/docs/building/markdown/markdown
 [determining-concepts-naming]: https://github.com/exercism/v3/blob/main/docs/maintainers/determining-concepts.md#naming-concepts
 [stub-file]: https://github.com/exercism/v3/blob/main/docs/concept-exercises.md#stub-implementation-file
 [tests-file]: https://github.com/exercism/v3/blob/main/docs/concept-exercises.md#tests-file
@@ -134,3 +139,4 @@ If you have any questions regarding implementing this exercise, please post them
 [fetcher]: ../bin/fetch-configlet
 [templates-folder]: ../templates/
 [pre-commit]: ../README.md#pre-commit
+[concepts-entry]: https://exercism.org/docs/building/tracks/concept-exercises
