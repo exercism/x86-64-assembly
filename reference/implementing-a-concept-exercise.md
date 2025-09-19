@@ -28,6 +28,7 @@ languages
     ├── concepts
     |   └── &lt;CONCEPT_SLUG&gt;
     |       ├── about.md
+    |       ├── introduction.md
     |       └── links.json
     └── exercises
         └── concept
@@ -52,15 +53,17 @@ languages
 
 Note that the concept files should be created for each concept the exercise teaches.
 
-All Markdown files should adhere to the [style guide][style-guide], noting the [automatic formatting section][style-guide-auto-formatting].
+All Markdown files should adhere to the [style guide][style-guide], noting the [automatic formatting section][style-guide-auto-formatting]. They should also pass on [pre-commit checks][pre-commit].
 
 ## Step 1: Add code files
 
 The code files are track-specific and should be designed to help the student learn the exercise's concepts.
 
+### Configlet-added files
+
 The configlet should be [fetched][fetcher] and used to add the following x86-64-assembly code files:
 
-### Add `<NAME>.asm` file
+#### Add `<NAME>.asm` file
 
 **Purpose:** Provide a stub implementation.
 
@@ -68,7 +71,7 @@ The configlet should be [fetched][fetcher] and used to add the following x86-64-
 
 For more information, please read [this in-depth description][stub-file] and [watch this video][video-stub-file].
 
-### Add `<NAME>_test.c` file
+#### Add `<NAME>_test.c` file
 
 **Purpose:** The test suite to verify a solution's correctness.
 
@@ -79,13 +82,17 @@ For more information, please read [this in-depth description][stub-file] and [wa
 
 For more information, please read [this in-depth description][tests-file] and [watch this video][video-tests-file].
 
-### Add `.meta/exemplar.asm` file
+#### Add `.meta/exemplar.asm` file
 
 **Purpose:** The idiomatic example implementation that passes all the tests.
 
 For more information, please read [this in-depth description][example-file] and [watch this video][video-example-file].
 
-### Add `./vendor/..` and `Makefile` files
+### Manually-added files
+
+Those files are not created by configlet at the moment and should be added manually:
+
+#### Add `./vendor/..` and `Makefile` files
 
 **Purpose:** Helper files to assemble and compile solutions and the test file.
 
@@ -126,3 +133,4 @@ If you have any questions regarding implementing this exercise, please post them
 [implemented-exercises]: ../reference/implemented-exercises.md
 [fetcher]: ../bin/fetch-configlet
 [templates-folder]: ../templates/
+[pre-commit]: ../README.md#pre-commit
