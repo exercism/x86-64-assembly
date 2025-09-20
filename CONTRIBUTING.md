@@ -8,7 +8,7 @@ If you want to contribute or have a bug to report, please open a topic [in the f
 
 Once you have a go-ahead from one of the maintainers, a pull request must adhere to [Exercism's style guide][style].
 
-If the PR touches an exercise, please also consider [this warning][unnecessary-test-runs].
+If the PR touches an existing exercise, please also consider [this warning][unnecessary-test-runs].
 
 [guidelines]: https://exercism.org/blog/contribution-guidelines-nov-2023
 [x86-64-forum]: https://forum.exercism.org/c/programming/x86-64-assembly/124
