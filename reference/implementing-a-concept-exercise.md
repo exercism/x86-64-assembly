@@ -6,6 +6,7 @@ This document describes the steps required to implement a concept exercise in th
 Posting PRs without reading these docs will be a lot more frustrating for you during the review cycle, and exhaust Exercism's maintainers' time.
 So, before diving into the implementation, please read the following documents:
 
+- [x86-64-assembly contributing guide][contributing].
 - [The features of v3][features-of-v3].
 - [Rationale for v3][rationale-for-v3].
 - [What are concept exercise and how they are structured?][concept-exercises]
@@ -110,7 +111,7 @@ How to create the files common to all tracks is described in the [exercism's doc
 
 ## Step 3: Update list of implemented exercises
 
-- Add the exercise to the [list of implemented exercises][implemented-exercises].
+Add the exercise to the [list of implemented exercises][implemented-exercises].
 
 ## Inspiration
 
@@ -119,8 +120,9 @@ You can also check the exercise's [general concepts documents][reference] to see
 
 ## Help
 
-If you have any questions regarding implementing this exercise, please post them as comments in the exercise's GitHub issue or PR.
+Please post any implementation questions as comments in the [forum][x86-64-forum] topic previously opened for this exercise.
 
+[contributing]: ../CONTRIBUTING.md
 [unity]: https://github.com/ThrowTheSwitch/Unity
 [concept-exercises]: https://github.com/exercism/v3/blob/main/docs/concept-exercises.md
 [rationale-for-v3]: https://github.com/exercism/v3/blob/main/docs/rationale-for-v3.md
@@ -140,3 +142,4 @@ If you have any questions regarding implementing this exercise, please post them
 [templates-folder]: ../templates/
 [pre-commit]: ../README.md#pre-commit
 [concepts-entry]: https://exercism.org/docs/building/tracks/concept-exercises
+[x86-64-forum]: https://forum.exercism.org/c/programming/x86-64-assembly/124
