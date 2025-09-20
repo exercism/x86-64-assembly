@@ -1,7 +1,7 @@
 # Exercism x86-64 Assembly Track
 
-[![Configlet Status](https://github.com/exercism/x86-64-assembly/workflows/Configlet/badge.svg)][configlet]
-[![Exercise Test Status](https://github.com/exercism/x86-64-assembly/workflows/x86-64-assembly%20%2F%20main/badge.svg)][ci]
+[![Configlet Status][configlet-badge]][configlet]
+[![Exercise Test Status][main-badge]][ci]
 
 Exercism exercises in x86-64 Assembly.
 
@@ -55,3 +55,5 @@ Please see the [contributing guide][contributing].
 [leap-example]: https://github.com/exercism/x86-64-assembly/blob/master/generators/exercises/leap.py
 [precommit]: https://pre-commit.com/
 [contributing]: ./CONTRIBUTING.md
+[main-badge]: https://github.com/exercism/x86-64-assembly/workflows/x86-64-assembly%20%2F%20main/badge.svg
+[configlet-badge]: https://github.com/exercism/x86-64-assembly/workflows/Configlet/badge.svg
