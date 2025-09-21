@@ -6,24 +6,24 @@ Most of the topics should map onto a Concept and have its own Concept Exercise.
 
 ## Introductory Topics
 
-GENERAL-PURPOSE REGISTERS:
+### General-Purpose Registers:
 - what is a register
 - accessing 8-bit, 16-bit, 32-bit and 64-bit portion of a register
 - callee-saved and caller-saved registers
 
-FUNCTIONS:
+### Functions:
 - section .text
 - extern and global
 - calling and returning (CALL and RET)
 - calling conventions (registers)
 
-INTEGERS:
+### Integers:
 - binary representation
 - signedness, sign extension (MOVZX, MOVSX, CDQ, CQO) and negation (NEG)
 - common arithmetic instructions (ADD, SUB, MUL/IMUL, DIV/IDIV)
 - bitwise instructions (NOT, OR, XOR, AND, SHR/SAR, SHL)
 
-CONDITIONALS/LOOPS:
+### Conditionals/Loops:
 - most common flags in rFLAGs (CF, PF, ZF, SF, DF, OF)
 - comparison instructions (CMP and TEST)
 - labels and jump instructions (JMP and Jcc)
@@ -31,7 +31,7 @@ CONDITIONALS/LOOPS:
 - branchless instructions (CMOVcc and SETcc)
 - additional loop-control instructions (LOOP, LOOPE, LOOPNE)
 
-MEMORY:
+### Memory:
 - section .data/.rodata/.bss
 - RIP-relative addressing (REL)
 - BYTE/WORD/DWORD/QWORD
@@ -39,13 +39,13 @@ MEMORY:
 - accessing memory (indirection, LEA)
 - array offsets
 
-STRINGS:
+### Strings:
 - ASCII characters
 - strings are arrays ending in NULL
 - main string instructions (LODSx, STOSx, MOVSx, CMPSx, SCANSx, REP, REPE, REPNE)
 - direction flag (CLD, STD)
 
-FLOATING-POINT NUMBERS:
+### Floating-Point Numbers:
 - binary representation (IEEE-754)
 - XMM registers (MOVSx)
 - calling conventions
@@ -55,7 +55,7 @@ FLOATING-POINT NUMBERS:
 - comparison instructions (COMISx and UCOMISx)
 - other common instructions (SQRTSx, )
 
-STACK:
+### Stack:
 - RSP and RBP
 - prologue and epilogue (PUSH and POP)
 - what CALL and RET really do
@@ -63,14 +63,14 @@ STACK:
 
 ## Advanced Topics
 
-MACROS AND ASSEMBLER DIRECTIVES
+### Macros and Assembler Directives
 - what is a macro and how is it different from functions
 - single-line macros (%define)
 - multi-line macros
 - %assign
 - times and %rep
 
-SIMD INSTRUCTIONS
+### SIMD
 - what are SIMD operations
 - XMM as SIMD registers
 - integer SIMD move (MOVDQA, PMOV)
