@@ -10,7 +10,7 @@ Comments may be placed anywhere in the program and everything that comes after a
 
 ## Constants
 
-An assembler-time constant can be defined using `equ`.
+An assembler-time constant can be defined in NASM using `equ`.
 
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
 
@@ -59,9 +59,9 @@ mov rax, 42  ; rax = 42
 For the arithmetic operations addition, subtraction, and multiplication, we can use the `add`, `sub` and `imul` instructions:
 
 ```nasm
-add rax, rsi ; rax += rsi
-sub rax, r8 ; rax -= r8
-imul rax, rdi ; rax *= rdi
+add rax, rsi ; rax = rax + rsi
+sub rax, r8 ; rax = rax - r8
+imul rax, rdi ; rax = rax * rdi
 ```
 
 ## Functions
@@ -91,7 +91,7 @@ global sum
 sum:
     ; first argument is passed in rdi
     ; second argument is passed in rsi
-    ; return is passed in rax
+    ; return value is placed in rax
 
     mov rax, rdi ; rax is now equal to rdi
     add rax, rsi ; rax = rax + rsi

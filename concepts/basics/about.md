@@ -10,7 +10,7 @@ Comments may be placed anywhere in the program and everything that comes after a
 
 ## Constants
 
-An assembler-time constant can be defined using [equ][equ].
+An assembler-time constant can be defined in NASM using [equ][equ].
 
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
 
@@ -30,7 +30,7 @@ Most computations are carried out in the CPU's registers.
 Some of the registers are used for a variety of different computations and are called `General Purpose Registers` (GPRs).
 Others have special or dedicated purposes.
 
-In x86-64 there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
+In x86-64, there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
 
 The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
 
@@ -91,7 +91,7 @@ Some of them can only operate on specific registers or under specific conditions
 They usually have the following form:
 
 ```nasm
-instruction destination, source
+opcode destination, source
 ```
 
 So, the `opcode` is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
@@ -113,9 +113,9 @@ This is not true for 16-bit and 8-bit registers.
 For the arithmetic operations addition, subtraction, and multiplication, we can use the [add][add], [sub][sub], and [imul][imul] instructions:
 
 ```nasm
-add rax, rsi ; rax += rsi
-imul rax, rdi ; rax *= rdi
-sub rax, r8 ; rax -= r8
+add rax, rsi ; rax = rax + rsi
+imul rax, rdi ; rax = rax * rdi
+sub rax, r8 ; rax = rax - r8
 ```
 
 The `imul` instruction can also take a three operand form, where the third operand must be a constant integer value:
@@ -158,7 +158,7 @@ global sum
 sum:
     ; first argument is passed in rdi
     ; second argument is passed in rsi
-    ; return is passed in rax
+    ; return value is placed in rax
 
     mov rax, rdi ; rax is now equal to rdi
     add rax, rsi ; rax = rax + rsi
