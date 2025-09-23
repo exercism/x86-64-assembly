@@ -2,12 +2,15 @@
   "authors": [
     "bergjohan"
   ],
+  "contributors": [
+    "oxe-i"
+  ],
   "files": {
     "solution": [
-      "basics.asm"
+      "lasagna.asm"
     ],
     "test": [
-      "basics_test.c"
+      "lasagna_test.c"
     ],
     "exemplar": [
       ".meta/exemplar.asm"

@@ -1,4 +1,9 @@
 {
-  "blurb": "TODO: add blurb for basics concept",
-  "authors": ["bergjohan"]
+  "blurb": "An introduction to x86-64 registers, instructions and functions",
+  "authors": [
+    "bergjohan"
+  ],
+  "contributors": [
+    "oxe-i"
+  ]
 }
