@@ -132,7 +132,7 @@ Most of the topics should map onto a Concept and have its own Concept Exercise.
 
 - PREREQUISITES: INTRODUCTION TO SIMD
 
-## Other topics (To be discussed)
+## Other topics (To be discovered)
 
 - ATOMICS?
 - SYSCALLS?
