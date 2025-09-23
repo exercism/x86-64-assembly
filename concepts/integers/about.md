@@ -124,12 +124,14 @@ Notice that the binary representation of `-23` and the binary representation of 
 In order to provide disambiguation, whenever a number can assume a negative value, the most significant bit in a sequence of bytes is called `the sign bit`.
 This bit is not summed up to the others, but indicates, whenever set, that the number is negative.
 
-### Observation
+~~~~exercism/caution
 
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can greatly aid in this task.
+
+~~~~
 
 ## Arithmetic
 
@@ -275,7 +277,6 @@ The exception is the multiplication between two bytes.
 
 In this case, instead of `dl:al`, `ah` will be used.
 The lower portion of `ah` (`al`) will get the lower 8-bits of the product, while the upper portion (`ah`) will get the upper 8-bits.
-This means the product is automatically converted to a `word` size.
 
 ### Two-operand form
 
