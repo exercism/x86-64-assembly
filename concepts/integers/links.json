@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Binary_number",
+    "description": "Wikipedia Entry for Binary Numbers"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Endianness",
+    "description": "Wikipedia Entry for Endianness"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Two%27s_complement",
+    "description": "Wikipedia Entry for Two's Complement"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/neg",
+    "description": "Reference for the NEG instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/adc",
+    "description": "Reference for the ADC instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/inc",
+    "description": "Reference for the INC instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/dec",
+    "description": "Reference for the DEC instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/mul",
+    "description": "Reference for the MUL instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/idiv",
+    "description": "Reference for the IDIV instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/div",
+    "description": "Reference for the DIV instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/cwd:cdq:cqo",
+    "description": "Reference for the CWD, CDQ and CQO instructions"
+  }
+]

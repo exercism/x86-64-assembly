@@ -266,11 +266,11 @@ As a general rule, the range of bits needed to represent the product of two inte
 This means that the product of two numbers in the range of a 64-bit register needs up to 128 bits to be represented.
 
 That's why two registers are implicitly used to perform a multiplication in one-operand form: `rax` and `rdx`.
-If the multiplication involves two 64-bit numbers, then the lower 64-bits of the result will be in `rax` and the upper 64-bits (if any) will be in `rdx`.
+If the multiplication involves two 64-bit numbers, then the lower 64-bits of the result will be in `rax` and the upper 64-bits will be in `rdx`.
 
 This is usually called `rdx:rax`, to indicate that both registers are used in tandem.
 
-Notice that the same happens if the multiplication involves different register sizes.
+The same happens if the multiplication involves different register sizes.
 So, for instance, if two 32-bit numbers are being multiplied, `eax` and `edx` will be used.
 
 The exception is the multiplication between two bytes.
