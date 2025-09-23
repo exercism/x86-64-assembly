@@ -107,7 +107,7 @@ There's also a `inc` instruction, that simply sums 1 to the value in the destina
 inc dest ; dest = dest + 1
 ```
 
-It's important to notice that the sum of two integers operate in the same way for both unsigned and signed numbers.
+It's important to notice that the sum of two integers operates in the same way for both unsigned and signed numbers.
 
 ## Subtraction
 
@@ -161,14 +161,14 @@ The lower portion of `ah` (`al`) will get the lower 8-bits of the product, while
 The two-operand form of `imul` allows for explicitly declaring a different destination operand.
 
 In that case, the product between source and destination operands is placed in the destination operand.
-This product is truncated to "fit" into the destination operand.
+This product is truncated to fit into the destination operand.
 
 ### Three-operand form
 
 The three-operand form of `imul` multiplies the two source operands and places the result in the destination operand.
 
 This means that the destination operand is not multiplied with any of the source operands, it just receives the result
-This product is also truncated to "fit" into the destination operand.
+This product is also truncated to fit into the destination operand.
 
 ## Division
 
@@ -188,8 +188,9 @@ The quotient is written to the `rax` register and the remainder is written to th
 Notice that as `rdx:rax` is the dividend, both registers must have the appropriate bits set.
 
 So, whenever working with 64-bits integers, all bits in the `rdx` register must be cleared for a non-negative number in `rax` and set for a negative number.
-Failing to do so can cause a wrong result or, if the quotient is too large to fit in `rax`, an error.
 This is called `sign extension`.
+
+Failing to perform sign extension can cause a wrong result for the division or, if the quotient is too large to fit in `rax`, an error.
 
 There are three instructions that automate this process: `cwd`, `cdq` and `cqo`.
 They perform sign extension from `ax` to `dx`, from `eax` to `edx` and from `rax` to `rdx`, respectively.
