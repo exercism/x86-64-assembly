@@ -2,6 +2,9 @@
   "authors": [
     "bergjohan"
   ],
+  "contributors": [
+    "oxe-i"
+  ],
   "files": {
     "solution": [
       "basics.asm"

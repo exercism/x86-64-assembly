@@ -1,12 +1,66 @@
 # About
 
-x86-64 assembly is a low-level language. In assembly there are no variables,
-instead we use registers to store values. There are 16 general purpose 64-bit
-registers, `rax`, `rbx`, `rcx`, `rdx`, `rsp`, `rbp`, `rsi`, `rdi`, and `r8`
-through `r15`. The registers can also be accessed as 32-bit, 16-bit, or 8-bit.
-For example the low 32-bits of `rax` can be accessed by `eax`, the low 16-bits
-by `ax`, and the low 8-bits by `al`. The first four registers can even be
-accessed by the high 8-bits of a 16-bit register.
+## Comments
+
+The x86-64 track in Exercism uses [NASM][nasm] (The Netwide Assembler) as its assembler.
+
+In NASM, comments are prefixed by a semicolon (`;`).
+
+Comments may be placed anywhere in the program and everything that comes after a `;` is ignored by the assembler.
+
+## Constants
+
+An assembler-time constant can be defined using [equ][equ].
+
+For instance, this defines a constant named `UNIVERSE` with the value `42`:
+
+```nasm
+UNIVERSE equ 42
+```
+
+Constants are evaluated once, when defined, and can *not* be redefined later.
+
+## General Purpose Registers (GPRs)
+
+In assembly, there are no variables, instead we typically use registers to store values.
+
+A [CPU Register][Processor-registers] is a piece of fast memory inside a computer's processor.
+Most computations are carried out in the CPU's registers.
+
+Some of the registers are used for a variety of different computations and are called `General Purpose Registers` (GPRs).
+Others have special or dedicated purposes.
+
+In x86-64 there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
+
+The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
+
+```
++-----------+-----------+-----------+-----------+
+|   64-bit  |   32-bit  |   16-bit  |   8-bit   |
++-----------+-----------+-----------+-----------+
+|   rax     |   eax     |   ax      |   ah/al   |
++-----------+-----------+-----------+-----------+
+|   rbx     |   ebx     |   bx      |   bh/bl   |
++-----------+-----------+-----------+-----------+
+|   rcx     |   ecx     |   cx      |   ch/cl   |
++-----------+-----------+-----------+-----------+
+|   rdx     |   edx     |   dx      |   dh/dl   |
++-----------+-----------+-----------+-----------+
+|   rsi     |   esi     |   si      |   sil     |
++-----------+-----------+-----------+-----------+
+|   rdi     |   edi     |   di      |   dil     |
++-----------+-----------+-----------+-----------+
+|   rbp     |   ebp     |   bp      |   bpl     |
++-----------+-----------+-----------+-----------+
+|   rsp     |   esp     |   sp      |   spl     |
++-----------+-----------+-----------+-----------+
+|   rx      |   rxd     |   rxw     |   rxb     |
++-----------+-----------+-----------+-----------+
+```
+
+When using less than 64-bits, the bits accessed are usually from the lower portion of the register.
+
+The exception to this rule are `ah`, `bh`, `ch` and `dh`, which access the upper 8-bits from the 16-bits portion of the register.
 
 Illustration of how the bits are accessed for the `rax` register:
 
@@ -22,96 +76,114 @@ Illustration of how the bits are accessed for the `rax` register:
 +--------+-----------------------------+----+----+
 ```
 
-Summary of how registers are identified for different access modes:
+Some of those registers must be preserved accross function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
+Failing to preserve them may lead to an error or to undefined behaviour.
 
-```
-+----------+-------+-------+-------+-------+-----+-----+-----+-----+-----+
-| 64-bit   |   rax |   rbx |   rcx |   rdx | rsp | rbp | rsi | rdi | rx  |
-+----------+-------+-------+-------+-------+-----+-----+-----+-----+-----+
-| 32-bit   |   eax |   ebx |   ecx |   edx | esp | ebp | esi | edi | rxd |
-+----------+-------+-------+-------+-------+-----+-----+-----+-----+-----+
-| 16-bit   |    ax |    bx |    cx |    dx |  sp |  bp |  si |  di | rxw |
-+----------+-------+-------+-------+-------+-----+-----+-----+-----+-----+
-| 8-bit    | ah/al | bh/bl | ch/cl | dh/dl | spl | bpl | sil | dil | rxb |
-+----------+-------+-------+-------+-------+-----+-----+-----+-----+-----+
+The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
+
+## Instructions
+
+Instructions are pieces of computations a CPU can perform.
+
+x86-64 assembly offers a vast number of different instructions.
+Some of them can only operate on specific registers or under specific conditions.
+
+They usually have the following form:
+
+```nasm
+instruction destination, source
 ```
 
-Some registers have a special purpose such as returning a value from a
-function, or passing function arguments. To store a value in a register, we use
-the `mov` instruction:
+So, the `opcode` is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
+
+The source operand isn't typically modified by an instruction, just the destination operand.
+
+For instance, to store a value in a register, we can use the [mov][mov] instruction:
 
 ```nasm
 mov rax, 42  ; rax = 42
+             ; mov is the opcode, rax is the destination operand and 42 is the source operand
 ```
 
-An assembly program is divided into sections. The text section holds the
-executable instructions of a program and is declared as follows:
+The snippet above stores the value `42` in all 64-bits of the `rax` register, which is the destination operand for the instruction.
+
+Note that writing to a 32-bit register also clears the upper bits, so `mov eax, 42` is the same as `mov rax, 42`.
+This is not true for 16-bit and 8-bit registers.
+
+For the arithmetic operations addition, subtraction, and multiplication, we can use the [add][add], [sub][sub], and [imul][imul] instructions:
+
+```nasm
+add rax, rsi ; rax += rsi
+imul rax, rdi ; rax *= rdi
+sub rax, r8 ; rax -= r8
+```
+
+The `imul` instruction can also take a three operand form, where the third operand must be a constant integer value:
+
+```nasm
+imul r8, r9, 20 ; r8 = r9 * 20
+```
+
+Many other instructions will be addressed in later concepts in the track.
+
+## Functions
+
+Instructions are organized in functions.
+
+A function declaration consists of:
+
+1- a label with the name of the function, followed by a `:`;
+
+2- the instructions that define the function; and
+
+3- the return instruction, [ret][ret].
+
+To call a function, we use the [call][call] instruction.
+
+Since there are no variables in x86-64, there are specific conventions for how arguments are passed and returned from a function.
+
+The two main calling conventions are the [System V AMD64 ABI][SystemV] and the [Microsoft x64][Microsoft].
+
+This track uses the System V AMD64 ABI calling convention and the six first integers arguments are passed to a function in registers.
+They are passed in the following order: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, and `r9`.
+
+An integer value is returned from the function in the `rax` register.
+
+For instance, this declares a function `sum`:
 
 ```nasm
 section .text
-```
 
-A function is a set of instructions that perform a specific task. A function
-declaration consists of a label with the name of the function, the instructions
-that define the function, and the return instruction. The following declares a
-function called `foo`, which returns the value 42:
-
-```nasm
-foo:
-  mov eax, 42
-  ret
-```
-
-The value in the `rax` register specifies the value returned by the function.
-Note that we are writing to the 32-bit part of `rax` here (`eax`). Writing to a
-32-bit register also clears the upper bits, so `mov eax, 42` is the same as
-`mov rax, 42`. This is not true for 16-bit and 8-bit registers.
-
-To change the visibility of a function, and be able to call it from any file in
-our program we use the `global` directive:
-
-```nasm
-global foo
-```
-
-When a function is called, the arguments are passed in the following order:
-`rdi`, `rsi`, `rdx`, `rcx`, `r8`, and `r9`. Here's an example of a function
-that takes a single argument and returns it, also known as an identity
-function:
-
-```nasm
-global identity
-identity:
-  mov rax, rdi
-  ret
-```
-
-For the arithmetic operations addition, subtraction, and multiplication, we can
-use the `add`, `sub`, and `imul` instructions. They take two operands, a destination
-operand (first operand), and a source operand (second operand), performs
-the arithmetic operation, and stores the result in the destination operand.
-Here's an example of a function that takes two arguments, adds them together,
-and returns the result:
-
-```nasm
 global sum
 sum:
-  mov rax, rdi
-  add rax, rsi  ; rax += rsi
-  ret
+    ; first argument is passed in rdi
+    ; second argument is passed in rsi
+    ; return is passed in rax
+
+    mov rax, rdi ; rax is now equal to rdi
+    add rax, rsi ; rax = rax + rsi
+
+    ret ; returns from function
 ```
 
-To call a function, we use the `call` instruction. For example, to call our
-`sum` function with the arguments 3 and 5, we would do the following:
+And this calls our `sum` function with the arguments 3 and 5:
 
 ```nasm
 mov rdi, 3  ; First argument in rdi
 mov rsi, 5  ; Second argument in rsi
 call sum
-; The rax register now contains the value 8
+
+; The rax register now contains the value 8 (3 + 5), after sum returns
 ```
 
-Registers `rbp`, `rbx` and `r12` through `r15` are known as callee-saved
-registers. This means that these registers must be preserved across function
-calls. The rest of the registers are known as caller-saved and does not need to
-be preserved.
+[equ]: https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.2.4
+[Processor-registers]: https://en.wikipedia.org/wiki/Processor_register
+[nasm]: https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html
+[mov]: https://www.felixcloutier.com/x86/mov
+[add]: https://www.felixcloutier.com/x86/add
+[sub]: https://www.felixcloutier.com/x86/sub
+[imul]: https://www.felixcloutier.com/x86/imul
+[SystemV]: https://www.uclibc.org/docs/psABI-x86_64.pdf
+[Microsoft]: https://learn.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170
+[call]: https://www.felixcloutier.com/x86/call
+[ret]: https://www.felixcloutier.com/x86/ret

@@ -1,6 +1,8 @@
 # Introduction
 
-## Comments
+## Basics
+
+### Comments
 
 The x86-64 track in Exercism uses NASM (The Netwide Assembler) as its assembler.
 
@@ -8,7 +10,7 @@ In NASM, comments are prefixed by a semicolon (`;`).
 
 Comments may be placed anywhere in the program and everything that comes after a `;` is ignored by the assembler.
 
-## Constants
+### Constants
 
 An assembler-time constant can be defined using `equ`.
 
@@ -20,7 +22,7 @@ UNIVERSE equ 42
 
 Constants are evaluated once, when defined, and can *not* be redefined later.
 
-## General-Purpose Registers
+### General-Purpose Registers
 
 In assembly, there are no variables, instead we typically use registers to store values.
 Most computations are performed using registers.
@@ -35,7 +37,7 @@ Failing to preserve them may lead to an error or to undefined behaviour.
 
 The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 
-## Instructions
+### Instructions
 
 Instructions are pieces of computations a CPU can perform.
 
@@ -64,7 +66,7 @@ sub rax, r8 ; rax -= r8
 imul rax, rdi ; rax *= rdi
 ```
 
-## Functions
+### Functions
 
 Instructions are organized in functions.
 

@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html",
+    "description": "NASM Documentation"
+  },
+  {
+    "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.2.4",
+    "description": "NASM Documentation for the EQU pseudo-instruction"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Processor_register",
+    "description": "Wikipedia Entry for CPU Registers"
+  },
+  {
+    "url": "https://www.uclibc.org/docs/psABI-x86_64.pdf",
+    "description": "System V AMD64 ABI Documentation"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/mov",
+    "description": "Reference for the MOV instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/add",
+    "description": "Reference for the ADD instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/sub",
+    "description": "Reference for the SUB instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/imul",
+    "description": "Reference for the IMUL instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/call",
+    "description": "Reference for the CALL instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/ret",
+    "description": "Reference for the RET instruction"
+  }
+]
