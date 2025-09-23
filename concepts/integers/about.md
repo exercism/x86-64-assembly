@@ -121,8 +121,8 @@ The [neg][neg] instruction can be used to change the sign of a number.
 
 Notice that the binary representation of `-23` and the binary representation of `233` are equal.
 
-In order to provide disambiguation, whenever a number can assume a negative value, the most significant bit in a sequence of bytes is called `the sign bit`.
-This bit is not summed up to the others, but indicates, whenever set, that the number is negative.
+In order to provide disambiguation, in a `signed` integer, the most significant bit is not summed up to the others, but indicates whether the number is negative.
+This bit is called the `sign bit`.
 
 ~~~~exercism/caution
 
