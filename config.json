@@ -999,6 +999,11 @@
       "uuid": "0e3aeff1-0e97-4026-9ae7-adfcddc9ec67",
       "slug": "integers",
       "name": "Integers"
+    },
+    {
+      "uuid": "547b8cd0-93c7-433c-affa-c9d594cbc147",
+      "slug": "bit-manipulation",
+      "name": "Bit Manipulation"
     }
   ],
   "key_features": [
