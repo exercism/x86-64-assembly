@@ -1,6 +1,4 @@
 {
   "blurb": "Bit-manipulation instructions in x86-64 assembly",
-  "authors": [
-    "oxe-i"
-  ]
+  "authors": ["oxe-i"]
 }

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Bitwise_operation",
+    "description": "Wikipedia Entry for Bitwise Operations"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86",
+    "description": "Reference for x86-64 instructions"
+  }
+]
