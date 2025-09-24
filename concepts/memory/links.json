@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Pointer_(computer_programming)",
+    "description": "Wikipedia Entry for Pointers"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Array_(data_structure)",
+    "description": "Wikipedia Entry for Arrays"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/lea",
+    "description": "Reference for the LEA instruction"
+  },
+  {
+    "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.3",
+    "description": "NASM Documentation for Effective Addresses"
+  }
+]
