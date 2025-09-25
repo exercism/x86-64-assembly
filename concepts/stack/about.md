@@ -33,7 +33,7 @@ So, a `push` instruction takes one operand and stores the contents of this opera
 As the stack grows downward, the value in `rsp` is reduced by the size of the stored value.
 
 Similarly, a `pop` instruction takes one operand and stores the most recent value in the stack (the one pointed by `rsp`) into it.
-The value in `rsp` is, therefore, increased by the size of the retrieved value.
+The value in `rsp` is then increased by the size of the retrieved value.
 
 ## Local Variables
 
@@ -60,11 +60,13 @@ One way to deal with that is zeroing-out the contents of any stack space used by
 
 ## Callee-Saved and Caller-Saved Registers
 
-In a previous lesson, it was informed that some registers must be preserved across function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
-In general, the calling function expects to be able to use those registers without modification by any called function.
+There are some registers that must be preserved across function calls: `rbp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
+In general, the calling function expects to be able to use those registers without them being changed by a called function.
 
-So, the called function must save the values in those registers before using them, so as to restore the original values before the end of the function.
+So, the called function must save the values in those registers before using them, so as to restore the original values before returning.
 This is why they are called **callee-saved registers**.
+
+Apart from these registers, `rsp` must also be preserved.
 
 The other registers are directly available for use by the called function.
 
@@ -75,19 +77,18 @@ The most common way for saving the contents of a register is by storing it into 
 
 ## Call and Ret
 
-The main function of the stack is keeping track of the return address for called functions.
+The main purpose of the stack is keeping track of the return address for called functions.
 
 Whenever a `call` instruction is used, the current value in `rip` is implicitly pushed to the stack.
 Subsequently, the operand for the instruction is moved into `rip`, so that execution continues in the called function.
 
-A `ret` function does the opposite operation.
+A `ret` instruction does the opposite operation.
 It pops from the stack into `rip`, so execution returns to the calling function.
 
 So, at point of entry, `rsp` points to the address to be returned.
 This is the address `ret` must pop from the stack.
 
-This is why `rsp` is a callee-saved register.
-Any manipulation of `rsp` inside a function, either directly or with `push`, must be reversed before the function returns.
+So, any change in the value of `rsp` inside a function, either directly or with `push`, must be reversed before the function returns.
 
 ## Prologue and Epilogue
 
