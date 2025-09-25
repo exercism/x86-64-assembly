@@ -1009,6 +1009,11 @@
       "uuid": "77aab0bc-d875-45e7-ad3d-3d7b4fe3eb57",
       "slug": "memory",
       "name": "Memory"
+    },
+    {
+      "uuid": "45461e90-425c-4e6d-8946-6f16637fcd81",
+      "slug": "stack",
+      "name": "Stack"
     }
   ],
   "key_features": [

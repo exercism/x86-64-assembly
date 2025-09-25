@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Call_stack",
+    "description": "Wikipedia Entry for the Stack"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/push",
+    "description": "Reference for the PUSH instruction"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/pop",
+    "description": "Reference for the POP instruction"
+  },
+  {
+    "url": " https://cs61.seas.harvard.edu/site/pdf/x86-64-abi-20210928.pdf",
+    "description": "System V AMD64 ABI Documentation"
+  }
+]
