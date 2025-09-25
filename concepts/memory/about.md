@@ -127,8 +127,8 @@ fn:
     ...
 ```
 
-However, there are some situations where there might be an ambiguity regarding the size of the memory dereferenced.
-In those cases, a prefix specifying the size of the memory accessed must be used.
+However, there are some situations when there might be an ambiguity regarding the size of the memory dereferenced.
+In those cases, a prefix specifying this size must be used.
 
 These are the most important prefixes and their sizes in a typical x86-64 program:
 
@@ -184,7 +184,7 @@ When accessing data in memory, offsets added to the base address may include:
 
 - one index register scaled by `1`, `2`, `4`, or `8`; and
 
-- a signed 32‑bit displacement:
+- a signed 32‑bit displacement.
 
 For instance:
 
