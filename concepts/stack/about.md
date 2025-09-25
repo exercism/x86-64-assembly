@@ -157,4 +157,4 @@ Since a `push` instruction has the effect of subtracting 8 bytes from `rsp`, a d
 [stack]: https://en.wikipedia.org/wiki/Call_stack
 [push]: https://www.felixcloutier.com/x86/push
 [pop]: https://www.felixcloutier.com/x86/pop
-[SystemV]: https://cs61.seas.harvard.edu/site/pdf/x86-64-abi-20210928.pdf
+[SystemV]: https://www.uclibc.org/docs/psABI-x86_64.pdf

@@ -12,7 +12,7 @@
     "description": "Reference for the POP instruction"
   },
   {
-    "url": " https://cs61.seas.harvard.edu/site/pdf/x86-64-abi-20210928.pdf",
+    "url": "https://www.uclibc.org/docs/psABI-x86_64.pdf",
     "description": "System V AMD64 ABI Documentation"
   }
 ]
