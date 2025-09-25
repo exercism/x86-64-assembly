@@ -40,7 +40,7 @@ section .data
     space db 10
 ```
 
-A data declared in `section .data` is mutable.
+Variables declared in `section .data` are mutable.
 
 ### Section .rodata
 
@@ -87,6 +87,8 @@ And this reserves uninitialized space for `10` times `8` bytes (so, `80` bytes) 
 section .bss
     arr resq 10
 ```
+
+Variables in `section .bss` are mutable.
 
 ## Accessing data
 
