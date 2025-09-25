@@ -150,7 +150,7 @@ It's good practice to always use a prefix when dereferencing memory.
 Any data in assembly is a sequence of bytes.
 This means that any data can be viewed as an `array` of those underlying bytes.
 
-In order to access any byte after the first, a 0-indexed offset must be added to the base pointer:
+In order to access any byte after the first, a 0-indexed offset must be added to the base address:
 
 ```nasm
 section .data
@@ -177,7 +177,7 @@ section .data
                             ; elements 15, 23 and 42 can be accessed at indexes 16, 24 and 32, respectively
 ```
 
-Offsets added to the base register may include:
+When accessing data in memory, offsets added to the base address may include:
 
 - one index register scaled by `1`, `2`, `4`, or `8`; and
 
