@@ -11,7 +11,7 @@ A stack supports two operations: **push** and **pop**:
 
 In order to keep track of the current point of the `stack`, where the most recent element is located, the register `rsp` is used.
 
-In x86-64, the instructions `push` and `pop` implement their homonimous operations.
+In x86-64, the instructions `push` and `pop` implement the operations with the same name.
 
 So, a `push` instruction takes one operand and stores the contents of this operand in the stack.
 As the stack grows downward, the value in `rsp` is reduced by the size of the stored value.
@@ -34,7 +34,7 @@ Notice that, at the moment space is reserved in stack, the value stored in that 
 
 ## Callee-Saved and Caller-Saved Registers
 
-In a previous lecture, it was informed that some registers must be preserved across function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
+In a previous lesson, it was informed that some registers must be preserved across function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
 In general, the calling function expects to be able to use those registers without modification by any called function.
 
 So, the called function must save the values in those registers before using them, so as to restore the original values before the end of the function.

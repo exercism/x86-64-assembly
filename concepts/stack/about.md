@@ -27,7 +27,7 @@ This means that the `stack` is a **last in, first out (LIFO)** data structure.
 
 In order to keep track of the current point of the `stack`, where the most recent element is located, the register `rsp` is used.
 
-In x86-64, the instructions [push][push] and [pop][pop] implement their homonimous operations.
+In x86-64, the instructions [push][push] and [pop][pop] implement the operations with the same name.
 
 So, a `push` instruction takes one operand and stores the contents of this operand in the stack.
 As the stack grows downward, the value in `rsp` is reduced by the size of the stored value.
@@ -54,13 +54,13 @@ Neither `pop` nor direct manipulation of `rsp` actually remove the contents stor
 The "removal" of the stack is abstracted from the new address in `rsp`.
 
 In some contexts, this may cause security concerns by exposing internal values to external sources.
-One way to deal with that is zeroing-out the contents of stack space used by the function.
+One way to deal with that is zeroing-out the contents of any stack space used by the function.
 
 ~~~~
 
 ## Callee-Saved and Caller-Saved Registers
 
-In a previous lecture, it was informed that some registers must be preserved across function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
+In a previous lesson, it was informed that some registers must be preserved across function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
 In general, the calling function expects to be able to use those registers without modification by any called function.
 
 So, the called function must save the values in those registers before using them, so as to restore the original values before the end of the function.
