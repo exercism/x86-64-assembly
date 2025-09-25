@@ -1004,6 +1004,11 @@
       "uuid": "547b8cd0-93c7-433c-affa-c9d594cbc147",
       "slug": "bit-manipulation",
       "name": "Bit Manipulation"
+    },
+    {
+      "uuid": "77aab0bc-d875-45e7-ad3d-3d7b4fe3eb57",
+      "slug": "memory",
+      "name": "Memory"
     }
   ],
   "key_features": [
