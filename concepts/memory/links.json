@@ -1,5 +1,13 @@
 [
   {
+    "url": "https://en.wikipedia.org/wiki/Data_segment",
+    "description": "Wikipedia Entry for section .data"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/.bss",
+    "description": "Wikipedia Entry for section .bss"
+  },
+  {
     "url": "https://en.wikipedia.org/wiki/Pointer_(computer_programming)",
     "description": "Wikipedia Entry for Pointers"
   },

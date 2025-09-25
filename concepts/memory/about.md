@@ -12,7 +12,7 @@ They also persist across the entire duration of the program.
 
 ### Section .data
 
-The initialized data is declared in the `section .data`.
+The initialized data is declared in the section [.data][data].
 
 In NASM, an initialized variable has a name (`label`), a directive that indicates the data size, and a list of values separated by comma.
 Each of these is separated with a space from the other and the label might optionally be followed by a `:`.
@@ -51,7 +51,9 @@ The main difference between them is that data variables in `section .rodata` are
 
 ### Section .bss
 
-Uninitialized data is declared in the `section .bss`.
+Uninitialized data is declared in the section [.bss][bss].
+
+On most platforms, this data is filled with zero by the Operational System (OS) at the start of the program.
 
 In NASM, an uninitialized variable has a name (`label`), a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
@@ -244,3 +246,5 @@ All exercises in this track are compiled and linked as PIE, so `rel` should be u
 [array]: https://en.wikipedia.org/wiki/Array_(data_structure)
 [lea]: https://www.felixcloutier.com/x86/lea
 [rel]: https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.3
+[bss]: https://en.wikipedia.org/wiki/.bss
+[data]: https://en.wikipedia.org/wiki/Data_segment

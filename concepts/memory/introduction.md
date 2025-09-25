@@ -53,6 +53,8 @@ The main difference between them is that data variables in `section .rodata` are
 
 Uninitialized data is declared in the `section .bss`.
 
+On most platforms, this data is filled with zero by the Operational System (OS) at the start of the program.
+
 In NASM, an uninitialized variable has a name (`label`), a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
 
