@@ -1014,6 +1014,11 @@
       "uuid": "45461e90-425c-4e6d-8946-6f16637fcd81",
       "slug": "stack",
       "name": "Stack"
+    },
+    {
+      "uuid": "9638c682-a41e-4bad-8513-d65bf1d11690",
+      "slug": "strings",
+      "name": "Strings"
     }
   ],
   "key_features": [
