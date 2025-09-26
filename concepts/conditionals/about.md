@@ -2,8 +2,8 @@
 
 ## RFLAGs
 
-There's a special flag called `rflags` whose bits act like flags.
-Those flags are activated in some specific conditions.
+There's a special register called `rflags`.
+Its bits act like flags for various conditions.
 
 Some of those are listed below:
 
@@ -25,9 +25,9 @@ For a full list, refer to [Intel's Manual][manual].
 
 ## Comparison Instructions
 
-The flags in `rflags` are set in response to a variety of instructions.
+The flags in `rflags` are set by many different instructions.
 
-For instance, the `ZF` is set in many arithmetic or bitwise operations when the result is 0, and cleared otherwise.
+For instance, the `ZF` is set in many arithmetic or bitwise operations when the result is 0.
 
 However, the two most common instructions to test for some specific condition are [cmp][cmp] and [test][test].
 They both take two operands, but **don't modify neither**.
@@ -61,7 +61,7 @@ Otherwise, it's cleared.
 
 ## Branching
 
-As a default, code in x86-64 executes linearly from top to bottom of the source file.
+As a default, code in x86-64 executes linearly from top to bottom.
 
 But there are many situations where it's necessary to modify this behavior.
 For instance, to execute a different set of instructions in response to a condition.
@@ -85,8 +85,7 @@ This can sometimes be used to optimize code flow.
 ### Unconditional Jump
 
 The instruction [jmp][jump] unconditionally transfers execution of the program to another point of the code.
-
-It is an one-operand instruction and the operand is the label which has the address to the point where execution will continue.
+Its single operand is a label which has the address to the point where execution will continue.
 
 Consider, for instance, the following function:
 
@@ -124,7 +123,6 @@ There are many suffixes and many of them test the same condition as another.
 This is because many of them are chosen in order to refer to their meaning in a `cmp` instruction.
 
 For instance, `jz` (suffix `z`) and `je` (suffix `e`) both jump if `ZF` is set.
-
 This is because, when doing a `cmp`, the `ZF` is set when both operands are equal, since this means their subtraction is 0.
 
 The following table shows some of the possible suffixes and their meaning.
