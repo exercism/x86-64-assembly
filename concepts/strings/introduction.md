@@ -16,7 +16,7 @@ In assembly, it is implemented as an array.
 In x86-64 there are some instructions for loading, moving and storing values in a string.
 
 Those instructions can be used not only with bytes, but with other data sizes as well.
-Since assembly does not enforce abstractions, they are also not limited to sequences of elements representing characters.
+They are also not limited to sequences of elements representing characters.
 
 They usually expect the source to be a memory location in `rsi` and the destination to be a memory location in `rdi`.
 
@@ -45,38 +45,34 @@ And, if the DF is set, addresses are instead decreased by the same amount.
 The instruction `cld` clears the direction flag, whereas the instruction `std` sets it.
 
 The `System V ABI` states that the direction flag must be cleared at function entry.
-So, this is the default behavior.
+So, the default behavior is for memory to be read/written in ascending order of addresses.
 
 ### Lods
 
-The `lods` family of instructions load an element from a memory location in `rsi`.
+The `lods` family of instructions loads an element from the memory location in `rsi` into `rax`.
+The address in `rsi` is modified according to the size of the element.
 
-This element is moved to `rax` and the address in `rsi` is modified according to the size of the element.
-
-So, for instance, `lodsw` loads 2 bytes from the memory address in `rsi`, modifying `rsi` by 2.
+So, for instance, `lodsw` loads 2 bytes from the memory address in `rsi` into `ax`, modifying `rsi` by 2.
 
 ### Stos
 
-The `stos` family of instructions stores an element in `rax` into a memory location in `rdi`.
-
+The `stos` family of instructions stores an element from `rax` into a memory location in `rdi`.
 The address in `rdi` is modified according to the size of the element.
 
-So, for instance, `stodsd` stores 4 bytes in `eax` into the memory address in `rdi`, modifying `rdi` by 4.
+So, for instance, `stodsd` stores 4 bytes from `eax` into the memory address in `rdi`, modifying `rdi` by 4.
 
 ### Movs
 
 The `movs` family of instructions copies an element from the memory location in `rsi` into the memory location in `rdi`.
-
 The addresses in both `rsi` and `rdi` are modified according to the size of the element.
 
 So, for instance, `movsq`:
 - copies 8 bytes from the memory address in `rsi`, modifying `rsi` by 8; and
-- stores 8 bytes into the memory address in `rdi`, modifying `rdi` by 8.
+- stores those 8 bytes into the memory address in `rdi`, modifying `rdi` by 8.
 
 ### Cmps
 
 The `cmps` family of instructions compares the elements in the memory locations in `rsi` and `rdi`, setting flags in `rflags` according to the result.
-
 The addresses in both `rsi` and `rdi` are modified according to the size of the element.
 
 So, for instance, `cmpsb` compares 1 byte in the memory address in `rsi` with 1 byte in the memory address in `rdi`, modifying both registers by 1.
@@ -84,7 +80,6 @@ So, for instance, `cmpsb` compares 1 byte in the memory address in `rsi` with 1 
 ### Scas
 
 The `scas` family of instructions compares the value in `rax` with the element from the memory address in `rdi`, setting flags in `rflags` according to the result.
-
 The address in `rdi` is modified according to the size of the element.
 
 So, for instance, `scasw` compares the value in `ax` with 2 bytes in the memory address in `rdi`, modifying `rdi` by 2.
@@ -103,7 +98,7 @@ There are 3 instructions in this group:
 All those prefixes repeat an instruction by a number of times equal to the value in `rcx`.
 At each time, the value in `rcx` is decreased by 1.
 
-However, `repe` and `repne` stop execution before this if the `zero flag (ZF)` is set or cleared, respectively.
+However, `repe` and `repne` stop execution earlier if the `zero flag (ZF)` is set or cleared, respectively.
 
 It's important to notice that `rcx` is not an operand to those instructions.
 Its value must be adjusted before using them.
