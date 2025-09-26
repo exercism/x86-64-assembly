@@ -30,8 +30,8 @@ In assembly, it is implemented as an array.
 
 In x86-64 there are some instructions for loading, moving and storing values in a string.
 
-Those instructions can be used not only with bytes, but with other data sizes as well.
-They are also not limited to sequences of elements representing characters.
+Although called `string instructions`, they can be used not only with bytes, but with other data sizes as well.
+They are also not limited to sequences of elements representing characters, but work with any array in memory.
 
 They usually expect the source to be a memory location in `rsi` and the destination to be a memory location in `rdi`.
 
