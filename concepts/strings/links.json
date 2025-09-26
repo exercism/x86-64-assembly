@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/ASCII",
+    "description": "Wikipedia Entry for ASCII encoding"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "description": "Wikipedia Entry for String"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/",
+    "description": "Reference for x86-64 Instructions"
+  }
+]
