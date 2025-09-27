@@ -36,7 +36,7 @@ They both take two operands and update the flags, but **do not modify their oper
 
 The `cmp` instruction subtracts the second operand from the first and sets flags according to the result.
 
-If the result is less than 0 in an unsigned subtraction, `CF` is set.
+If the first operand is less than the second, when both are interpreted as unsigned numbers, `CF` is set.
 Otherwise, it's cleared.
 
 If the result is 0, `ZF` is set.
@@ -146,7 +146,7 @@ Consider that A is the first operand, and B the second, in a `cmp` instruction.
 
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition.
 
-For instance, `jge` jumps when A >= B, when interpreted as signed integers.
+For instance, `jge` jumps when A >= B, when A and B are interpreted as signed integers.
 
 There are also suffixes which refer directly to the flag being tested:
 
@@ -167,7 +167,8 @@ There are also suffixes which refer directly to the flag being tested:
 For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.
 
-For instance, `jnz` jumps when `ZF` is **not** set, and `jnae` jumps when A >= B is false, when interpreted as unsigned integers.
+For instance, `jnz` jumps when `ZF` is **not** set.
+Similarly, `jnae` jumps when A >= B is false, when A and B are interpreted as unsigned integers.
 
 [manual]: https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf#page=78
 [jmp]: https://www.felixcloutier.com/x86/jmp

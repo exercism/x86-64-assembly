@@ -32,7 +32,7 @@ They both take two operands and update the flags, but **do not modify their oper
 
 The `cmp` instruction subtracts the second operand from the first and sets flags according to the result.
 
-If the result is less than 0 in an unsigned subtraction, `CF` is set.
+If the first operand is less than the second, when both are interpreted as unsigned numbers, `CF` is set.
 Otherwise, it's cleared.
 
 If the result is 0, `ZF` is set.
@@ -153,4 +153,5 @@ There are also suffixes which refer directly to the flag being tested:
 For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.
 
-For instance, `jnz` jumps when `ZF` is **not** set, and `jnae` jumps when A >= B is false, when interpreted as unsigned integers.
+For instance, `jnz` jumps when `ZF` is **not** set.
+Similarly, `jnae` jumps when A >= B is false, when A and B are interpreted as unsigned integers.
