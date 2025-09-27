@@ -1024,6 +1024,11 @@
       "uuid": "262275b7-76d1-4da6-95b9-477a1cff6144",
       "slug": "conditionals",
       "name": "Conditionals"
+    },
+    {
+      "uuid": "f4e513b5-c9ef-4d65-8c32-e047252ce11c",
+      "slug": "loops",
+      "name": "Loops"
     }
   ],
   "key_features": [
