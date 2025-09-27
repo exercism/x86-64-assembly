@@ -25,8 +25,8 @@ Some of those are listed below:
 
 The flags in `rflags` are set by many different instructions.
 
-However, the two most common instructions to test for some specific condition are `cmp` and `test`.
-They both take two operands, but **don't modify neither**.
+Two of the most common instructions used to test conditions are `cmp` and `test`.
+They both take two operands and update the flags, but **do not modify their operands**.
 
 ### CMP Instruction
 
@@ -57,7 +57,7 @@ Otherwise, it's cleared.
 
 ## Branching
 
-As a default, code in x86-64 executes linearly from top to bottom.
+As a default, code in x86-64 executes sequentially from top to bottom.
 
 But there are many situations where it's necessary to modify this behavior.
 For instance, to execute a different set of instructions in response to a condition.
@@ -98,18 +98,18 @@ The value of `rax` when `fn` returns is 5.
 ### Conditional Jump
 
 The family of instructions `jcc` transfers execution of the program to another point only if a specific condition is met.
-Otherwise, execution continues as usual.
+Otherwise, execution continues sequentially.
 
-This condition is associated with a flag in `rflags`.
-Some conditions test if a flag is set, others if it is not set.
+Each condition maps to one or more flags in `rflags`.
+Some `jcc` variants test that a flag is set, others test that it is clear.
 
 The `cc` in `jcc` is not literal, but refers to the specific suffix associated with the flag tested.
 
 There are many suffixes and many of them test the same condition as another.
 This is because many of them are chosen in order to refer to their meaning in a `cmp` instruction.
 
-For instance, `jz` (suffix `z`) and `je` (suffix `e`) both jump if `ZF` is set.
-This is because, when doing a `cmp`, the `ZF` is set when both operands are equal, since this means their subtraction is 0.
+For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` i set.
+This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
 
 The following table shows some of the possible suffixes and their meaning.
 Consider that A is the first operand, and B the second, in a `cmp` instruction.
