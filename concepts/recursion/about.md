@@ -76,15 +76,15 @@ It seems as if `times_three` is just a local label inside of `triple_of_square`.
 In reality, there's no essential difference between any local label and a function.
 x86-64 assembly does not give special treatment to any of them, they are just addresses in the `section .text`.
 
-In this way, a tail recursive function can be thought of being essentially a loop, while a base case is a condition that ends this loop.
+In this way, a tail recursive function can be thought of being similar to a loop, while a base case would be a condition that ends this loop.
 
 ~~~~exercism/note
+
 A `tail call` can only be used if a function does not perform any more work after calling another.
 Many recursive functions are not naturally tail recursive.
 
 However, in some situations, a tail-recursive helper may be defined, so that the main function does some work before or after this helper and the "recursion" occurs in the helper function.
 
-This is essentially equivalent to defining a loop inside the function.
 ~~~~
 
 [recursion]: https://en.wikipedia.org/wiki/Recursion_%28computer_science%29

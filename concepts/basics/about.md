@@ -34,29 +34,17 @@ In x86-64, there are 16 64-bit General Purpose Registers (GPRs), which can also 
 
 The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
 
-```
-+-----------+-----------+-----------+-----------+
-|   64-bit  |   32-bit  |   16-bit  |   8-bit   |
-+-----------+-----------+-----------+-----------+
+| 64-bit    | 32-bit    | 16-bit    | 8-bit     |
+|:---------:|:---------:|:---------:|:---------:|
 |   rax     |   eax     |   ax      |   ah/al   |
-+-----------+-----------+-----------+-----------+
 |   rbx     |   ebx     |   bx      |   bh/bl   |
-+-----------+-----------+-----------+-----------+
 |   rcx     |   ecx     |   cx      |   ch/cl   |
-+-----------+-----------+-----------+-----------+
 |   rdx     |   edx     |   dx      |   dh/dl   |
-+-----------+-----------+-----------+-----------+
 |   rsi     |   esi     |   si      |   sil     |
-+-----------+-----------+-----------+-----------+
 |   rdi     |   edi     |   di      |   dil     |
-+-----------+-----------+-----------+-----------+
 |   rbp     |   ebp     |   bp      |   bpl     |
-+-----------+-----------+-----------+-----------+
 |   rsp     |   esp     |   sp      |   spl     |
-+-----------+-----------+-----------+-----------+
 |   rx      |   rxd     |   rxw     |   rxb     |
-+-----------+-----------+-----------+-----------+
-```
 
 When using less than 64-bits, the bits accessed are usually from the lower portion of the register.
 
@@ -97,6 +85,9 @@ opcode destination, source
 So, the `opcode` is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 
 The source operand isn't typically modified by an instruction, just the destination operand.
+
+Unless otherwise noted, both operands must have the same size.
+So, for example, if the source operand has 16-bits, the destination operand must also have 16-bits.
 
 For instance, to store a value in a register, we can use the [mov][mov] instruction:
 

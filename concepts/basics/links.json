@@ -16,27 +16,7 @@
     "description": "System V AMD64 ABI Documentation"
   },
   {
-    "url": "https://www.felixcloutier.com/x86/mov",
-    "description": "Reference for the MOV instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/add",
-    "description": "Reference for the ADD instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/sub",
-    "description": "Reference for the SUB instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/imul",
-    "description": "Reference for the IMUL instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/call",
-    "description": "Reference for the CALL instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/ret",
-    "description": "Reference for the RET instruction"
+    "url": "https://www.felixcloutier.com/x86",
+    "description": "Reference for x86-64 instructions"
   }
 ]

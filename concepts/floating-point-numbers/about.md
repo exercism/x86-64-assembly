@@ -20,7 +20,7 @@ For an in-depth explanation, please refer to [Appendix D][float-guide] of Oracle
 
 In x86-64, there are 16 dedicated registers for doing floating-point arithmetic, named `xmm0` to `xmm15`.
 
-Those registers are at least 128-bit wide, but recent processors increase this to 256-bits or 512-bits
+Those registers are at least 128-bit wide, but recent processors increase this to 256-bits or 512-bits.
 
 However, in practice, floating-point numbers only use the lowest 32-bit or 64-bits, depending on the desired precision.
 
@@ -59,19 +59,12 @@ Here, `xx` is a placeholder for the type of the operands, as usual: `ss` for sin
 Those instructions take a constant number as third operand.
 This number indicates the rounding mode:
 
-```
-+--------+------------------+
-| Number |      Mode        |
-+--------+------------------+
-|    0   |     Nearest      |
-+--------+------------------+
-|    1   |   Floor (down)   |
-+--------+------------------+
-|    2   |   Ceil (up)      |
-+--------+------------------+
-|    3   |     Truncate     |
-+--------+------------------+
-```
+| Number | Mode |
+|:-------|:-----|
+| 0 | Nearest |
+| 1 | Floor (down) |
+| 2 | Ceil (up) |
+| 3 | Truncate |
 
 Those instructions can be used in preparation for a `cvtxx2si` when there's no guarantee that a floating-point number can be exactly expressed as an integer.
 
@@ -136,6 +129,14 @@ As usual, `xx` is a placeholder for either `ss` or `sd`.
 The `maxxx` instruction computes the maximum of the two operands and stores the result in the destination operand.
 
 As usual, `xx` is a placeholder for either `ss` or `sd`.
+
+### Calling Convention
+
+In `System V ABI`, the first eight floating-point arguments are passed to functions in order, from `xmm0` to `xmm7`.
+
+Floating-point values are returned from functions into `xmm0` and, if necessary, `xmm1`.
+
+All `xmm` registers are freely available to use, none of them is reserved for the caller.
 
 [ieee]: https://en.wikipedia.org/wiki/IEEE_754
 [float-guide]: https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
