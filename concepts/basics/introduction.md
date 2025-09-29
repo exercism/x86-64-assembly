@@ -50,8 +50,6 @@ The exception to this rule are `ah`, `bh`, `ch` and `dh`, which access the upper
 
 Illustration of how the bits are accessed for the `rax` register:
 
-
-
 ```
 +--------+---------------------------------------+
 | 64-bit |                  rax                  |
