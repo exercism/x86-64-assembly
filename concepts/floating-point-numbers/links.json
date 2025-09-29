@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/IEEE_754",
+    "description": "Wikipedia Entry for IEEE-754"
+  },
+  {
+    "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+    "description": "What Every Computer Scientist Should Know About Floating-Point Arithmetic"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86",
+    "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf#page=241",
+    "description": "Entry on Intel's Manual for the MXCSR Register"
+  }
+]
