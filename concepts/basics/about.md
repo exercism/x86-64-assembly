@@ -79,10 +79,10 @@ Some of them can only operate on specific registers or under specific conditions
 They usually have the following form:
 
 ```nasm
-opcode destination, source
+name destination, source
 ```
 
-So, the `opcode` is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
+So, the name of the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 
 The source operand isn't typically modified by an instruction, just the destination operand.
 

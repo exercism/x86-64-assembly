@@ -77,7 +77,7 @@ They usually have the following form:
 name destination, source
 ```
 
-So, the name for the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
+So, the name of the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 
 The source operand isn't typically modified by an instruction, just the destination operand.
 
