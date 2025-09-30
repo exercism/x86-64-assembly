@@ -59,12 +59,12 @@ Here, `xx` is a placeholder for the type of the operands, as usual: `ss` for sin
 Those instructions take a constant number as third operand.
 This number indicates the rounding mode:
 
-| Number | Mode |
-|:-------|:-----|
-| 0 | Nearest |
-| 1 | Floor (down) |
-| 2 | Ceil (up) |
-| 3 | Truncate |
+| Number | Mode         |
+|:------:|:-------------|
+| 0      | Nearest      |
+| 1      | Floor (down) |
+| 2      | Ceil (up)    |
+| 3      | Truncate     |
 
 Those instructions can be used in preparation for a `cvtxx2si` when there's no guarantee that a floating-point number can be exactly expressed as an integer.
 

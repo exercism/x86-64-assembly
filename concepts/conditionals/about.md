@@ -7,12 +7,12 @@ Its bits act like flags for various conditions.
 
 Some of those are listed below:
 
-| name | symbol | bit |
-|:-----|:------:|:---:|
-| carry | CF | 0 |
-| zero | ZF | 6 |
-| sign | SF | 7 |
-| overflow | OF | 11 |
+| name     | symbol | bit |
+|:---------|:------:|:---:|
+| carry    | CF     | 0   |
+| zero     | ZF     | 6   |
+| sign     | SF     | 7   |
+| overflow | OF     | 11  |
 
 For a full list, refer to [Intel's Manual][manual].
 
@@ -31,11 +31,11 @@ The `cmp` instruction subtracts the second operand from the first and sets flags
 
 If A is the first operand and B, the second:
 
-| flag | set when |
-|------|----------|
-| CF   | A < B (unsigned) |
-| ZF   | A == B |
-| SF   | A < B (signed) |
+| flag | set when                       |
+|:----:|:-------------------------------|
+| CF   | A < B (unsigned)               |
+| ZF   | A == B                         |
+| SF   | A < B (signed)                 |
 | OF   | overflow in signed subtraction |
 
 ### TEST Instruction
@@ -44,12 +44,12 @@ The `test` instruction makes a logical AND between both operands and sets flags 
 
 If A is the first operand and B, the second:
 
-| flag | set when |
-|------|----------|
-| CF   | always cleared |
-| ZF   | A AND B == 0 |
+| flag | set when             |
+|:----:|:---------------------|
+| CF   | always cleared       |
+| ZF   | A AND B == 0         |
 | SF   | A AND B < 0 (signed) |
-| OF   | always cleared |
+| OF   | always cleared       |
 
 ## Branching
 
@@ -122,13 +122,13 @@ This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which
 The following table shows some of the possible suffixes and their meaning.
 Consider that A is the first operand, and B the second, in a `cmp` instruction.
 
-| suffix | meaning |
-|:-------|:-------|
-| e | A == B |
-| l | A < B (signed) |
-| b | A < B (unsigned) |
-| g | A > B (signed) |
-| a | A > B (unsigned) |
+| suffix | meaning          |
+|:------:|:-----------------|
+| e      | A == B           |
+| l      | A < B (signed)   |
+| b      | A < B (unsigned) |
+| g      | A > B (signed)   |
+| a      | A > B (unsigned) |
 
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition.
 
@@ -137,11 +137,11 @@ For instance, `jge` jumps when A >= B, when A and B are interpreted as signed in
 There are also suffixes which refer directly to the flag being tested:
 
 | suffix | flag |
-|:-------|:-----|
-| z | ZF |
-| c | CF |
-| s | SF |
-| o | OF |
+|:------:|:----:|
+| z      | ZF   |
+| c      | CF   |
+| s      | SF   |
+| o      | OF   |
 
 For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.

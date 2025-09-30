@@ -35,12 +35,12 @@ Each of these is separated with a space from the other and the label might optio
 
 The main directives and their related data sizes are:
 
-| directive | size |
-|:---------:|:-----|
-| db | 1 byte  |
-| dw | 2 bytes |
-| dd | 4 bytes |
-| dq | 8 bytes |
+| directive | size    |
+|:---------:|:--------|
+| db        | 1 byte  |
+| dw        | 2 bytes |
+| dd        | 4 bytes |
+| dq        | 8 bytes |
 
 For instance, this declares a byte variable named `space` with the value `10`:
 
@@ -69,12 +69,12 @@ Each of these is separated with a space from the other.
 
 The main directives and their related data sizes are:
 
-| directive | size |
-|:---------:|:-----|
-| resb | 1 byte  |
-| resw | 2 bytes |
-| resd | 4 bytes |
-| resq | 8 bytes |
+| directive | size    |
+|:---------:|:--------|
+| resb      | 1 byte  |
+| resw      | 2 bytes |
+| resd      | 4 bytes |
+| resq      | 8 bytes |
 
 For instance, this reserves uninitialized space for `3` bytes in a variable named `example`:
 
@@ -134,12 +134,12 @@ In those cases, a prefix specifying this size must be used.
 
 These are the most important prefixes and their sizes in a typical x86-64 program:
 
-| prefix | size |
-|:-------|:-----|
-| byte  | 1 byte  |
-| word  | 2 bytes |
-| dword | 4 bytes |
-| qword | 8 bytes |
+| prefix | size    |
+|:-------|:--------|
+| byte   | 1 byte  |
+| word   | 2 bytes |
+| dword  | 4 bytes |
+| qword  | 8 bytes |
 
 The last example can be rewritten with the size prefix:
 
