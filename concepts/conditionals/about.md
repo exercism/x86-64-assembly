@@ -7,19 +7,12 @@ Its bits act like flags for various conditions.
 
 Some of those are listed below:
 
-```
-+--------------+----------+-------+
-|     name     |  symbol  |  bit  |
-+--------------+----------+-------+
-|   carry      |    CF    |   0   |
-+--------------+----------+-------+
-|   zero       |    ZF    |   6   |
-+--------------+----------+-------+
-|   sign       |    SF    |   7   |
-+--------------+----------+-------+
-|   overflow   |    OF    |   11  |
-+--------------+----------+-------+
-```
+| name     | symbol | bit |
+|:---------|:------:|:---:|
+| carry    | CF     | 0   |
+| zero     | ZF     | 6   |
+| sign     | SF     | 7   |
+| overflow | OF     | 11  |
 
 For a full list, refer to [Intel's Manual][manual].
 
@@ -36,28 +29,27 @@ They both take two operands and update the flags, but **do not modify their oper
 
 The `cmp` instruction subtracts the second operand from the first and sets flags according to the result.
 
-If the first operand is less than the second, when both are interpreted as unsigned numbers, `CF` is set.
-Otherwise, it's cleared.
+If A is the first operand and B, the second:
 
-If the result is 0, `ZF` is set.
-Otherwise, it's cleared.
-
-If the result is less than 0 in a signed subtraction, ie, a negative number, `SF` is set.
-Otherwise, it's cleared.
-
-If there's an overflow in a signed division, `OF` is set.
-Otherwise, it's cleared.
+| flag | set when                       |
+|:----:|:-------------------------------|
+| CF   | A < B (unsigned)               |
+| ZF   | A == B                         |
+| SF   | A < B (signed)                 |
+| OF   | overflow in signed subtraction |
 
 ### TEST Instruction
 
 The `test` instruction makes a logical AND between both operands and sets flags according to the result.
-Both `OF` and `CF` are always cleared.
 
-If the result, interpreted as a signed integer, is less than 0, `SF` is set.
-Otherwise, it's cleared.
+If A is the first operand and B, the second:
 
-If the result is 0, `ZF` is set.
-Otherwise, it's cleared.
+| flag | set when             |
+|:----:|:---------------------|
+| CF   | always cleared       |
+| ZF   | A AND B == 0         |
+| SF   | A AND B < 0 (signed) |
+| OF   | always cleared       |
 
 ## Branching
 
@@ -73,6 +65,7 @@ Instead, x86-64 provides instructions that effectively transfer execution to ano
 This is called `branching`.
 
 ~~~~exercism/note
+
 We've already seen two such instructions: `call` and `ret`.
 
 When a function is called, execution is transferred from the caller to the called function.
@@ -80,6 +73,7 @@ And, on return, execution is transferred back to the caller.
 
 If no `ret` is found, execution fallthroughs from one function to the next.
 This can sometimes be used to optimize code flow.
+
 ~~~~
 
 ### Unconditional Jump
@@ -128,21 +122,13 @@ This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which
 The following table shows some of the possible suffixes and their meaning.
 Consider that A is the first operand, and B the second, in a `cmp` instruction.
 
-```
-+------------+----------------------+
-|   suffix   |       meaning        |
-+------------+----------------------+
-|     e      |       A == B         |
-+------------+----------------------+
-|     l      |    A < B (signed)    |
-+------------+----------------------+
-|     b      |    A < B (unsigned)  |
-+------------+----------------------+
-|     g      |    A > B (signed)    |
-+------------+----------------------+
-|     a      |    A > B (unsigned)  |
-+------------+----------------------+
-```
+| suffix | meaning          |
+|:------:|:-----------------|
+| e      | A == B           |
+| l      | A < B (signed)   |
+| b      | A < B (unsigned) |
+| g      | A > B (signed)   |
+| a      | A > B (unsigned) |
 
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition.
 
@@ -150,19 +136,12 @@ For instance, `jge` jumps when A >= B, when A and B are interpreted as signed in
 
 There are also suffixes which refer directly to the flag being tested:
 
-```
-+------------+----------------------+
-|   suffix   |        flag          |
-+------------+----------------------+
-|     z      |         ZF           |
-+------------+----------------------+
-|     c      |         CF           |
-+------------+----------------------+
-|     s      |         SF           |
-+------------+----------------------+
-|     o      |         OF           |
-+------------+----------------------+
-```
+| suffix | flag |
+|:------:|:----:|
+| z      | ZF   |
+| c      | CF   |
+| s      | SF   |
+| o      | OF   |
 
 For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.

@@ -1,19 +1,5 @@
 # About
 
-Memory is usually allocated for the program by the OS in a general layout:
-
-```
-+-----------------+
-| high |  stack   |
-|      |   ...    |
-|      |  heap    |
-|      |  .bss    |
-|      |  .data   |
-|      |  .text   |
-| low  | reserved |
-+------+----------+
-```
-
 The [stack][stack] is a special data structure that starts at the highest point in memory and grows downward.
 
 ## Push and Pop

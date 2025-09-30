@@ -4,12 +4,8 @@
     "description": "Wikipedia Entry for the Stack"
   },
   {
-    "url": "https://www.felixcloutier.com/x86/push",
-    "description": "Reference for the PUSH instruction"
-  },
-  {
-    "url": "https://www.felixcloutier.com/x86/pop",
-    "description": "Reference for the POP instruction"
+    "url": "https://www.felixcloutier.com/x86",
+    "description": "Reference for x86-64 instructions"
   },
   {
     "url": "https://www.uclibc.org/docs/psABI-x86_64.pdf",

@@ -11,6 +11,7 @@ The last bit (the most significant) is cleared.
 NASM, the assembler used by the track, also supports [UTF-8][utf8] encoding.
 
 ~~~~exercism/note
+
 In x86-64, there's no difference between a character and a number.
 
 For instance, the character '0' is a byte with the value 48.
@@ -21,6 +22,7 @@ mov al, '0' ; al has the value 48
 mov cl, 48  ; cl has the value '0'
 ; al and cl now have the same value
 ```
+
 ~~~~
 
 ## Strings
@@ -38,19 +40,12 @@ They usually expect the source to be a memory location in `rsi` and the destinat
 Many of those instructions are actually a family of related instructions, each operating on a different size.
 In those cases, a suffix is appended to indicate this size:
 
-```
-+--------+----------+
-| prefix |   size   |
-+--------+----------+
-|   b    |  1 byte  |
-+--------+----------+
-|   w    |  2 bytes |
-+--------+----------+
-|   d    |  4 bytes |
-+--------+----------+
-|   q    |  8 bytes |
-+--------+----------+
-```
+| prefix | size    |
+|:------:|:--------|
+| b      | 1 byte  |
+| w      | 2 bytes |
+| d      | 4 bytes |
+| q      | 8 bytes |
 
 Those instructions modify the register(s) used according to the value of the `direction flag (DF)`.
 

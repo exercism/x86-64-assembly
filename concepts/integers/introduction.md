@@ -2,10 +2,6 @@
 
 ## Binary Notation
 
-In assembly, there aren't built-in types.
-Values are a sequence of one or more `bytes`, each formed of eight `bits`.
-Most, if not all, abstractions are built on top of this.
-
 An `integer` is an abstraction that represents whole numbers, such as `4`, `-2`, `0` or `64532`.
 
 In order to represent an `integer` as a sequence of bytes, the `binary notation` is used.
@@ -13,20 +9,7 @@ In order to represent an `integer` as a sequence of bytes, the `binary notation`
 This means each bit in the sequence represents a distinct power of two.
 The sum of the powers corresponding to set bits is the number represented.
 
-In x86-64, those bits are counted in ascending order from the smallest.
-
-For instance, consider the following byte:
-
-```
-+--------+---+---+---+---+---+---+---+---+
-| index  | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-+--------+---+---+---+---+---+---+---+---+
-|  bits  | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 |
-+--------+---+---+---+---+---+---+---+---+
-```
-
-The bits are set in the indexes `0`, `1`, `2` and `4`.
-So the number represented is given by the sum `2⁰ + 2¹ + 2² + 2⁴`, which is equal to `23`.
+In x86-64, those bits are counted in ascending order from the smallest index.
 
 ## Unsigned and Signed Integers
 
@@ -36,6 +19,10 @@ If the number is know to be non-negative, it's called an `unsigned` number.
 
 Unsigned numbers are represented directly as the sum of all set bits in its sequence.
 
+The range of representable non-negative integers in a register goes from `0` (no bit set) to `2⁶⁴ - 1` (sum of all 64 bits set).
+
+### Signed numbers
+
 If an integer can assume positive or negative values, it's called a `signed` number.
 
 In order to represent negative numbers, x86-64 uses the `two's complement` representation.
@@ -44,29 +31,6 @@ In two's complement, a negative number is represented by flipping all bits and t
 Flipping a bit means that the values are inverted: a bit with the value of `1` becomes `0` and a bit with the value of `0` becomes `1`.
 
 For instance, the number `-23` can be obtained from `23` like this:
-
-```
-Original number (23):
-+--------+---+---+---+---+---+---+---+---+
-| index  | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-+--------+---+---+---+---+---+---+---+---+
-|  bits  | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 |
-+--------+---+---+---+---+---+---+---+---+
-
-Step 1 (flip all bits):
-+--------+---+---+---+---+---+---+---+---+
-| index  | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-+--------+---+---+---+---+---+---+---+---+
-|  bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |
-+--------+---+---+---+---+---+---+---+---+
-
-Step 2 (add 1):
-+--------+---+---+---+---+---+---+---+---+
-| index  | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-+--------+---+---+---+---+---+---+---+---+
-|  bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 1 |
-+--------+---+---+---+---+---+---+---+---+
-```
 
 The steps are the same when converting from a negative number to its positive counterpart.
 
@@ -107,7 +71,7 @@ There's also a `inc` instruction, that simply sums 1 to the value in the destina
 inc dest ; dest = dest + 1
 ```
 
-It's important to notice that the sum of two integers operates in the same way for both unsigned and signed numbers.
+The sum of two integers operates in the same way for both unsigned and signed numbers.
 
 ## Subtraction
 
@@ -153,8 +117,8 @@ So, for instance, if two 32-bit numbers are being multiplied, `eax` and `edx` wi
 
 The exception is the multiplication between two bytes.
 
-In this case, instead of `dl:al`, `ah` will be used.
-The lower portion of `ah` (`al`) will get the lower 8-bits of the product, while the upper portion (`ah`) will get the upper 8-bits.
+In this case, instead of `dl:al`, `ax` will be used.
+The lower portion of `ax` (`al`) will get the lower 8-bits of the product, while the upper portion (`ah`) will get the upper 8-bits.
 
 ### Two-operand form
 

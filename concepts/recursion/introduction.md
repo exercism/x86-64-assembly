@@ -76,4 +76,4 @@ It seems as if `times_three` is just a local label inside of `triple_of_square`.
 In reality, there's no essential difference between any local label and a function.
 Assembly does not give special treatment to any of them, they are just addresses in the `section .text`.
 
-In this way, a tail recursive function can be thought of being essentially a loop, while a base case is a condition that ends this loop.
+In this way, a tail recursive function can be thought of being similar to a loop, while a base case would be a condition that ends this loop.

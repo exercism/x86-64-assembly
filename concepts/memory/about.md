@@ -1,14 +1,30 @@
 # About
 
-## Data sections
+Memory is usually allocated for the program by the Operational System (OS) in a general layout:
 
-Although most computations in x86-64 are performed with registers, there are many programs which require additional memory.
-It is then crucial to be able to reserve and declare data variables.
+```
++------------------------+
+| high |     stack       |
+|      |      ...        |
+|      |     heap        |
+|      |   section .bss  |
+|      |   section .data |
+|      |   section .text |
+| low  |    reserved     |
++------+-----------------+
+```
 
-In order to do that, three main `sections` may be used: `.data`, `.rodata` and `.bss`.
+Other sections may be available to use, depending on the assembler and OS.
+
+The functions we have defined until now were all in `section .text`.
+This section holds read-only executable data.
+
+Other sections are used to declare data variables, that may be read-only, write-only or read-and-write.
 
 Data variables declared in any of these sections are accessible from any function in the same source file.
 They also persist across the entire duration of the program.
+
+## Sections
 
 ### Section .data
 
@@ -19,19 +35,12 @@ Each of these is separated with a space from the other and the label might optio
 
 The main directives and their related data sizes are:
 
-```
-+-----------+-----------+
-| directive |   size    |
-+-----------+-----------+
-|    db     |   1 byte  |
-+-----------+-----------+
-|    dw     |   2 bytes |
-+-----------+-----------+
-|    dd     |   4 bytes |
-+-----------+-----------+
-|    dq     |   8 bytes |
-+-----------+-----------+
-```
+| directive | size    |
+|:---------:|:--------|
+| db        | 1 byte  |
+| dw        | 2 bytes |
+| dd        | 4 bytes |
+| dq        | 8 bytes |
 
 For instance, this declares a byte variable named `space` with the value `10`:
 
@@ -40,39 +49,32 @@ section .data
     space db 10
 ```
 
-Variables declared in `section .data` are mutable.
+Variables declared in `section .data` are mutable, ie, they are read-and-write.
 
 ### Section .rodata
 
 The `section .rodata` is similar to `section .data`.
 Both sections contain initialized data, which is declared in the same way.
 
-The main difference between them is that data variables in `section .rodata` are immutable (read-only).
+The main difference between them is that data variables in `section .rodata` are immutable, ie, they are read-only.
 
 ### Section .bss
 
 Uninitialized data is declared in the section [.bss][bss].
 
-On most platforms, this data is filled with zero by the Operational System (OS) at the start of the program.
+On most platforms, this data is filled with zero by the OS at the start of the program.
 
 In NASM, an uninitialized variable has a name (`label`), a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
 
 The main directives and their related data sizes are:
 
-```
-+-----------+-----------+
-| directive |   size    |
-+-----------+-----------+
-|   resb    |   1 byte  |
-+-----------+-----------+
-|   resw    |   2 bytes |
-+-----------+-----------+
-|   resd    |   4 bytes |
-+-----------+-----------+
-|   resq    |   8 bytes |
-+-----------+-----------+
-```
+| directive | size    |
+|:---------:|:--------|
+| resb      | 1 byte  |
+| resw      | 2 bytes |
+| resd      | 4 bytes |
+| resq      | 8 bytes |
 
 For instance, this reserves uninitialized space for `3` bytes in a variable named `example`:
 
@@ -88,7 +90,7 @@ section .bss
     arr resq 10
 ```
 
-Variables in `section .bss` are mutable.
+Variables in `section .bss` are mutable, ie, they are read-and-write.
 
 ## Accessing data
 
@@ -132,18 +134,23 @@ In those cases, a prefix specifying this size must be used.
 
 These are the most important prefixes and their sizes in a typical x86-64 program:
 
-```
-+-------------+-------------+
-|   prefix    |     size    |
-+-------------+-------------+
-|   byte      |    1 byte   |
-+-------------+-------------+
-|   word      |    2 bytes  |
-+-------------+-------------+
-|   dword     |    4 bytes  |
-+-------------+-------------+
-|   qword     |    8 bytes  |
-+-------------+-------------+
+| prefix | size    |
+|:-------|:--------|
+| byte   | 1 byte  |
+| word   | 2 bytes |
+| dword  | 4 bytes |
+| qword  | 8 bytes |
+
+The last example can be rewritten with the size prefix:
+
+```nasm
+section .data
+    example dq 27 ; this declares a 8-byte variable initialized with 27
+
+section .text
+fn:
+    mov rax, qword [example] ; this dereferences example and access the value stored in memory (27)
+    ...
 ```
 
 It's good practice to always use a prefix when dereferencing memory.
@@ -153,7 +160,14 @@ It's good practice to always use a prefix when dereferencing memory.
 Any data in assembly is a sequence of bytes.
 This means that any data can be viewed as an [array][array] of those underlying bytes.
 
-In order to access any byte after the first, a 0-indexed offset must be added to the base address:
+In order to access any byte after the first, it is necessary to compute its effective address.
+An effective address is an expression that may consist of:
+
+- a base address, for instance, the one indicated by the label of a variable;
+- one index register scaled by `1`, `2`, `4` or `8`; and
+- a signed 32-bit displacement.
+
+Notice that this address is 0-indexed, so that a base address, without any offset, points to the first byte of a variable.
 
 ```nasm
 section .data
@@ -163,8 +177,9 @@ section .data
 
 section .text
 fn:
-    mov al, byte [example + 2] ; this accesses the third byte in example
-    mov edx, dword [example + 1] ; this accesses 4 bytes starting at byte offset 1
+    mov al, byte [example] ; this accesses the first byte
+    mov r8b, byte [example + 2] ; this accesses the third byte
+    mov edx, dword [example + 1] ; this accesses 4 bytes starting at the second
 ```
 
 An initialized variable declared with a list of values is an array of those values, each element having the size specified.
@@ -178,22 +193,15 @@ section .data
                             ; the value 4 is a qword that can be accessed at index 0 (the first byte)
                             ; the value 8 is a qword that can be accessed at index 8, since each element occupy 8 bytes
                             ; elements 15, 23 and 42 can be accessed at indexes 16, 24 and 32, respectively
-```
 
-When accessing data in memory, offsets added to the base address may include:
-
-- one index register scaled by `1`, `2`, `4`, or `8`; and
-
-- a signed 32‑bit displacement.
-
-For instance:
-
-```nasm
-mov rdx, 5
-mov rcx, qword [variable + 8*rdx + 10] ; rdx is an index register scaled by 8
-                                       ; 10 is a signed 32-bit displacement
-                                       ; rcx now holds 8-bytes stored in the 'variable' array starting at offset:
-                                       ; 8*rdx(5) + 10 = 40 + 10 = 50
+section .text
+fn:
+    mov rdx, 2
+    mov rcx, qword [arr + 8*rdx + 8]  ; rdx is an index register scaled by 8
+                                      ; 8 is a signed 32-bit displacement
+                                      ; rcx now holds 8-bytes stored in 'arr' starting at offset:
+                                      ; 8*rdx(2) + 8 = 16 + 8 = 24
+                                      ; this is the fourth element of the array, ie, the element 23
 ```
 
 ### The Lea instruction
