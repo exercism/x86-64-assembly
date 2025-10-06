@@ -304,6 +304,9 @@ Instead of using `dl:al`, `ax` is used.
 
 So, the lower 8-bits of `ax` (`al`) will get the quotient of the operation and the higher 8-bits (`ah`) will get the remainder.
 
+There is also the instruction [movsx][movsx] that works similarly to `movzx`, extending from any 8-bits or 16-bits source operand to a larger destination operand.
+While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
+
 ~~~~exercism/caution
 The `rdx` register is implicitly used in an integer division.
 This means any necessary value in `rdx` must be saved before that operation.
@@ -326,3 +329,4 @@ This means any necessary value in `rdx` must be saved before that operation.
 [idiv]: https://www.felixcloutier.com/x86/idiv
 [sign-extension]: https://www.felixcloutier.com/x86/cwd:cdq:cqo
 [movzx]: https://www.felixcloutier.com/x86/movzx
+[movsx]: https://www.felixcloutier.com/x86/movsx:movsxd
