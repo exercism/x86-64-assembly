@@ -4,11 +4,6 @@ section .text
 
 ; the global directive makes a function visible to the test files
 
-global get_box_weight
-global max_number_of_boxes
-global items_to_be_moved
-global calculate_payment
-
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
@@ -36,9 +31,10 @@ get_box_weight:
 ; 1 - The total number of boxes moved;
 ; 2 - The number of truck trips made;
 ; 3 - The number of lost items;
-; 4 - The value of each lost item; and
-; 5 - The upfront payment.
-; The function must return how much you should be paid at the end
+; 4 - The value of each lost item;
+; 5 - The upfront payment; and
+; 6 - The number of workers to split the payment/debt with you.
+; The function must return how much you should be paid, or pay, at the end
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits

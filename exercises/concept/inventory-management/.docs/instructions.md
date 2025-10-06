@@ -76,11 +76,15 @@ In case of an error in the process, it is possible that the result is a negative
 
 Your payment is based on how many boxes were moved and how many truck trips were necessary.
 For each box, you will be paid **5 dollars** and for each trip, you will be paid **220 dollars**.
-You may have received part of this payment up front.
+You may have received part of this payment up front to cover initial costs.
 
 However, some products are not covered by insurance and your payment will be reduced by the value of any of those items broken or missing.
+It is possible that you end up owing money if you are not careful!
 
-Define a function `calculate_payment` that returns how much you should be paid at the end.
+This payment, or debt, will be divided equally between you and a number of workers you hired.
+Any remaining money, or debt, is yours.
+
+Define a function `calculate_payment` that returns how much you should be paid, or pay, at the end.
 This function takes as parameters, in this order:
 
 - The total number of boxes moved, as a 32-bits non-negative integer;
@@ -88,13 +92,13 @@ This function takes as parameters, in this order:
 - The number of broken or missing items, as a 32-bits non-negative integer;
 - The value of each lost item, as a 64-bits non-negative integer; and
 - How much you have received up front, as a 64-bits non-negative integer.
+- The number of workers to split the payment or debt with you, as a 8-bits positive integer.
 
 Example:
 
 ```c
-calculate_payment(1000, 5, 21, 2, 2000);
-// => 4058
+calculate_payment(1000, 5, 21, 2, 2000, 1);
+// => 2029
 ```
 
 The return value is a 64-bits integer.
-It is possible that the result is a negative number.

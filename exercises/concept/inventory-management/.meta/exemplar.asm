@@ -40,6 +40,11 @@ calculate_payment:
     imul rdi, rcx
     sub rax, rdi
     sub rax, r8
+    movzx r9, r9b
+    inc r9
+    cqo
+    idiv r9
+    add rax, rdx
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
