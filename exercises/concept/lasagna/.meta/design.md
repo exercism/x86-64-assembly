@@ -10,7 +10,7 @@
 - Know how to call a function.
 - Know how to pass function arguments.
 - Know about the `global` directive.
-- Know how to use arithmetic instructions.
+- Know how to use some basic arithmetic instructions.
 
 ## Out of scope
 

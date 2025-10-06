@@ -2,6 +2,13 @@
 
 section .text
 
+; the global directive makes a function visible to the test files
+
+global expected_minutes_in_oven
+global remaining_minutes_in_oven
+global preparation_time_in_minutes
+global elapsed_time_in_minutes
+
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 

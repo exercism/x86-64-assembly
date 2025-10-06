@@ -43,6 +43,18 @@
         ],
         "prerequisites": [],
         "status": "wip"
+      },
+      {
+        "slug": "inventory-management",
+        "name": "inventory-management",
+        "uuid": "75e4cce4-02a4-4499-805b-db536692fad7",
+        "concepts": [
+          "integers"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
