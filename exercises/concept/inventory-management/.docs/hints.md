@@ -1,6 +1,6 @@
 # Hints
 
-## 1. Define get_box_weight
+## 1. Define `get_box_weight`
 
 - There is an [instruction][movzx] for zero-extending values.
 
