@@ -7,6 +7,7 @@
 - Know how to do an unconditional branch using `jmp`.
 - Know how to do a conditional branch using `jcc`.
 - Know how to define a local label in NASM.
+- Know how to return two integers from a function.
 
 ## Out of scope
 
