@@ -6,7 +6,7 @@
 
 ## 1. Calculate the value of a card
 
-- You can use both `cmp` and `test` to check for equality of two operands.
+- You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can use `jl` to branch if a number is lesser than the other.
 
@@ -27,13 +27,13 @@
 
 ## 4. Determine Blackjack
 
-- You can use both `cmp` and `test` to check for equality of two operands.
+- You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can reuse the already implemented `value_of_card` function.
 
 ## 5. Splitting pairs
 
-- You can use both `cmp` and `test` to check for equality of two operands.
+- You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can reuse the already implemented `value_of_card` function.
 - You can handle the ace case (when at least one of the cards is an ace) separately.

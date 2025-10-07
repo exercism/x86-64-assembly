@@ -130,7 +130,7 @@ void test_value_of_ace_5_5(void) {
 
 void test_value_of_ace_a_2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT64(11, value_of_ace(CA, C2));
+    TEST_ASSERT_EQUAL_UINT64(1, value_of_ace(CA, C2));
 }
 
 void test_value_of_ace_7_3(void) {

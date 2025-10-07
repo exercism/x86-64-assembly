@@ -136,7 +136,7 @@ def extra_cases():
             "description": "value_of_ace_A_2",
             "property": "value_of_ace",
             "input": ["CA", "C2"],
-            "expected": 11,
+            "expected": 1,
         },
         {
             "description": "value_of_ace_7_3",

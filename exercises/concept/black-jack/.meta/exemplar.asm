@@ -68,11 +68,11 @@ higher_card:
     ret
 
 value_of_ace:
-    test rdi, CA
-    jz .return_one
+    cmp rdi, CA
+    je .return_one
 
-    test rsi, CA
-    jz .return_one
+    cmp rsi, CA
+    je .return_one
 
     call value_of_card
     mov rdi, rsi
@@ -92,11 +92,11 @@ value_of_ace:
     ret
 
 is_blackjack:
-    test rdi, CA
-    jz .first_ace
+    cmp rdi, CA
+    je .first_ace
 
-    test rsi, CA
-    jz .second_ace
+    cmp rsi, CA
+    je .second_ace
 
     jmp false
 
@@ -104,10 +104,8 @@ is_blackjack:
     mov rdi, rsi
 .second_ace:
     call value_of_card
-    test rax, 10
-    jnz false
-
-    jmp true
+    cmp rax, 10
+    je true
 
 false:
     mov rax, FALSE
@@ -127,11 +125,11 @@ can_split_pairs:
     jmp false
 
 can_double_down:
-    test rdi, CA
-    jz .first_ace
+    cmp rdi, CA
+    je .first_ace
 
-    test rsi, CA
-    jz .second_ace
+    cmp rsi, CA
+    je .second_ace
 
     call value_of_card
     mov rdi, rsi
