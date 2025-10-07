@@ -29,7 +29,7 @@ get_box_weight(30, 40, 50, 20);
 // => 2700
 ```
 
-All arguments are 16-bits non-negative integers, and the return value is a 32-bits non-negative integer.
+All arguments are 16-bit non-negative integers, and the return value is a 32-bit non-negative integer.
 
 ## 2. Calculate how many boxes fit into the truck
 
@@ -48,7 +48,7 @@ max_number_of_boxes(30);
 // => 10
 ```
 
-The argument and the return value are 8-bits non-negative integers.
+The argument and the return value are 8-bit non-negative integers.
 
 ## 3. Check if all products are accounted for
 
@@ -68,8 +68,8 @@ items_to_be_moved(76532, 120);
 // => 76412
 ```
 
-The arguments are 32-bits non-negative integers.
-The return value is a 32-bits integer.
+The arguments are 32-bit non-negative integers.
+The return value is a 32-bit integer.
 In case of an error in the process, it is possible that the result is a negative number.
 
 ## 4. Get payment
@@ -87,12 +87,12 @@ Any remaining money, or debt, is yours.
 Define a function `calculate_payment` that returns how much you should be paid, or pay, at the end.
 This function takes as parameters, in this order:
 
-- The total number of boxes moved, as a 32-bits non-negative integer;
-- The number of truck trips made, as a 32-bits non-negative integer;
-- The number of broken or missing items, as a 32-bits non-negative integer;
-- The value of each lost item, as a 64-bits non-negative integer; and
-- How much you have received up front, as a 64-bits non-negative integer.
-- The number of workers to split the payment or debt with you, as a 8-bits positive integer.
+- The total number of boxes moved, as a 32-bit non-negative integer;
+- The number of truck trips made, as a 32-bit non-negative integer;
+- The number of broken or missing items, as a 32-bit non-negative integer;
+- The value of each lost item, as a 64-bit non-negative integer; and
+- How much you have received up front, as a 64-bit non-negative integer.
+- The number of workers to split the payment or debt with you, as a 8-bit positive integer.
 
 Example:
 
@@ -101,4 +101,4 @@ calculate_payment(1000, 5, 21, 2, 2000, 1);
 // => 2029
 ```
 
-The return value is a 64-bits integer.
+The return value is a 64-bit integer.
