@@ -8,7 +8,7 @@
 
 - There is an [instruction][div] for unsigned division.
 
-## 3. Define items_to_be_moved
+## 3. Define `items_to_be_moved`
 
 - Subtraction works the same way for unsigned and signed numbers.
 
