@@ -147,7 +147,7 @@ For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.
 
 For instance, `jnz` jumps when `ZF` is **not** set.
-Similarly, `jnae` jumps when A is **not** >= B is false (A and B interpreted as unsigned integers).
+Similarly, `jnae` jumps when A is **not** >= B (A and B interpreted as unsigned integers).
 
 ## Local Labels
 
