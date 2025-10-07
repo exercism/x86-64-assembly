@@ -12,7 +12,7 @@
 
 - Subtraction works the same way for unsigned and signed numbers.
 
-## 4. Define calculate_payment
+## 4. Define `calculate_payment`
 
 - There is an [instruction][cqo] for sign-extending values from `rax` into `rdx`.
 - There is an [instruction][idiv] for signed division.
