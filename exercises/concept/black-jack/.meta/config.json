@@ -1,0 +1,20 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "black_jack.asm"
+    ],
+    "test": [
+      "black_jack_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "python/black-jack"
+  ],
+  "blurb": "Learn about comparisons by implementing some Black Jack judging rules."
+}

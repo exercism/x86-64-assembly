@@ -132,3 +132,46 @@ They have the same syntax, but with a `n` before the suffix.
 
 For instance, `jnz` jumps when `ZF` is **not** set.
 Similarly, `jnae` jumps when A is **not** >= B (A and B interpreted as unsigned integers).
+
+## Local Labels
+
+Labels are visible in the entire source file, they are not local to a function.
+So it is impossible to reuse a label name.
+
+In order to mimic the behavior of a local label, NASM has a special notation for a label declared with a period (`.`) before it.
+This notation defines a label which implicitly includes the name of the previous non-dotted label:
+
+```nasm
+section .text
+fn1:
+    ...
+.example: ; this is fn1.example
+    ...
+    ret
+
+fn2:
+    ...
+.example: ; this is fn2.example
+    ...
+    ret
+```
+
+It is still possible to jump to this label from anywhere in the code by using the full label name, for instance, `jmp fn1.example`.
+
+However, a jump that uses the part of the label starting at the dot will be made to the label _inside_ the upper function.
+So, `.example` behaves as if it was local to the function, either `fn1` or `fn2`.
+
+Notice that a non-dotted label inside a function in practice defines another function:
+
+```nasm
+section .text
+fn1:
+    ...
+.example: ; this is 'fn1.example'
+    ...
+non_dotted:
+    ...
+.example: ; this is 'non_dotted.example'
+    ...
+    ret
+```

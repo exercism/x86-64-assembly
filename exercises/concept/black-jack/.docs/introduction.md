@@ -1,6 +1,8 @@
-# About
+# Introduction
 
-## RFLAGs
+## Conditionals
+
+### RFLAGs
 
 There's a special register called `rflags`.
 Its bits act like flags for various conditions.
@@ -14,18 +16,14 @@ Some of those are listed below:
 | sign     | SF     | 7   |
 | overflow | OF     | 11  |
 
-For a full list, refer to [Intel's Manual][manual].
-
-## Comparison Instructions
+### Comparison Instructions
 
 The flags in `rflags` are set by many different instructions.
-
-For instance, `ZF` is set by many arithmetic or bitwise operations when the result is zero.
 
 Two of the most common instructions used to test conditions are `cmp` and `test`.
 They both take two operands and update the flags, but **do not modify their operands**.
 
-### CMP Instruction
+#### CMP Instruction
 
 The `cmp` instruction subtracts the second operand from the first and sets flags according to the result.
 
@@ -38,7 +36,7 @@ If A is the first operand and B, the second:
 | SF   | A < B (signed)                 |
 | OF   | overflow in signed subtraction |
 
-### TEST Instruction
+#### TEST Instruction
 
 The `test` instruction makes a logical AND between both operands and sets flags according to the result.
 
@@ -51,7 +49,7 @@ If A is the first operand and B, the second:
 | SF   | A AND B < 0 (signed) |
 | OF   | always cleared       |
 
-## Branching
+### Branching
 
 As a default, code in x86-64 executes sequentially from top to bottom.
 
@@ -64,21 +62,9 @@ However, those do not exist in x86-64.
 Instead, x86-64 provides instructions that effectively transfer execution to another location of the code.
 This is called `branching`.
 
-~~~~exercism/note
+#### Unconditional Jump
 
-We've already seen two such instructions: `call` and `ret`.
-
-When a function is called, execution is transferred from the caller to the called function.
-And, on return, execution is transferred back to the caller.
-
-If no `ret` is found, execution fallthroughs from one function to the next.
-This can sometimes be used to optimize code flow.
-
-~~~~
-
-### Unconditional Jump
-
-The instruction [jmp][jump] unconditionally transfers execution of the program to another point of the code.
+The instruction `jmp` unconditionally transfers execution of the program to another point of the code.
 Its single operand is a label which has the address to the point where execution will continue.
 
 Consider, for instance, the following function:
@@ -103,9 +89,9 @@ After `end`, the next instruction is `ret`, which transfers execution back to th
 Notice that, since `add rax, 10` is located after `jmp end` and before `end`, it is never executed.
 The value of `rax` when `fn` returns is 5.
 
-### Conditional Jump
+#### Conditional Jump
 
-The family of instructions [jcc][jcc] transfers execution of the program to another point only if a specific condition is met.
+The family of instructions `jcc` transfers execution of the program to another point only if a specific condition is met.
 Otherwise, execution continues sequentially.
 
 Each condition maps to one or more flags in `rflags`.
@@ -149,7 +135,7 @@ They have the same syntax, but with a `n` before the suffix.
 For instance, `jnz` jumps when `ZF` is **not** set.
 Similarly, `jnae` jumps when A is **not** >= B (A and B interpreted as unsigned integers).
 
-## Local Labels
+### Local Labels
 
 Labels are visible in the entire source file, they are not local to a function.
 So it is impossible to reuse a label name.
@@ -191,7 +177,3 @@ non_dotted:
     ...
     ret
 ```
-
-[manual]: https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf#page=78
-[jmp]: https://www.felixcloutier.com/x86/jmp
-[jcc]: https://www.felixcloutier.com/x86/jcc

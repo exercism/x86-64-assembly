@@ -36,7 +36,7 @@
     "concept": [
       {
         "slug": "lasagna",
-        "name": "Lucian's Luscious Lasagna",
+        "name": "Lasagna",
         "uuid": "0e1dd0cf-cdd7-48a9-861e-7253b5d3cabd",
         "concepts": [
           "basics"
@@ -46,10 +46,22 @@
       },
       {
         "slug": "inventory-management",
-        "name": "inventory-management",
+        "name": "Inventory Management",
         "uuid": "75e4cce4-02a4-4499-805b-db536692fad7",
         "concepts": [
           "integers"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "wip"
+      },
+      {
+        "slug": "black-jack",
+        "name": "Black Jack",
+        "uuid": "f83599e1-0b88-4ff7-8a37-174f87242871",
+        "concepts": [
+          "conditionals"
         ],
         "prerequisites": [
           "basics"
