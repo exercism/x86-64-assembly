@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "inventory_management.asm"
+    ],
+    "test": [
+      "inventory_management_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "blurb": "Learn about integers by managing transport of products for a local store"
+}

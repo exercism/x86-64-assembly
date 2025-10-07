@@ -102,6 +102,7 @@ imul rax, rdi ; rax = rax * rdi
 ## Functions
 
 Instructions are organized in functions.
+All functions are placed in the `section .text` of the source file.
 
 A function declaration consists of:
 
@@ -111,18 +112,22 @@ A function declaration consists of:
 
 3- the return instruction, `ret`.
 
-To call a function, we use the `call` instruction.
-
 The six first integers arguments are passed to a function in the following registers, in this order: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, and `r9`.
 
 An integer value is returned from the function in the `rax` register.
 
+To call a function, we use the `call` instruction.
+
+A function can be called anywhere in the same source file.
+In order to make a function visible to other source files, the `global` directive must be used.
+
 For instance, this declares a function `sum`:
 
 ```nasm
-section .text
+section .text ; functions are placed here
 
-global sum
+global sum ; sum is visible to other source files
+
 sum:
     ; first argument is passed in rdi
     ; second argument is passed in rsi

@@ -32,6 +32,38 @@ Others have special or dedicated purposes.
 
 In x86-64 there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
 
+The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
+
+| 64-bit    | 32-bit    | 16-bit    | 8-bit     |
+|:---------:|:---------:|:---------:|:---------:|
+|   rax     |   eax     |   ax      |   ah/al   |
+|   rbx     |   ebx     |   bx      |   bh/bl   |
+|   rcx     |   ecx     |   cx      |   ch/cl   |
+|   rdx     |   edx     |   dx      |   dh/dl   |
+|   rsi     |   esi     |   si      |   sil     |
+|   rdi     |   edi     |   di      |   dil     |
+|   rbp     |   ebp     |   bp      |   bpl     |
+|   rsp     |   esp     |   sp      |   spl     |
+|   rx      |   rxd     |   rxw     |   rxb     |
+
+When using less than 64-bits, the bits accessed are usually from the lower portion of the register.
+
+The exception to this rule are `ah`, `bh`, `ch` and `dh`, which access the upper 8-bits from the 16-bits portion of the register.
+
+Illustration of how the bits are accessed for the `rax` register:
+
+```
++--------+---------------------------------------+
+| 64-bit |                  rax                  |
++--------+-------------------+-------------------+
+| 32-bit |                   |        eax        |
++--------+-------------------+---------+---------+
+| 16-bit |                             |    ax   |
++--------+-----------------------------+----+----+
+| 8-bit  |                             | ah | al |
++--------+-----------------------------+----+----+
+```
+
 Some of those registers must be preserved accross function calls: `rbp`, `rsp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
 Failing to preserve them may lead to an error or to undefined behaviour.
 
@@ -44,12 +76,15 @@ Instructions are pieces of computations a CPU can perform.
 They usually have the following form:
 
 ```nasm
-opcode destination, source
+name destination, source
 ```
 
-So, the `opcode` is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
+So, the name of the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 
 The source operand isn't typically modified by an instruction, just the destination operand.
+
+Unless otherwise noted, both operands must have the same size.
+So, for example, if the source operand has 16-bits, the destination operand must also have 16-bits.
 
 To store a value in a register, we can use the `mov` instruction:
 
@@ -69,6 +104,7 @@ imul rax, rdi ; rax = rax * rdi
 ### Functions
 
 Instructions are organized in functions.
+All functions are placed in the `section .text` of the source file.
 
 A function declaration consists of:
 
@@ -78,18 +114,22 @@ A function declaration consists of:
 
 3- the return instruction, `ret`.
 
-To call a function, we use the `call` instruction.
-
 The six first integers arguments are passed to a function in the following registers, in this order: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, and `r9`.
 
 An integer value is returned from the function in the `rax` register.
 
+To call a function, we use the `call` instruction.
+
+A function can be called anywhere in the same source file.
+In order to make a function visible to other source files, the `global` directive must be used.
+
 For instance, this declares a function `sum`:
 
 ```nasm
-section .text
+section .text ; functions are placed here
 
-global sum
+global sum ; sum is visible to other source files
+
 sum:
     ; first argument is passed in rdi
     ; second argument is passed in rsi

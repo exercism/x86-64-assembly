@@ -1,0 +1,41 @@
+; Everything that comes after a semicolon (;) is a comment
+
+section .text
+
+; the global directive makes a function visible to the test files
+
+; You should implement functions in the .text section
+; A skeleton is provided for the first function
+
+get_box_weight:
+    ; This function takes the following parameters:
+    ; - The number of items for the first product in the box
+    ; - The weight of each item of the first product, in grams
+    ; - The number of items for the second product in the box
+    ; - The weight of each item of the second product, in grams
+    ; The function must return the total weight of a box, in grams
+    ret
+
+; TODO: define the 'max_number_of_boxes' function
+; This function takes the height of the box, in centimeters, as parameter
+; It must return how many boxes can be stacked vertically
+
+; TODO: define the 'items_to_be_moved' function
+; This function takes the following parameters:
+; - The number of items still unaccounted for a product
+; - The number of items for the product in a box
+; The function must return how many items remain to be moved, after counting those in the box
+
+; TODO: define the 'calculate_payment' function
+; This function takes the following parameters:
+; - The upfront payment
+; - The total number of boxes moved
+; - The number of truck trips made
+; - The number of lost items
+; - The value of each lost item
+; - The number of workers to split the payment/debt with you
+; The function must return how much you should be paid, or pay, at the end
+
+%ifidn __OUTPUT_FORMAT__,elf64
+section .note.GNU-stack noalloc noexec nowrite progbits
+%endif

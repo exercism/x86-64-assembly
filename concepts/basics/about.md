@@ -120,6 +120,7 @@ Many other instructions will be addressed in later concepts in the track.
 ## Functions
 
 Instructions are organized in functions.
+All functions are placed in the `section .text` of the source file.
 
 A function declaration consists of:
 
@@ -128,8 +129,6 @@ A function declaration consists of:
 2- the instructions that define the function; and
 
 3- the return instruction, [ret][ret].
-
-To call a function, we use the [call][call] instruction.
 
 Since there are no variables in x86-64, there are specific conventions for how arguments are passed and returned from a function.
 
@@ -140,12 +139,18 @@ They are passed in the following order: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, and `r
 
 An integer value is returned from the function in the `rax` register.
 
+To call a function, we use the [call][call] instruction.
+
+A function can be called anywhere in the same source file.
+In order to make a function visible to other source files, the `global` directive must be used.
+
 For instance, this declares a function `sum`:
 
 ```nasm
-section .text
+section .text ; functions are placed here
 
-global sum
+global sum ; sum is visible to other source files
+
 sum:
     ; first argument is passed in rdi
     ; second argument is passed in rsi
@@ -154,7 +159,7 @@ sum:
     mov rax, rdi ; rax is now equal to rdi
     add rax, rsi ; rax = rax + rsi
 
-    ret ; returns from function
+    ret ; function return
 ```
 
 And this calls our `sum` function with the arguments 3 and 5:

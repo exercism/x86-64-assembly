@@ -2,6 +2,8 @@
 
 section .text
 
+; the global directive makes a function visible to the test files
+
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
