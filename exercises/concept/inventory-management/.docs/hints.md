@@ -4,7 +4,7 @@
 
 - There is an [instruction][movzx] for zero-extending values.
 
-## 2. Define max_number_of_boxes
+## 2. Define `max_number_of_boxes`
 
 - There is an [instruction][div] for unsigned division.
 
