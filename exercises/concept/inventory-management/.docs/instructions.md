@@ -90,8 +90,8 @@ This function takes as parameters, in this order:
 - The total number of boxes moved, as a 32-bit non-negative integer;
 - The number of truck trips made, as a 32-bit non-negative integer;
 - The number of broken or missing items, as a 32-bit non-negative integer;
-- The value of each lost item, as a 64-bit non-negative integer; and
-- How much you have received up front, as a 64-bit non-negative integer.
+- The value of each lost item, as a 64-bit non-negative integer;
+- How much you have received up front, as a 64-bit non-negative integer; and
 - The number of workers to split the payment or debt with you, as a 8-bit positive integer.
 
 Example:
