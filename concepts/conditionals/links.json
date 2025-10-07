@@ -6,5 +6,9 @@
   {
     "url": "https://www.felixcloutier.com/x86",
     "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.9",
+    "description": "Entry on NASM Docs for Local Labels"
   }
 ]

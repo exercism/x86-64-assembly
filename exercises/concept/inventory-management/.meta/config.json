@@ -13,5 +13,6 @@
       ".meta/exemplar.asm"
     ]
   },
-  "blurb": "Learn about integers by managing transport of products for a local store"
+  "icon": "high-scores",
+  "blurb": "Learn about integers by managing transport of products for a local store."
 }

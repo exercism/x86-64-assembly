@@ -133,6 +133,13 @@ def main():
         default=True,
         help="format test file with clang-format",
     )
+    parser.add_argument(
+        "-t",
+        "--type",
+        dest="type",
+        default="practice",
+        choices=["practice", "concept"],
+    )
 
     args = parser.parse_args()
     data = read_canonical_data(args.exercise)
@@ -156,7 +163,7 @@ def main():
         cases = cases[:]
         cases.extend(mod.extra_cases())
     s = gen_test_file(mod, cases)
-    path = f"{sys.path[0]}/../exercises/practice/{args.exercise}/{exercise}_test.c"
+    path = f"{sys.path[0]}/../exercises/{args.type}/{args.exercise}/{exercise}_test.c"
     with open(path, "w") as f:
         f.write(s)
     if args.format:
