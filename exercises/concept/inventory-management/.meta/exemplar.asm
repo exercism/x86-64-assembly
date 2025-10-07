@@ -31,15 +31,15 @@ items_to_be_moved:
     ret
 
 calculate_payment:
-    mov eax, edi
-    imul rax, rdi, PAY_PER_BOX
-    mov edi, esi
-    imul rdi, rdi, PAY_PER_TRUCK_TRIP
-    add rax, rdi
-    mov edi, edx
-    imul rdi, rcx
+    mov esi, esi
+    imul rax, rsi, PAY_PER_BOX
+    mov edx, edx
+    imul rdx, rdx, PAY_PER_TRUCK_TRIP
+    add rax, rdx
+    mov edx, ecx
+    imul rdx, r8
+    sub rax, rdx
     sub rax, rdi
-    sub rax, r8
     movzx r9, r9b
     inc r9
     cqo

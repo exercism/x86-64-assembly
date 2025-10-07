@@ -5,8 +5,8 @@
 extern uint32_t get_box_weight(uint16_t count_first, uint16_t weight_first, uint16_t count_second, uint16_t weight_second);
 extern uint8_t max_number_of_boxes(uint8_t box_height);
 extern int32_t items_to_be_moved(uint32_t remaining_items, uint32_t items_in_box);
-extern int64_t calculate_payment(uint32_t boxes_moved, uint32_t num_trips, uint32_t lost_items, uint64_t value_of_each_lost_item,
-                                 uint64_t upfront_payment, uint8_t num_of_workers);
+extern int64_t calculate_payment(uint64_t upfront_payment, uint32_t boxes_moved, uint32_t num_trips, uint32_t lost_items,
+                                 uint64_t value_of_each_lost_item, uint8_t num_of_workers);
 
 void setUp(void) {
 }
@@ -55,19 +55,19 @@ void test_items_remaining_accounting_error(void) {
 }
 
 void test_payment_few_lost_items(void) {
-    TEST_ASSERT_EQUAL_INT64(2029, calculate_payment(1000, 5, 21, 2, 2000, 1));
+    TEST_ASSERT_EQUAL_INT64(2029, calculate_payment(2000, 1000, 5, 21, 2, 1));
 }
 
 void test_no_payment_too_many_lost_items(void) {
-    TEST_ASSERT_EQUAL_INT64(-794, calculate_payment(598, 2, 120, 45, 2000, 4));
+    TEST_ASSERT_EQUAL_INT64(-794, calculate_payment(2000, 598, 2, 120, 45, 4));
 }
 
 void test_payment_many_boxes(void) {
-    TEST_ASSERT_EQUAL_INT64(2123, calculate_payment(163214, 183, 1931, 185, 57412, 216));
+    TEST_ASSERT_EQUAL_INT64(2123, calculate_payment(57412, 163214, 183, 1931, 185, 216));
 }
 
 void test_no_payment_everything_upfront(void) {
-    TEST_ASSERT_EQUAL_INT64(0, calculate_payment(4523, 6, 120, 8, 22975, 5));
+    TEST_ASSERT_EQUAL_INT64(0, calculate_payment(22975, 4523, 6, 120, 8, 5));
 }
 
 int main(void) {

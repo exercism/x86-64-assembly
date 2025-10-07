@@ -15,10 +15,10 @@ In order to better organize things, a box holds only items of two different prod
 Define a function `get_box_weight` that returns the total weight of a box, in `g`.
 This function takes as parameters, in this order:
 
-- The number of items for the first product in the box;
-- The weight of each item of the first product, in `g`;
-- The number of items for the second product in the box;
-- The weight of each item of the second product, in `g`.
+- The number of items for the first product in the box
+- The weight of each item of the first product, in `g`
+- The number of items for the second product in the box
+- The weight of each item of the second product, in `g`
 
 Consider that an empty box weighs **500 g**.
 
@@ -58,8 +58,8 @@ For each new box moved there, you need to calculate the new value in the checkli
 Define a function `items_to_be_moved` that returns how many items remain to be moved to the new warehouse for a given product.
 This function takes as parameters, in this order:
 
-- The number of items still unaccounted for a product; and
-- The number of items for the product in a box.
+- The number of items still unaccounted for a product
+- The number of items for the product in a box
 
 Example:
 
@@ -87,17 +87,17 @@ Any remaining money, or debt, is yours.
 Define a function `calculate_payment` that returns how much you should be paid, or pay, at the end.
 This function takes as parameters, in this order:
 
-- The total number of boxes moved, as a 32-bit non-negative integer;
-- The number of truck trips made, as a 32-bit non-negative integer;
-- The number of broken or missing items, as a 32-bit non-negative integer;
-- The value of each lost item, as a 64-bit non-negative integer;
-- How much you have received up front, as a 64-bit non-negative integer; and
-- The number of workers to split the payment or debt with you, as a 8-bit positive integer.
+- How much you have received up front, as a 64-bit non-negative integer
+- The total number of boxes moved, as a 32-bit non-negative integer
+- The number of truck trips made, as a 32-bit non-negative integer
+- The number of broken or missing items, as a 32-bit non-negative integer
+- The value of each lost item, as a 64-bit non-negative integer
+- The number of workers to split the payment or debt with you, as a 8-bit positive integer
 
 Example:
 
 ```c
-calculate_payment(1000, 5, 21, 2, 2000, 1);
+calculate_payment(2000, 1000, 5, 21, 2, 1);
 // => 2029
 ```
 

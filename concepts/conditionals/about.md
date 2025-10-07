@@ -109,14 +109,14 @@ The family of instructions [jcc][jcc] transfers execution of the program to anot
 Otherwise, execution continues sequentially.
 
 Each condition maps to one or more flags in `rflags`.
-Some `jcc` variants test that a flag is set, others test that it is clear.
+Some `jcc` variants test that a flag is set, others test that it is cleared.
 
 The `cc` in `jcc` is not literal, but refers to the specific suffix associated with the flag tested.
 
 There are many suffixes and many of them test the same condition as another.
 This is because many of them are chosen in order to refer to their meaning in a `cmp` instruction.
 
-For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` i set.
+For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
 This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
 
 The following table shows some of the possible suffixes and their meaning.
@@ -132,7 +132,7 @@ Consider that A is the first operand, and B the second, in a `cmp` instruction.
 
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition.
 
-For instance, `jge` jumps when A >= B, when A and B are interpreted as signed integers.
+For instance, `jge` jumps when A >= B (A and B interpreted as signed integers).
 
 There are also suffixes which refer directly to the flag being tested:
 
@@ -147,7 +147,7 @@ For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.
 
 For instance, `jnz` jumps when `ZF` is **not** set.
-Similarly, `jnae` jumps when A >= B is false, when A and B are interpreted as unsigned integers.
+Similarly, `jnae` jumps when A is **not** >= B is false (A and B interpreted as unsigned integers).
 
 [manual]: https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf#page=78
 [jmp]: https://www.felixcloutier.com/x86/jmp
