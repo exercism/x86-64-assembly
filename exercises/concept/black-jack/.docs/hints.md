@@ -25,7 +25,7 @@
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `jg` to branch is a number is greater than the other, and `jl` to branch if it is lesser.
 
-## 4. Determine Blackjack
+## 4. Determine blackjack
 
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
