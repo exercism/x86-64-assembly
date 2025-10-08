@@ -34,7 +34,7 @@ get_box_weight:
 ; - The number of truck trips made
 ; - The number of lost items
 ; - The value of each lost item
-; - The number of workers to split the payment/debt with you
+; - The number of other workers to split the payment/debt with you
 ; The function must return how much you should be paid, or pay, at the end
 
 %ifidn __OUTPUT_FORMAT__,elf64

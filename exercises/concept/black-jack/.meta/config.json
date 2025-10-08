@@ -16,5 +16,6 @@
   "forked_from": [
     "python/black-jack"
   ],
+  "icon": "poker",
   "blurb": "Learn about comparisons by implementing some Black Jack judging rules."
 }
