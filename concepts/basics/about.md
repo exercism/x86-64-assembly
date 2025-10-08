@@ -32,7 +32,7 @@ Others have special or dedicated purposes.
 
 In x86-64, there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
 
-The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
+The GPRs are described below, where `n` in `rn` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
 
 | 64-bit    | 32-bit    | 16-bit    | 8-bit     |
 |:---------:|:---------:|:---------:|:---------:|
@@ -44,7 +44,7 @@ The GPRs are described bellow, where `x` in `rx` ranges from 8 to 15: `r8`, `r9`
 |   rdi     |   edi     |   di      |   dil     |
 |   rbp     |   ebp     |   bp      |   bpl     |
 |   rsp     |   esp     |   sp      |   spl     |
-|   rx      |   rxd     |   rxw     |   rxb     |
+|   rn      |   rnd     |   rnw     |   rnb     |
 
 When using less than 64-bits, the bits accessed are usually from the lower portion of the register.
 

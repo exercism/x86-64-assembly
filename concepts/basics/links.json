@@ -18,5 +18,9 @@
   {
     "url": "https://www.felixcloutier.com/x86",
     "description": "Reference for x86-64 instructions"
+  },
+  {
+    "url": "https://docs.amd.com/v/u/en-US/24592_3.24#page=62",
+    "description": "AMD's Manual Entry on GPR Registers"
   }
 ]
