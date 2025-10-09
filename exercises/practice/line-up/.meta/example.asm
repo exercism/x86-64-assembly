@@ -36,11 +36,16 @@ format:
 
     mov rcx, rsp
     sub rcx, rsi ; rcx is now the size of the stringified number (rsp - rsi)
+    mov rdx, rcx ; rdx holds number of digits
     rep movsb ; add stringified number
 
     lea rsi, [th] ; default ordinal suffix is "th"
     cmp byte [rsp - 2], '1'
-    setne r8b ; true if number does not end in "1x", where x is a digit ['0'..'9']
+    setne r8b ; true if number has >= 2 digits and does not end in "1n", where n is a digit ['0'..'9']
+
+    cmp rdx, 2
+    setl r9b ; true if number has less than 2 digits
+    or r8b, r9b ; true if number has < 2 digits or has >= 2 digits and does not end in "1n", where n is a digit ['0'..'9']
 
     cmp byte [rsp - 1], '1'
     sete r9b ; true if number ends in '1'
