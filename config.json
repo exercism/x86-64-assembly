@@ -1071,6 +1071,11 @@
       "uuid": "31e1bb65-3220-41ae-a37c-c95ccec02dfd",
       "slug": "floating-point-numbers",
       "name": "Floating-Point Numbers"
+    },
+    {
+      "uuid": "82534a88-9404-4024-8d9b-9a5d6d23dae4",
+      "slug": "arrays",
+      "name": "Arrays"
     }
   ],
   "key_features": [
