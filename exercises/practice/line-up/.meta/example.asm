@@ -23,43 +23,44 @@ format:
     rep movsb ; add middle text
 
     mov ax, dx
-    mov rsi, rsp ; rsi now points to the top of the stack
+    mov r11, rsp
     mov r10, 10
 .stringify:
     cwd
     div r10w
     add dl, '0' ; converts digit to its char equivalent
-    dec rsi ; allocates 1 byte in the stack
-    mov byte [rsi], dl ; saves char digit in the stack
+    dec rsp ; allocates 1 byte in the stack
+    mov byte [rsp], dl ; saves char digit in the stack
     test ax, ax
     jnz .stringify ; stringify number, saving chars in the stack, in reversed order
-
-    mov rcx, rsp
-    sub rcx, rsi ; rcx is now the size of the stringified number (rsp - rsi)
+    
+    mov rsi, rsp
+    mov rcx, r11
+    sub rcx, rsp ; rcx is now the size of the stringified number (r11 - rsp)
     mov rdx, rcx ; rdx holds number of digits
     rep movsb ; add stringified number
 
     lea rsi, [th] ; default ordinal suffix is "th"
-    cmp byte [rsp - 2], '1'
+    cmp byte [r11 - 2], '1'
     setne r8b ; true if number has >= 2 digits and does not end in "1n", where n is a digit ['0'..'9']
 
     cmp rdx, 2
     setl r9b ; true if number has less than 2 digits
     or r8b, r9b ; true if number has < 2 digits or has >= 2 digits and does not end in "1n", where n is a digit ['0'..'9']
 
-    cmp byte [rsp - 1], '1'
+    cmp byte [r11 - 1], '1'
     sete r9b ; true if number ends in '1'
     lea rdx, [first]
     test r8b, r9b
     cmovnz rsi, rdx ; if second last digit is not '1' and last digit is '1', suffix is "st"
 
-    cmp byte [rsp - 1], '2'
+    cmp byte [r11 - 1], '2'
     sete r9b ; true if number ends in '2'
     lea rdx, [second]
     test r8b, r9b
     cmovnz rsi, rdx ; if second last digit is not '1' and last digit is '2', suffix is "nd"
 
-    cmp byte [rsp - 1], '3'
+    cmp byte [r11 - 1], '3'
     sete r9b ; true if number ends in '3'
     lea rdx, [third]
     test r8b, r9b
@@ -73,6 +74,7 @@ format:
     rep movsb ; add end text
 
     mov byte [rdi], 0 ; add NULL
+    mov rsp, r11
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
