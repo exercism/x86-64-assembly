@@ -33,7 +33,7 @@ format:
     mov byte [rsp], dl ; saves char digit in the stack
     test ax, ax
     jnz .stringify ; stringify number, saving chars in the stack, in reversed order
-    
+
     mov rsi, rsp
     mov rcx, r11
     sub rcx, rsp ; rcx is now the size of the stringified number (r11 - rsp)
@@ -52,19 +52,19 @@ format:
     sete r9b ; true if number ends in '1'
     lea rdx, [first]
     test r8b, r9b
-    cmovnz rsi, rdx ; if second last digit is not '1' and last digit is '1', suffix is "st"
+    cmovnz rsi, rdx ; if last digit is '1' and (number has 1 digit or second last digit is not '1'), suffix is "st"
 
     cmp byte [r11 - 1], '2'
     sete r9b ; true if number ends in '2'
     lea rdx, [second]
     test r8b, r9b
-    cmovnz rsi, rdx ; if second last digit is not '1' and last digit is '2', suffix is "nd"
+    cmovnz rsi, rdx ; if last digit is '2' and (number has 1 digit or second last digit is not '1'), suffix is "nd"
 
     cmp byte [r11 - 1], '3'
     sete r9b ; true if number ends in '3'
     lea rdx, [third]
     test r8b, r9b
-    cmovnz rsi, rdx ; if second last digit is not '1' and last digit is '3', suffix is "rd"
+    cmovnz rsi, rdx ; if last digit is '3' and (number has 1 digit or second last digit is not '1'), suffix is "rd"
 
     mov rcx, 2 ; all ordinal suffixs have size 2
     rep movsb ; add ordinal suffix
