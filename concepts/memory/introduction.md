@@ -17,13 +17,11 @@ The functions we have defined until now were all in **section .text**.
 This section holds read-only executable data.
 Other sections are used to declare data variables, that may be read-only or read-and-write, but are not executable.
 
-## Sections
-
-### Section .data
+## Section .data
 
 The initialized data is declared in the **section .data**.
 
-In NASM, an initialized variable has a name, a directive that indicates the data size, and a list of values separated by comma.
+In NASM (The Network Assembler - the assembler used by this track), an initialized variable has a name, a directive that indicates the data size, and a list of values separated by comma.
 Each of these is separated with a space from the other and the label might optionally be followed by a `:`.
 
 The main directives and their related data sizes are:
@@ -45,12 +43,12 @@ section .data
 Variables declared in section .data are mutable, ie, they are read-and-write.
 They also have _static_ storage duration, which means they exist for the entire program runtime.
 
-### Section .rodata
+## Section .rodata
 
 The **section .rodata** is similar to section .data.
 Both sections contain initialized data, which is declared in the same way.
 
-The main difference between them is that data variables in section .rodata are immutable, ie, they are read-only.
+The main difference between them is that data in section .rodata is immutable, ie, read-only.
 
 ## Accessing data
 
@@ -59,7 +57,7 @@ The main difference between them is that data variables in section .rodata are i
 Declared data must have a name associated with it.
 This name is called a **label**.
 
-A label is a symbol that encodes the specific address of the variable in memory.
+A label is a symbol that encodes the specific address of data in memory.
 
 In NASM, trying to access data directly with its label does not yield the memory allocated, but its address:
 
@@ -73,7 +71,7 @@ fn:
     ...
 ```
 
-In order to access the contents of the memory, it's necessary to _dereference_ it.
+In order to access the contents of a memory address, it is necessary to _dereference_ it.
 This is called **indirection**.
 
 In NASM, this is done with `[]`:
@@ -112,7 +110,7 @@ fn:
     ...
 ```
 
-It's good practice to always use a prefix when dereferencing memory.
+It is good practice to always use a prefix when dereferencing memory.
 
 ### The LEA instruction
 
@@ -150,14 +148,14 @@ mov rax, qword [rel variable]
 
 Relative addressing can also be made the default for a source file with `default rel` at the top.
 
-All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate RIP-relative addresses.
+All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate relative addresses.
 
 ### Visibility
 
-Data variables declared in any section, including section .data and section .rodata, are accessible from any function in the same source file.
-If declared `global`, they are accessible from other source files as well.
+Data declared in any section, including section .data and section .rodata, is accessible from any function in the same source file.
+If declared `global`, it is accessible from other source files as well.
 
-Similarly, data defined in other source files are visible in the current source file if declared `extern`.
+Similarly, data defined in other source files is visible in the current source file if declared `extern`.
 In this case, there is no indication of data size in assembly, this must be known in advance.
 
 ```nasm
@@ -168,7 +166,7 @@ section .data
 global example ; example is visible in other source files
 example db 200
 
-extern other_example ; other_example is visible in the current source file, but defined (and initialized) in another
+extern other_example ; 'other_example' is visible in the current source file, but defined (and initialized) in another
 
 section .text
 fn:

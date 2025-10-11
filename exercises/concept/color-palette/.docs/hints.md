@@ -3,7 +3,7 @@
 ## General
 
 - x86-64 addresses in memory are 64-bit (8-byte) numbers.
-- You should use `rel` to form valid addresses in memory.
+- You should use `rel` to form valid relative addresses in memory.
 
 ## 1. Get the RGB value for a color
 
