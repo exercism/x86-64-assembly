@@ -1,5 +1,7 @@
 # Introduction
 
+## Memory
+
 Memory is usually mapped for a program by the Operating System (OS) in a general layout:
 
 | address | memory region          |
@@ -17,9 +19,9 @@ The functions we have defined until now were all in **section .text**.
 This section holds read-only executable data.
 Other sections are used to declare data variables, that may be read-only or read-and-write, but are not executable.
 
-## Sections
+### Sections
 
-### Section .data
+#### Section .data
 
 The initialized data is declared in the **section .data**.
 
@@ -45,16 +47,16 @@ section .data
 Variables declared in section .data are mutable, ie, they are read-and-write.
 They also have _static_ storage duration, which means they exist for the entire program runtime.
 
-### Section .rodata
+#### Section .rodata
 
 The **section .rodata** is similar to section .data.
 Both sections contain initialized data, which is declared in the same way.
 
 The main difference between them is that data variables in section .rodata are immutable, ie, they are read-only.
 
-## Accessing data
+### Accessing data
 
-### Labels and Indirection
+#### Labels and Indirection
 
 Declared data must have a name associated with it.
 This name is called a **label**.
@@ -114,7 +116,7 @@ fn:
 
 It's good practice to always use a prefix when dereferencing memory.
 
-### The LEA instruction
+#### The LEA instruction
 
 Although a `mov` can be used to store the address of a variable in a register, there is an instruction with this specific purpose: **[lea][lea]**.
 
@@ -127,7 +129,7 @@ lea rax, [example] ; this stores the address of 'example' in rax
 
 It is more idiomatic to use `lea` to compute and store memory addresses in registers.
 
-### Relative Addressing
+#### Relative Addressing
 
 When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**.
 This means that the assembler usually produces a fixed memory address.
@@ -152,7 +154,7 @@ Relative addressing can also be made the default for a source file with `default
 
 All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate RIP-relative addresses.
 
-### Visibility
+#### Visibility
 
 Data variables declared in any section, including section .data and section .rodata, are accessible from any function in the same source file.
 If declared `global`, they are accessible from other source files as well.

@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "color_palette.asm"
+    ],
+    "test": [
+      "color_palette_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "circular-buffer",
+  "blurb": "Declaring, accessing and modifying initialized static data in x86-64 assembly"
+}

@@ -1,6 +1,6 @@
 # About
 
-Memory is usually mapped for a program by the Operational System (OS) in a general layout:
+Memory is usually mapped for a program by the Operating System (OS) in a general layout:
 
 | address | memory region          |
 |:-------:|:-----------------------|
@@ -16,9 +16,6 @@ Memory in segments is organized in sections, with different permissions.
 The functions we have defined until now were all in **section .text**.
 This section holds read-only executable data.
 Other sections are used to declare data variables, that may be read-only or read-and-write, but are not executable.
-
-Data variables and labels placed in these sections have _static_ storage duration, which means they exist for the entire program runtime.
-They are accessible from any function in the same source file and, if declared `global`, they are accessible from other source files as well.
 
 ## Section .data
 
@@ -152,6 +149,33 @@ mov rax, qword [rel variable]
 Relative addressing can also be made the default for a source file with `default rel` at the top.
 
 All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate RIP-relative addresses.
+
+### Visibility
+
+Data variables declared in any section, including section .data and section .rodata, are accessible from any function in the same source file.
+If declared `global`, they are accessible from other source files as well.
+
+Similarly, data defined in other source files are visible in the current source file if declared `extern`.
+In this case, there is no indication of data size in assembly, this must be known in advance.
+
+```nasm
+default rel
+
+section .data
+
+global example ; example is visible in other source files
+example db 200
+
+extern other_example ; other_example is visible in the current source file, but defined (and initialized) in another
+
+section .text
+fn:
+    lea rcx, [example]
+    lea rdx, [other_example]
+    mov al, byte [rcx]
+    mov cl, byte [rdx]
+    ...
+```
 
 [pointer]: https://en.wikipedia.org/wiki/Pointer_(computer_programming)
 [lea]: https://www.felixcloutier.com/x86/lea
