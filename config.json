@@ -67,6 +67,18 @@
           "basics"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "color-palette",
+        "name": "Color Palette",
+        "uuid": "19bd0665-58af-43d5-89c0-644a3b675151",
+        "concepts": [
+          "memory"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [

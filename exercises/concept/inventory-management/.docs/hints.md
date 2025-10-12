@@ -3,7 +3,7 @@
 ## General
 
 - The six first integer arguments are passed to a function in `rdi`, `rsi`, `rdx`, `rcx`, `r8` and `r9`.
-- For accessing less than 64 bits on those registers, you can refer to [AMD's Manual][manual] for the appropriate name.
+- For accessing less than 64 bits on a register, you can refer to [AMD's Manual][manual] for the appropriate name.
 
 ## 1. Define `get_box_weight`
 
