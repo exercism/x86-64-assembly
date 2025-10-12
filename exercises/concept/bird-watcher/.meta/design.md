@@ -4,7 +4,7 @@
 
 - Know what is an array.
 - Know how to define an array.
-- Know how to view numbers as arrays of its individual bytes.
+- Know how to view a number as an array of its individual bytes.
 - Know how to define uninitialized (zeroed-out) data in `section .bss`.
 - Know how to define initialized arrays in `section .data` or `section .rodata`.
 
