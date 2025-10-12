@@ -90,7 +90,7 @@ Similarly, they are also of static storage duration and accessible from any func
 As it was explored in a previous concept, the `lea` instruction computes an effective memory address.
 So, it can be used to compute the address of any element in an array, following the same semantics.
 
-However, in RIP-relative addressing, when you need to form more complex addresses, it is often necessary to load the variable's address into a register first:
+However, when addressing relative to the `rip` register, it is often necessary to load the variable's address into a register before forming a more complex address:
 
 ```nasm
 lea rax, [rel variable]

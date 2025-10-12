@@ -79,6 +79,19 @@
           "basics"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "bird-watcher",
+        "name": "Bird Watcher",
+        "uuid": "5553e4d5-271a-40c1-a897-b35edfb93266",
+        "concepts": [
+          "arrays"
+        ],
+        "prerequisites": [
+          "conditionals",
+          "memory"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [

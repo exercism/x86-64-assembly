@@ -15,8 +15,6 @@ global get_color_value
 global add_base_color
 global make_color_combination
 
-extern combining_function ; DO NOT modify or exclude this declaration, it is necessary to use 'combining_function'
-
 get_color_value:
     ; This function takes the address for a color as parameter
     ; It must return the 32-bit value associated with the color

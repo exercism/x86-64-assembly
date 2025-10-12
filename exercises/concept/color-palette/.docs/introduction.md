@@ -154,10 +154,10 @@ All exercises in this track are compiled and linked as PIE, so `rel` should be u
 
 #### Visibility
 
-Data declared in any section, including section .data and section .rodata, is accessible from any function in the same source file.
-If declared `global`, it is accessible from other source files as well.
+Labels (functions and data) defined in any section (e.g., .text, .data, .rodata) are visible within the same source file.
+If declared `global`, they are visible to other source files as well.
 
-Similarly, data defined in other source files is visible in the current source file if declared `extern`.
+Conversely, labels defined in other source files are visible to the current source file if declared `extern`.
 In this case, there is no indication of data size in assembly, this must be known in advance.
 
 ```nasm
@@ -165,16 +165,18 @@ default rel
 
 section .data
 
-global example ; example is visible in other source files
-example db 200
+global number1 ; 'number1' is a variable visible in other source files
+number1 db 200
 
-extern other_example ; 'other_example' is visible in the current source file, but defined (and initialized) in another
+extern number2 ; 'number2' is a variable visible in the current source file, but defined in another
 
 section .text
+
+extern sum ; sum is a function visible in the current source file, but defined in another
+
 fn:
-    lea rcx, [example]
-    lea rdx, [other_example]
-    mov al, byte [rcx]
-    mov cl, byte [rdx]
+    mov dil, byte [number1]
+    mov sil, byte [number2]
+    call sum
     ...
 ```

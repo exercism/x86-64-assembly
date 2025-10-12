@@ -1,0 +1,20 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "bird_watcher.asm"
+    ],
+    "test": [
+      "bird_watcher_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "csharp/bird-watcher"
+  ],
+  "blurb": "Save and update counts for birds in your garden using arrays"
+}

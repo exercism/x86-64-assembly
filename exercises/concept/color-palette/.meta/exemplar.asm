@@ -37,7 +37,6 @@ make_color_combination:
     mov rdi, rsi
     call get_color_value
     mov dword [secondary_color], eax
-
     mov edi, dword [base_color]
     mov esi, dword [secondary_color]
     call combining_function
