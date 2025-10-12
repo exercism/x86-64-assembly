@@ -43,10 +43,10 @@ section .data
 section .text
 fn:
     mov rdx, 2
-    lea rax, [rel arr]
-    mov rcx, qword [rax + 8*rdx + 8]  ; rdx is an index register scaled by 8
+    lea rcx, [rel arr]
+    mov rax, qword [rcx + 8*rdx + 8]  ; rdx is an index register scaled by 8
                                       ; 8 is a signed 32-bit displacement
-                                      ; rcx now holds 8-bytes stored in 'arr' starting at offset:
+                                      ; rax now holds 8-bytes stored in 'arr' starting at offset:
                                       ; 8*rdx(2) + 8 = 16 + 8 = 24
                                       ; this is the fourth element of the array, ie, the element 23
 ```
@@ -57,7 +57,7 @@ Uninitialized data is declared in the **section .bss**.
 
 On most platforms, this data is filled with zero by the OS at the start of the program.
 
-In NASM, an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
+In NASM (The Netwide Assembler - the assembler used by this track), an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
 
 The main directives and their related data sizes are:
@@ -93,7 +93,7 @@ Similarly, they are also of static storage duration and accessible from any func
 As it was explored in a previous concept, the `lea` instruction computes an effective memory address.
 So, it can be used to compute the address of any element in an array, following the same semantics.
 
-However, when addressing relative to the `rip` register, it is often necessary to load the variable's address into a register before forming a more complex address:
+However, in relative addressing, it is often necessary to load the variable's address into a register before forming a more complex address:
 
 ```nasm
 lea rax, [rel variable]

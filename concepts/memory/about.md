@@ -21,7 +21,7 @@ Other sections are used to declare data variables, that may be read-only or read
 
 The initialized data is declared in the **[section .data][data]**.
 
-In NASM (The Network Assembler - the assembler used by this track), an initialized variable has a name, a directive that indicates the data size, and a list of values separated by comma.
+In NASM (The Netwide Assembler - the assembler used by this track), an initialized variable has a name, a directive that indicates the data size, and a list of values separated by comma.
 Each of these is separated with a space from the other and the label might optionally be followed by a `:`.
 
 The main directives and their related data sizes are:
@@ -164,14 +164,14 @@ default rel
 
 section .data
 
-global number1 ; 'number1' is a variable visible in other source files
+global number1 ; 'number1' is a variable visible to other source files
 number1 db 200
 
-extern number2 ; 'number2' is a variable visible in the current source file, but defined in another
+extern number2 ; 'number2' is a variable visible to the current source file, but defined in another
 
 section .text
 
-extern sum ; sum is a function visible in the current source file, but defined in another
+extern sum ; sum is a function visible to the current source file, but defined in another
 
 fn:
     mov dil, byte [number1]
