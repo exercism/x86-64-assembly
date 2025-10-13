@@ -19,7 +19,7 @@
 - You may use the previously defined `extract_higher_bits` and `extract_lower_bits`.
 - There is an instruction that sets bits if they are set in both of two values.
 
-## 4. Set bits
+## 4. Set all message bits
 
 - You may use the previously defined `extract_higher_bits` and `extract_lower_bits`.
 - There is an instruction that sets bits if they are set in either of two values, including both.

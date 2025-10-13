@@ -6,7 +6,7 @@ FUNC_PROTO = """\
 extern uint8_t extract_higher_bits(uint16_t code);
 extern uint8_t extract_lower_bits(uint16_t code);
 extern uint8_t extract_redundant_bits(uint16_t code);
-extern uint8_t set_bits(uint16_t code);
+extern uint8_t set_message_bits(uint16_t code);
 extern uint16_t rotate_private_key(uint16_t code);
 extern uint8_t format_private_key(uint16_t code);
 extern uint16_t decrypt_message(uint16_t code);
@@ -88,26 +88,26 @@ def extra_cases():
             "expected": 0b0000_0000,
         },
         {
-            "description": "set_bits_0b1010_0100_1100_0101",
-            "property": "set_bits",
+            "description": "set_message_bits_0b1010_0100_1100_0101",
+            "property": "set_message_bits",
             "input": 0b1010_0100_1100_0101,
             "expected": 0b1110_0101,
         },
         {
-            "description": "set_bits_0b0001_1100_0001_1100",
-            "property": "set_bits",
+            "description": "set_message_bits_0b0001_1100_0001_1100",
+            "property": "set_message_bits",
             "input": 0b0001_1100_0001_1100,
             "expected": 0b0001_1100,
         },
         {
-            "description": "set_bits_0b0000_0000_1111_1111",
-            "property": "set_bits",
+            "description": "set_message_bits_0b0000_0000_1111_1111",
+            "property": "set_message_bits",
             "input": 0b0000_0000_1111_1111,
             "expected": 0b1111_1111,
         },
         {
-            "description": "set_bits_0b1111_1111_0000_0000",
-            "property": "set_bits",
+            "description": "set_message_bits_0b1111_1111_0000_0000",
+            "property": "set_message_bits",
             "input": 0b1111_1111_0000_0000,
             "expected": 0b1111_1111,
         },

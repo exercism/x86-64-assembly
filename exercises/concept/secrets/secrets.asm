@@ -19,7 +19,7 @@ extract_higher_bits:
 ; This function takes one 16-bit integer as argument
 ; It returns a 8-bit integer with all bits set in both the lower and the higher 8 bits of the argument
 
-; TODO: define the 'set_bits' function
+; TODO: define the 'set_message_bits' function
 ; This function takes one 16-bit integer as argument
 ; It returns a 8-bit integer with all bits set if they are set in the higher 8 bits of the argument, the others unchanged
 
@@ -33,7 +33,7 @@ extract_higher_bits:
 
 ; TODO: define the 'decrypt_message' function
 ; This function takes one 16-bit integer as argument
-; It returns a 16-bit signed integer, of which:
+; It returns a 16-bit integer, of which:
 ; - The higher 8 bits are the formatted private key.
 ; - The lower 8 bits are the message with all bits set
 

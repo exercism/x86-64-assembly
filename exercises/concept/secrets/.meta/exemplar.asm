@@ -5,7 +5,7 @@ section .text
 global extract_higher_bits
 global extract_lower_bits
 global extract_redundant_bits
-global set_bits
+global set_message_bits
 global rotate_private_key
 global format_private_key
 global decrypt_message
@@ -25,7 +25,7 @@ extract_redundant_bits:
     and al, sil
     ret
 
-set_bits:
+set_message_bits:
     mov si, di
     call extract_higher_bits
     or al, sil
@@ -55,7 +55,7 @@ decrypt_message:
     shl ax, 8
     mov di, r9w
     mov r9w, ax
-    call set_bits
+    call set_message_bits
     movzx ax, al
     or ax, r9w
     ret
