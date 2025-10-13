@@ -164,28 +164,16 @@ So, the `CF` works as an extra bit to the left in the case of `rcr` and as an ex
 
 ## Other bit manipulation instructions
 
-There are other useful bit manipulation instructions, some of them are listed below.
+There are other useful bit manipulation instructions:
+
+| Name     | Description                                                                            |
+|----------|----------------------------------------------------------------------------------------|
+| popcnt   | Counts the number of bits set                                                          |
+| lzcnt    | Counts the number of leading zeros (a bit cleared before the first set bit)            |
+| bsr      | Gets the index of the most significant set bit. If no bit is set, result is undefined  |
+| bsf      | Gets the index of the least significant set bit. If no bit is set, result is undefined |
 
 These instructions all work with two 16-bits, 32-bits or 64-bits operands.
 They can not be used with 8-bits operands.
-
-### Popcnt
-
-The instruction `popcnt` counts the number of bits set in the source operand and stores this count in the destination operand.
-
-### Lzcnt
-
-The instruction `lzcnt` counts the number of leading zeros in the source operand and stores this count in the destination operand.
-A leading zero is any bit cleared before the first set bit in a sequence of bytes.
-
-### BSR
-
-The instruction `bsr` stores in the destination operand the index of the most significant bit set in the source operand.
-If the source operand has no set bit (ie, it is `0`), the result is undefined.
-
-### BSF
-
-The instruction `bsf` stores in the destination operand the index of the least significant bit set in the source operand.
-If the source operand has no set bit (ie, it is `0`), the result is undefined.
 
 [bitwise]: https://en.wikipedia.org/wiki/Bitwise_operation
