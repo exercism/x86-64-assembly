@@ -1,9 +1,11 @@
 # Introduction
 
+## Arrays
+
 Any data in assembly is a sequence of bytes.
 This means that any data can be viewed as an **array** of those underlying bytes.
 
-## Accessing elements in an array
+### Accessing elements in an array
 
 In order to access any value in memory, it is necessary to compute its **effective address**.
 
@@ -49,7 +51,7 @@ fn:
                                       ; this is the fourth element of the array, ie, the element 23
 ```
 
-## Section .bss
+### Section .bss
 
 Uninitialized data is declared in the **section .bss**.
 
@@ -86,7 +88,7 @@ Variables in section .bss are mutable, ie, they are read-and-write.
 Unitialized data can be accessed in the same way as initialized data, by using its effective address.
 Similarly, they are also of static storage duration and accessible from any function in the same source file (and, if declared `global`, in other source files as well).
 
-## Accessing array addresses with the Lea instruction
+### Accessing array addresses with the Lea instruction
 
 As it was explored in a previous concept, the `lea` instruction computes an effective memory address.
 So, it can be used to compute the address of any element in an array, following the same semantics.

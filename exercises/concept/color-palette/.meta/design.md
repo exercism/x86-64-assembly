@@ -8,8 +8,8 @@
 - Know how to read from defined data.
 - Know how to write to defined data.
 - Know about the `rel` operator.
-- Know how to make variables visible to other source files using `global`.
-- Know how to access variables defined in other source files using `extern`.
+- Know how to make data visible to other source files using `global`.
+- Know how to access functions and data defined in other source files using `extern`.
 
 ## Out of scope
 
