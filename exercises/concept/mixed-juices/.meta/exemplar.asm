@@ -53,22 +53,15 @@ time_to_make_juice:
     ret
 
 time_to_prepare:
-    mov ecx, 0
+    mov ecx, esi
     mov rdx, rdi
+    mov r8d, 0
 .loop:
-    cmp esi, 0
-    jle .exit
-
-    dec esi
-    mov edi, dword [rdx]
-    add rdx, 4
-
+    mov edi, dword [rdx + 4*rcx - 4]
     call time_to_make_juice
-
-    add ecx, eax
-    jmp .loop
-.exit:
-    mov eax, ecx
+    add r8d, eax
+    loop .loop
+    mov eax, r8d
     ret
 
 limes_to_cut:

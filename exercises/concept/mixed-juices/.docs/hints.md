@@ -7,6 +7,7 @@
 - In order to access contents stored in an address in memory, you need to dereference it using `[]`.
 - The prefix to access 4-byte values in memory is `dword`.
 - An array is represented by its address, which is a 8-byte value in x86-64.
+- If a called function modifies a register, you need to save any value in that register that will be used later.
 
 ## 1. Determine how long it takes to make a juice
 
@@ -14,9 +15,8 @@
 
 ## 2. Determine how long it takes to make all ordered juices
 
-- You need to check if you have reached the end of the array, otherwise you might end up getting an error.
+- You need to loop a specified number of times (the length of the array), so you can use `loop`.
 - You can use `add` to add a value in the source operand to the destination operand.
-- You can use `dec` to reduce the value in the destination operand by 1.
 - You can reuse the already implemented `time_to_make_juice` function.
 
 ## 3. Replenish the lime wedge supply
