@@ -8,7 +8,7 @@
 
 ## Out of Scope
 
-- SIMD instructions
+- SIMD instructions.
 
 ## Concepts
 
@@ -21,7 +21,7 @@
 
 ## Notes
 
-The exercise is inspired by the [Java version of Secrets][java-secrets], which is forked from crystal, which is in turn forked from elixir.
+The exercise is inspired by the [Java version of Secrets][java-secrets], which is forked from Crystal, which is in turn forked from Elixir.
 However, the exercise was heavily modified to include tasks for not only bitwise operations, but also for:
 
 - rotations.
