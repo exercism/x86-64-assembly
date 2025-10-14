@@ -105,6 +105,19 @@
           "integers"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "mixed-juices",
+        "name": "Mixed Juices",
+        "uuid": "05c5f731-d331-4504-be40-0280f6fe2b73",
+        "concepts": [
+          "loops"
+        ],
+        "prerequisites": [
+          "conditionals",
+          "arrays"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
