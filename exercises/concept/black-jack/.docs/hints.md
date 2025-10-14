@@ -1,4 +1,6 @@
-# General
+# Hints
+
+## General
 
 - The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
 - The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.

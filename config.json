@@ -92,6 +92,19 @@
           "memory"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "secrets",
+        "name": "Secrets",
+        "uuid": "2912e1e6-3933-4fa2-b383-b474087df9e6",
+        "concepts": [
+          "bit-manipulation"
+        ],
+        "prerequisites": [
+          "conditionals",
+          "integers"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [

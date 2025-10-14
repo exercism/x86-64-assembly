@@ -16,6 +16,7 @@
 ## Out of scope
 
 - Operations involving floating-point numbers.
+- SIMD instructions.
 
 ## Concepts
 
