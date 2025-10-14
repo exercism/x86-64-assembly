@@ -30,6 +30,11 @@ extract_higher_bits:
 ; TODO: define the 'format_private_key' function
 ; This function takes one 16-bit integer as argument
 ; It returns a 8-bit integer with the private key fully formatted after rotation
+; To format a rotated private key, you must:
+; - Isolate the lowest 8-bit portion of the rotated private key, which is the base value.
+; - Isolate the highest 8-bit portion of the rotated private key, which is a mask to be applied to the base value.
+; - Flip set bits in the base value that are also set in the mask.
+; - Flip all bits in the result.
 
 ; TODO: define the 'decrypt_message' function
 ; This function takes one 16-bit integer as argument

@@ -186,10 +186,6 @@ def extra_cases():
     ]
 
 
-def array_literal(cards):
-    return str(cards).replace("[", "{").replace("]", "}")
-
-
 def gen_func_body(prop, inp, expected):
     if prop == "rotate_private_key" or prop == "decrypt_message":
         return f"TEST_ASSERT_EQUAL_UINT16({expected}, {prop}({inp}));\n"
