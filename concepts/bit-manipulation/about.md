@@ -39,7 +39,7 @@ The exception is `not`, which takes just one destination operand.
 ## Shift operations
 
 These instructions move the bits in the destination operand by a number of positions specified by the second operand.
-The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8-bits of `rcx`).
+The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8 bits of `rcx`).
 
 | Name    | Description             |
 |---------|-------------------------|
@@ -139,7 +139,7 @@ Whereas when shifting `-9` by `2` positions to the right, the result would be `-
 ## Rotation Operations
 
 These instructions move the bits in the destination operand by a number of positions specified by the second operand.
-The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8-bits of `rcx`).
+The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8 bits of `rcx`).
 
 The difference between a rotation and a shift is that a rotation does not discard or add any bits.
 Bits that would be discarded by a shift are instead moved to the opposite end.
@@ -173,7 +173,7 @@ There are other useful bit manipulation instructions:
 | bsr      | Gets the index of the most significant set bit. If no bit is set, result is undefined  |
 | bsf      | Gets the index of the least significant set bit. If no bit is set, result is undefined |
 
-These instructions all work with two 16-bits, 32-bits or 64-bits operands.
-They can not be used with 8-bits operands.
+These instructions all work with two 16-bit, 32-bit or 64-bit operands.
+They can not be used with 8-bit operands.
 
 [bitwise]: https://en.wikipedia.org/wiki/Bitwise_operation

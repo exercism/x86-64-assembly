@@ -7,9 +7,9 @@ You will need to write the methods to help decrypt the message.
 ## 1. Extract the mask
 
 The message is encoded in a 16-bit integer.
-However, of those, the 8 higher bits are not actually part of the message, but a mask that needs to be used in the decryption.
+However, of those, the 8 highest bits are not actually part of the message, but a mask that needs to be used in the decryption.
 
-Implement the `extract_higher_bits` function that takes a 16-bit integer and returns the 8 higher bits of it.
+Implement the `extract_higher_bits` function that takes a 16-bit integer and returns the 8 highest bits of it.
 
 ```c
 extract_mask(0b1010010011000101)
@@ -20,7 +20,7 @@ extract_mask(0b1010010011000101)
 
 Having the ability of extracting the mask is not enough, you should also isolate the message.
 
-Implement the `extract_lower_bits` function that takes a 16-bit integer and returns the 8 lower bits of it.
+Implement the `extract_lower_bits` function that takes a 16-bit integer and returns the 8 lowest bits of it.
 
 ```c
 extract_mask(0b1100010011000101);
@@ -105,8 +105,8 @@ Once you have the message with all relevant bits set and the formatted private k
 
 The resulting message is a 16-bit integer, of which:
 
-- The higher 8 bits is filled with the formatted private key.
-- The lower 8 bits is filled with the message, after setting all relevant bits.
+- The highest 8 bits is filled with the formatted private key.
+- The lowest 8 bits is filled with the message, after setting all relevant bits.
 
 Implement the `decrypt_message` function that takes a 16-bit integer, encoding both the message and a mask, and returns a 16-bit integer with the message fully decrypted.
 
