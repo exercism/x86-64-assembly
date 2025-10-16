@@ -51,7 +51,8 @@ fn:
 
 ## Computing the size of an initialized array
 
-NASM (The Netwide Assembler - the assembler used by this track) offers a convenient way to compute the total size in memory occupied by an array:
+NASM (The Netwide Assembler - the assembler used by this track) has a special symbol (`$`) that indicates the current location in memory.
+This symbol offers a convenient way to compute the total size in memory occupied by an array:
 
 ```nasm
 section .data
@@ -59,12 +60,11 @@ section .data
     example_length dq $ - example
 ```
 
-The symbol `$` is an alias for the current location in memory.
-When used just after the array, `$` refers to the memory location immediately after it.
-So `$ - example` is the difference between the current address in memory and the address pointed by the label `example`.
+When used just after `example`, `$` has the address in memory for the end of the array.
+This means that `$ - example` is the difference between that address and the one pointed by the label `example`.
 This is exactly the total size, in bytes, occupied by the array pointed by `example`.
 
-This means `example_length` is now a 8-byte value (since it is defined with `dq`) with the length, in bytes, of the array pointd by `example`.
+So, by defining `example_length` with this value, we have created a 8-byte variable which stores the length of the array, in bytes.
 
 ## Section .bss
 
