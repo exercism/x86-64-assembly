@@ -64,7 +64,7 @@ When used just after `example`, `$` has the address in memory for the end of the
 This means that `$ - example` is the difference between that address and the one pointed by the label `example`.
 This is exactly the total size, in bytes, occupied by the array pointed by `example`.
 
-So, by defining `example_length` with this value, we have created a 8-byte variable which stores the length of the array, in bytes.
+So, by defining `example_length` with this value, we have created a 8-byte variable which stores the size, or length, of the array, in bytes.
 
 ## Section .bss
 
