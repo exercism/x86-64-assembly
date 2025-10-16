@@ -1,27 +1,104 @@
 # Introduction
 
-## ASCII Characters
+## Characters
 
-In assembly, the most common encoding for representing characters is `ASCII`.
+### Declaring characters
 
-In ASCII encoding, a character is associated with a value ranging from 0 to 127.
-This value is stored in the first 7 bits of 1 byte.
-The last bit (the most significant) is cleared.
+A **character encoding** is a specific convention used to represent elements of text in a natural language as a sequence of bytes.
+An "element of text" here may be any unit that has significance in a natural language, for example, letters, spaces, punctuation, emojis, ideograms, etc.
+
+NASM (The Netwide Assembler, the assembler used by this track) has support to the definition of data using **ASCII**.
+
+Characters in NASM have up to 8 bytes and may be defined using single quotes (`'`), double quotes (`"`) or backticks (`` ` ``):
+
+```nasm
+mov rax, '0' ; this copies the ASCII character '0' (decimal value 48)
+mov rcx, "z" ; this copies the ASCII character 'z' (decimal value 122)
+mov rdx, ` ` ; this copies the ASCII character ' ' (decimal value 32)
+```
+
+Special characters must be defined in backticks and escaped with `\`:
+
+```nasm
+mov rax, `\n` ; this copies the ASCII character newline (decimal value 10)
+mov rcx, `\t` ; this copies the ASCII character tab (decimal value 9)
+```
+
+NASM also has support to **unicode characters** in UTF-8, specified with `\u` or `\U` and in backticks:
+
+```nasm
+mov rax, `\u263a` ; UTF-8 smiley face (☺), value U+263a
+mov rcx, `\u0393` ; UTF-8 capital letter gamma (Γ), value U+0393
+```
+
+Notice that there is no built-in support to any character encoding in x86-64 as a distinct type.
+Data in assembly is a sequence of bytes and the interpretation of those bytes as a character, a number, or anything else, is left to the programmer.
+
+For instance, the ASCII character '0' is a single byte with the value 48.
+So, storing 48 into a byte is exactly the same as storing the ASCII character '0':
+
+```nasm
+mov al, '0' ; al has the value 48
+mov cl, 48  ; cl has the value '0'
+; al and cl now have the same value
+```
+
+For this same reason, creating or changing characters is done by directly manipulating the values in those bytes:
+
+```nasm
+mov al, 'A' ; al now has the value 'A', which is 65 in ASCII
+add al, 32 ; al now has the value 97, which is 'a' in ASCII
+; so, summing 32 to an uppercase ASCII letter makes it lowercase
+
+mov al, 5 ; al now has the value 5
+add al, 48 ; al now has the value 53, which is '5' in ASCII
+; so, summing 48 (equivalently, '0') transforms a number between 0 and 9 into a ASCII digit
+```
 
 ## Strings
 
-A `string` is a sequence of characters.
-In assembly, it is implemented as an array.
+### Declaring strings
+
+A **string** is a sequence of characters.
+In assembly, it is usually implemented as an array.
+
+It is possible to declare a string in NASM using the directive `db`, as usual for declared data.
+Each character in a string is interpreted as a different byte (or sequence of bytes, for unicode characters with more than 1 byte).
+Even though this defines an array, it is not necessary to use a comma (`,`) to separate values:
+
+```nasm
+section .data
+    string1 db "hi"
+    string2 db "h", "i"
+    string3 db 104, 105
+; string1, string2 and string3 are all equivalent
+```
+
+Similarly, since each ASCII character takes a single byte, these are all equivalent:
+
+```nasm
+section .data
+    string1 dw 'hello' ; 3 words (2-byte)
+    string2 dw 'he', "ll", `o` ; 3 words (2-byte)
+    string3 db `hello`, 0 ; 3 words (2-byte)
+```
+
+~~~~exercism/note
+In assembly, strings are not automatically ended by a ASCII NUL character (value `0`).
+When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
+~~~~
+
+### String instructions
 
 In x86-64 there are some instructions for loading, moving and storing values in a string.
 
-Although called `string instructions`, they can be used not only with bytes, but with other data sizes as well.
+Although called _string instructions_, they can be used not only with bytes, but with other data sizes as well.
 They are also not limited to sequences of elements representing characters, but work with any array in memory.
 
-They usually expect the source to be a memory location in `rsi` and the destination to be a memory location in `rdi`.
+They usually expect the source to be a memory location in `rsi` and/or the destination to be a memory location in `rdi`.
 
-Many of those instructions are actually a family of related instructions, each operating on a different size.
-In those cases, a suffix is appended to indicate this size:
+Those instructions are actually a family of related instructions, each operating on a different size.
+A suffix is appended to indicate this size:
 
 | prefix | size    |
 |:------:|:--------|
@@ -30,68 +107,43 @@ In those cases, a suffix is appended to indicate this size:
 | d      | 4 bytes |
 | q      | 8 bytes |
 
-Those instructions modify the register(s) used according to the value of the `direction flag (DF)`.
+Those instructions modify the register(s) used according to the value of the **direction flag (DF)**.
 
 If the DF is cleared, addresses in `rsi` and/or `rdi` are increased by the indicated size.
 And, if the DF is set, addresses are instead decreased by the same amount.
 
 The instruction `cld` clears the direction flag, whereas the instruction `std` sets it.
 
-The `System V ABI` states that the direction flag must be cleared at function entry.
+The System V ABI states that the direction flag must be cleared at function entry.
 So, the default behavior is for memory to be read/written in ascending order of addresses.
 
-### Lods
+The instructions are:
 
-The `lods` family of instructions loads an element from the memory location in `rsi` into `rax`.
-The address in `rsi` is modified according to the size of the element.
+| instruction  | what it does                                          | example                                                 |
+|--------------|-------------------------------------------------------|---------------------------------------------------------|
+| `lods`       | loads from the memory location in `rsi` into `rax`    | `lodsw` loads 2 bytes into `ax`, changing `rsi` by 2    |
+| `stos`       | stores `rax` into the memory location in `rdi`        | `stosd` stores 4 bytes from `eax`, changing `rdi` by 4  |
+| `movs`       | copies between memory locations (`rsi` to `rdi`)      | `movsb` copies 1 byte, changing `rsi` and `rdi` by 1    |
+| `cmps`       | compares between memory locations (`rsi` and `rdi`)   | `cmpsq` compares 8 bytes, changing `rsi` and `rdi` by 8 |
+| `scas`       | compares `rax` with value in memory location in `rdi` | `scasb` compares `al`, changing `rdi` by 1              |
 
-So, for instance, `lodsw` loads 2 bytes from the memory address in `rsi` into `ax`, modifying `rsi` by 2.
+Both `cmps` and `scas` make comparisons following the same semantics as `cmp`, setting flags accordingly.
 
-### Stos
+Apart from those, the `rep` family of instructions do not interact directly with memory.
 
-The `stos` family of instructions stores an element from `rax` into a memory location in `rdi`.
-The address in `rdi` is modified according to the size of the element.
+Instead, they can be added as prefixes to the other mentioned instructions, _repeating_ them.
+They repeat an instruction by a number of times equal to the value in `rcx`.
+At each time, the value in `rcx` is decreased by 1.
 
-So, for instance, `stodsd` stores 4 bytes from `eax` into the memory address in `rdi`, modifying `rdi` by 4.
+Note, however, that `rcx` is not an operand to those instructions.
+Its value must be adjusted before using them.
 
-### Movs
-
-The `movs` family of instructions copies an element from the memory location in `rsi` into the memory location in `rdi`.
-The addresses in both `rsi` and `rdi` are modified according to the size of the element.
-
-So, for instance, `movsq`:
-- copies 8 bytes from the memory address in `rsi`, modifying `rsi` by 8; and
-- stores those 8 bytes into the memory address in `rdi`, modifying `rdi` by 8.
-
-### Cmps
-
-The `cmps` family of instructions compares the elements in the memory locations in `rsi` and `rdi`, setting flags in `rflags` according to the result.
-The addresses in both `rsi` and `rdi` are modified according to the size of the element.
-
-So, for instance, `cmpsb` compares 1 byte in the memory address in `rsi` with 1 byte in the memory address in `rdi`, modifying both registers by 1.
-
-### Scas
-
-The `scas` family of instructions compares the value in `rax` with the element from the memory address in `rdi`, setting flags in `rflags` according to the result.
-The address in `rdi` is modified according to the size of the element.
-
-So, for instance, `scasw` compares the value in `ax` with 2 bytes in the memory address in `rdi`, modifying `rdi` by 2.
-
-### Rep
-
-The `rep` family of instructions don't interact directly with memory.
-
-Instead, they can be added as prefixes to the other mentioned instructions, *repeating* those instructions.
+Apart from using `rcx` as a counter, `repe` and `repne` also stop execution if the zero flag (ZF) is set or cleared, respectively.
 
 There are 3 instructions in this group:
 
-- The `rep` prefix can be added to the `movs`, `lods`, and `stos` instructions;
-- The `repe` and `repne` (equivalently, `repz` and `repnz`) prefixes can be added to the `cmps` and `scas` instructions.
-
-All those prefixes repeat an instruction by a number of times equal to the value in `rcx`.
-At each time, the value in `rcx` is decreased by 1.
-
-However, `repe` and `repne` stop execution earlier if the `zero flag (ZF)` is set or cleared, respectively.
-
-It's important to notice that `rcx` is not an operand to those instructions.
-Its value must be adjusted before using them.
+| instruction      | where can be added     | may stop earlier   |
+|------------------|------------------------|--------------------|
+| `rep`            | `movs`, `lods`, `stos` | no                 |
+| `repe`,`repz`    | `cmps`, `scas`         | yes (ZF set)       |
+| `repne`, `repnz` | `cmps`, `scas`         | yes (ZF cleared)   |
