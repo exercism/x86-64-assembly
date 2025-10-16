@@ -51,6 +51,23 @@ fn:
                                       ; this is the fourth element of the array, ie, the element 23
 ```
 
+### Computing the size of an initialized array
+
+NASM (The Netwide Assembler - the assembler used by this track) offers a convenient way to compute the total size in memory occupied by an array:
+
+```nasm
+section .data
+    example dd 4, 5, 6, 18, 20, 76, -12, 34
+    example_length dq $ - example
+```
+
+The symbol `$` is an alias for the current location in memory.
+When used just after the array, `$` refers to the memory location immediately after it.
+So `$ - example` is the difference between the current address in memory and the address pointed by the label `example`.
+This is exactly the total size, in bytes, occupied by the array pointed by `example`.
+
+This means `example_length` is now a 8-byte value (since it is defined with `dq`) with the length, in bytes, of the array pointd by `example`.
+
 ### Section .bss
 
 Uninitialized data is declared in the **section .bss**.
