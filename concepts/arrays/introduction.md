@@ -72,7 +72,7 @@ Uninitialized data is declared in the **section .bss**.
 
 On most platforms, this data is filled with zero by the OS at the start of the program.
 
-In NASM (The Netwide Assembler - the assembler used by this track), an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
+In NASM, an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
 
 The main directives and their related data sizes are:
