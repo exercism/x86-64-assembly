@@ -30,8 +30,7 @@ None of the numbers in this cage are highlighted and therefore don't contain any
 The third killer cage follows the outside corner of the central 3×3 box of the grid.
 It is made up of the following three cells: the top left cell of the cage contains a 2, highlighted in red, and a cage sum of 7.
 The top right cell of the cage contains a 3.
-The bottom right cell of the cage contains a 2, highlighted in red.
-All other cells are empty.][one-solution-img]
+The bottom right cell of the cage contains a 2, highlighted in red. All other cells are empty.][one-solution-img]
 
 ## Example 2: Cage with several combinations
 
@@ -75,7 +74,7 @@ You can also find Killer Sudokus in varying difficulty in numerous newspapers, a
 
 ## Credit
 
-The screenshots above have been generated using [F-Puzzles.com](https://www.f-puzzles.com/), a Puzzle Setting Tool by Eric Fox.
+The screenshots above have been generated using F-Puzzles.com, a Puzzle Setting Tool by Eric Fox.
 
 [sudoku-rules]: https://masteringsudoku.com/sudoku-rules-beginners/
 [killer-guide]: https://masteringsudoku.com/killer-sudoku/
