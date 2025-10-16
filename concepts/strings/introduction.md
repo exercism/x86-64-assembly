@@ -28,11 +28,11 @@ NASM also has support to **unicode characters** in UTF-8, specified with `\u` or
 
 ```nasm
 mov rax, `\u263a` ; UTF-8 smiley face (☺), value U+263a
-mov rcx, `\u0393` ; UTF-8 capital letter gamma (`Γ`), value U+0393
+mov rcx, `\u0393` ; UTF-8 capital letter gamma (Γ), value U+0393
 ```
 
-Notice that there is no built-in support to any character encoding in x86-64.
-Data in assembly is a sequence of bytes and the interpretation of those bytes as a character is left to the programmer.
+Notice that there is no built-in support to any character encoding in x86-64 as a distinct type.
+Data in assembly is a sequence of bytes and the interpretation of those bytes as a character, a number, or anything else, is left to the programmer.
 
 For instance, the ASCII character '0' is a single byte with the value 48.
 So, storing 48 into a byte is exactly the same as storing the ASCII character '0':
@@ -43,7 +43,7 @@ mov cl, 48  ; cl has the value '0'
 ; al and cl now have the same value
 ```
 
-For this same reason, manipulating characters is done by directly transforming the values in those bytes:
+For this same reason, creating or changing characters is done by directly manipulating the values in those bytes:
 
 ```nasm
 mov al, 'A' ; al now has the value 'A', which is 65 in ASCII
@@ -63,7 +63,7 @@ A **string** is a sequence of characters.
 In assembly, it is usually implemented as an array.
 
 It is possible to declare a string in NASM using the directive `db`, as usual for declared data.
-Each character in a string is interpreted as a different byte (or sequence of bytes, for UTF-8 characters with more than 1 byte).
+Each character in a string is interpreted as a different byte (or sequence of bytes, for unicode characters with more than 1 byte).
 Even though this defines an array, it is not necessary to use a comma (`,`) to separate values:
 
 ```nasm
@@ -74,9 +74,18 @@ section .data
 ; string1, string2 and string3 are all equivalent
 ```
 
+Similarly, since each ASCII character takes a single byte, these are all equivalent:
+
+```nasm
+section .data
+    string1 dw 'hello' ; 3 words (2-byte)
+    string2 dw 'he', "ll", `o` ; 3 words (2-byte)
+    string3 db `hello`, 0 ; 3 words (2-byte)
+```
+
 ~~~~exercism/note
-In assembly, strings are not automatically ended by a NUL character (`0`).
-When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure a NUL character is apended at the end of a string.
+In assembly, strings are not automatically ended by a ASCII NUL character (value `0`).
+When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
 ~~~~
 
 ### String instructions
