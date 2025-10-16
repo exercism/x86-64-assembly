@@ -1,7 +1,11 @@
 [
   {
     "url": "https://en.wikipedia.org/wiki/ASCII",
-    "description": "Wikipedia Entry for ASCII encoding"
+    "description": "Wikipedia Entry for ASCII"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Unicode",
+    "description": "Wikipedia Entry for Unicode"
   },
   {
     "url": "https://en.wikipedia.org/wiki/String_(computer_science)",
@@ -10,5 +14,9 @@
   {
     "url": "https://www.felixcloutier.com/x86/",
     "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.4.2",
+    "description": "NASM entry for Character Strings"
   }
 ]
