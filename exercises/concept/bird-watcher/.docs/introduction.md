@@ -66,7 +66,7 @@ When used just after `example`, `$` has the address in memory for the end of the
 This means that `$ - example` is the difference between that address and the one pointed by the label `example`.
 This is exactly the total size, in bytes, occupied by the array pointed by `example`.
 
-So, by defining `example_length` with this value, we have created a 8-byte variable which stores the length of the array, in bytes.
+So, by defining `example_length` with this value, we have created a 8-byte variable which stores the size, or length, of the array, in bytes.
 
 ### Section .bss
 
@@ -74,7 +74,7 @@ Uninitialized data is declared in the **section .bss**.
 
 On most platforms, this data is filled with zero by the OS at the start of the program.
 
-In NASM (The Netwide Assembler - the assembler used by this track), an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
+In NASM, an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
 
 The main directives and their related data sizes are:

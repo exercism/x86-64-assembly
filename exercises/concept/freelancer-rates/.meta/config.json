@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "freelancer_rates.asm"
+    ],
+    "test": [
+      "freelancer_rates_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "elixir/freelancer-rates"
+  ],
+  "icon": "freelancer-rates",
+  "blurb": "Learn about floating-point numbers by helping a freelancer communicate with a project manager about billing."
+}
