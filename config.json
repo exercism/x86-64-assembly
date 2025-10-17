@@ -118,6 +118,19 @@
           "arrays"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "poetry-club-door-policy",
+        "name": "Poetry Club Door Policy",
+        "uuid": "3a67ea55-af33-4757-95ca-677e2fa817c2",
+        "concepts": [
+          "strings"
+        ],
+        "prerequisites": [
+          "arrays",
+          "loops"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [

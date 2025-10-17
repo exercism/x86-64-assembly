@@ -1,0 +1,20 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "poetry_club_door_policy.asm"
+    ],
+    "test": [
+      "poetry_club_door_policy_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "javascript/poetry-club-door-policy"
+  ],
+  "blurb": "Learn about strings using poems to get into the poetry club."
+}

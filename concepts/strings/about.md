@@ -2,8 +2,6 @@
 
 ## Characters
 
-### Declaring characters
-
 A [character encoding][char-encoding] is a specific convention used to represent elements of text in a natural language as a sequence of bytes.
 An "element of text" here may be any unit that has significance in a natural language, for example, letters, spaces, punctuation, emojis, ideograms, etc.
 

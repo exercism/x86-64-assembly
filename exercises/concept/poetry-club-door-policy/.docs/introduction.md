@@ -1,6 +1,8 @@
 # Introduction
 
-## Characters
+## Strings
+
+### Characters
 
 A **character encoding** is a specific convention used to represent elements of text in a natural language as a sequence of bytes.
 An "element of text" here may be any unit that has significance in a natural language, for example, letters, spaces, punctuation, emojis, ideograms, etc.
@@ -53,9 +55,9 @@ add al, 48 ; al now has the value 53, which is '5' in ASCII
 ; so, summing 48 (equivalently, '0') transforms a number between 0 and 9 into a ASCII digit
 ```
 
-## Strings
+### Strings
 
-### Declaring strings
+#### Declaring strings
 
 A **string** is a sequence of characters.
 In assembly, it is usually implemented as an array.
@@ -86,7 +88,7 @@ In assembly, strings are not automatically ended by a ASCII NUL character (value
 When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
 ~~~~
 
-### String instructions
+#### String instructions
 
 In x86-64 there are some instructions for loading, moving and storing values in a string.
 
