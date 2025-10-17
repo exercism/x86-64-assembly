@@ -131,6 +131,20 @@
           "loops"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "freelancer-rates",
+        "name": "Freelancer Rates",
+        "uuid": "9c447606-406d-42ed-9e58-04220d5352ae",
+        "concepts": [
+          "floating-point-numbers"
+        ],
+        "prerequisites": [
+          "conditionals",
+          "integers",
+          "memory"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
