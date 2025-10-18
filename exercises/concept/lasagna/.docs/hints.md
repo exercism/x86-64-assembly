@@ -8,9 +8,11 @@
 ## 1. Define the expected oven time in minutes
 
 - There is an [instruction][mov] to store a value in a register.
+- You may define assembler-time constants using `equ`.
 
 ## 2. Calculate the remaining oven time in minutes
 
+- You can [call][call] one of the other functions you've defined previously.
 - There is an [instruction][sub] for subtracting values.
 
 ## 3. Calculate the preparation time in minutes

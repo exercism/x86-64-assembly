@@ -16,7 +16,8 @@ remaining_minutes_in_oven:
 global preparation_time_in_minutes
 preparation_time_in_minutes:
     mov rax, rdi
-    shl rax, 1
+    mov rcx, 2
+    imul rax, rcx
     ret
 
 global elapsed_time_in_minutes
