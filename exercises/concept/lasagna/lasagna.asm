@@ -1,11 +1,14 @@
 ; Everything that comes after a semicolon (;) is a comment
 
-section .text
+; Assembler-time constants may be defined using 'equ'
 
-; the global directive makes a function visible to the test files
+section .text
 
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
+
+; the global directive makes a function visible to the test files
+global expected_minutes_in_oven
 
 expected_minutes_in_oven:
     ; This function has no arguments
