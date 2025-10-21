@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdarg.h>
+#include <inttypes.h>
 
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(x[0])
 #define MAX_CATEGORIES 10
@@ -19,7 +20,7 @@ typedef struct {
     const char *categories[MAX_CATEGORIES];
 } item_t;
 
-typedef void *(*allocator_t)(size_t);
+typedef void *(*allocator_t)(uint64_t);
 typedef void (*print_t)(const char *, ...);
 
 extern void create_item_entry(item_t *item, uint64_t ID, const char *description, uint64_t day, uint64_t month, uint64_t num_categories,
@@ -58,11 +59,11 @@ static void print_helper(const char *introduction, ...) {
 
     uint64_t index = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index, index, "Expected a different index for the item.");
-    printf("Index of the item is: %lu\n", index);
+    printf("Index of the item is: %" PRIu64 "\n", index);
 
     uint64_t ID = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].ID, ID, "Expected a different ID for the item.");
-    printf("ID of the item is: %lu\n", ID);
+    printf("ID of the item is: %" PRIu64 "\n", ID);
 
     const char *description = va_arg(args, const char *);
     TEST_ASSERT_EQUAL_STRING_MESSAGE(found_items[description_index].description, description,
@@ -71,22 +72,22 @@ static void print_helper(const char *introduction, ...) {
 
     uint64_t day = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].day, day, "Expected a different day for the item.");
-    printf("Item was found in day: %lu\n", day);
+    printf("Item was found in day: %" PRIu64 "\n", day);
 
     uint64_t month = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].month, month, "Expected a different month for the item.");
-    printf("Item was found in month: %lu\n", month);
+    printf("Item was found in month: %" PRIu64 "\n", month);
 
     uint64_t num_categories = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].num_categories, num_categories,
                                      "Expected a different number of categories for the item.");
-    printf("The number of categories for item is: %lu\n", num_categories);
+    printf("The number of categories for item is: %" PRIu64 "\n", num_categories);
 
     const char *const *categories = va_arg(args, const char *const *);
-    for (size_t i = 0; i < num_categories; ++i) {
+    for (uint64_t i = 0; i < num_categories; ++i) {
         TEST_ASSERT_EQUAL_STRING_MESSAGE(found_items[description_index].categories[i], categories[i],
                                          "At least one of the categories is different from expected.");
-        printf("Category %lu is: %s\n", i + 1, categories[i]);
+        printf("Category %" PRIu64 " is: %s\n", i + 1, categories[i]);
     }
     print_count++;
     printf("\n");
