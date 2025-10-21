@@ -54,7 +54,7 @@ print_item:
     mov rcx, qword [introductory_string_sz]
     rep movsb
 
-    pop rdi
+    mov rdi, qword [rsp]
     mov rsi, rdx
     mov rdx, qword [r10]
     mov rcx, qword [r10 + 8]
@@ -62,7 +62,6 @@ print_item:
     mov r9, qword [r10 + 24]
 
     lea rax, [r10 + 40]
-    push rdi ; dummy push to align stack
     push rax
     push qword [r10 + 32]
 
