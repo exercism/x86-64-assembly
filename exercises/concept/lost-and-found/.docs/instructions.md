@@ -46,7 +46,6 @@ Note that the allocated space has _undefined_ value, so all bytes in that space 
 ## 3. Insert an item in the monthly list
 
 At each day, every found item should be inserted in the monthly list.
-However, it might be the case that the list is already full.
 
 Define the `insert_found_item` function that has no return value and takes as parameters:
 
