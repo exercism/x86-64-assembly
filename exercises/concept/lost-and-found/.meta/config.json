@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "lost_and_found.asm"
+    ],
+    "test": [
+      "lost_and_found_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "sublist",
+  "blurb": "Learn about the call stack by organizing items for a lost-and-found office."
+}

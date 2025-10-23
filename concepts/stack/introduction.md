@@ -1,17 +1,17 @@
 # Introduction
 
-The **stack** is a special data structure that starts at the highest point in memory and grows downward.
+The **call stack**, or just **stack**, is a special data structure that starts at the highest point in memory and grows downward.
 
 ## Push and Pop
 
-A stack supports at least two operations: **push** and **pop**:
+The stack supports at least two operations, with instructions of the same name:
 
-- A _push_ operation adds an element to the stack.
-- A _pop_ operation removes and returns the most recently added element.
+| Instruction | Operation performed                                 |
+|-------------|-----------------------------------------------------|
+| `push`      | adds an element to the stack                        |
+| `pop`       | removes and returns the most recently added element |
 
 This means that the stack is a **last in, first out (LIFO)** data structure.
-
-In x86-64, the instructions `push` and `pop` implement the operations with the same name.
 
 In order to keep track of the current point of the stack, where the most recent element is located, the register `rsp` is used.
 
@@ -35,7 +35,7 @@ Note that, at the moment space is reserved in stack, the value stored in that sp
 
 ## Call and Ret
 
-The main purpose of the stack is keeping track of the return address for called functions.
+The main purpose of the stack is to keep track of the return address for called functions.
 
 Whenever a `call` instruction is used, the current value in `rip` is implicitly pushed to the stack.
 Subsequently, the operand for the instruction is moved into `rip`, so that execution continues in the called function.
@@ -99,22 +99,13 @@ However, when there are too many arguments, or they need more than the size of a
 In those cases, values are added to the stack in reversed order, so that the first argument is closer to `rsp`.
 Since at point of entry, `rsp` points to the return address, which is a 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`.
 
-As with argument passing, values are usually returned from functions in registers.
-In case of an integer value, the first 8 bytes are returned in `rax` and the next 8 bytes are returned in `rdx`.
-
-However, when the size of the returned value can not be accomodated in the conventional registers, the caller function must reserve space for the returned value.
-The address of this space is implicitly passed as a hidden first integer argument (in `rdi`).
-In this case, the return of the function, in `rax`, is this address which was originally passed in `rdi`.
-
-This space does not need to be reserved in the stack, but this is common.
-
 ## Stack Alignment
 
-The System V ABI states that the stack needs to be 16 byte aligned immediately before the call instruction is executed.
-As the call instruction pushes `rdi` into the stack, at point of entry the stack is _not_ 16-byte aligned.
+The System V ABI states that the stack needs to be 16 byte aligned immediately _before_ the call instruction is executed.
+As `call` pushes `rdi` into the stack, at point of entry the stack for the called function is **not** 16-byte aligned.
 
 This means that a function that calls another (and, in special, external functions) needs to align the stack before using `call`.
 
 This can be done by subtracting a suitable value from `rsp`.
 This value must be 8 more than a multiple of 16: 8, 24, 40, etc.
-Since a `push` instruction has the effect of subtracting 8 bytes from `rsp`, a dummy `push` may be used to the same effect.
+Since a `push` instruction subtracts from `rsp`, a dummy `push` may be used to the same effect.

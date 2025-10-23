@@ -145,6 +145,19 @@
           "memory"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "lost-and-found",
+        "name": "Lost and Found",
+        "uuid": "6cb5ea0c-4145-44a4-93f0-0c3605d573e0",
+        "concepts": [
+          "stack"
+        ],
+        "prerequisites": [
+          "strings",
+          "integers"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
