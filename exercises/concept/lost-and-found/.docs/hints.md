@@ -22,13 +22,13 @@
 
 - A value that does not fit into a register is passed to a function on the stack.
 - Each entry for an item occupies 120 bytes of space, which is much larger than the maximum size for a register (8 bytes).
-- Arguments passed on the stack can be found in `rsp + 8`.
+- Arguments passed on the stack can be found in addresses starting at `rsp + 8`.
 - You can loop to add the values to the destination memory location, or you can use [movsb][movs] combined with [rep][rep].
 
 ## 4. Print an item
 
-- The introductory string is not mandatory, you can call the printing function with `0` instead.
-- If passed, the introductory string must have at most 50 ASCII characters, already including a mandatory `\0` (NUL character, with value `0`) at the end.
+- The introductory string is optional, you can call the printing function with `0` instead.
+- If the introductory string is passed to the printing function, it must have at most 50 ASCII characters, already including the NUL terminator (value `0`).
 - Whenever you call a function, you must reserve space on the stack for any argument after the sixth.
 - The System V ABI states that the stack should be 16-byte aligned before calling a function, which is particularly important for external functions.
 - Each entry for an item in the list occupies 120 bytes of space.
