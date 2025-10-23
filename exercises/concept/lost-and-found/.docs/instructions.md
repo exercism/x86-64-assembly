@@ -78,7 +78,7 @@ This function has no return value and should call the printing function with the
 8. The address of the first category string.
 
 The introductory string is optional.
-If it is used in the printing function, this string must have at most 50 characters and be NUL-terminated (ending in `0`).
+If it is used in the printing function, this string must be NUL-terminated (ending in `0`) and have at most 50 characters, already considering the NUL terminator.
 Otherwise, the value `0` should be passed to the printing function instead.
 
 You may consider that each item in the list takes up 120 bytes in space.

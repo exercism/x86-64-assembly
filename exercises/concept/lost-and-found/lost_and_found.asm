@@ -24,6 +24,7 @@ create_item_entry:
     ;
     ; This function has no return value.
 
+
 ; TODO: implement the 'create_monthly_list' function.
 ; This function takes as parameters:
 ;
@@ -36,6 +37,7 @@ create_item_entry:
 ;
 ; The 'create_month_list' function should return the address for the space allocated with the allocator function.
 
+
 ; TODO: implement the 'insert_found_item' function.
 ; This function takes as parameters:
 ;
@@ -46,6 +48,7 @@ create_item_entry:
 ; You may consider that the new entry always fits into the list.
 ; All entries in the list take up 120 bytes in space.
 ; This function has no return value.
+
 
 ; TODO: implement the 'print_item' function.
 ; This function takes as parameters:
@@ -66,10 +69,11 @@ create_item_entry:
 ; 8. The address of the first category string.
 ;
 ; The introductory string is optional.
-; If it is used in the printing function, this string must have at most 50 characters and be NUL-terminated (ending in `0`).
+; If it is used in the printing function, this string must be NUL-terminated (ending in `0`) and have at most 50 characters, already considering the NUL terminator.
 ; Otherwise, the value `0` should be passed to the printing function instead.
 ;
 ; This function has no return value.
+
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits
