@@ -57,32 +57,35 @@ static void print_helper(const char *introduction, ...) {
     va_start(args, introduction);
 
     uint64_t index = va_arg(args, uint64_t);
+    uint64_t ID = va_arg(args, uint64_t);
+    const char *description = va_arg(args, const char *);
+    uint64_t day = va_arg(args, uint64_t);
+    uint64_t month = va_arg(args, uint64_t);
+    uint64_t num_categories = va_arg(args, uint64_t);
+    const char *const *categories = va_arg(args, const char *const *);
+
+    va_end(args);
+
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index, index, "Expected a different index for the item.");
     printf("Index of the item is: %" PRIu64 "\n", index);
 
-    uint64_t ID = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].ID, ID, "Expected a different ID for the item.");
     printf("ID of the item is: %" PRIu64 "\n", ID);
 
-    const char *description = va_arg(args, const char *);
     TEST_ASSERT_EQUAL_STRING_MESSAGE(found_items[description_index].description, description,
                                      "Expected a different description for the item.");
     printf("Description of the item is: %s\n", description);
 
-    uint64_t day = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].day, day, "Expected a different day for the item.");
     printf("Item was found in day: %" PRIu64 "\n", day);
 
-    uint64_t month = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].month, month, "Expected a different month for the item.");
     printf("Item was found in month: %" PRIu64 "\n", month);
 
-    uint64_t num_categories = va_arg(args, uint64_t);
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(found_items[description_index].num_categories, num_categories,
                                      "Expected a different number of categories for the item.");
     printf("The number of categories for item is: %" PRIu64 "\n", num_categories);
 
-    const char *const *categories = va_arg(args, const char *const *);
     for (uint64_t i = 0; i < num_categories; ++i) {
         TEST_ASSERT_EQUAL_STRING_MESSAGE(found_items[description_index].categories[i], categories[i],
                                          "At least one of the categories is different from expected.");

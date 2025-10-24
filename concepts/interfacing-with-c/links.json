@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://en.cppreference.com/w/c/language/enum.html",
+    "description": "Reference for Enums in C"
+  },
+  {
+    "url": "https://en.cppreference.com/w/c/language/pointer.html",
+    "description": "Reference for Pointers in C"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Struct_(C_programming_language)",
+    "description": "Wikipedia Entry for Structs in C"
+  },
+  {
+    "url": "https://en.cppreference.com/w/c/language/object.html#Alignment",
+    "description": "Reference for Alignment in C"
+  }
+]

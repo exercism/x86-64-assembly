@@ -1167,6 +1167,11 @@
       "uuid": "82534a88-9404-4024-8d9b-9a5d6d23dae4",
       "slug": "arrays",
       "name": "Arrays"
+    },
+    {
+      "uuid": "22534a38-5f99-4fb6-a9a8-7602773782b9",
+      "slug": "interfacing-with-c",
+      "name": "Interfacing with the C language"
     }
   ],
   "key_features": [
