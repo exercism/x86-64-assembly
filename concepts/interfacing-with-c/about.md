@@ -5,7 +5,7 @@ Similarly, the `extern` directive informs the assembler that a function or varia
 
 Those two directives are the main way assembly code interacts with other source files to achieve modularization.
 
-For the purposes of these directives, it is indifferent if the external code is defined in assembly, or if the global code is used by assembly.
+For the purposes of these directives, it is indifferent if the external code is defined or used in assembly or in a high-level language.
 So, for example, even a function defined in a high-level language may be used in x86-64 code if declared `extern`.
 
 In the same way, the calling convention is shared across all of those functions, defined in assembly or in high-level languages, and even with the Operating System (OS).
@@ -19,12 +19,14 @@ It makes the task of interacting with the OS easier, offering high-level wrapper
 
 In this track, the tests are written in C and so it is important to offer a general overview of the language.
 
+~~~~exercism/note
 Any of the types indicated below may be qualified with `const`, which make them read-only.
+~~~~
 
 ### Primitive Types
 
 There are many primitive types in C and the size those types occupy may vary.
-Some of them are summarized in the following table, with typical size in a x86-64 system:
+Some of them are summarized in the following table, with their typical size in a x86-64 system:
 
 | type      | number of bytes | integer/floating-point |
 |-----------|-----------------|------------------------|
@@ -73,7 +75,7 @@ enum example {
 };
 ```
 
-In C, enums are implicitly converted to an integer type, which is typically an `int`.
+In C, enums are implicitly converted to an integer type, which is typically an `int`, ie, a 4-byte integer.
 
 By default the first possible element in an enum is converted to `0` and all subsequent elements are converted to the next integer.
 So, in the `enum example` defined above, `example_1` would have value `0`, `example_2` would have value `1` and so on.
@@ -88,8 +90,6 @@ enum example_2 {
 }; // example_3 is equal to 9
 ```
 
-In x86-64 assembly, an enum is passed to, and returned from, functions as `int`, ie, as 4-byte integers.
-
 ### Memory addresses
 
 In C, a memory address is referenced by a [pointer][pointer] to a type and denoted with the `*` operator.
@@ -99,17 +99,17 @@ Addresses are treated as 8-byte integers, as usual.
 
 ### Arrays
 
-Arrays are passed to, and returned from, functions as pointers to its first element.
+Arrays are passed to, and returned from, functions as pointers to their first element.
 
 ```c
 int64_t example_arr[] = {1, 2, 3}; // this is an array of 3 signed 8-byte integers
 fn(example_arr); // this is a function that passes a pointer to the beginning of the array as argument
 ```
 
-It is important to note that each element in an array has the size of the type pointed by the array.
+Each element in an array has the size of the type pointed by the array.
 So `example_arr` defined above, for example, has 3 elements of 8 bytes each, which is 24 bytes in total.
 
-Since the array typically has no indication of its length, a separate argument usually is also passed to indicate the number of elements in the array.
+Since the array typically has no indication of its length, a separate value is usually necessary to indicate the number of elements in the array.
 
 ### Strings
 
@@ -122,7 +122,7 @@ This means the length of a string does not usually need to be passed as a separa
 A [struct][struct] is a composite type, formed of different fields.
 Each field has its own type and size.
 
-For instance, this defines a type formed of two 4-byte integers, in this order:
+For instance, this defines a type formed of three integers, two of 4 bytes and one of 8 bytes:
 
 ```c
 struct example {
@@ -143,8 +143,7 @@ struct example_2 {
 
 #### Calling convention
 
-The calling convention for structs has many different rules.
-But, as a rule of thumb, all fields in a struct occupy adjacent space in memory and should be passed in a single register whenever possible.
+As a rule of thumb, all fields in a struct occupy adjacent space in memory and should be passed in a single register whenever possible.
 
 So, an instance of the struct example, defined above, would be passed in two registers:
 
@@ -156,8 +155,8 @@ It will also be passed on the stack if any field in the struct is too big to fit
 That would be the case for `struct example_2`, defined above.
 
 A struct is returned in the same manner, ie, if possible in a single register.
-If more than 16 bytes are necessary, the function gets a memory address as an implicit first argument (in `rdi`).
-The struct should be placed on this memory location and `rax` should have the address of that memory location.
+If more than 16 bytes are necessary, the function takes a memory address as an implicit first argument (in `rdi`).
+The struct should be placed on this memory location and this location's address should be returned in `rax`.
 
 #### Alignment
 
