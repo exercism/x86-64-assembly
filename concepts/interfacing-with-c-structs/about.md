@@ -216,8 +216,7 @@ If it is placed in memory, the stack is used instead.
 
 Similar rules apply to structs returned from a function.
 They are usually returned first in `rax` and `rdx` (if of integer value) or `xmm0` and `xmm1` (if of floating-point value).
-
-In case a function returns a struct placed in memory, the caller must reserve space for it and pass the address to this memory location as an implicit first argument (in `rdi`).
+If placed in memory, however, the caller must reserve space for it and pass the address to this memory location as an implicit first argument to the function (in `rdi`).
 The function then stores the struct in this space and returns its address in `rax`.
 
 [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
