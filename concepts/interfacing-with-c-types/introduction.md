@@ -104,7 +104,7 @@ Arrays are passed to, and returned from, functions as pointers to their first el
 
 ```c
 int64_t example_arr[] = {1, 2, 3}; // this is an array of 3 signed 8-byte integers
-fn(example_arr); // this is a function that passes a pointer (int64_t *) to the beginning of the array as argument
+fn(example_arr); // this is a function that passes a pointer (int64_t *) to the beginning of the array as an argument
 ```
 
 Each element in an array has the size of the array's element type.
