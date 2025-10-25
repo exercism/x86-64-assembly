@@ -107,10 +107,10 @@ int64_t example_arr[] = {1, 2, 3}; // this is an array of 3 signed 8-byte intege
 fn(example_arr); // this is a function that passes a pointer (int64_t *) to the beginning of the array as argument
 ```
 
-Each element in an array has the size of the type pointed by this array pointer.
-So `example_arr` defined above, for example, has 3 elements of 8 bytes each, which is 24 bytes in total.
+Each element in an array has the size of the array's element type.
+The `example_arr` defined above, for example, has 3 elements of 8 bytes each, which is 24 bytes in total.
 
-Since the array typically has no indication of its length, a separate value is usually necessary to indicate the number of elements in the array.
+Because arrays do not store their length, a separate value is usually necessary to indicate the number of elements unless a sentinel value marks the end.
 
 ### Strings
 
