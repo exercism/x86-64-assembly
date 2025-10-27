@@ -7,7 +7,6 @@
 ## 1. Keep track of different currencies
 
 - You can keep the relevant strings in section .rodata or section .data and dispatch them according to the enum's value.
-- You can have assembler-time constants defined with `equ` to associate each enum element with its value.
 - An enum is implicitly converted to an integer, usually of 32-bit size.
 
 ## 2. Check the exchange rate

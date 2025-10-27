@@ -1,14 +1,5 @@
 default rel
 
-GBP equ 0
-EUR equ 1
-JPY equ 2
-AUD equ 3
-BRL equ 4
-CNY equ 5
-CAD equ 6
-INR equ 7
-
 section .rodata
     currencies db "GBP", 0
                db "EUR", 0
