@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "currency_exchange.asm"
+    ],
+    "test": [
+      "currency_exchange_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "python/currency-exchange"
+  ],
+  "icon": "hyperia-forex",
+  "blurb": "Learn how to interface with C types by solving Chandler's currency exchange conundrums."
+}

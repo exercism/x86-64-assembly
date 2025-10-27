@@ -61,7 +61,9 @@ Other aliases of note are:
 | bool   | _Bool                                         |
 | size_t | usually an unsigned 8-byte integer            |
 
-Values of those types are passed to, and returned from, functions according to the usual rules for integers and floating-point values.
+A `_Bool`, or its alias `bool`, is unique in that, although it occupies 1 entire byte, it can only assume one of two values: `true` (`1`) and `false` (`0`).
+
+Values of those primitive types are passed to, and returned from, functions according to the usual rules for integers and floating-point values.
 
 ### Enums
 

@@ -158,6 +158,21 @@
           "integers"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "currency-exchange",
+        "name": "Currency Exchange",
+        "uuid": "f065c0f2-3a27-49df-b3c2-144312e935f3",
+        "concepts": [
+          "interfacing-with-c-types"
+        ],
+        "prerequisites": [
+          "stack",
+          "strings",
+          "integers",
+          "floating-point-numbers"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
