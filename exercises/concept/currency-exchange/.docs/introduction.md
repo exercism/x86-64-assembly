@@ -1,4 +1,6 @@
-# About
+# Introduction
+
+## Interfacing with the C language: Primitive Types, Enums, Pointers and Arrays
 
 In previous concepts, it was mentioned that the `global` directive makes a function or variable defined in one source file visible to other files.
 Similarly, the `extern` directive informs the assembler that a function or variable used in the current source file is defined in another one.
@@ -12,7 +14,7 @@ In the same way, the calling convention is shared across all of those functions,
 
 However, since in assembly data is just a sequence of bytes, it is important to be aware of how the interfacing high-level language manages memory.
 
-## C Types
+### C Types
 
 The C language is a common choice for a high-level language to interface with assembly code.
 It makes the task of interacting with the OS easier, offering high-level wrappers for many important tasks, such as printing to the screen, reading from a keyboard or allocating dynamic memory.
@@ -24,7 +26,7 @@ Any of the types indicated below may be qualified with `const`.
 This makes them read-only.
 ~~~~
 
-### Primitive Types
+#### Primitive Types
 
 There are many primitive types in C and their size, in bytes, may vary.
 Some of them are summarized in the following table, with their typical size in a x86-64 system:
@@ -65,9 +67,9 @@ A `_Bool`, or its alias `bool`, is unique in that, although it occupies 1 entire
 
 Values of those primitive types are passed to, and returned from, functions according to the usual rules for integers and floating-point values.
 
-### Enums
+#### Enums
 
-An [enum][enum] is a type that can assume one of a number of explicitly indicated elements:
+An **enum** is a type that can assume one of a number of explicitly indicated elements:
 
 ```c
 enum example {
@@ -93,20 +95,20 @@ enum example_2 {
 }; // example_3 is equal to 9
 ```
 
-### Memory addresses
+#### Memory addresses
 
-In C, a memory address is referenced by a [pointer][pointer] to a type and denoted with the `*` operator.
+In C, a memory address is referenced by a **pointer** to a type and denoted with the `*` operator.
 So, for example, `int64_t *` refers to a memory location for one or more `int64_t`.
 
 Addresses are treated as 8-byte integers, as usual.
 
-### Arrays
+#### Arrays
 
 Arrays are passed to, and returned from, functions as pointers to their first element.
 
 ```c
 int64_t example_arr[] = {1, 2, 3}; // this is an array of 3 signed 8-byte integers
-fn(example_arr); // this is a function that passes a pointer (int64_t *) to the beginning of the array as argument
+fn(example_arr); // this is a function that passes a pointer (int64_t *) to the beginning of the array as an argument
 ```
 
 Each element in an array has the size of the array's element type.
@@ -114,11 +116,8 @@ The `example_arr` defined above, for example, has 3 elements of 8 bytes each, wh
 
 Because arrays do not store their length, a separate value is usually necessary to indicate the number of elements unless a sentinel value marks the end.
 
-### Strings
+#### Strings
 
 Strings in C are an array of `char`, which is a 1-byte type.
 Most strings are of ASCII characters and NUL-terminated, so they end when a byte with the value `0` is found.
 This means the length of a string does not usually need to be passed as a separate argument.
-
-[enum]: https://en.cppreference.com/w/c/language/enum.html
-[pointer]: https://en.cppreference.com/w/c/language/pointer.html
