@@ -1,5 +1,7 @@
 # Introduction
 
+## Interfacing with the C language: Structs
+
 In the C language, a **struct** is a composite type, formed of different fields.
 Each field has its own type and size.
 
@@ -37,7 +39,7 @@ struct with_pointer {
 // only the 8-byte pointer to the string is inside struct with_pointer
 ```
 
-## Alignment
+### Alignment
 
 The **alignment** of a type is a non-negative power of two (1, 2, 4, 8, ...) that represents a requirement on its address.
 Every object of that type must be located in an address that is a multiple of its alignment.
@@ -69,7 +71,7 @@ Since field 'four_byte' has alignment of 4, fields in the struct must also respe
 This means that there must be a number of bytes that is multiple of 4 between any two fields in the struct.
 Since 'one_byte' occupies only 1 byte, then 3 padding bytes are inserted after it to respect this boundary.
 
-Adjacent fields are grouped whenever possible in order to minimize the number of padding bytes necessary:
+Adjacent fields are grouped whenever possible in order to minimize the number of padding bytes necessary :
 
 ```c
 struct two_padding {
@@ -148,7 +150,7 @@ struct array_example {
 
 It is important to account for any possible padding bytes whenever accessing a struct in assembly.
 
-## Calling convention
+### Calling convention
 
 In general, values are passed to, and returned from, functions as one should expect:
 

@@ -65,11 +65,11 @@ struct example_3 {
 ```
 
 Note that in the struct defined above, field 'one_byte' has alignment of 1 and can be placed at any address.
-But, since field 'four_byte' has alignment of 4, fields in the struct must also respect 4-byte boundaries.
-So, between the start of the struct and the field 'four_byte', there must be a number of bytes that is multiple of 4.
+Since field 'four_byte' has alignment of 4, fields in the struct must also respect 4-byte boundaries.
+This means that there must be a number of bytes that is multiple of 4 between any two fields in the struct.
 Since 'one_byte' occupies only 1 byte, then 3 padding bytes are inserted after it to respect this boundary.
 
-Adjacent fields are grouped whenever possible, in order to minimize the number of necessary padding bytes:
+Adjacent fields are grouped whenever possible in order to minimize the number of padding bytes necessary:
 
 ```c
 struct two_padding {
@@ -199,6 +199,12 @@ struct mixed_types {
 // the field 'floating_point' is passed on the next 4 bytes
 ```
 
+~~~~exercism/note
+When a conversion is made from a floating-point to an integer using `cvtsi2ss` or `cvtsi2sd`, this changes the organization of the underlying bytes.
+
+You can use [movd][mov] (for 32-bit values) or [movq][mov] (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
+~~~~
+
 However, structs with more than 16 bytes in size are usually placed in memory, regardless of the type of each 8-byte:
 
 ```c
@@ -221,3 +227,4 @@ The function then stores the struct in this space and returns its address in `ra
 
 [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [alignment]: https://en.cppreference.com/w/c/language/object.html#Alignment
+[mov]: https://www.felixcloutier.com/x86/movd:movq
