@@ -173,6 +173,21 @@
           "floating-point-numbers"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "need-for-speed",
+        "name": "Need For Speed",
+        "uuid": "d789a288-f727-4162-87c7-fad609ed9cf9",
+        "concepts": [
+          "interfacing-with-c-structs"
+        ],
+        "prerequisites": [
+          "bit-manipulation",
+          "floating-point-numbers",
+          "stack",
+          "interfacing-with-c-types"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [

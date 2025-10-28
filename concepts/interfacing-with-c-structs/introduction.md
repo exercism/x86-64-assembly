@@ -199,6 +199,12 @@ struct mixed_types {
 // the field 'floating_point' is passed on the next 4 bytes
 ```
 
+~~~~exercism/note
+When a conversion is made from a floating-point to an integer using `cvtsi2ss` or `cvtsi2sd`, this changes the organization of the underlying bytes.
+
+You can use `movd` (for 32-bit values) and `movq` (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
+~~~~
+
 However, structs with more than 16 bytes in size are usually placed in memory, regardless of the type of each 8-byte:
 
 ```c

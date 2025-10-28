@@ -1,6 +1,8 @@
-# About
+# Introduction
 
-In the C language, a [struct][struct] is a composite type, formed of different fields.
+## Interfacing with the C language: Structs
+
+In the C language, a **struct** is a composite type, formed of different fields.
 Each field has its own type and size.
 
 For instance, this defines a type formed of three integers, two of 4 bytes and one of 8 bytes:
@@ -37,9 +39,9 @@ struct with_pointer {
 // only the 8-byte pointer to the string is inside struct with_pointer
 ```
 
-## Alignment
+### Alignment
 
-The [alignment][alignment] of a type is a non-negative power of two (1, 2, 4, 8, ...) that represents a requirement on its address.
+The **alignment** of a type is a non-negative power of two (1, 2, 4, 8, ...) that represents a requirement on its address.
 Every object of that type must be located in an address that is a multiple of its alignment.
 
 For a primitive type, the alignment is usually equal to its size, so, for instance, a `int32_t` usually has 4-byte alignment.
@@ -148,7 +150,7 @@ struct array_example {
 
 It is important to account for any possible padding bytes whenever accessing a struct in assembly.
 
-## Calling convention
+### Calling convention
 
 In general, values are passed to, and returned from, functions as one should expect:
 
@@ -202,7 +204,7 @@ struct mixed_types {
 ~~~~exercism/note
 When a conversion is made from a floating-point to an integer using `cvtsi2ss` or `cvtsi2sd`, this changes the organization of the underlying bytes.
 
-You can use [movd][mov] (for 32-bit values) or [movq][mov] (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
+You can use `movd` (for 32-bit values) and `movq` (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
 ~~~~
 
 However, structs with more than 16 bytes in size are usually placed in memory, regardless of the type of each 8-byte:
@@ -224,7 +226,3 @@ Similar rules apply to structs returned from a function.
 They are usually returned first in `rax` and `rdx` (if of integer value) or `xmm0` and `xmm1` (if of floating-point value).
 If placed in memory, however, the caller must reserve space for it and pass the address to this memory location as an implicit first argument to the function (in `rdi`).
 The function then stores the struct in this space and returns its address in `rax`.
-
-[struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
-[alignment]: https://en.cppreference.com/w/c/language/object.html#Alignment
-[mov]: https://www.felixcloutier.com/x86/movd:movq
