@@ -1220,9 +1220,7 @@
         "name": "Minesweeper",
         "uuid": "5f717115-0688-424d-959f-33f5c83e44cb",
         "practices": [],
-        "prerequisites": [
-          "interfacing-with-c-types"
-        ],
+        "prerequisites": [],
         "difficulty": 7,
         "status": "deprecated"
       },
