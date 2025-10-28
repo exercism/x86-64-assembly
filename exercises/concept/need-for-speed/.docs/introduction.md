@@ -71,7 +71,7 @@ Since field 'four_byte' has alignment of 4, fields in the struct must also respe
 This means that there must be a number of bytes that is multiple of 4 between any two fields in the struct.
 Since 'one_byte' occupies only 1 byte, then 3 padding bytes are inserted after it to respect this boundary.
 
-Adjacent fields are grouped whenever possible, in order to minimize the number of necessary padding bytes:
+Adjacent fields are grouped whenever possible in order to minimize the number of padding bytes necessary :
 
 ```c
 struct two_padding {
