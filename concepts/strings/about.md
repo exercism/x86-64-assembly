@@ -136,15 +136,15 @@ At each time, the value in `rcx` is decreased by 1.
 Note, however, that `rcx` is not an operand to those instructions.
 Its value must be adjusted before using them.
 
-Apart from using `rcx` as a counter, `repe` and `repne` also stop execution if the zero flag (ZF) is set or cleared, respectively.
+Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`) also stop execution if the zero flag (ZF) is cleared or set, respectively.
 
 There are 3 instructions in this group:
 
-| instruction      | where can be added     | may stop earlier   |
-|------------------|------------------------|--------------------|
-| `rep`            | `movs`, `lods`, `stos` | no                 |
-| `repe`,`repz`    | `cmps`, `scas`         | yes (ZF set)       |
-| `repne`, `repnz` | `cmps`, `scas`         | yes (ZF cleared)   |
+| instruction      | where can be added     | may stop earlier          |
+|------------------|------------------------|---------------------------|
+| `rep`            | `movs`, `lods`, `stos` | no                        |
+| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0  |
+| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1  |
 
 [char-encoding]: https://en.wikipedia.org/wiki/Character_encoding
 [ascii]: https://en.wikipedia.org/wiki/ASCII

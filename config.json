@@ -196,7 +196,9 @@
         "name": "Collatz Conjecture",
         "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "conditionals",
@@ -210,7 +212,9 @@
         "name": "Darts",
         "uuid": "98887d08-92b7-4559-8133-4c05453bfe14",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1
       },
       {
@@ -218,7 +222,9 @@
         "name": "Difference of Squares",
         "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "integers",
@@ -242,7 +248,9 @@
         "name": "Leap",
         "uuid": "669b6523-0dfe-4ccc-b16e-51ee6a8e7e0b",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "conditionals",
@@ -254,7 +262,9 @@
         "name": "Reverse String",
         "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "strings"
@@ -265,7 +275,9 @@
         "name": "RNA Transcription",
         "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "strings",
@@ -277,7 +289,9 @@
         "name": "Space Age",
         "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "floating_point_numbers"
@@ -288,7 +302,9 @@
         "name": "Square Root",
         "uuid": "8dcd4afd-7ef8-4bd1-85e1-b070357c970a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "conditionals",
@@ -302,7 +318,9 @@
         "name": "Triangle",
         "uuid": "1284e091-163a-454d-9123-413e4050b671",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 1,
         "topics": [
           "floats",
@@ -315,7 +333,9 @@
         "name": "Two-Fer",
         "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 1,
         "topics": [
           "optional_values",
@@ -327,7 +347,9 @@
         "name": "Grains",
         "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2,
         "topics": [
           "integers"
@@ -338,7 +360,9 @@
         "name": "Hamming",
         "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2,
         "topics": [
           "filtering",
@@ -350,7 +374,9 @@
         "name": "High Scores",
         "uuid": "808128e8-d23c-40d6-a642-dd3eec3c13cc",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2
       },
       {
@@ -358,7 +384,9 @@
         "name": "Line Up",
         "uuid": "4977e343-fe8b-40ed-949e-3c912f018e39",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2
       },
       {
@@ -366,7 +394,9 @@
         "name": "Pangram",
         "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2,
         "topics": [
           "strings"
@@ -377,7 +407,9 @@
         "name": "Queen Attack",
         "uuid": "360852bf-c2f0-4fba-990a-49813fd069c1",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 2,
         "topics": [
           "conditionals"
@@ -388,7 +420,9 @@
         "name": "Allergies",
         "uuid": "cf6d015d-40f6-4afe-8d0b-ca4c9e32b0cc",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 3,
         "topics": [
           "bitwise_operations",
@@ -400,7 +434,9 @@
         "name": "Binary Search",
         "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3,
         "topics": [
           "arrays",
@@ -412,7 +448,9 @@
         "name": "Bob",
         "uuid": "6d8927ca-2aaa-4af4-bb38-c307b2105e41",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -420,7 +458,9 @@
         "name": "Clock",
         "uuid": "fd260924-8975-4651-8aa6-a5246cda5a2c",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 3
       },
       {
@@ -428,7 +468,9 @@
         "name": "Eliud's Eggs",
         "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -436,7 +478,9 @@
         "name": "ETL",
         "uuid": "c397e4b3-d1cf-40a3-9829-c2268a875e40",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 3
       },
       {
@@ -444,7 +488,9 @@
         "name": "Isogram",
         "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3,
         "topics": [
           "filtering",
@@ -456,7 +502,9 @@
         "name": "Micro Blog",
         "uuid": "8211f366-ff44-40cf-989b-53a427505353",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -464,7 +512,9 @@
         "name": "Nucleotide Count",
         "uuid": "2ef7f926-e6f1-4828-94ed-5aee5930987a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3,
         "topics": [
           "arrays",
@@ -476,7 +526,9 @@
         "name": "Resistor Color",
         "uuid": "39e8a36c-bbcb-4b47-ae05-f376f74fa4a8",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3,
         "topics": [
           "arrays"
@@ -487,7 +539,9 @@
         "name": "Resistor Color Duo",
         "uuid": "d2a983d7-3e9a-43fd-a916-23d51401c68e",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3,
         "topics": [
           "arrays"
@@ -498,7 +552,9 @@
         "name": "Resistor Color Trio",
         "uuid": "bfabb02a-74ef-4fe1-8a2c-70f7556ebb15",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -506,7 +562,9 @@
         "name": "Scrabble Score",
         "uuid": "1ddc9312-b16f-41fe-91c2-a1181d32fb15",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -514,7 +572,9 @@
         "name": "Secret Handshake",
         "uuid": "bdd1677b-3faa-4456-8431-9362a5a2ee6e",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -522,7 +582,9 @@
         "name": "Series",
         "uuid": "994402ae-2240-4280-9963-f1eed9722149",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -530,7 +592,9 @@
         "name": "Sublist",
         "uuid": "9876f5db-d23c-49c0-bf99-c24f4efe5622",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 3
       },
       {
@@ -538,7 +602,9 @@
         "name": "Acronym",
         "uuid": "3cd968cd-02cd-42d5-a74b-088f757af86d",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "conditionals",
@@ -551,7 +617,9 @@
         "name": "Anagram",
         "uuid": "eea4cfcc-b823-474a-8653-91449e3a65ca",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -559,7 +627,9 @@
         "name": "Armstrong Numbers",
         "uuid": "756465b7-40e9-4295-8f2c-7108cdef5ace",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "loops"
@@ -570,7 +640,9 @@
         "name": "Bottle Song",
         "uuid": "dd05684a-90d4-44f6-915f-eea8843bb7b0",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -578,7 +650,9 @@
         "name": "Crypto Square",
         "uuid": "a865c970-54ae-4e33-bd0f-1ce147afa048",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -586,7 +660,9 @@
         "name": "Diamond",
         "uuid": "c809298c-863b-41a9-971e-da08bc798976",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -594,7 +670,9 @@
         "name": "ISBN Verifier",
         "uuid": "f8f770a3-a47b-4404-ae7f-a94af4d8d87f",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "loops",
@@ -606,7 +684,9 @@
         "name": "Kindergarten Garden",
         "uuid": "65644c94-ae7d-46a8-86a5-d7b607e79810",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -614,7 +694,9 @@
         "name": "Linked List",
         "uuid": "b79e66ed-54b3-43da-a4ce-884d81447ce5",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "functions",
@@ -627,7 +709,9 @@
         "name": "Matrix",
         "uuid": "0c830b67-80b8-447a-a86d-22775e7d5ce4",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -635,7 +719,9 @@
         "name": "Phone Number",
         "uuid": "5d6e344e-7ed6-4476-82f6-02be41266e39",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -643,7 +729,9 @@
         "name": "Prime Factors",
         "uuid": "fc9bb707-337c-4cf4-ba7d-7569a71958c0",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -651,7 +739,9 @@
         "name": "Protein Translation",
         "uuid": "2d598782-0c71-486e-8bea-7fe03f934f9f",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "conditionals",
@@ -665,7 +755,9 @@
         "name": "Proverb",
         "uuid": "0a8efe4e-87f1-4e97-82cd-90ecf30c6091",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -673,7 +765,9 @@
         "name": "Robot Name",
         "uuid": "50e4fc90-9441-4b20-ac83-78ce9bb2bb58",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -681,7 +775,9 @@
         "name": "Robot Simulator",
         "uuid": "ccb59c8d-e02d-420d-ae92-df36737b9ff8",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 4
       },
       {
@@ -689,7 +785,9 @@
         "name": "Roman Numerals",
         "uuid": "beb08d3f-7379-421d-9538-f3731c5ad68b",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "conditionals",
@@ -703,7 +801,9 @@
         "name": "Rotational Cipher",
         "uuid": "c7cf1766-11e5-47b0-9d01-8eff62218131",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4,
         "topics": [
           "algorithms",
@@ -716,7 +816,9 @@
         "name": "Saddle Points",
         "uuid": "9cee8cc8-24b5-4f97-a2c0-b5b81e650029",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 4
       },
       {
@@ -724,7 +826,9 @@
         "name": "Simple Linked List",
         "uuid": "3440c320-08e0-4ac3-93c2-efb7c3c60803",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 4
       },
       {
@@ -732,7 +836,9 @@
         "name": "Sum of Multiples",
         "uuid": "ce06cacb-ec4e-46f2-a1b7-f496f0db097f",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -740,7 +846,9 @@
         "name": "Twelve Days",
         "uuid": "404a8125-db44-48b3-b981-49a368815001",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 4
       },
       {
@@ -748,7 +856,9 @@
         "name": "Word Count",
         "uuid": "aca8a985-7097-4548-b88e-6d6f822ae916",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 4
       },
       {
@@ -756,7 +866,9 @@
         "name": "Atbash Cipher",
         "uuid": "b485ea56-fb92-4a23-b966-a9214523ba0b",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -764,7 +876,9 @@
         "name": "Binary Search Tree",
         "uuid": "964eb38f-226e-4b24-a7de-a6072394bca7",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 5
       },
       {
@@ -772,7 +886,9 @@
         "name": "Circular Buffer",
         "uuid": "ebd57eb1-ea95-4ee6-8e91-bd4853acbee3",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -780,7 +896,9 @@
         "name": "Complex Numbers",
         "uuid": "297841a7-396b-4fdd-bff0-2e16b6c1635a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 5
       },
       {
@@ -788,7 +906,9 @@
         "name": "Custom Set",
         "uuid": "d7270e9a-7d0f-45fa-bee2-ca7f6d6ea46b",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -796,7 +916,9 @@
         "name": "D&D Character",
         "uuid": "197f8f30-145e-4223-b057-dac995302339",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 5
       },
       {
@@ -804,7 +926,9 @@
         "name": "Gigasecond",
         "uuid": "d0a8097d-759f-4785-83bc-aa00fec0c365",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -812,7 +936,9 @@
         "name": "House",
         "uuid": "a7819b9e-647e-473f-b76a-4954282f13d4",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -820,7 +946,9 @@
         "name": "Largest Series Product",
         "uuid": "2f2357ab-1729-4c29-9b28-d0d29b866c95",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -828,7 +956,9 @@
         "name": "List Ops",
         "uuid": "784f7a0c-bf28-4b99-be6a-cafc3efbca3d",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5,
         "topics": [
           "arrays",
@@ -841,7 +971,9 @@
         "name": "Matching Brackets",
         "uuid": "6e3f6c68-e290-4b1d-9ad8-2ed0c66be41a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5,
         "topics": [
           "parsing",
@@ -853,7 +985,9 @@
         "name": "Nth Prime",
         "uuid": "68fe9b99-a203-42f8-bb2c-758689cbfccd",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -861,7 +995,9 @@
         "name": "Perfect Numbers",
         "uuid": "9f3e26d6-a2c0-42fe-84b4-3c60e805471a",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -869,7 +1005,9 @@
         "name": "Raindrops",
         "uuid": "a7a94ca3-03cc-48e4-9933-817eeb29254b",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5,
         "topics": [
           "conditionals",
@@ -882,7 +1020,9 @@
         "name": "Rational Numbers",
         "uuid": "523c3ddc-d61a-4323-b788-5ad0259ac847",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 5
       },
       {
@@ -890,7 +1030,9 @@
         "name": "Run-Length Encoding",
         "uuid": "06de39e4-dddc-4375-921c-9b3862fd58ee",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -898,7 +1040,9 @@
         "name": "Sieve",
         "uuid": "6cc147ff-65cb-417d-9883-6b7cf910e828",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -906,7 +1050,9 @@
         "name": "Spiral Matrix",
         "uuid": "752b0790-40ff-4333-9b1a-a9d4df50f7ec",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -914,7 +1060,9 @@
         "name": "Split-Second Stopwatch",
         "uuid": "f5d3d785-1286-45a4-b29c-63b63aee9633",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -922,7 +1070,9 @@
         "name": "Yacht",
         "uuid": "dfb8f9b9-3080-4c7e-b259-5fff1df959d9",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 5
       },
       {
@@ -930,7 +1080,9 @@
         "name": "Camicia",
         "uuid": "fdadc7cd-34bd-49d2-89d4-95c883437519",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 6
       },
       {
@@ -938,7 +1090,9 @@
         "name": "Food Chain",
         "uuid": "5d4da9ec-5b46-4609-b942-6be556884ef3",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -946,7 +1100,9 @@
         "name": "Intergalactic Transmission",
         "uuid": "c24ff280-84fe-4d70-a0ef-94748da57d40",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -954,7 +1110,9 @@
         "name": "Killer Sudoku Helper",
         "uuid": "f4f22719-c15b-4853-8b9e-15d34f5750fd",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -962,7 +1120,9 @@
         "name": "Luhn",
         "uuid": "0dd26cf2-d613-4a03-93a3-49d2960d2154",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -970,7 +1130,9 @@
         "name": "OCR Numbers",
         "uuid": "2b9c5389-b97e-414e-bdca-a6be784d36e9",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -978,7 +1140,9 @@
         "name": "Palindrome Products",
         "uuid": "6e758deb-1a32-413c-bdcd-e1bfba6f70f8",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 6
       },
       {
@@ -986,7 +1150,9 @@
         "name": "Pascal's Triangle",
         "uuid": "474fd108-ed25-4e1a-8f11-ffd29ce3abb9",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -994,7 +1160,9 @@
         "name": "Pig Latin",
         "uuid": "e49e6d68-fa96-4a2d-b560-9af0ca7fccb1",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -1002,7 +1170,9 @@
         "name": "Pythagorean Triplet",
         "uuid": "d44ac8b3-4f0a-41ab-a830-79b2161fa157",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -1010,7 +1180,9 @@
         "name": "Variable Length Quantity",
         "uuid": "e116007e-15ec-40f6-b549-f48d5f852cc6",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 6
       },
       {
@@ -1018,7 +1190,9 @@
         "name": "Affine Cipher",
         "uuid": "08480307-7d42-49ed-b6b7-2080bba8894e",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
@@ -1026,7 +1200,9 @@
         "name": "Baffling Birthdays",
         "uuid": "28d1203e-e12a-49be-aba1-0571f54b3e39",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 7
       },
       {
@@ -1034,7 +1210,9 @@
         "name": "Flower Field",
         "uuid": "bb250fb5-0d8a-49d2-bcce-6fd107117c16",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
@@ -1051,7 +1229,9 @@
         "name": "Say",
         "uuid": "56fbd855-0e23-4380-a5ce-1a6996250497",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
@@ -1059,7 +1239,9 @@
         "name": "State of Tic-Tac-Toe",
         "uuid": "768258f0-5b87-4582-a47c-8b1a836c2219",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
@@ -1067,7 +1249,9 @@
         "name": "Wordy",
         "uuid": "3ad797ff-f65a-4e93-9ec1-21f8350e2382",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
@@ -1075,7 +1259,9 @@
         "name": "All Your Base",
         "uuid": "02d07b3b-86a2-404f-9d95-170602315a35",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 8
       },
       {
@@ -1083,7 +1269,9 @@
         "name": "Book Store",
         "uuid": "799fcb2c-939a-4e7d-b8df-c815acc545c7",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 8
       },
       {
@@ -1091,7 +1279,9 @@
         "name": "Change",
         "uuid": "93cfe2a0-bea5-4c1f-8c04-898e05340e58",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 8
       },
       {
@@ -1099,7 +1289,9 @@
         "name": "Dominoes",
         "uuid": "19cf1050-af02-4071-be87-18947026321e",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 8
       },
       {
@@ -1107,7 +1299,9 @@
         "name": "Conway's Game of Life",
         "uuid": "c4b9b208-1284-406d-86d5-eb5c3b0128ae",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 8
       },
       {
@@ -1115,7 +1309,9 @@
         "name": "Two Bucket",
         "uuid": "63d0e6bb-073d-49ff-ba24-c4dbf6e39399",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 8
       },
       {
@@ -1123,7 +1319,9 @@
         "name": "Knapsack",
         "uuid": "2ef39cbc-801b-437e-96ec-71f3439388e4",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
         "difficulty": 9
       },
       {
@@ -1131,7 +1329,9 @@
         "name": "Meetup",
         "uuid": "7e3d7660-d795-4d33-971a-6f20721436dc",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 9
       }
     ],
