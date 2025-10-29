@@ -9,7 +9,7 @@ Comments may be placed anywhere in the program and everything that comes after a
 
 ## Constants
 
-An assembler-time constant can be defined in NASM using [equ][equ].
+An assembler-time constant can be defined in NASM using **equ**.
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
 
 ```nasm

@@ -30,12 +30,10 @@ In order to represent negative numbers, x86-64 uses the **two's complement** rep
 The `neg` instruction can be used to change the sign of a number.
 
 ~~~~exercism/caution
-
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can be a great aid in this task.
-
 ~~~~
 
 ## Arithmetic

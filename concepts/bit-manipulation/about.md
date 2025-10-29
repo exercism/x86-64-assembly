@@ -11,7 +11,7 @@ This is why x86-64 offers a variety of different instructions for bit manipulati
 These instructions work on single bits in a operand.
 
 They all take two operands, the second indicates the index of the bit being operated in the first operand.
-All of them copy the selected bit into the `carry flag (CF)`.
+All of them copy the selected bit into the **carry flag (CF)**.
 
 | Name | Description                                                                   |
 |------|-------------------------------------------------------------------------------|
@@ -50,7 +50,7 @@ The second operand must be a constant number (an `immediate`) or the register `c
 
 Both `shl` and `sal` perform the exact same operation, one is an alias of the other.
 
-Whenever a shift left is made, bits closer to the end of the sequence than the length of the shift are first moved to the `carry flag (CF)` and then discarded.
+Whenever a shift left is made, bits closer to the end of the sequence than the length of the shift are first moved to the carry flag (CF) and then discarded.
 On the other hand, a number of new cleared bits equal to the length of the shift is added to the beginning.
 
 For instance, consider the number `23`, represented as a single byte, being shifted 3 positions to the left:
@@ -74,7 +74,7 @@ Since each bit in an integer represents a power of 2, a shift to the left by n p
 
 There are two instructions to move bits to the right: `shr` and `sar`.
 
-Whenever any of the two instructions is used, bits closer to the start of the sequence than the length of the shift are first moved to the `carry flag (CF)` and then discarded.
+Whenever any of the two instructions is used, bits closer to the start of the sequence than the length of the shift are first moved to the carry flag (CF) and then discarded.
 On the other hand, a number of new bits equal to the length of the shift is added to the end.
 
 The difference between them is that `shr` moves `0` bits to the left end, while `sar` moves `1` if the most significant was set and `0` otherwise.

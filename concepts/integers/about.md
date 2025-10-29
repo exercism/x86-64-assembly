@@ -94,12 +94,10 @@ In order to provide disambiguation, in a signed integer, the most significant bi
 This bit is called the **sign bit**.
 
 ~~~~exercism/caution
-
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can be a great aid in this task.
-
 ~~~~
 
 ## Arithmetic
