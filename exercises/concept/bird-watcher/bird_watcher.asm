@@ -2,12 +2,11 @@
 
 section .text
 
-; the global directive makes a function visible to the test files
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
+; the global directive makes a function visible to the test files
 global last_week_counts
-
 last_week_counts:
     ; This function takes no parameter
     ; It returns a copy of last week's counts as a 8-byte number

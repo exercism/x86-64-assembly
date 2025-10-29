@@ -2,13 +2,11 @@
 
 section .text
 
-; the global directive makes a function visible to the test files.
-
 ; You should implement functions in the .text section.
 ; A skeleton is provided for the first function.
 
+; the global directive makes a function visible to the test files.
 global front_door_response
-
 front_door_response:
     ; This function takes the address in memory for a line of the poem as an argument.
     ; It returns the first letter of that line, as a ASCII-encoded character.
