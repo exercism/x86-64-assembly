@@ -1,5 +1,7 @@
 PAY_PER_BOX equ 5
 PAY_PER_TRUCK_TRIP equ 220
+WEIGHT_OF_EMPTY_BOX equ 500
+TRUCK_HEIGHT equ 300
 
 section .text
 
@@ -16,12 +18,12 @@ get_box_weight:
     movzx eax, di
     movzx esi, si
     mul esi
-    add eax, 500
+    add eax, WEIGHT_OF_EMPTY_BOX
     add eax, ecx
     ret
 
 max_number_of_boxes:
-    mov ax, 300
+    mov ax, TRUCK_HEIGHT
     div dil
     ret
 

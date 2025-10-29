@@ -5,6 +5,35 @@ You were hired to pack and move everything.
 
 You have four tasks, all related to managing the transport.
 
+~~~~exercism/note
+These are the instructions mentioned in this concept:
+
+| Instruction   | Description                                                          |
+|---------------|----------------------------------------------------------------------|
+| add a, b      | sets a to a + b                                                      |
+| adc a, b      | sets a to a + b + CF (previous carry)                                |
+| inc a         | sets a to a + 1                                                      |
+| sub a, b      | sets a to a - b                                                      |
+| dec a         | sets a to a - 1                                                      |
+| imul a        | sets rax to a * rax (signed)                                         |
+| imul a, b     | sets a to a * b                                                      |
+| imul a, b, c  | sets a to b * c                                                      |
+| mul a         | sets rax to a * rax (unsigned)                                       |
+| div a         | sets rax to rax / a and rdx to rax % a (unsigned)                    |
+| idiv a        | sets rax to rax / a and rdx to rax % a (signed)                      |
+| movzx a, b    | copies a to b, adding 0 to exceding bits                             |
+| movsx a, b    | copies a to b, adding 1 to exceding bits if num b < 0 or 0 otherwise |
+~~~~
+
+~~~~exercism/note
+Remember that you can access the same register with different sizes by changing the name of the operand.
+For example: `rax` (64-bit), `eax` (32-bit), `ax` (16-bit), `al` (8-bit).
+
+You can refer to the [previous concept][basics] for the full table.
+
+[basics]: https://exercism.org/tracks/x86-64-assembly/concepts/basics
+~~~~
+
 ## 1. Get weight of each box
 
 Items are being packed in boxes that must be labeled with their weight.
@@ -21,6 +50,7 @@ This function takes as parameters, in this order:
 - The weight of each item of the second product, in `g`
 
 Consider that an empty box weighs **500 g**.
+A constant WEIGHT_OF_EMPTY_BOX is defined at the top of the file.
 
 Example:
 
@@ -40,6 +70,7 @@ Define a function `max_number_of_boxes` that returns how many boxes of a certain
 
 This function takes as parameter the height of the box, in `cm`.
 Consider that the truck interior height is **300 cm**.
+A constant TRUCK_HEIGHT is defined at the top of the file.
 
 Example:
 

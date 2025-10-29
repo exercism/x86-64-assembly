@@ -13,7 +13,7 @@ CK equ 13
 CA equ 14
 
 TRUE equ 1
-FALSE equ 2
+FALSE equ 0
 
 section .text
 

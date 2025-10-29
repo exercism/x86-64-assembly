@@ -1,15 +1,13 @@
 # Introduction
 
-## Basics
-
-### Comments
+## Comments
 
 The x86-64 track in Exercism uses **NASM** (The Netwide Assembler) as its assembler.
 In NASM, comments are prefixed by a semicolon (`;`).
 
 Comments may be placed anywhere in the program and everything that comes after a `;` is ignored by the assembler.
 
-### Constants
+## Constants
 
 An assembler-time constant can be defined in NASM using **equ**.
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
@@ -20,7 +18,7 @@ UNIVERSE equ 42
 
 Constants are evaluated once, when defined, and can *not* be redefined later.
 
-### General Purpose Registers (GPRs)
+## General Purpose Registers (GPRs)
 
 In assembly, instead of variables, we typically use registers to store values.
 A **CPU Register** is a piece of fast memory inside a computer's processor.
@@ -66,7 +64,7 @@ Failing to preserve them may lead to an error or to undefined behaviour.
 
 The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 
-### Instructions
+## Instructions
 
 Instructions are pieces of computations a CPU can perform.
 They usually have the following form:
@@ -78,17 +76,24 @@ name destination, source
 So, the name of the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 The source operand isn't typically modified by an instruction, just the destination operand.
 
-Unless otherwise noted, both operands must have the same size.
-So, for example, if the source operand has 16-bits, the destination operand must also have 16-bits.
+Both operands must have the same size unless otherwise noted.
+For example, the destination operand must also have 16 bits if the source operand has 16 bits.
 
 For instance, to store a value in a register, we can use the `mov` instruction:
 
 ```nasm
-mov rax, 42  ; rax = 42
-             ; mov is the name, rax is the destination operand and 42 is the source operand
+mov rax, rdx  ; rax = rdx
+              ; mov is the name, rax is the destination operand and rdx is the source operand
 ```
 
-The snippet above stores the value `42` in all 64-bits of the `rax` register, which is the destination operand for the instruction.
+The snippet above copies the contents of all 64 bits of `rdx`, the source operand, to all 64 bits of `rax`, which is the destination operand for the instruction.
+
+It is possible to use constant integer numbers as source operands (but not as destination operands) in most instructions:
+
+```nasm
+mov rcx, 42 ; rcx = 42
+            ; rcx is the destination operand and 42 is the source operand
+```
 
 Note that writing to a 32-bit register also clears the upper bits, so `mov eax, 42` is the same as `mov rax, 42`.
 This is not true for 16-bit and 8-bit registers.
@@ -100,7 +105,7 @@ add rax, rsi ; rax = rax + rsi
 imul rax, rdi ; rax = rax * rdi
 sub rax, r8 ; rax = rax - r8
 ```
-### Functions
+## Functions
 
 Instructions are organized in functions.
 All functions are placed in the **section .text** of the source file.

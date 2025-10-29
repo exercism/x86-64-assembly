@@ -262,19 +262,40 @@ def array_literal(cards):
 def gen_func_body(prop, inp, expected):
     str_list = []
     if prop == "value_of_card":
-        return f"TEST_ASSERT_EQUAL_UINT64({expected}, {prop}({inp}));\n"
-    if prop == "value_of_ace":
-        return f"TEST_ASSERT_EQUAL_UINT64({expected}, {prop}({inp[0]}, {inp[1]}));\n"
-    if prop == "higher_card":
-        if len(expected) < 2:
-            expected.append("0")
-        str_list = []
-        str_list.append(f"const card_pair_t expected = {array_literal(expected)};")
-        str_list.append(f"const card_pair_t actual = {prop}({inp[0]}, {inp[1]});")
+        message = f"The function was called with argument: {inp}."
+        str_list.append(f"const uint64_t actual = {prop}({inp});")
+        str_list.append(f"const uint64_t expected = {expected};")
         str_list.append(
-            "TEST_ASSERT((actual.fst == expected.snd && actual.snd == expected.fst) || (actual.fst == expected.fst && actual.snd == expected.snd));"
+            f'TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "{message}");'
         )
-        return "\n".join(str_list)
-    if expected:
-        return f"TEST_ASSERT({prop}({inp[0]}, {inp[1]}));\n"
-    return f"TEST_ASSERT(!{prop}({inp[0]}, {inp[1]}));\n"
+    else:
+        message = f"The function was called with arguments: {inp[0]}, {inp[1]}."
+        str_list.append(f"const card_t card_one = {inp[0]};")
+        str_list.append(f"const card_t card_two = {inp[1]};")
+        if prop == "value_of_ace":
+            str_list.append(f"const uint64_t expected = {expected};")
+            str_list.append(f"const uint64_t actual = {prop}(card_one, card_two);")
+            str_list.append(
+                f'TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "{message}");'
+            )
+        elif prop == "higher_card":
+            if len(expected) < 2:
+                expected.append("0")
+            str_list.append(f"const card_pair_t expected = {array_literal(expected)};")
+            str_list.append(f"const card_pair_t actual = {prop}(card_one, card_two);")
+            str_list.append(
+                "const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;"
+            )
+            str_list.append(
+                "const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;"
+            )
+            str_list.append(
+                f'TEST_ASSERT_MESSAGE(first_cond || second_cond, "{message}");'
+            )
+        else:
+            str_list.append(f"const bool expected = {str(expected).lower()};")
+            str_list.append(f"const bool actual = {prop}(card_one, card_two);")
+            str_list.append(
+                f'TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "{message}");'
+            )
+    return "\n".join(str_list)

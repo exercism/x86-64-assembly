@@ -100,6 +100,26 @@ It's the programmer's responsibility to give meaning to those bytes.
 The use of comments can be a great aid in this task.
 ~~~~
 
+## Immediates
+
+In a previous concept, it was mentioned that a constant number, such as `4` or `15`, can be used as source operand to many instructions.
+Those numbers are called **immediates**.
+
+An immediate is truncated to fit into the destination operand.
+However, in most instructions, an immediate must be at most a _32-bit signed integer_.
+A number that does not fit into this size can not be used directly as operand.
+
+The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as source operand.
+
+It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
+
+```nasm
+add eax, -1          ; this is 4294967295 in unsigned representation
+                     ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
+
+mov eax, 4294967295  ; this works because mov can take a 64-bit immediate as source operand
+```
+
 ## Arithmetic
 
 ### Sum
@@ -177,7 +197,7 @@ inc dest ; dest = dest + 1
 
 The sum of two integers operates in the same way for both unsigned and signed numbers.
 
-## Subtraction
+### Subtraction
 
 The subtraction of two integers is performed using the `sub` instruction.
 
@@ -189,7 +209,7 @@ dec dest ; dest = dest - 1
 
 The subtraction of two integers also operates in the same way for both unsigned and signed numbers.
 
-## Multiplication
+### Multiplication
 
 There are two different instructions to perform multiplication between two numbers in x86-64.
 As a rule, unsigned multiplication uses the instruction [mul][mul], while signed multiplication uses [imul][imul].
@@ -208,7 +228,7 @@ imul dest, src
 imul dest, src1, src2
 ```
 
-### One-operand form
+#### One-operand form
 
 As a general rule, the range of bits needed to represent the product of two integers is the sum of the range of bits needed for each integer being multiplied.
 
@@ -232,21 +252,21 @@ The `rdx` register is implicitly used in one-operand multiplication.
 This means any necessary value in `rdx` must be saved before that operation.
 ~~~~
 
-### Two-operand form
+#### Two-operand form
 
 The two-operand form of `imul` allows for explicitly declaring a different destination operand.
 
 In that case, the product between source and destination operands is placed in the destination operand.
 This product is truncated to fit into the destination operand.
 
-### Three-operand form
+#### Three-operand form
 
 The three-operand form of `imul` multiplies the two source operands and places the result in the destination operand.
 
 This means that the destination operand is not multiplied with any of the source operands, it just receives the result.
 This product is also truncated to fit into the destination operand.
 
-### Handling overflow
+#### Handling overflow
 
 In case of a possible overflow, it is sometimes useful to move operands to a larger register size.
 
@@ -267,14 +287,14 @@ mul ecx ; now eax correctly holds 200 * 100
 
 A 32-bit source operand is always zero-extended to all 64 bits of the destination operand with a simple `mov`.
 
-### Using imul with unsigned numbers
+#### Using imul with unsigned numbers
 
 It is possible to use `imul` to multiply unsigned numbers.
 However, this may give an incorrect result if one of the numbers may be interpreted as negative.
 
 Since the sign bit in a signed integer corresponds to the most significant bit in an unsigned integer, in practice, this difference becomes relevant when more than the truncated result is needed, ie, when the full range of `rdx:rax` is used.
 
-## Division
+### Division
 
 As is the case with multiplication, there are also two instructions to perform division between two numbers.
 Unsigned division uses the instruction [div][div], while signed division uses [idiv][idiv].

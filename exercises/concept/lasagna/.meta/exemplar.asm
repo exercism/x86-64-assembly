@@ -1,4 +1,5 @@
 EXPECTED_MINUTES_IN_OVEN equ 40
+TIME_PER_LAYER equ 2
 
 section .text
 
@@ -16,8 +17,7 @@ remaining_minutes_in_oven:
 global preparation_time_in_minutes
 preparation_time_in_minutes:
     mov rax, rdi
-    mov rcx, 2
-    imul rax, rcx
+    imul rax, TIME_PER_LAYER
     ret
 
 global elapsed_time_in_minutes
