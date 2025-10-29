@@ -41,7 +41,8 @@ The use of comments can be a great aid in this task.
 In a previous concept, it was mentioned that a constant number, such as `4` or `15`, can be used as source operand to many instructions.
 Those numbers are called **immediates**.
 
-In most instructions, an immediate must be a _32-bit signed integer_.
+An immediate is truncated to fit into the destination operand.
+However, in most instructions, an immediate must be at most a _32-bit signed integer_.
 A number that does not fit into this size can not be used directly as operand.
 
 The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as source operand.
