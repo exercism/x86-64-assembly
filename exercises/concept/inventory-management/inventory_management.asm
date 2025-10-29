@@ -1,5 +1,10 @@
 ; Everything that comes after a semicolon (;) is a comment
 
+WEIGHT_OF_EMPTY_BOX equ 500
+TRUCK_HEIGHT equ 300
+PAY_PER_BOX equ 5
+PAY_PER_TRUCK_TRIP equ 220
+
 section .text
 
 ; You should implement functions in the .text section

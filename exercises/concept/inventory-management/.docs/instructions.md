@@ -50,6 +50,7 @@ This function takes as parameters, in this order:
 - The weight of each item of the second product, in `g`
 
 Consider that an empty box weighs **500 g**.
+A constant WEIGHT_OF_EMPTY_BOX is defined at the top of the file.
 
 Example:
 
@@ -69,6 +70,7 @@ Define a function `max_number_of_boxes` that returns how many boxes of a certain
 
 This function takes as parameter the height of the box, in `cm`.
 Consider that the truck interior height is **300 cm**.
+A constant TRUCK_HEIGHT is defined at the top of the file.
 
 Example:
 
