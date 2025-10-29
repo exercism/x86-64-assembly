@@ -140,8 +140,8 @@ Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`)
 
 There are 3 instructions in this group:
 
-| instruction      | where can be added     | may stop earlier         |
-|------------------|------------------------|--------------------------|
-| `rep`            | `movs`, `lods`, `stos` | no                       |
-| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF = 0  |
-| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF = 1  |
+| instruction      | where can be added     | may stop earlier          |
+|------------------|------------------------|---------------------------|
+| `rep`            | `movs`, `lods`, `stos` | no                        |
+| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0  |
+| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1  |
