@@ -25,6 +25,15 @@ These are the instructions mentioned in this concept:
 | movsx a, b    | copies a to b, adding 1 to exceding bits if num b < 0 or 0 otherwise |
 ~~~~
 
+~~~~exercism/note
+Remember that you can access the same register with different sizes by changing the name.
+For example: `rax` (64-bit), `eax` (32-bit), `ax` (16-bit), `al` (8-bit).
+
+You can refer to the [previous concept][basics] for the full table.
+
+[basics]: https://exercism.org/tracks/x86-64-assembly/concepts/basics
+~~~~
+
 ## 1. Get weight of each box
 
 Items are being packed in boxes that must be labeled with their weight.
