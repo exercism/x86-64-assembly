@@ -26,7 +26,7 @@ These are the instructions mentioned in this concept:
 ~~~~
 
 ~~~~exercism/note
-Remember that you can access the same register with different sizes by changing the name.
+Remember that you can access the same register with different sizes by changing the name of the operand.
 For example: `rax` (64-bit), `eax` (32-bit), `ax` (16-bit), `al` (8-bit).
 
 You can refer to the [previous concept][basics] for the full table.
