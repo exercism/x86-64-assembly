@@ -82,11 +82,19 @@ So, for example, if the source operand has 16 bits, the destination operand must
 For instance, to store a value in a register, we can use the [mov][mov] instruction:
 
 ```nasm
-mov rax, 42  ; rax = 42
-             ; mov is the name, rax is the destination operand and 42 is the source operand
+mov rax, rdx  ; rax = rdx
+              ; mov is the name, rax is the destination operand and rdx is the source operand
 ```
 
-The snippet above stores the value `42` in all 64 bits of the `rax` register, which is the destination operand for the instruction.
+The snippet above copies the contents of all 64 bits of `rdx`, the source operand, to all 64 bits of `rax`, which is the destination operand for the instruction.
+
+It is possible to use constant integer numbers as source operands (but not as destination operands) in most instructions.
+Those numbers are called **immediates**:
+
+```nasm
+mov rcx, 42 ; rcx = 42
+            ; rcx is the destination operand and 42 is the source operand
+```
 
 Note that writing to a 32-bit register also clears the upper bits, so `mov eax, 42` is the same as `mov rax, 42`.
 This is not true for 16-bit and 8-bit registers.

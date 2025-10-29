@@ -4,6 +4,19 @@ In this exercise you're going to write some code to help you cook a brilliant la
 
 You have four tasks, all related to the time spent cooking the lasagna.
 
+~~~~exercism/note
+These are the instructions mentioned in this concept:
+
+| Instruction | Description                                                        |
+|-------------|--------------------------------------------------------------------|
+| `mov`       | copies the contents from a source operand to a destination operand |
+| `add`       | destination operand = destination operand + source operand         |
+| `sub`       | destination operand = destination operand - source operand         |
+| `imul`      | destination operand = destination operand * source operand         |
+| `call`      | calls the function in its only operand                             |
+| `ret`       | returns from a function                                            |
+~~~~
+
 ## 1. Define the expected oven time in minutes
 
 Define the `expected_minutes_in_oven` function that does not take any parameters and returns how many minutes the lasagna should be in the oven.
