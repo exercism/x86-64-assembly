@@ -14,6 +14,17 @@ A [standard French-suited 52-card deck][standard_deck] is assumed, but in most v
 [standard_deck]: https://en.wikipedia.org/wiki/Standard_52-card_deck
 ~~~~
 
+~~~~exercism/note
+These are the instructions mentioned in this concept:
+
+| Instruction   | Description                                            |
+|---------------|--------------------------------------------------------|
+| cmp a, b      | sets flags according to a - b                          |
+| test a, b     | sets flags according to a AND b                        |
+| jmp a         | code stops executing here and continues in label a     |
+| jcc a         | code continues in label a if condition in `cc` is met  |
+~~~~
+
 ## 1. Calculate the value of a card
 
 In Blackjack, it is up to each individual player if an ace is worth 1 or 11 points (_more on that later_).

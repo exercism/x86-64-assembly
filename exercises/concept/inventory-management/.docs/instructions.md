@@ -5,6 +5,26 @@ You were hired to pack and move everything.
 
 You have four tasks, all related to managing the transport.
 
+~~~~exercism/note
+These are the instructions mentioned in this concept:
+
+| Instruction   | Description                                                          |
+|---------------|----------------------------------------------------------------------|
+| add a, b      | sets a to a + b                                                      |
+| adc a, b      | sets a to a + b + CF (previous carry)                                |
+| inc a         | sets a to a + 1                                                      |
+| sub a, b      | sets a to a - b                                                      |
+| dec a         | sets a to a - 1                                                      |
+| imul a        | sets rax to a * rax (signed)                                         |
+| imul a, b     | sets a to a * b                                                      |
+| imul a, b, c  | sets a to b * c                                                      |
+| mul a         | sets rax to a * rax (unsigned)                                       |
+| div a         | sets rax to rax / a and rdx to rax % a (unsigned)                    |
+| idiv a        | sets rax to rax / a and rdx to rax % a (signed)                      |
+| movzx a, b    | copies a to b, adding 0 to exceding bits                             |
+| movsx a, b    | copies a to b, adding 1 to exceding bits if num b < 0 or 0 otherwise |
+~~~~
+
 ## 1. Get weight of each box
 
 Items are being packed in boxes that must be labeled with their weight.

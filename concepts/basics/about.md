@@ -76,8 +76,8 @@ name destination, source
 So, the name of the instruction is placed first, then at least one whitespace, followed by the destination operand, a comma (`,`) and finally a source operand.
 The source operand isn't typically modified by an instruction, just the destination operand.
 
-Unless otherwise noted, both operands must have the same size.
-So, for example, if the source operand has 16 bits, the destination operand must also have 16 bits.
+Both operands must have the same size unless otherwise noted.
+For example, the destination operand must also have 16 bits if the source operand has 16 bits.
 
 For instance, to store a value in a register, we can use the [mov][mov] instruction:
 
@@ -88,8 +88,7 @@ mov rax, rdx  ; rax = rdx
 
 The snippet above copies the contents of all 64 bits of `rdx`, the source operand, to all 64 bits of `rax`, which is the destination operand for the instruction.
 
-It is possible to use constant integer numbers as source operands (but not as destination operands) in most instructions.
-Those numbers are called **immediates**:
+It is possible to use constant integer numbers as source operands (but not as destination operands) in most instructions:
 
 ```nasm
 mov rcx, 42 ; rcx = 42

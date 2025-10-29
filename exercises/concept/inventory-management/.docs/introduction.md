@@ -1,8 +1,6 @@
 # Introduction
 
-## Integers
-
-### Binary Notation
+## Binary Notation
 
 An **integer** is an abstraction that represents whole numbers, such as `4`, `-2`, `0` or `64532`.
 
@@ -13,9 +11,9 @@ This means each bit in the sequence represents a distinct power of two.
 In x86-64, those bits are counted in ascending order from the smallest index.
 This means x86-64 is **little endian**.
 
-### Unsigned and Signed Integers
+## Unsigned and Signed Integers
 
-#### Unsigned numbers
+### Unsigned numbers
 
 If the number can only be non-negative, it's called an **unsigned** number.
 
@@ -23,7 +21,7 @@ Unsigned numbers are represented directly as the sum of all set bits in its sequ
 
 The range of representable non-negative integers in a register goes from `0` (no bit set) to `2⁶⁴ - 1` (sum of all 64 bits set).
 
-#### Signed numbers
+### Signed numbers
 
 If an integer can assume positive or negative values, it's called a **signed** number.
 
@@ -38,9 +36,28 @@ It's the programmer's responsibility to give meaning to those bytes.
 The use of comments can be a great aid in this task.
 ~~~~
 
-### Arithmetic
+## Immediates
 
-#### Sum
+In a previous concept, it was mentioned that a constant number, such as `4` or `15`, can be used as source operand to many instructions.
+Those numbers are called **immediates**.
+
+In most instructions, an immediate must be a _32-bit signed integer_.
+A number that does not fit into this size can not be used directly as operand.
+
+The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as source operand.
+
+It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
+
+```nasm
+add eax, -1          ; this is 4294967295 in unsigned representation
+                     ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
+
+mov eax, 4294967295  ; this works because mov can take a 64-bit immediate as source operand
+```
+
+## Arithmetic
+
+### Sum
 
 The addition of two numbers can be calculated using the `add` instruction.
 

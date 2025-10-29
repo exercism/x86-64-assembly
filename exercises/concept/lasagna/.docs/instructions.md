@@ -7,14 +7,14 @@ You have four tasks, all related to the time spent cooking the lasagna.
 ~~~~exercism/note
 These are the instructions mentioned in this concept:
 
-| Instruction | Description                                                        |
-|-------------|--------------------------------------------------------------------|
-| `mov`       | copies the contents from a source operand to a destination operand |
-| `add`       | destination operand = destination operand + source operand         |
-| `sub`       | destination operand = destination operand - source operand         |
-| `imul`      | destination operand = destination operand * source operand         |
-| `call`      | calls the function in its only operand                             |
-| `ret`       | returns from a function                                            |
+| Instruction | Description                     |
+|-------------|---------------------------------|
+| mov a, b    | copies the contents from b to a |
+| add a, b    | sets a to a + b                 |
+| sub a, b    | sets a to a - b                 |
+| imul a, b   | sets a to a * b                 |
+| call a      | calls function a                |
+| ret         | returns from a function         |
 ~~~~
 
 ## 1. Define the expected oven time in minutes
