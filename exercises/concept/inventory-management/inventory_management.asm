@@ -2,12 +2,11 @@
 
 section .text
 
-; the global directive makes a function visible to the test files
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
+; the global directive makes a function visible to the test files
 global get_box_weight
-
 get_box_weight:
     ; This function takes the following parameters:
     ; - The number of items for the first product in the box

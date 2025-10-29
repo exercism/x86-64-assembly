@@ -19,12 +19,11 @@ FALSE equ 2
 
 section .text
 
-; the global directive makes a function visible to the test files
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
+; the global directive makes a function visible to the test files
 global value_of_card
-
 value_of_card:
     ; This function takes as parameter a number representing a card
     ; The function should return the numerical value of the passed-in card

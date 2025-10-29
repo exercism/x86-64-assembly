@@ -3,7 +3,7 @@
   "slug": "x86-64-assembly",
   "active": true,
   "status": {
-    "concept_exercises": false,
+    "concept_exercises": true,
     "test_runner": true,
     "representer": false,
     "analyzer": false
@@ -42,7 +42,7 @@
           "basics"
         ],
         "prerequisites": [],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "inventory-management",
@@ -54,7 +54,7 @@
         "prerequisites": [
           "basics"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "black-jack",
@@ -66,7 +66,7 @@
         "prerequisites": [
           "basics"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "color-palette",
@@ -78,7 +78,7 @@
         "prerequisites": [
           "basics"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "bird-watcher",
@@ -91,7 +91,7 @@
           "conditionals",
           "memory"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "secrets",
@@ -104,7 +104,7 @@
           "conditionals",
           "integers"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "mixed-juices",
@@ -117,7 +117,7 @@
           "conditionals",
           "arrays"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "poetry-club-door-policy",
@@ -130,7 +130,7 @@
           "arrays",
           "loops"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "freelancer-rates",
@@ -144,7 +144,7 @@
           "integers",
           "memory"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "lost-and-found",
@@ -157,7 +157,7 @@
           "strings",
           "integers"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "currency-exchange",
@@ -172,7 +172,7 @@
           "integers",
           "floating-point-numbers"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "need-for-speed",
@@ -187,7 +187,7 @@
           "stack",
           "interfacing-with-c-types"
         ],
-        "status": "wip"
+        "status": "beta"
       }
     ],
     "practice": [

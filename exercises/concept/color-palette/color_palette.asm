@@ -11,10 +11,8 @@ section .text
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
+; the global directive makes a function visible to the test files
 global get_color_value
-global add_base_color
-global make_color_combination
-
 get_color_value:
     ; This function takes the address for a color as parameter
     ; It must return the 32-bit value associated with the color

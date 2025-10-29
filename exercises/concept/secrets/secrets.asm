@@ -2,11 +2,11 @@
 
 section .text
 
-; the global directive makes a function visible to the test files
-
 ; You should implement functions in the .text section
 ; A skeleton is provided for the first function
 
+; the global directive makes a function visible to the test files
+global extract_higher_bits
 extract_higher_bits:
     ; This function has a 16-bit integer as argument
     ; it returns the higher 8-bit value of the argument

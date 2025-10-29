@@ -7,7 +7,6 @@ section .text
 
 ; the global directive makes a function visible to the test files
 global time_to_make_juice
-
 time_to_make_juice:
     ; This function has one argument, the ID for a juice as a 32-bit number
     ; It returns the time to prepare this juice, as a 32-bit number
