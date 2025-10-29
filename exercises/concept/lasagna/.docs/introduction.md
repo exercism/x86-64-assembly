@@ -79,7 +79,7 @@ So, the name of the instruction is placed first, then at least one whitespace, f
 The source operand isn't typically modified by an instruction, just the destination operand.
 
 Unless otherwise noted, both operands must have the same size.
-So, for example, if the source operand has 16-bits, the destination operand must also have 16-bits.
+So, for example, if the source operand has 16 bits, the destination operand must also have 16 bits.
 
 For instance, to store a value in a register, we can use the `mov` instruction:
 
@@ -88,7 +88,7 @@ mov rax, 42  ; rax = 42
              ; mov is the name, rax is the destination operand and 42 is the source operand
 ```
 
-The snippet above stores the value `42` in all 64-bits of the `rax` register, which is the destination operand for the instruction.
+The snippet above stores the value `42` in all 64 bits of the `rax` register, which is the destination operand for the instruction.
 
 Note that writing to a 32-bit register also clears the upper bits, so `mov eax, 42` is the same as `mov rax, 42`.
 This is not true for 16-bit and 8-bit registers.

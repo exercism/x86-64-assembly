@@ -10,6 +10,8 @@ Jokers are discarded.
 In order to make it easier to work with this representation, constants are defined at the top of the file, such that C2 to C10 is a number card, CJ is jack, CQ is queen, CK is king and CA is ace.
 
 A [standard French-suited 52-card deck][standard_deck] is assumed, but in most versions, several decks are shuffled together for play.
+
+[standard_deck]: https://en.wikipedia.org/wiki/Standard_52-card_deck
 ~~~~
 
 ## 1. Calculate the value of a card
@@ -141,4 +143,3 @@ can_double_down(10, 2)
 ```
 
 [blackjack]: https://bicyclecards.com/how-to-play/blackjack/
-[standard_deck]: https://en.wikipedia.org/wiki/Standard_52-card_deck

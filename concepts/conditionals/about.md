@@ -65,7 +65,6 @@ Instead, x86-64 provides instructions that effectively transfer execution to ano
 This is called `branching`.
 
 ~~~~exercism/note
-
 We've already seen two such instructions: `call` and `ret`.
 
 When a function is called, execution is transferred from the caller to the called function.
@@ -73,7 +72,6 @@ And, on return, execution is transferred back to the caller.
 
 If no `ret` is found, execution fallthroughs from one function to the next.
 This can sometimes be used to optimize code flow.
-
 ~~~~
 
 ### Unconditional Jump
