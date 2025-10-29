@@ -38,7 +38,7 @@ If A is the first operand and B, the second:
 
 #### TEST Instruction
 
-The `test` instruction makes a logical AND between both operands and sets flags according to the result.
+The `test` instruction makes a bitwise AND between both operands and sets flags according to the result.
 
 If A is the first operand and B, the second:
 

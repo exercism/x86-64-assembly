@@ -116,7 +116,7 @@ It is good practice to always use a prefix when dereferencing memory.
 
 #### The LEA instruction
 
-Although a `mov` can be used to store the address of a variable in a register, there is an instruction with this specific purpose: **[lea][lea]**.
+Although a `mov` can be used to store the address of a variable in a register, there is an instruction with this specific purpose: **lea**.
 
 This instruction uses a memory-form operand, but it does _not_ read memory.
 Instead, it computes the effective address expression and writes the result in the destination operand:
