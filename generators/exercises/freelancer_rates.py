@@ -98,11 +98,18 @@ def array_literal(cards):
     return str(cards).replace("[", "{").replace("]", "}").replace("'", "")
 
 
+def unroll_args(args):
+    if isinstance(args, (int, float)):
+        return str(args)
+    return str([*args.values()]).replace("[", "").replace("]", "")
+
+
 def gen_func_body(prop, inp, expected):
+    message = f"The function was called with arguments: {unroll_args(inp)}."
     if prop == "daily_rate":
-        return f"TEST_ASSERT_EQUAL_DOUBLE({expected}, {prop}({inp}));\n"
+        return f'TEST_ASSERT_EQUAL_DOUBLE_MESSAGE({expected}, {prop}({inp}), "{message}");\n'
     if prop == "apply_discount":
-        return f"TEST_ASSERT_EQUAL_DOUBLE({expected}, {prop}({inp['price']}, {inp['discount']}));\n"
+        return f'TEST_ASSERT_EQUAL_DOUBLE_MESSAGE({expected}, {prop}({inp["price"]}, {inp["discount"]}), "{message}");\n'
     if prop == "monthly_rate":
-        return f"TEST_ASSERT_EQUAL_UINT64({expected}, {prop}({inp['hourly_rate']}, {inp['discount']}));\n"
-    return f"TEST_ASSERT_EQUAL_UINT32({expected}, {prop}({inp['budget']}, {inp['hourly_rate']}, {inp['discount']}));\n"
+        return f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected}, {prop}({inp["hourly_rate"]}, {inp["discount"]}), "{message}");\n'
+    return f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {prop}({inp["budget"]}, {inp["hourly_rate"]}, {inp["discount"]}), "{message}");\n'

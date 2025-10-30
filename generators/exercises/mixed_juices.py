@@ -236,23 +236,39 @@ def array_literal(numbers):
     return str(numbers).replace("[", "{").replace("]", "}").replace('"', "'")
 
 
+def unroll_args(args):
+    if isinstance(args, (int, float)):
+        return str(args)
+    if isinstance(args, dict):
+        return str([*args.values()]).replace("[", "").replace("]", "")
+    return str(args).replace("[", "").replace("]", "")
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     if prop == "time_to_make_juice":
-        str_list.append(f"TEST_ASSERT_EQUAL_UINT32({expected}, {prop}({inp}));")
+        message = f"The function was called with arguments: {unroll_args(inp)}."
+        str_list.append(
+            f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {prop}({inp}), "{message}");'
+        )
     elif prop == "time_to_prepare":
+        message = f"The function was called with arguments: {unroll_args(inp['IDs'])}."
         str_list.append(f"const uint32_t IDs[] = {array_literal(inp['IDs'])};")
         str_list.append(
-            f"TEST_ASSERT_EQUAL_UINT32({expected}, {prop}(IDs, ARRAY_SIZE(IDs)));"
+            f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {prop}(IDs, ARRAY_SIZE(IDs)), "{message}");'
         )
     elif prop == "limes_to_cut":
+        message = f"Number of wedges needed: {inp['wedges_needed']}. Limes: {unroll_args(inp['limes'])}."
         str_list.append(f"const uint8_t limes[] = {array_literal(inp['limes'])};")
         str_list.append(
-            f"TEST_ASSERT_EQUAL_UINT32({expected}, {prop}({inp['wedges_needed']}, limes, ARRAY_SIZE(limes)));"
+            f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {prop}({inp["wedges_needed"]}, limes, ARRAY_SIZE(limes)), "{message}");'
         )
     else:
+        message = (
+            f"Time left: {inp['time_left']}. Order IDs: {unroll_args(inp['IDs'])}."
+        )
         str_list.append(f"const uint32_t IDs[] = {array_literal(inp['IDs'])};")
         str_list.append(
-            f"TEST_ASSERT_EQUAL_UINT32({expected}, {prop}({inp['time_left']}, IDs));"
+            f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {prop}({inp["time_left"]}, IDs), "{message}");'
         )
     return "\n".join(str_list)

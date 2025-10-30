@@ -8,15 +8,24 @@
 
 ## 1. Check what the counts were last week
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - In order to access contents stored in an address in memory, you need to dereference it using `[]`.
 
 ## 2. Check what are the current counts for this week
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - Uninitialized variables are defined in _section .bss_.
 - You should use both `rax` and `rdx` to return two integers from a function.
 
 ## 3. Save count for each day
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - The prefix to access 1-byte values in memory is `byte`.
 - You can insert or retrieve bytes in bulk using the prefix for a greater data size when accessing memory.
 - You can check for conditions using [cmp][cmp].
@@ -25,15 +34,24 @@
 
 ## 4. Check how many birds visited today
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - 1-byte integer values are returned in `al`.
 - You can use [dec][dec] to subtract 1 from a destination operand's value.
 
 ## 5. Update today's count
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - You can use [add][add] with a destination memory operand.
 
 ## 6. Insert new entries in bulk
 
+- An effective address may be computed with the [lea][lea] instruction.
+- You should use `rel` to form valid relative addresses in memory.
+- The prefix to access 8-byte values in memory is `qword`.
 - You can insert or retrieve bytes in bulk using the prefix for a greater data size when accessing memory.
 
 [lea]: https://www.felixcloutier.com/x86/lea

@@ -205,17 +205,36 @@ def char_literal(char):
     return char.replace()
 
 
+def unroll_args(args):
+    if isinstance(args, (int, float)):
+        return str(args)
+    if isinstance(args, dict):
+        return str([*args.values()]).replace("[", "").replace("]", "")
+    return str(args).replace("[", "").replace("]", "")
+
+
 def gen_func_body(prop, inp, expected):
     if prop == "front_door_response" or prop == "back_door_response":
-        return "TEST_ASSERT_EQUAL_INT8(" + f"'{expected}'" + f', {prop}("{inp}"));\n'
+        message = f"Passed line: {inp}"
+        return (
+            "TEST_ASSERT_EQUAL_INT8_MESSAGE("
+            + f"'{expected}'"
+            + f', {prop}("{inp}"), "{message}");\n'
+        )
     str_list = []
     if prop == "front_door_password":
+        message = f"Combined letters are: {string_literal(inp)}"
         str_list.append(f'char letters[] = "{string_literal(inp)}";')
         str_list.append(f"{prop}(letters);")
-        str_list.append(f'TEST_ASSERT_EQUAL_STRING("{expected}", letters);')
+        str_list.append(
+            f'TEST_ASSERT_EQUAL_STRING_MESSAGE("{expected}", letters, "{message}");'
+        )
     else:
         str_list.append("char buffer[BUFFER_SIZE];")
+        message = f"Combined letters are: {string_literal(inp)}"
         str_list.append(f'char letters[] = "{string_literal(inp)}";')
         str_list.append(f"{prop}(buffer, letters);")
-        str_list.append(f'TEST_ASSERT_EQUAL_STRING("{expected}", buffer);')
+        str_list.append(
+            f'TEST_ASSERT_EQUAL_STRING_MESSAGE("{expected}", buffer, "{message}");'
+        )
     return "\n".join(str_list)

@@ -4,6 +4,51 @@ Your friend has just sent you a message with an important secret.
 Not wanting to make it easy for others to read it, the message was encrypted by performing a series of bit manipulations.
 You will need to write the methods to help decrypt the message.
 
+~~~~exercism/note
+These are the single bit instructions mentioned in this concept:
+
+| Name | Description                                                                   |
+|------|-------------------------------------------------------------------------------|
+|bt    |copies the bit into `CF` without modifying any operand                         |
+|bts   |copies the bit into `CF` and sets it in the destination operand                |
+|btr   |copies the bit into `CF` and clears it in the destination operand              |
+|btc   |copies the bit into `CF` and complements (flips) it in the destination operand |
+
+These are the bitwise instructions mentioned in this concept:
+
+| Name   | Description                                  |
+|--------|----------------------------------------------|
+|and     |1 if both bits are 1                          |
+|or      |1 if at least one of the bits is 1            |
+|xor     |1 if the bits differ                          |
+|not     |1 if bit was 0; 0 if bit was 1                |
+
+These are the shift instructions mentioned in this concept:
+
+| Name    | Description             |
+|---------|-------------------------|
+|shl/sal  |Shifts bits to the left  |
+|shr/sar  |Shifts bits to the right |
+
+These are the rotation instructions mentioned in this concept:
+
+| Name    | Description                                   |
+|---------|-----------------------------------------------|
+|rol      |Rotates bits to the left                       |
+|ror      |Rotates bits to the right                      |
+|rcl      |Rotates bits to the left, including the `CF`   |
+|rcr      |Rotates bits to the right, including the `CF`  |
+
+These are the miscellaneous instructions mentioned in this concept:
+
+| Name     | Description                                                                            |
+|----------|----------------------------------------------------------------------------------------|
+| popcnt   | Counts the number of bits set                                                          |
+| lzcnt    | Counts the number of leading zeros (a bit cleared before the first set bit)            |
+| bsr      | Gets the index of the most significant set bit. If no bit is set, result is undefined  |
+| bsf      | Gets the index of the least significant set bit. If no bit is set, result is undefined |
+~~~~
+
 ## 1. Extract the mask
 
 The message is encoded in a 16-bit integer.

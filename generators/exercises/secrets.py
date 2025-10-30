@@ -18,175 +18,180 @@ def extra_cases():
         {
             "description": "higher_bits_0b1010_0100_1100_0101",
             "property": "extract_higher_bits",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1010_0100,
         },
         {
             "description": "higher_bits_0b0001_1100_0001_1100",
             "property": "extract_higher_bits",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b0001_1100,
         },
         {
             "description": "higher_bits_0b0000_0000_1111_1111",
             "property": "extract_higher_bits",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b0000_0000,
         },
         {
             "description": "higher_bits_0b1111_1111_0000_0000",
             "property": "extract_higher_bits",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b1111_1111,
         },
         {
             "description": "lower_bits_0b1010_0100_1100_0101",
             "property": "extract_lower_bits",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1100_0101,
         },
         {
             "description": "lower_bits_0b0001_1100_0001_1100",
             "property": "extract_lower_bits",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b0001_1100,
         },
         {
             "description": "lower_bits_0b0000_0000_1111_1111",
             "property": "extract_lower_bits",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b1111_1111,
         },
         {
             "description": "lower_bits_0b1111_1111_0000_0000",
             "property": "extract_lower_bits",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b0000_0000,
         },
         {
             "description": "redundant_bits_0b1010_0100_1100_0101",
             "property": "extract_redundant_bits",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1000_0100,
         },
         {
             "description": "redundant_bits_0b0001_1100_0001_1100",
             "property": "extract_redundant_bits",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b0001_1100,
         },
         {
             "description": "redundant_bits_0b0000_0000_1111_1111",
             "property": "extract_redundant_bits",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b0000_0000,
         },
         {
             "description": "redundant_bits_0b1111_1111_0000_0000",
             "property": "extract_redundant_bits",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b0000_0000,
         },
         {
             "description": "set_message_bits_0b1010_0100_1100_0101",
             "property": "set_message_bits",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1110_0101,
         },
         {
             "description": "set_message_bits_0b0001_1100_0001_1100",
             "property": "set_message_bits",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b0001_1100,
         },
         {
             "description": "set_message_bits_0b0000_0000_1111_1111",
             "property": "set_message_bits",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b1111_1111,
         },
         {
             "description": "set_message_bits_0b1111_1111_0000_0000",
             "property": "set_message_bits",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b1111_1111,
         },
         {
             "description": "rotate_private_key_0b1010_0100_1100_0101",
             "property": "rotate_private_key",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1100_1100_1111_0010,
         },
         {
             "description": "rotate_private_key_0b0001_1100_0001_1100",
             "property": "rotate_private_key",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b1001_1001_1110_0101,
         },
         {
             "description": "rotate_private_key_0b0000_0000_1111_1111",
             "property": "rotate_private_key",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b1011_0011_0011_1100,
         },
         {
             "description": "rotate_private_key_0b1111_1111_0000_0000",
             "property": "rotate_private_key",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b1011_0011_0011_1100,
         },
         {
             "description": "format_private_key_0b1010_0100_1100_0101",
             "property": "format_private_key",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1100_0001,
         },
         {
             "description": "format_private_key_0b0001_1100_0001_1100",
             "property": "format_private_key",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b1000_0011,
         },
         {
             "description": "format_private_key_0b0000_0000_1111_1111",
             "property": "format_private_key",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b0111_0000,
         },
         {
             "description": "format_private_key_0b1111_1111_0000_0000",
             "property": "format_private_key",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b0111_0000,
         },
         {
             "description": "decrypt_message_0b1010_0100_1100_0101",
             "property": "decrypt_message",
-            "input": 0b1010_0100_1100_0101,
+            "input": "0b1010_0100_1100_0101",
             "expected": 0b1100_0001_1110_0101,
         },
         {
             "description": "decrypt_message_0b0001_1100_0001_1100",
             "property": "decrypt_message",
-            "input": 0b0001_1100_0001_1100,
+            "input": "0b0001_1100_0001_1100",
             "expected": 0b1000_0011_0001_1100,
         },
         {
             "description": "decrypt_message_0b0000_0000_1111_1111",
             "property": "decrypt_message",
-            "input": 0b0000_0000_1111_1111,
+            "input": "0b0000_0000_1111_1111",
             "expected": 0b0111_0000_1111_1111,
         },
         {
             "description": "decrypt_message_0b1111_1111_0000_0000",
             "property": "decrypt_message",
-            "input": 0b1111_1111_0000_0000,
+            "input": "0b1111_1111_0000_0000",
             "expected": 0b0111_0000_1111_1111,
         },
     ]
 
 
+def num_str_to_literal(num):
+    return int(num.replace("_", ""), 0)
+
+
 def gen_func_body(prop, inp, expected):
+    message = f"The function was called with argument: {inp}."
     if prop == "rotate_private_key" or prop == "decrypt_message":
-        return f"TEST_ASSERT_EQUAL_UINT16({expected}, {prop}({inp}));\n"
-    return f"TEST_ASSERT_EQUAL_UINT8({expected}, {prop}({inp}));\n"
+        return f'TEST_ASSERT_EQUAL_UINT16_MESSAGE({expected}, {prop}({num_str_to_literal(inp)}), "{message}");\n'
+    return f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected}, {prop}({num_str_to_literal(inp)}), "{message}");\n'

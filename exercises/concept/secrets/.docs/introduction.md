@@ -1,12 +1,10 @@
 # Introduction
 
-## Bit Manipulation
-
 As there is no built-in data structure and very few abstractions in assembly, the ability to manipulate bits and bytes is essential.
 
 This is why x86-64 offers a variety of different instructions for bit manipulations.
 
-### Single bit manipulation
+## Single bit manipulation
 
 These instructions work on single bits in a operand.
 
@@ -20,7 +18,7 @@ All of them copy the selected bit into the **carry flag (CF)**.
 |btr   |copies the bit into `CF` and clears it in the destination operand              |
 |btc   |copies the bit into `CF` and complements (flips) it in the destination operand |
 
-### Bitwise operations
+## Bitwise operations
 
 Bitwise operations are performed in all bits of an operand.
 
@@ -36,7 +34,22 @@ They all have an instruction with the same name as the performed bitwise operati
 Most of them take two operands, perform a bitwise operation on both and store the result in the destination operand.
 The exception is `not`, which takes just one destination operand.
 
-### Shift operations
+## TEST Instruction
+
+The `test` instruction makes a bitwise AND between both operands and sets flags according to the result.
+
+If A is the first operand and B, the second:
+
+| flag | set when             |
+|:----:|:---------------------|
+| CF   | always cleared       |
+| ZF   | A AND B == 0         |
+| SF   | A AND B < 0 (signed) |
+| OF   | always cleared       |
+
+This instruction takes two operands and update the flags, but **do not modify its operands**.
+
+## Shift operations
 
 These instructions move the bits in the destination operand by a number of positions specified by the second operand.
 The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8 bits of `rcx`).
@@ -46,7 +59,7 @@ The second operand must be a constant number (an `immediate`) or the register `c
 |shl/sal  |Shifts bits to the left  |
 |shr/sar  |Shifts bits to the right |
 
-#### Shl / Sal
+### Shl / Sal
 
 Both `shl` and `sal` perform the exact same operation, one is an alias of the other.
 
@@ -55,7 +68,7 @@ On the other hand, a number of new cleared bits equal to the length of the shift
 
 Since each bit in an integer represents a power of 2, a shift to the left by n positions has the effect of multiplying the integer by 2ⁿ.
 
-#### Shr/Sar
+### Shr/Sar
 
 There are two instructions to move bits to the right: `shr` and `sar`.
 
@@ -69,7 +82,7 @@ Since each bit in an integer represents a power of 2, a shift to the right by n 
 
 Similarly, a shift to the right by n positions using `sar` has the effect of making a *signed* division by 2ⁿ.
 
-### Rotation Operations
+## Rotation Operations
 
 These instructions move the bits in the destination operand by a number of positions specified by the second operand.
 The second operand must be a constant number (an `immediate`) or the register `cl` (the lowest 8 bits of `rcx`).
@@ -95,7 +108,7 @@ At the same time, the previous value in the flag is moved to the bit that would 
 
 So, the `CF` works as an extra bit to the left in the case of `rcr` and as an extra bit to the right in the case of `rcl`.
 
-### Other bit manipulation instructions
+## Other bit manipulation instructions
 
 There are other useful bit manipulation instructions:
 

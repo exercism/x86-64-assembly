@@ -20,9 +20,31 @@ These are the instructions mentioned in this concept:
 | Instruction   | Description                                            |
 |---------------|--------------------------------------------------------|
 | cmp a, b      | sets flags according to a - b                          |
-| test a, b     | sets flags according to a AND b                        |
 | jmp a         | code stops executing here and continues in label a     |
 | jcc a         | code continues in label a if condition in `cc` is met  |
+
+Those are the conditions checked in a `jcc` after a `cmp a, b`:
+
+| Instruction | Jumps when          |
+|-------------|---------------------|
+| je          | a == b              |
+| jl          | a < b (signed)      |
+| jg          | a > b (signed)      |
+| jb          | a < b (unsigned)    |
+| ja          | a > b (unsigned)    |
+| jle         | a <= b (signed)     |
+| jge         | a >= b (unsigned)   |
+| jbe         | a <= b (unsigned)   |
+| jae         | a >= b (unsigned)   |
+| jne         | a != b              |
+| jnl         | !(a < b) (signed)   |
+| jng         | !(a > b) (signed)   |
+| jnb         | !(a < b) (unsigned) |
+| jna         | !(a > b) (unsigned) |
+| jnle        | !(a <= b) (signed)  |
+| jnge        | !(a >= b) (signed)  |
+| jnbe        | !(a <= b) (unsigned)|
+| jnae        | !(a >= b) (unsigned)|
 ~~~~
 
 ## 1. Calculate the value of a card

@@ -13,7 +13,10 @@ Since floating-point numbers are an approximation of the whole of fractional num
 
 For an in-depth explanation, please refer to [Appendix D][guide] of Oracle's Numerical Computation Guide "What Every Computer Scientist Should Know About Floating-Point Arithmetic".
 
-The [Float Toy page][toy] has a nice, graphical explanation how a floating-point numbers' bits are converted to an actual floating-point value.
+The [Float Toy page][toy] has a nice, graphical explanation for how a floating-point numbers' bits are converted to an actual floating-point value.
+
+[guide]: https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
+[toy]: https://evanw.github.io/float-toy
 ~~~~
 
 ## XMM Registers
@@ -34,11 +37,13 @@ Both `xx` and `yy` are not literals, but placeholders:
 
 This placeholder can take many forms, between them:
 
-- for integers, it is `si`;
-- for single-precision floating-point numbers, it is `ss`; and
-- for double-precision floating-point numbers, it is `sd`.
+| placeholder | meaning               |
+|-------------|-----------------------|
+| `si`        | signed integer        |
+| `ss`        | 32-bit floating-point |
+| `sd`        | 64-bit floating-point |
 
-For instance:
+For example:
 
 ```nasm
 cvtsi2ss xmm0, eax ; converts a signed integer to a single-precision floating-point
@@ -49,8 +54,8 @@ When the floating-point number can not be exactly expressed as an integer, `cvtx
 This could be a round to nearest, a round down, a round up or a truncate.
 There is no guaranteed default at function entry.
 
-Notice that a exact result is not rounded and, thus, not affected by the rounding control.
-For instance, `42.0` would always be converted to `42`.
+Note that a exact result is not rounded and, thus, not affected by the rounding control.
+For instance, `42.0` would _always_ be converted to `42`.
 
 There is a similar family of instructions with the format `cvttxx2si` (with an extra `t`) that always truncates the result.
 
@@ -70,21 +75,42 @@ This number indicates the rounding mode:
 | 2      | Ceil (up)    |
 | 3      | Truncate     |
 
-Those instructions can be used in preparation for a `cvtxx2si`.
+For example:
+
+```nasm
+roundss xmm0, xmm1, 1 ; this rounds down (takes the floor) a 32-bit floating-point in xmm1 and stores it in xmm0
+roundsd xmm2, xmm2, 2 ; this rounds up (takes the ceil) a 64-bit floating-point in xmm2 and stores it in xmm2
+```
+
+Since those instructions produce an exact result, they can be used in preparation for a `cvtxx2si`.
 
 ## Arithmetic Instructions
 
 Many operations with floating-point numbers take instructions with a similar name as its equivalent for integers, but adding the necessary placeholder (`ss` or `sd`) at the end.
-Those instructions are two-operand, with the usual semantics, even those that perform multiplication or division.
+Those instructions are two-operand, with the usual semantics, even those that perform multiplication or division:
 
-For instance, `addss` adds two single-precision floating-point numbers and `mulsd` multiplies two double-precision floating-point numbers.
+```nasm
+addss xmm1, xmm2 ; xmm1 = xmm1 + xmm2 (all 32-bit floating-point)
+mulsd xmm4, xmm5 ; xmm4 = xmm4 * xmm5 (all 64-bit floating-point)
+divss xmm0, xmm3 ; xmm0 = xmm0 / xmm3 (all 32-bit floating-point)
+```
 
 ## Move
 
-Similarly to what happens with arithmetic operations, to move from a XMM register to another, the instruction is `movss` or `movsd`.
+The instructions to move from a XMM register to another are `movss` or `movsd`:
+
+```nasm
+movss xmm1, xmm0 ; this copies a 32-bit floating-point from xmm0 to xmm1
+movsd xmm6, xmm4 ; this copies a 64-bit floating-point from xmm4 to xmm6
+```
 
 It is **not** possible to move an immediate (a constant signed integer) to a xmm register directly.
-This number first needs to be moved into a general-purpose register and then converted using `cvtsi2xx`.
+This number first needs to be moved into a general-purpose register and then converted using `cvtsi2xx`:
+
+```nasm
+mov rax, 10        ; rax is a 64-bit integer with value 10
+cvtsi2sd xmm0, rax ; xmm0 is a 64-bit floating-point with value 10.0
+```
 
 ## Comparisons
 
@@ -133,5 +159,3 @@ section .data
 ```
 
 [ieee]: https://en.wikipedia.org/wiki/IEEE_754
-[guide]: https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-[toy]: https://evanw.github.io/float-toy
