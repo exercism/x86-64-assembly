@@ -1,3 +1,6 @@
+BAD_BASE equ -1
+BAD_DIGIT equ -2
+
 section .text
 global rebase
 
