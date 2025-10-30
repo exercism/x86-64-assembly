@@ -127,7 +127,7 @@ section .text
 fn:
     mov byte [example1], 20   ; example1 now has value 20
     mov qword [example2], rdx ; example2 now has value equal to the contents in rdx
-    mov dword [example3], rax ; example3 now has value equal to the contents in rax
+    mov dword [example3], eax ; example3 now has value equal to the contents in eax
 ```
 
 ### The LEA instruction
