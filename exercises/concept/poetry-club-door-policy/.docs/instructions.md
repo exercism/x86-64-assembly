@@ -18,6 +18,26 @@ All strings in this exercise will be ASCII-encoded and NUL-terminated.
 This means all characters use ASCII encoding and every string ends when the '\0' (the NUL character, with value `0`) is found.
 ~~~~
 
+~~~~exercism/note
+These are the string instructions mentioned in this concept:
+
+| instruction  | what it does                                          |
+|--------------|-------------------------------------------------------|
+| `lods`       | loads from the memory location in `rsi` into `rax`    |
+| `stos`       | stores `rax` into the memory location in `rdi`        |
+| `movs`       | copies between memory locations (`rsi` to `rdi`)      |
+| `cmps`       | compares between memory locations (`rsi` and `rdi`)   |
+| `scas`       | compares `rax` with value in memory location in `rdi` |
+
+These instructions repeat one of the string instructions:
+
+| instruction      | where can be added     | may stop earlier          |
+|------------------|------------------------|---------------------------|
+| `rep`            | `movs`, `lods`, `stos` | no                        |
+| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0  |
+| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1  |
+~~~~
+
 ## 1. Get the first letter of a sentence
 
 To determine the letters for the front door password, you need to respond with the first letter of the line of the poem, that the guard recites to you.

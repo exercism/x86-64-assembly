@@ -1,7 +1,5 @@
 # Introduction
 
-## Memory
-
 Memory is usually mapped for a program by the Operating System (OS) in a general layout:
 
 | address | memory region          |
@@ -19,7 +17,7 @@ The functions we have defined until now were all in **section .text**.
 This section holds read-only executable data.
 Other sections are used to declare data variables, that may be read-only or read-and-write, but are not executable.
 
-### Section .data
+## Section .data
 
 The initialized data is declared in the **section .data**.
 
@@ -45,21 +43,22 @@ section .data
 Variables declared in section .data are mutable, ie, they are read-and-write.
 They also have _static_ storage duration, which means they exist for the entire program runtime.
 
-### Section .rodata
+## Section .rodata
 
 The **section .rodata** is similar to section .data.
 Both sections contain initialized data, which is declared in the same way.
 
 The main difference between them is that data in section .rodata is immutable, ie, read-only.
 
-### Accessing data
+## Accessing data
 
-#### Labels and Indirection
+### Labels and Indirection
 
 Declared data must have a name associated with it.
 This name is called a **label**.
 
 A label is a symbol that encodes the specific address of data in memory.
+**Addresses in x86-64 are 64-bit values**.
 
 In NASM, trying to access data directly with its label does not yield the memory allocated, but its address:
 
@@ -80,11 +79,11 @@ In NASM, this is done with `[]`:
 
 ```nasm
 section .data
-    example dq 27 ; this declares a 8-byte variable initialized with 27
+    example dq -27 ; this declares a 8-byte variable initialized with -27
 
 section .text
 fn:
-    mov rax, [example] ; this dereferences example and access the value stored in memory (27)
+    mov rax, [example] ; this dereferences example and access the value stored in memory (-27)
     ...
 ```
 
@@ -114,7 +113,24 @@ fn:
 
 It is good practice to always use a prefix when dereferencing memory.
 
-#### The LEA instruction
+### Writing to memory
+
+Writing to memory is done in the same way, by dereferencing an address:
+
+```nasm
+section .data
+    example1 db 10            ; example1 is a 1-byte memory location initialized with value 10
+    example2 dq -456          ; example2 is a 8-byte memory location initialized with value -456
+    example3 dd 54            ; example3 is a 4-byte memory location initialized with value 54
+
+section .text
+fn:
+    mov byte [example1], 20   ; example1 now has value 20
+    mov qword [example2], rdx ; example2 now has value equal to the contents in rdx
+    mov dword [example3], rax ; example3 now has value equal to the contents in rax
+```
+
+### The LEA instruction
 
 Although a `mov` can be used to store the address of a variable in a register, there is an instruction with this specific purpose: **lea**.
 
@@ -127,7 +143,7 @@ lea rax, [example] ; this stores the address of 'example' in rax
 
 It is more idiomatic to use `lea` to compute and store memory addresses in registers.
 
-#### Relative Addressing
+### Relative Addressing
 
 When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**.
 This means that the assembler usually produces a fixed memory address.
@@ -152,7 +168,7 @@ Relative addressing can also be made the default for a source file with `default
 
 All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate relative addresses.
 
-#### Visibility
+### Visibility
 
 Labels (functions and data) defined in any section (e.g., .text, .data, .rodata) are visible within the same source file.
 If declared `global`, they are visible to other source files as well.

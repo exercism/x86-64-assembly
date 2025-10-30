@@ -259,6 +259,10 @@ def array_literal(cards):
     return str(cards).replace("[", "{").replace("]", "}").replace("'", "")
 
 
+def strip_brackets(cards):
+    return str(cards).replace("[", "").replace("]", "").replace("'", "")
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     if prop == "value_of_card":
@@ -290,7 +294,7 @@ def gen_func_body(prop, inp, expected):
                 "const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;"
             )
             str_list.append(
-                f'TEST_ASSERT_MESSAGE(first_cond || second_cond, "{message}");'
+                f'TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is {strip_brackets(expected)}. {message}");'
             )
         else:
             str_list.append(f"const bool expected = {str(expected).lower()};")

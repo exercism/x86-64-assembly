@@ -58,6 +58,7 @@ Declared data must have a name associated with it.
 This name is called a **label**.
 
 A label is a symbol that encodes the specific address of data in memory.
+**Addresses in x86-64 are 64-bit values**.
 
 In NASM, trying to access data directly with its label does not yield the memory allocated, but its address:
 
@@ -78,11 +79,11 @@ In NASM, this is done with `[]`:
 
 ```nasm
 section .data
-    example dq 27 ; this declares a 8-byte variable initialized with 27
+    example dq -27 ; this declares a 8-byte variable initialized with -27
 
 section .text
 fn:
-    mov rax, [example] ; this dereferences example and access the value stored in memory (27)
+    mov rax, [example] ; this dereferences example and access the value stored in memory (-27)
     ...
 ```
 
@@ -111,6 +112,23 @@ fn:
 ```
 
 It is good practice to always use a prefix when dereferencing memory.
+
+### Writing to memory
+
+Writing to memory is done in the same way, by dereferencing an address:
+
+```nasm
+section .data
+    example1 db 10            ; example1 is a 1-byte memory location initialized with value 10
+    example2 dq -456          ; example2 is a 8-byte memory location initialized with value -456
+    example3 dd 54            ; example3 is a 4-byte memory location initialized with value 54
+
+section .text
+fn:
+    mov byte [example1], 20   ; example1 now has value 20
+    mov qword [example2], rdx ; example2 now has value equal to the contents in rdx
+    mov dword [example3], rax ; example3 now has value equal to the contents in rax
+```
 
 ### The LEA instruction
 

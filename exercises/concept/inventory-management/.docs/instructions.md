@@ -50,7 +50,7 @@ This function takes as parameters, in this order:
 - The weight of each item of the second product, in `g`
 
 Consider that an empty box weighs **500 g**.
-A constant WEIGHT_OF_EMPTY_BOX is defined at the top of the file.
+A constant `WEIGHT_OF_EMPTY_BOX` is defined at the top of the file.
 
 Example:
 

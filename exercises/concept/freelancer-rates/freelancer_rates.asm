@@ -7,7 +7,6 @@ section .text
 
 ; The global directive makes a function visible to the test files.
 global daily_rate
-
 daily_rate:
     ; This function takes an hourly_rate, as a 64-bit floating-point number.
     ; It returns the daily rate, also as a 64-bit floating-point number.

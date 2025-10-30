@@ -236,13 +236,17 @@ def array_literal(cards):
 def check_current_week(prop, expected):
     str_list = []
     str_list.append(f"current_week_t crt = {prop}();")
-    str_list.append(f"TEST_ASSERT_EQUAL_UINT64({expected[0]}, crt.counts);")
-    str_list.append(f"TEST_ASSERT_EQUAL_UINT64({expected[1]}, crt.length);")
+    str_list.append(
+        f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected[0]}, crt.counts, "Counts for the week are different than expected.");'
+    )
+    str_list.append(
+        f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected[1]}, crt.length, "The number of counts is different than expected.");'
+    )
     return "\n".join(str_list)
 
 
 def check_last_week(prop, expected):
-    return f"TEST_ASSERT_EQUAL_UINT64({expected}, {prop}());\n"
+    return f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected}, {prop}(), "Counts for last week are different than expected.");\n'
 
 
 def gen_func_body(prop, inp, expected):
@@ -268,5 +272,7 @@ def gen_func_body(prop, inp, expected):
         return "\n".join(str_list)
     if prop == "update_today_count":
         str_list.append(f"{prop}({inp});")
-    str_list.append(f"TEST_ASSERT_EQUAL_UINT8({expected}, today_count());")
+    str_list.append(
+        f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected}, today_count(), "Today\'s count is different than expected.");'
+    )
     return "\n".join(str_list)

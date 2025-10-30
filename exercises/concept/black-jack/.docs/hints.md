@@ -4,16 +4,22 @@
 
 - The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
 - The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
-- When you call a function, you need to preserve any necessary value in a register the called function uses.
+- When you call a function, the called function may modify a register you are using.
 
 ## 1. Calculate the value of a card
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can use `jl` to branch if a number is lesser than the other.
 
 ## 2. Determine which card has a higher value
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - Once you have defined the `value_of_card` function, you can call it from other functions.
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `jg` to branch is a number is greater than the other, and `jl` to branch if it is lesser.
@@ -21,6 +27,9 @@
 
 ## 3. Calculate the value of an ace
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - Once you have defined the `value_of_card` function, you can call it from other functions.
 - You can use `add` to sum two numbers.
 - You can use `sub` to subtract the second number from the first.
@@ -29,12 +38,18 @@
 
 ## 4. Determine blackjack
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can reuse the already implemented `value_of_card` function.
 
 ## 5. Splitting pairs
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - You can use `cmp` to compare two cards, setting the appropriate flags.
 - You can use `je` or `jz` to branch if a number is equal to the other.
 - You can reuse the already implemented `value_of_card` function.
@@ -42,6 +57,9 @@
 
 ## 6. Doubling down
 
+- The instructions [cmp][cmp] and [test][test] are useful to set flags according to some tested conditions.
+- The instructions [jmp][jmp] and [jcc][jcc] are useful to branch according to flags previously set.
+- When you call a function, the called function may modify a register you are using.
 - An ace can always be scored at either 1 or 11.
 - You can reuse the already implemented `value_of_card` function.
 

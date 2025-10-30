@@ -16,10 +16,13 @@ Some of those are listed below:
 
 ## Comparison Instructions
 
-The flags in `rflags` are set by many different instructions.
+The flags in `rflags` are _not_ modified directly.
+Instead, they are set by many different instructions.
 
-Two of the most common instructions used to test conditions are `cmp` and `test`.
-They both take two operands and update the flags, but **do not modify their operands**.
+For instance, `ZF` is set by many arithmetic or bitwise operations when the result is zero.
+
+One of the most common instructions used to test conditions is `cmp`.
+It takes two operands and update the flags, but **do not modify its operands**.
 
 ### CMP Instruction
 
@@ -34,19 +37,6 @@ If A is the first operand and B, the second:
 | SF   | A < B (signed)                 |
 | OF   | overflow in signed subtraction |
 
-### TEST Instruction
-
-The `test` instruction makes a bitwise AND between both operands and sets flags according to the result.
-
-If A is the first operand and B, the second:
-
-| flag | set when             |
-|:----:|:---------------------|
-| CF   | always cleared       |
-| ZF   | A AND B == 0         |
-| SF   | A AND B < 0 (signed) |
-| OF   | always cleared       |
-
 ## Branching
 
 As a default, code in x86-64 executes sequentially from top to bottom.
@@ -60,9 +50,19 @@ However, those do not exist in x86-64.
 Instead, x86-64 provides instructions that effectively transfer execution to another location of the code.
 This is called `branching`.
 
+~~~~exercism/note
+We've already seen two such instructions: `call` and `ret`.
+
+When a function is called, execution is transferred from the caller to the called function.
+And, on return, execution is transferred back to the caller.
+
+If no `ret` is found, execution fallthroughs from one function to the next.
+This can sometimes be used to optimize code flow.
+~~~~
+
 ### Unconditional Jump
 
-The instruction `jmp` unconditionally transfers execution of the program to another point of the code.
+The instruction [jmp][jump] unconditionally transfers execution of the program to another point of the code.
 Its single operand is a label which has the address to the point where execution will continue.
 
 Consider, for instance, the following function:
@@ -89,7 +89,7 @@ The value of `rax` when `fn` returns is 5.
 
 ### Conditional Jump
 
-The family of instructions `jcc` transfers execution of the program to another point only if a specific condition is met.
+The family of instructions [jcc][jcc] transfers execution of the program to another point only if a specific condition is met.
 Otherwise, execution continues sequentially.
 
 Each condition maps to one or more flags in `rflags`.
@@ -98,34 +98,37 @@ Some `jcc` variants test that a flag is set, others test that it is cleared.
 The `cc` in `jcc` is not literal, but refers to the specific suffix associated with the flag tested.
 
 There are many suffixes and many of them test the same condition as another.
-This is because many of them are chosen in order to refer to their meaning in a `cmp` instruction.
+Some of those refer directly to a flag, so that the instruction jumps to a label if the specific flag is set:
 
+| suffix | jumps if |
+|:------:|:--------:|
+| z      | ZF == 1  |
+| c      | CF == 1  |
+| s      | SF == 1  |
+| o      | OF == 1  |
+
+Many others are chosen in order to refer to their meaning in a `cmp` instruction.
+For example:
+
+| instruction | suffix | jumps if         |
+|-------------|:------:|:-----------------|
+| cmp A, B    | e      | A == B           |
+| cmp A, B    | l      | A < B (signed)   |
+| cmp A, B    | b      | A < B (unsigned) |
+| cmp A, B    | g      | A > B (signed)   |
+| cmp A, B    | a      | A > B (unsigned) |
+
+Note that somes suffixes are aliases to the same conditions.
 For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
 This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
 
-The following table shows some of the possible suffixes and their meaning.
-Consider that A is the first operand, and B the second, in a `cmp` instruction.
+It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition:
 
-| suffix | meaning          |
-|:------:|:-----------------|
-| e      | A == B           |
-| l      | A < B (signed)   |
-| b      | A < B (unsigned) |
-| g      | A > B (signed)   |
-| a      | A > B (unsigned) |
-
-It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition.
-
-For instance, `jge` jumps when A >= B (A and B interpreted as signed integers).
-
-There are also suffixes which refer directly to the flag being tested:
-
-| suffix | flag |
-|:------:|:----:|
-| z      | ZF   |
-| c      | CF   |
-| s      | SF   |
-| o      | OF   |
+```nasm
+cmp rcx, r8
+jge two      ; this jumps to 'two' if rcx is greater than, or equal to, r8 in a signed comparison
+jbe two      ; this jumps to 'two' if rcx is lesser than, or equal to, r8 in an unsigned comparison
+```
 
 For all suffixes, there are variants which check the opposite behavior.
 They have the same syntax, but with a `n` before the suffix.
@@ -159,9 +162,24 @@ fn2:
 It is still possible to jump to this label from anywhere in the code by using the full label name, for instance, `jmp fn1.example`.
 
 However, a jump that uses the part of the label starting at the dot will be made to the label _inside_ the upper function.
-So, `.example` behaves as if it was local to the function, either `fn1` or `fn2`.
+For example, `.example` behaves as if it was local to the function:
 
-Notice that a non-dotted label inside a function in practice defines another function:
+```nasm
+section .text
+fn1:
+    ...
+.example:
+    ...
+    jmp .example ; this jumps to fn1.example
+
+fn2:
+    ...
+.example:
+    ...
+    jmp .example ; this jumps to fn2.example
+```
+
+Note that a non-dotted label inside a function in practice defines another function:
 
 ```nasm
 section .text
@@ -175,3 +193,6 @@ non_dotted:
     ...
     ret
 ```
+
+[jmp]: https://www.felixcloutier.com/x86/jmp
+[jcc]: https://www.felixcloutier.com/x86/jcc

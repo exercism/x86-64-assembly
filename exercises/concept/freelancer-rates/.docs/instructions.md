@@ -12,6 +12,39 @@ Sometimes, the freelancer is offering to apply a discount on their daily rate (f
 
 Discounts are modeled as fractional numbers representing percentages, for example, `25.0` (25%).
 
+~~~~exercism/note
+These are the suffixes to floating-point instructions:
+
+| Suffix | Operand size |
+|--------|--------------|
+| `ss`   | 32-bit       |
+| `sd`   | 64-bit       |
+
+These are some of the instructions mentioned in this concept:
+
+| Instruction       | Description                                                  |
+|-------------------------|--------------------------------------------------------|
+| movss/movsd a, b        | copies b to a                                          |
+| addss/addsd a, b        | a = a + b                                              |
+| subss/subsd a, b        | a = a - b                                              |
+| mulss/mulsd a, b        | a = a * b                                              |
+| divss/divsd a, b        | a = a / b                                              |
+| cvtsi2ss/cvtsi2sd a, b  | converts integer b to floating-point a                 |
+| roundss/roundsd a, b, c | rounds floating-point b according to c and stores in a |
+| cvtss2si/cvtsd2si a, b  | converts floating-point b to integer a                 |
+| comiss/comisd a, b      | makes a comparison between a and b, exception if `NaN` |
+| ucomiss/ucomisd a, b    | makes a comparison between a and b, sets `PF` if `NaN` |
+
+These are the rounding control numbers in `roundss` and `roundsd`:
+
+| Number | Mode         |
+|:-------|:-------------|
+| 0      | Nearest      |
+| 1      | Floor (down) |
+| 2      | Ceil (up)    |
+| 3      | Truncate     |
+~~~~
+
 ## 1. Calculate the daily rate given an hourly rate
 
 Implement a function called `daily_rate` to calculate the daily rate given as parameter an hourly rate, as a 64-bit floating-point number.

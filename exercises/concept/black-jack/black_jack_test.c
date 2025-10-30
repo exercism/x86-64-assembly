@@ -38,44 +38,51 @@ void tearDown(void) {
 }
 
 void test_value_of_card_2(void) {
+    const uint64_t actual = value_of_card(C2);
     const uint64_t expected = 2;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(C2), "The function was called with argument: C2.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: C2.");
 }
 
 void test_value_of_card_5(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(C5);
     const uint64_t expected = 5;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(C5), "The function was called with argument: C5.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: C5.");
 }
 
 void test_value_of_card_a(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(CA);
     const uint64_t expected = 1;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(CA), "The function was called with argument: CA.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: CA.");
 }
 
 void test_value_of_card_j(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(CJ);
     const uint64_t expected = 10;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(CJ), "The function was called with argument: CJ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: CJ.");
 }
 
 void test_value_of_card_8(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(C8);
     const uint64_t expected = 8;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(C8), "The function was called with argument: C8.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: C8.");
 }
 
 void test_value_of_card_k(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(CK);
     const uint64_t expected = 10;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(CK), "The function was called with argument: CK.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: CK.");
 }
 
 void test_value_of_card_q(void) {
     TEST_IGNORE();
+    const uint64_t actual = value_of_card(CQ);
     const uint64_t expected = 10;
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, value_of_card(CQ), "The function was called with argument: CQ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: CQ.");
 }
 
 void test_higher_card_4_8(void) {
@@ -86,7 +93,7 @@ void test_higher_card_4_8(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: C4, C8.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C8, 0. The function was called with arguments: C4, C8.");
 }
 
 void test_higher_card_a_a(void) {
@@ -97,7 +104,7 @@ void test_higher_card_a_a(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: CA, CA.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is CA, CA. The function was called with arguments: CA, CA.");
 }
 
 void test_higher_card_6_j(void) {
@@ -108,7 +115,7 @@ void test_higher_card_6_j(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: C6, CJ.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is CJ, 0. The function was called with arguments: C6, CJ.");
 }
 
 void test_higher_card_10_j(void) {
@@ -119,7 +126,7 @@ void test_higher_card_10_j(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: C10, CJ.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C10, CJ. The function was called with arguments: C10, CJ.");
 }
 
 void test_higher_card_3_a(void) {
@@ -130,7 +137,7 @@ void test_higher_card_3_a(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: C3, CA.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C3, 0. The function was called with arguments: C3, CA.");
 }
 
 void test_higher_card_5_5(void) {
@@ -141,7 +148,7 @@ void test_higher_card_5_5(void) {
     const card_pair_t actual = higher_card(card_one, card_two);
     const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
     const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The function was called with arguments: C5, C5.");
+    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C5, C5. The function was called with arguments: C5, C5.");
 }
 
 void test_value_of_ace_2_3(void) {

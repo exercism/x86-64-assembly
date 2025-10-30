@@ -34,6 +34,21 @@ They all have an instruction with the same name as the performed bitwise operati
 Most of them take two operands, perform a bitwise operation on both and store the result in the destination operand.
 The exception is `not`, which takes just one destination operand.
 
+## TEST Instruction
+
+The `test` instruction makes a bitwise AND between both operands and sets flags according to the result.
+
+If A is the first operand and B, the second:
+
+| flag | set when             |
+|:----:|:---------------------|
+| CF   | always cleared       |
+| ZF   | A AND B == 0         |
+| SF   | A AND B < 0 (signed) |
+| OF   | always cleared       |
+
+This instruction takes two operands and update the flags, but **do not modify its operands**.
+
 ## Shift operations
 
 These instructions move the bits in the destination operand by a number of positions specified by the second operand.
