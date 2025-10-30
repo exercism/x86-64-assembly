@@ -1,3 +1,5 @@
+INCOMPLETE_SEQUENCE equ -1
+
 section .text
 global encode
 global decode

@@ -1,3 +1,5 @@
+WRONG_PARITY equ -1
+
 section .text
 global transmit_sequence, decode_message
 

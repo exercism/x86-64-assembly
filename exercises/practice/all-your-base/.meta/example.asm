@@ -1,3 +1,6 @@
+BAD_BASE equ -1
+BAD_DIGIT equ -2
+
 section .text
 global rebase
 
@@ -92,11 +95,11 @@ rebase:
     ret
 
 .bad_base:
-    mov rax, -1
+    mov rax, BAD_BASE
     ret
 
 .bad_digit:
-    mov rax, -2
+    mov rax, BAD_DIGIT
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64

@@ -1,3 +1,6 @@
+EMPTY_RESULT equ 0
+INVALID_INPUT equ -1
+
 section .text
 global largest
 global smallest
