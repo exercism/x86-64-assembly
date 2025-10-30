@@ -1,3 +1,6 @@
+NEGATIVE_TARGET equ -1
+UNREACHABLE_TARGET equ -2
+
 section .text
 global find_fewest_coins
 

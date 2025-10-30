@@ -1,3 +1,5 @@
+ERROR_VALUE equ -1
+
 section .text
 global steps
 steps:

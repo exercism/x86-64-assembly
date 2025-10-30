@@ -1,3 +1,6 @@
+SUCCESS equ 0
+UNREACHABLE_GOAL equ 1
+
 section .text
 global measure
 
