@@ -21,7 +21,7 @@ def extra_cases():
     return [
         {
             "description": "last_week_default",
-            "property": "last_weeks_counts",
+            "property": "last_week_counts",
             "input": None,
             "expected": 0
             | (2 << 8)
@@ -246,7 +246,12 @@ def check_current_week(prop, expected):
 
 
 def check_last_week(prop, expected):
-    return f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected}, {prop}(), "Counts for last week are different than expected.");\n'
+    str_list = []
+    str_list.append(f"const uint64_t actual = {prop}();")
+    str_list.append(
+        f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected}, actual, "Counts for last week are different than expected.");'
+    )
+    return "\n".join(str_list)
 
 
 def gen_func_body(prop, inp, expected):
@@ -272,7 +277,8 @@ def gen_func_body(prop, inp, expected):
         return "\n".join(str_list)
     if prop == "update_today_count":
         str_list.append(f"{prop}({inp});")
+    str_list.append("const uint8_t actual = today_count();")
     str_list.append(
-        f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected}, today_count(), "Today\'s count is different than expected.");'
+        f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected}, actual, "Today\'s count is different than expected.");'
     )
     return "\n".join(str_list)
