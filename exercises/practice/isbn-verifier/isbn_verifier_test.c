@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 extern int is_valid(const char *isbn);
@@ -54,6 +52,20 @@ void test_invalid_character_in_isbn_is_not_treated_as_zero(void) {
 void test_x_is_only_valid_as_a_check_digit(void) {
     TEST_IGNORE();
     const char *isbn = "3-598-2X507-9";
+
+    TEST_ASSERT_FALSE(is_valid(isbn));
+}
+
+void test_only_one_check_digit_is_allowed(void) {
+    TEST_IGNORE();
+    const char *isbn = "3-598-21508-96";
+
+    TEST_ASSERT_FALSE(is_valid(isbn));
+}
+
+void test_x_is_not_substituted_by_the_value_10(void) {
+    TEST_IGNORE();
+    const char *isbn = "3-598-2X507-5";
 
     TEST_ASSERT_FALSE(is_valid(isbn));
 }
@@ -151,6 +163,8 @@ int main(void) {
     RUN_TEST(test_invalid_check_digit_in_isbn_is_not_treated_as_zero);
     RUN_TEST(test_invalid_character_in_isbn_is_not_treated_as_zero);
     RUN_TEST(test_x_is_only_valid_as_a_check_digit);
+    RUN_TEST(test_only_one_check_digit_is_allowed);
+    RUN_TEST(test_x_is_not_substituted_by_the_value_10);
     RUN_TEST(test_valid_isbn_without_separating_dashes);
     RUN_TEST(test_isbn_without_separating_dashes_and_x_as_check_digit);
     RUN_TEST(test_isbn_without_check_digit_and_dashes);
