@@ -48,7 +48,7 @@ They also have _static_ storage duration, which means they exist for the entire 
 The **section .rodata** is similar to section .data.
 Both sections contain initialized data, which is declared in the same way.
 
-The main difference between them is that data in section .rodata is immutable, ie, read-only.
+The main difference between them is that data in section `.rodata` is immutable, i.e., read-only.
 
 ~~~~exercism/note
 Constants defined with `equ` are different than those defined in section .rodata.
