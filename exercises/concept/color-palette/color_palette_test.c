@@ -42,60 +42,60 @@ void tearDown(void) {
 }
 
 void test_get_color_value_cyan(void) {
-    TEST_ASSERT_EQUAL_UINT32(*cyan, get_color_value(cyan));
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*cyan, get_color_value(cyan), "The color value for cyan is different from expected.");
 }
 
 void test_get_color_value_brown(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(*brown, get_color_value(brown));
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*brown, get_color_value(brown), "The color value for brown is different from expected.");
 }
 
 void test_get_color_value_gunmetal(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(*gunmetal, get_color_value(gunmetal));
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*gunmetal, get_color_value(gunmetal), "The color value for gunmetal is different from expected.");
 }
 
 void test_get_color_value_byzantium(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(*byzantium, get_color_value(byzantium));
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*byzantium, get_color_value(byzantium), "The color value for byzantium is different from expected.");
 }
 
 void test_base_color_default(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL(base_color, *white);
+    TEST_ASSERT_EQUAL_MESSAGE(base_color, *white, "The value for the base color is different from expected.");
 }
 
 void test_base_color_beige(void) {
     TEST_IGNORE();
     add_base_color(beige);
-    TEST_ASSERT_EQUAL(base_color, *beige);
+    TEST_ASSERT_EQUAL_MESSAGE(base_color, *beige, "The value for the base color is different from expected.");
 }
 
 void test_base_color_lime(void) {
     TEST_IGNORE();
     add_base_color(lime);
-    TEST_ASSERT_EQUAL(base_color, *lime);
+    TEST_ASSERT_EQUAL_MESSAGE(base_color, *lime, "The value for the base color is different from expected.");
 }
 
 void test_base_color_coffee(void) {
     TEST_IGNORE();
     add_base_color(coffee);
-    TEST_ASSERT_EQUAL(base_color, *coffee);
+    TEST_ASSERT_EQUAL_MESSAGE(base_color, *coffee, "The value for the base color is different from expected.");
 }
 
 void test_constant_red(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(0xFF000000, RED);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(0xFF000000, RED, "The value for the constant 0xFF000000 is different from expected.");
 }
 
 void test_constant_green(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(0x00FF0000, GREEN);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(0x00FF0000, GREEN, "The value for the constant 0x00FF0000 is different from expected.");
 }
 
 void test_constant_blue(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_UINT32(0x0000FF00, BLUE);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(0x0000FF00, BLUE, "The value for the constant 0x0000FF00 is different from expected.");
 }
 
 void test_combine_red_green_is_yellow(void) {
@@ -103,7 +103,7 @@ void test_combine_red_green_is_yellow(void) {
     uint32_t combined_color;
     add_base_color(&RED);
     make_color_combination(&combined_color, &GREEN);
-    TEST_ASSERT_EQUAL_UINT32(*yellow, combined_color);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*yellow, combined_color, "The value of the combined color is different than expected.");
 }
 
 void test_combine_green_blue_is_cyan(void) {
@@ -111,7 +111,7 @@ void test_combine_green_blue_is_cyan(void) {
     uint32_t combined_color;
     add_base_color(&GREEN);
     make_color_combination(&combined_color, &BLUE);
-    TEST_ASSERT_EQUAL_UINT32(*cyan, combined_color);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*cyan, combined_color, "The value of the combined color is different than expected.");
 }
 
 void test_combine_yellow_blue_is_white(void) {
@@ -119,7 +119,7 @@ void test_combine_yellow_blue_is_white(void) {
     uint32_t combined_color;
     add_base_color(yellow);
     make_color_combination(&combined_color, &BLUE);
-    TEST_ASSERT_EQUAL_UINT32(*white, combined_color);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*white, combined_color, "The value of the combined color is different than expected.");
 }
 
 void test_combine_cyan_red_is_white(void) {
@@ -127,7 +127,7 @@ void test_combine_cyan_red_is_white(void) {
     uint32_t combined_color;
     add_base_color(cyan);
     make_color_combination(&combined_color, &RED);
-    TEST_ASSERT_EQUAL_UINT32(*white, combined_color);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*white, combined_color, "The value of the combined color is different than expected.");
 }
 
 void test_combine_purple_gunmetal_is_mauveine(void) {
@@ -135,7 +135,7 @@ void test_combine_purple_gunmetal_is_mauveine(void) {
     uint32_t combined_color;
     add_base_color(purple);
     make_color_combination(&combined_color, gunmetal);
-    TEST_ASSERT_EQUAL_UINT32(*mauveine, combined_color);
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(*mauveine, combined_color, "The value of the combined color is different than expected.");
 }
 
 int main(void) {

@@ -40,7 +40,7 @@ static const uint64_t capacities[] = {
 static uint64_t capacity_index = 0;
 
 static void *malloc_helper(uint64_t size) {
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(capacities[capacity_index], size, "The requested size is different from expected.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(capacities[capacity_index], size, "In allocator: the requested size is different from expected.");
     void* list_space = malloc(size);
     unsigned char *bytes = (unsigned char *)list_space;
     for (size_t i = 0; i < size; ++i) {

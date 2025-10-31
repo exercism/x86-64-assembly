@@ -95,7 +95,7 @@ A bit from the message should be set to 1 where the bit in the mask is also 1.
 All other bits should be kept _unchanged_, so that they remain set if they were already set, and cleared if they were already cleared.
 
 ```c
-set_bits(0b1100010011000101);
+set_message_bits(0b1110010011000101);
 // => 0b11100101
 ```
 
@@ -126,10 +126,11 @@ PRIVATE_KEY equ 0b1011_0011_0011_1100
 
 ## 6. Format private key
 
-After rotation, your private key must be formatted to isolate the relevant bits.
+In order to be used in decryption, your private key must be formatted to isolate the relevant bits.
 
-To format a rotated private key, you must:
+To fully format a private key, you must:
 
+- Rotate it.
 - Isolate the lowest 8-bit portion of the rotated private key, which is the base value.
 - Isolate the highest 8-bit portion of the rotated private key, which is a mask to be applied to the base value.
 - Flip set bits in the base value that are also set in the mask.
@@ -153,7 +154,9 @@ The resulting message is a 16-bit integer, of which:
 - The highest 8 bits is filled with the formatted private key.
 - The lowest 8 bits is filled with the message, after setting all relevant bits.
 
-Implement the `decrypt_message` function that takes a 16-bit integer, encoding both the message and a mask, and returns a 16-bit integer with the message fully decrypted.
+Implement the `decrypt_message` function that takes a 16-bit integer encoding both the message and a mask, and returns a 16-bit integer with the message fully decrypted.
+
+This function should make use of the formatted private key that you generate with `format_private_key` and also of the message with all relevant bits set with `set_message_bits`.
 
 ```c
 decrypt_message(0b1100010011000101);

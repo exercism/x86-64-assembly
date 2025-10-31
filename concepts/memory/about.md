@@ -50,6 +50,15 @@ Both sections contain initialized data, which is declared in the same way.
 
 The main difference between them is that data in section .rodata is immutable, ie, read-only.
 
+~~~~exercism/note
+Constants defined with `equ` are different than those defined in section .rodata.
+
+A constant defined with `equ` does not occupy space in memory and is directly substituted for its value by the assembler.
+It is in fact a placeholder for its value.
+
+On the other hand, constants defined in section .rodata are actually stored in memory, having an address.
+~~~~
+
 ## Accessing data
 
 ### Labels and Indirection

@@ -61,6 +61,7 @@ time_to_prepare:
     call time_to_make_juice
     add r8d, eax
     loop .loop
+
     mov eax, r8d
     ret
 

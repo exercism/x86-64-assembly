@@ -33,6 +33,14 @@ add rsp, 24 ; this restores the previous value of rsp, "reducing" the stack by 2
 
 Note that, at the moment space is reserved in stack, the value stored in that space is _undefined_.
 
+~~~~exercism/note
+Neither `pop` nor direct manipulation of `rsp` actually remove the contents stored in memory.
+The "removal" of the stack is abstracted from the new address in `rsp`.
+
+In some contexts, this may cause security concerns by exposing internal values to external sources.
+One way to deal with that is by zeroing-out the contents of any stack space used by the function.
+~~~~
+
 ## Call and Ret
 
 The main purpose of the stack is to keep track of the return address for called functions.
