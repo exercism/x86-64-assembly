@@ -197,6 +197,16 @@ void test_large_garden(void) {
     TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
 
+void test_multiple_adjacent_flowers(void) {
+    TEST_IGNORE();
+    const char *garden = " ** \n";
+    const char *expected = "1**1\n";
+    char buffer[BUFFER_SIZE];
+
+    annotate(buffer, garden);
+    TEST_ASSERT_EQUAL_STRING(expected, buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_no_rows);
@@ -211,5 +221,6 @@ int main(void) {
     RUN_TEST(test_vertical_line_flowers_at_edges);
     RUN_TEST(test_cross);
     RUN_TEST(test_large_garden);
+    RUN_TEST(test_multiple_adjacent_flowers);
     return UNITY_END();
 }
