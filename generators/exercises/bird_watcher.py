@@ -2,6 +2,9 @@ FUNC_PROTO = """\
 #include "vendor/unity.h"
 
 #include <stdint.h>
+#include <stdio.h>
+
+#define BUFFER_SIZE 80
 
 typedef struct {
     uint64_t counts;
@@ -14,6 +17,41 @@ extern void save_count(uint8_t count);
 extern uint8_t today_count(void);
 extern void update_today_count(uint8_t count);
 extern void update_week_counts(uint64_t week_count);
+
+static void generate_bitstring(char buffer[], uint64_t number) {
+    size_t j = 0;
+    buffer[j++] = '{';
+    for (size_t i = 0; i < 8; ++i) {
+        uint8_t byte = number & 255;
+        number >>= 8;
+
+        if (!byte) {
+            buffer[j++] = '0';
+            buffer[j++] = ',';
+            buffer[j++] = ' ';
+            continue;
+        }
+
+        char temp[4] = {0};
+        size_t temp_idx = 4;
+
+        while (byte) {
+            const uint8_t digit = byte % 10;
+            byte /= 10;
+            temp[--temp_idx] = digit + '0';
+        }
+
+        for (; temp_idx < 4; ++temp_idx) {
+            buffer[j++] = temp[temp_idx];
+        }
+
+        buffer[j++] = ',';
+        buffer[j++] = ' ';
+    }
+
+    buffer[j - 2] = '}';
+    buffer[j - 1] = 0;
+}
 """
 
 
@@ -236,8 +274,12 @@ def array_literal(cards):
 def check_current_week(prop, expected):
     str_list = []
     str_list.append(f"current_week_t crt = {prop}();")
+    str_list.append("char exp_buffer_current[BUFFER_SIZE] = {0};")
+    str_list.append("char actual_buffer_current[BUFFER_SIZE] = {0};")
+    str_list.append(f"generate_bitstring(exp_buffer_current, {expected[0]});")
+    str_list.append("generate_bitstring(actual_buffer_current, crt.counts);")
     str_list.append(
-        f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected[0]}, crt.counts, "Counts for the week are different than expected.");'
+        'TEST_ASSERT_EQUAL_STRING_MESSAGE(exp_buffer_current, actual_buffer_current, "Counts for the week are different than expected.");'
     )
     str_list.append(
         f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected[1]}, crt.length, "The number of counts is different than expected.");'
@@ -248,8 +290,12 @@ def check_current_week(prop, expected):
 def check_last_week(prop, expected):
     str_list = []
     str_list.append(f"const uint64_t actual = {prop}();")
+    str_list.append("char exp_buffer_last[BUFFER_SIZE] = {0};")
+    str_list.append("char actual_buffer_last[BUFFER_SIZE] = {0};")
+    str_list.append(f"generate_bitstring(exp_buffer_last, {expected});")
+    str_list.append("generate_bitstring(actual_buffer_last, actual);")
     str_list.append(
-        f'TEST_ASSERT_EQUAL_UINT64_MESSAGE({expected}, actual, "Counts for last week are different than expected.");'
+        'TEST_ASSERT_EQUAL_STRING_MESSAGE(exp_buffer_last, actual_buffer_last, "Counts for last week are different than expected.");'
     )
     return "\n".join(str_list)
 

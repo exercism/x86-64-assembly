@@ -74,3 +74,5 @@ fn:
     cmp rax, 3
     loopne .example ; this repeats the sequence starting in .example while rcx > 0 and rax != 3
 ```
+
+[loop]: https://www.felixcloutier.com/x86/loop:loopcc

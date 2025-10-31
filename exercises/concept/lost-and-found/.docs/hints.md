@@ -7,12 +7,16 @@
 
 ## 1. Create an entry for each item
 
+- The first six integer arguments are passed to a function in `rdi`, `rsi`, `rdx`, `rcx`, `r8` and `r9`.
+- Addresses in memory are 64-bit (8-byte) values.
 - All integer arguments after the sixth are passed in the stack, the first being in `rsp + 8`.
 - The number of extra arguments is equal to the number of categories, which is passed in `r9`.
 - You can loop to add the extra arguments one by one, or you can use [movsq][movs] combined with [rep][rep].
 
 ## 2. Reserve space for a monthly list of items
 
+- The first six integer arguments are passed to a function in `rdi`, `rsi`, `rdx`, `rcx`, `r8` and `r9`.
+- Addresses in memory are 64-bit (8-byte) values.
 - You need to know the size of the array in order to clear its bytes after calling the allocating function.
 - When you call an external function, it can modify the value in any _caller-saved register_.
 - You can preserve the value of a register in the stack by using [push][push] or by manipulating `rsp` directly.
@@ -20,6 +24,8 @@
 
 ## 3. Insert an item in the monthly list
 
+- The first six integer arguments are passed to a function in `rdi`, `rsi`, `rdx`, `rcx`, `r8` and `r9`.
+- Addresses in memory are 64-bit (8-byte) values.
 - A value that does not fit into a register is passed to a function on the stack.
 - Each entry for an item occupies 120 bytes of space, which is much larger than the maximum size for a register (8 bytes).
 - Arguments passed on the stack can be found in addresses starting at `rsp + 8`.
@@ -27,6 +33,8 @@
 
 ## 4. Print an item
 
+- The first six integer arguments are passed to a function in `rdi`, `rsi`, `rdx`, `rcx`, `r8` and `r9`.
+- Addresses in memory are 64-bit (8-byte) values.
 - The introductory string is optional, you can call the printing function with `0` instead.
 - If the introductory string is passed to the printing function, it must have at most 50 ASCII characters, already including the NUL terminator (value `0`).
 - Whenever you call a function, you must reserve space on the stack for any argument after the sixth.

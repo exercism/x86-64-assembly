@@ -153,19 +153,23 @@ def array_literal(cards):
 def gen_func_body(prop, inp, expected):
     str_list = []
     if prop == "get_color_value":
-        return f"TEST_ASSERT_EQUAL_UINT32(*{expected}, {prop}({inp}));\n"
+        return f'TEST_ASSERT_EQUAL_UINT32_MESSAGE(*{expected}, {prop}({inp}), "The color value for {expected} is different from expected.");\n'
     if prop == "add_base_color":
         if inp is None:
-            return f"TEST_ASSERT_EQUAL(base_color, *{expected});\n"
+            return f'TEST_ASSERT_EQUAL_MESSAGE(base_color, *{expected}, "The value for the base color is different from expected.");\n'
         str_list = []
         str_list.append(f"{prop}({inp});")
-        str_list.append(f"TEST_ASSERT_EQUAL(base_color, *{expected});")
+        str_list.append(
+            f'TEST_ASSERT_EQUAL_MESSAGE(base_color, *{expected}, "The value for the base color is different from expected.");'
+        )
         return "\n".join(str_list)
     if prop == "constant":
-        return f"TEST_ASSERT_EQUAL_UINT32({expected}, {inp});\n"
+        return f'TEST_ASSERT_EQUAL_UINT32_MESSAGE({expected}, {inp}, "The value for the constant {expected} is different from expected.");\n'
     str_list = []
     str_list.append("uint32_t combined_color;")
     str_list.append(f"add_base_color({inp[0]});")
     str_list.append(f"{prop}(&combined_color, {inp[1]});")
-    str_list.append(f"TEST_ASSERT_EQUAL_UINT32(*{expected}, combined_color);")
+    str_list.append(
+        f'TEST_ASSERT_EQUAL_UINT32_MESSAGE(*{expected}, combined_color, "The value of the combined color is different than expected.");'
+    )
     return "\n".join(str_list)

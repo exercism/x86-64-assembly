@@ -49,7 +49,7 @@ So when she starts her shift in the morning she needs to make sure the bin of li
 
 Implement the function `limes_to_cut` which takes the number of lime wedges Li Mei needs to cut, an array representing the supply of whole limes she has at hand, and the number of limes in the array.
 
-Each lime is represented in the array by a character (a 8-bit number) with its size.
+Each lime is represented in the array by a character with its size.
 Different sizes of lime can give Li Mei a different number of wedges:
 
 | Size  | Wedges |
@@ -58,7 +58,24 @@ Different sizes of lime can give Li Mei a different number of wedges:
 | 'M'   | 8      |
 | 'L'   | 10     |
 
-She always cuts the limes in the order in which they appear in the array, starting with the first item.
+~~~~exercism/note
+A character is a 8-bit number that can be used as any 8-bit number can:
+
+| Character | Value |
+|-----------|-------|
+| 'S'       | 83    |
+| 'M'       | 77    |
+| 'L'       | 76    |
+
+It can also be used directly in instructions, being equivalent to its value:
+
+```nasm
+mov dl, 'S'
+cmp cl, 'M'
+```
+~~~~
+
+Li Mei always cuts the limes in the order in which they appear in the array, starting with the first item.
 She keeps going until she reached the number of wedges that she needs or until she runs out of limes.
 
 Li Mei would like to know in advance how many limes she needs to cut.

@@ -7,20 +7,28 @@
 
 ## 1. Define the expected oven time in minutes
 
+- You need to make the functions [visible to other files][global].
+- The [NASM documentation][interfacing] describes how function arguments are passed and return values are retrieved.
 - There is an [instruction][mov] to store a value in a register.
 - You may define assembler-time constants using `equ`.
 
 ## 2. Calculate the remaining oven time in minutes
 
+- You need to make the functions [visible to other files][global].
+- The [NASM documentation][interfacing] describes how function arguments are passed and return values are retrieved.
 - You can [call][call] one of the other functions you've defined previously.
 - There is an [instruction][sub] for subtracting values.
 
 ## 3. Calculate the preparation time in minutes
 
+- You need to make the functions [visible to other files][global].
+- The [NASM documentation][interfacing] describes how function arguments are passed and return values are retrieved.
 - There is an [instruction][imul] for multiplying values.
 
 ## 4. Calculate the elapsed time in minutes
 
+- You need to make the functions [visible to other files][global].
+- The [NASM documentation][interfacing] describes how function arguments are passed and return values are retrieved.
 - You can [call][call] one of the other functions you've defined previously.
 - There is an [instruction][add] for adding values.
 
