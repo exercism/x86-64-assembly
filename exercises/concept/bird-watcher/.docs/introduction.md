@@ -47,7 +47,7 @@ fn:
                                       ; 8 is a signed 32-bit displacement
                                       ; rax now holds 8-bytes stored in 'arr' starting at offset:
                                       ; 8*rdx(2) + 8 = 16 + 8 = 24
-                                      ; this is the fourth element of the array, ie, the element 23
+                                      ; this is the fourth element of the array, i.e., the element 23
 ```
 
 Note that, since addresses are for bytes, it is possible to access directly an individual byte for any element in an array:
@@ -98,7 +98,7 @@ So, by defining `example_length` with this value, we have created a 8-byte varia
 ### Section .bss
 
 Uninitialized data is declared in the **section .bss**.
-On most platforms, this data is filled with zero by the OS at the start of the program.
+On most platforms, this data is automatically filled with zero by the OS at the start of the program.
 
 In NASM, an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
@@ -126,7 +126,7 @@ section .bss
     arr resq 10
 ```
 
-Variables in section .bss are mutable, ie, they are read-and-write.
+Variables in `section .bss` are mutable, i.e., they are read-and-write.
 
 Unitialized data can be accessed in the same way as initialized data, by using its effective address.
 Similarly, they are also of static storage duration and accessible from any function in the same source file (and, if declared `global`, in other source files as well).

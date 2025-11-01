@@ -40,23 +40,23 @@ section .data
     space db 10
 ```
 
-Variables declared in section .data are mutable, ie, they are read-and-write.
+Variables declared in `section .data` are mutable, i.e., they are read-and-write.
 They also have _static_ storage duration, which means they exist for the entire program runtime.
 
 ## Section .rodata
 
-The **section .rodata** is similar to section .data.
+The **section .rodata** is similar to `section .data`.
 Both sections contain initialized data, which is declared in the same way.
 
-The main difference between them is that data in section `.rodata` is immutable, i.e., read-only.
+The main difference between them is that data in `section .rodata` is immutable, i.e., read-only.
 
 ~~~~exercism/note
-Constants defined with `equ` are different than those defined in section .rodata.
+Constants defined with `equ` are different than those defined in `section .rodata`.
 
 A constant defined with `equ` does not occupy space in memory and is directly substituted for its value by the assembler.
-It is in fact a placeholder for its value.
+It is in fact a placeholder for that value.
 
-On the other hand, constants defined in section .rodata are actually stored in memory, having an address.
+On the other hand, constants defined in `section .rodata` are actually stored in memory, having an address.
 ~~~~
 
 ## Accessing data
@@ -162,7 +162,7 @@ However, this can sometimes introduce security concerns, by making addresses pre
 One possible mitigation for this involves randomizing locations of memory regions, so that an attacker can't reliably predict addresses.
 In order to do that, executables must be built as **PIE (Position Independent Executable)**.
 
-However, in a PIE, the final address of a variable is not known at link time.
+However, in a `PIE`, the final address of a variable is not known at link time.
 So, code instead computes addresses as an offset from the value in a special register called `rip`, which points to the next instruction to be executed.
 
 This is usually called **RIP-relative addressing**.
@@ -175,11 +175,11 @@ mov rax, qword [rel variable]
 
 Relative addressing can also be made the default for a source file with `default rel` at the top.
 
-All exercises in this track are compiled and linked as PIE, so `rel` should be used to generate relative addresses.
+All exercises in this track are compiled and linked as `PIE`, so `rel` should be used to generate relative addresses.
 
 ### Visibility
 
-Labels (functions and data) defined in any section (e.g., .text, .data, .rodata) are visible within the same source file.
+Labels (functions and data) defined in any section (e.g., `.text`, `.data`, `.rodata`) are visible within the same source file.
 If declared `global`, they are visible to other source files as well.
 
 Conversely, labels defined in other source files are visible to the current source file if declared `extern`.

@@ -9,7 +9,7 @@ One key difference between them is that calling a function pushes the address to
 This means that a recursive function usually demands more stack space than an equivalent loop.
 
 As a consequence, a function which keeps calling itself may eventually exhaust all stack space.
-This is called a `stack overflow`.
+This is called a **stack overflow**.
 
 This is why every recursive function must have at least one base case, which is a situation when the function returns without calling itself.
 Any recursive call must eventually reach a base case.
@@ -56,7 +56,7 @@ triple_of_square:
 
 This is called [tail call][tail].
 
-The main advantage of a `tail call` is avoiding the extra cost of `call`, ie, pushing `rip` to the stack.
+The main advantage of a `tail call` is avoiding the extra cost of `call`, i.e., pushing `rip` to the stack.
 This is particularly useful on a recursive function, which tends to call itself multiple times before returning.
 
 In some cases, with a manipulation of the order of the functions, even this `jmp` instruction might be dispensed:

@@ -78,7 +78,7 @@ enum example {
 };
 ```
 
-In C, enums are implicitly converted to an integer type, which is typically an `int`, ie, a 4-byte integer.
+In C, enums are implicitly converted to an integer type, which is typically an `int`, i.e., a 4-byte integer.
 
 By default the first possible element in an enum is converted to `0` and all subsequent elements are converted to the next integer.
 So, in the `enum example` defined above, `example_1` would have value `0`, `example_2` would have value `1` and so on.
