@@ -115,7 +115,7 @@ struct example_4 {
 // it occupies 16 bytes in space:
 // 8 bytes for field 'one'
 // 2 bytes for field 'two'
-// 2 bytes for padding
+// 2 padding bytes
 // 4 bytes for field 'three'
 // two' and 'three' are adjacent and can be grouped to sum up 8 bytes with only 2 bytes of padding
 
@@ -144,6 +144,23 @@ struct array_example {
 };
 // array_example has alignment of 1 (it can be placed at any address)
 // it occupies 10 bytes in space, one for each char in 'string'
+```
+
+Elements of an array can be grouped in the same way as if they were not part of an array:
+
+```c
+struct group_array {
+    int16_t arr[3];
+    int8_t one_byte;
+    int32_t four_byte;
+};
+// group_array has alignment of 4 because this is the alignment of 'four_byte'
+// it occupies 12 bytes in space:
+// 4 bytes for arr[0] and arr[1]
+// 2 bytes for arr[2]
+// 1 byte for 'one_byte'
+// 1 padding byte (arr[2] is grouped with 'one_byte')
+// 4 bytes for 'four_byte'
 ```
 
 It is important to account for any possible padding bytes whenever accessing a struct in assembly.
@@ -199,10 +216,12 @@ struct mixed_types {
 // the field 'floating_point' is passed on the next 4 bytes
 ```
 
-~~~~exercism/note
+~~~~exercism/caution
 When a conversion is made from a floating-point to an integer using `cvtsi2ss` or `cvtsi2sd`, this changes the organization of the underlying bytes.
 
 You can use [movd][mov] (for 32-bit values) or [movq][mov] (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
+
+[mov]: https://www.felixcloutier.com/x86/movd:movq
 ~~~~
 
 However, structs with more than 16 bytes in size are usually placed in memory, regardless of the type of each 8-byte:
@@ -227,4 +246,3 @@ The function then stores the struct in this space and returns its address in `ra
 
 [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [alignment]: https://en.cppreference.com/w/c/language/object.html#Alignment
-[mov]: https://www.felixcloutier.com/x86/movd:movq

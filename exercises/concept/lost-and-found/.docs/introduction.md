@@ -54,7 +54,7 @@ Subsequently, the operand for the instruction is moved into `rip`, so that execu
 A `ret` instruction does the opposite operation.
 It pops from the stack into `rip`, so execution returns to the calling function.
 
-So, at point of entry, `rsp` points to the address to be returned.
+At point of entry, `rsp` points to the address to be returned.
 This is the address `ret` must pop from the stack.
 
 So, any change in the value of `rsp` inside a function, either directly or with `push`, must be reversed before the function returns.
@@ -113,7 +113,7 @@ Since at point of entry, `rsp` points to the return address, which is a 8-byte v
 ## Stack Alignment
 
 The System V ABI states that the stack needs to be 16 byte aligned immediately _before_ the call instruction is executed.
-As `call` pushes `rdi` into the stack, at point of entry the stack for the called function is **not** 16-byte aligned.
+As `call` pushes `rip` into the stack, at point of entry the stack for the called function is **not** 16-byte aligned.
 
 This means that a function that calls another (and, in special, external functions) needs to align the stack before using `call`.
 

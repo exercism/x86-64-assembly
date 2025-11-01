@@ -20,7 +20,7 @@
 - You need to know the size of the array in order to clear its bytes after calling the allocating function.
 - When you call an external function, it can modify the value in any _caller-saved register_.
 - You can preserve the value of a register in the stack by using [push][push] or by manipulating `rsp` directly.
-- Any modification to `rsp`, including with `push` must be reversed before the function returns, either with [pop][pop] or by changing `rsp` directly.
+- Any modification to `rsp`, including with `push`, must be reversed before the function returns, either with [pop][pop] or by changing `rsp` directly.
 
 ## 3. Insert an item in the monthly list
 
