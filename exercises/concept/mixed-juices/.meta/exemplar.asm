@@ -1,3 +1,12 @@
+default rel
+
+SMALL_WEDGES equ 6
+MEDIUM_WEDGES equ 8
+LARGE_WEDGES equ 10
+
+section .rodata
+    juice_time dd 1, 3, 3, 4, 5, 4, 7, 10
+
 section .text
 
 global time_to_make_juice
@@ -6,56 +15,14 @@ global limes_to_cut
 global remaining_orders
 
 time_to_make_juice:
-    cmp edi, 2
-    jl .pure_strawberry_joy
-    je .energizer
-
-    cmp edi, 4
-    jl .green_garden
-    je .tropical_island
-
-    cmp edi, 6
-    jl .all_or_nothing
-    je .feel_good
-
-    cmp edi, 8
-    jl .todays_special
-
-    mov eax, 10
-    ret
-
-.pure_strawberry_joy:
-    mov eax, 1
-    ret
-
-.energizer:
-    mov eax, 3
-    ret
-
-.green_garden:
-    mov eax, 3
-    ret
-
-.tropical_island:
-    mov eax, 4
-    ret
-
-.all_or_nothing:
-    mov eax, 5
-    ret
-
-.feel_good:
-    mov eax, 4
-    ret
-
-.todays_special:
-    mov eax, 7
+    lea rax, [juice_time]
+    mov dword eax, [rax + 4*rdi - 4]
     ret
 
 time_to_prepare:
     mov ecx, esi
     mov rdx, rdi
-    mov r8d, 0
+    mov r8d, 0 ; accumulator
 .loop:
     mov edi, dword [rdx + 4*rcx - 4]
     call time_to_make_juice
@@ -66,7 +33,7 @@ time_to_prepare:
     ret
 
 limes_to_cut:
-    mov eax, 0
+    mov eax, 0 ; counter for limes
 .loop:
     cmp edi, 0
     jle .exit
@@ -88,19 +55,20 @@ limes_to_cut:
     je .large
 
     jmp .loop
+
 .small:
     inc eax
-    sub edi, 6
+    sub edi, SMALL_WEDGES
     jmp .loop
 
 .medium:
     inc eax
-    sub edi, 8
+    sub edi, MEDIUM_WEDGES
     jmp .loop
 
 .large:
     inc eax
-    sub edi, 10
+    sub edi, LARGE_WEDGES
     jmp .loop
 
 .exit:
