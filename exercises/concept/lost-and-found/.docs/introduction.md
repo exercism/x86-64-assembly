@@ -45,6 +45,9 @@ One way to deal with that is by zeroing-out the contents of any stack space used
 
 The main purpose of the stack is to keep track of the return address for called functions.
 
+As it was mentioned in a previous concept, there is a special register called `rip` that points to the next instruction to be executed.
+This register is used to control the flow of a program, being modified by instructions such as `jmp` and `call`.
+
 Whenever a `call` instruction is used, the current value in `rip` is implicitly pushed to the stack.
 Subsequently, the operand for the instruction is moved into `rip`, so that execution continues in the called function.
 

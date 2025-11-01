@@ -155,7 +155,7 @@ section .data
     pi dq 3.141592653589793 ; this is a double-precision floating-point value
     exp_num dd 1.e5 ; this is a single precision floating-point value equal to 1 * 10⁵
     exp_num2 dd 1.e+5 ; this is a single precision floating-point value equal to 1 * 10⁵
-    frac dq 1.e-10 ; this is a double precision floating-point value equal to 1 * 10⁻¹⁰, ie, 0.0000000001
+    frac dq 1.e-10 ; this is a double precision floating-point value equal to 1 * 10⁻¹⁰, i.e., 0.0000000001
 ```
 
 [ieee]: https://en.wikipedia.org/wiki/IEEE_754

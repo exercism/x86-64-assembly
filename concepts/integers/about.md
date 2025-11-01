@@ -292,7 +292,7 @@ A 32-bit source operand is always zero-extended to all 64 bits of the destinatio
 It is possible to use `imul` to multiply unsigned numbers.
 However, this may give an incorrect result if one of the numbers may be interpreted as negative.
 
-Since the sign bit in a signed integer corresponds to the most significant bit in an unsigned integer, in practice, this difference becomes relevant when more than the truncated result is needed, ie, when the full range of `rdx:rax` is used.
+Since the sign bit in a signed integer corresponds to the most significant bit in an unsigned integer, in practice, this difference becomes relevant when more than the truncated result is needed, i.e., when the full range of `rdx:rax` is used.
 
 ### Division
 
