@@ -35,8 +35,7 @@ days_in_budget:
     cvtsi2sd xmm1, rdi
     divsd xmm1, xmm0
     roundsd xmm0, xmm1, 1
-    cvtsd2ss xmm0, xmm0
-    cvtss2si eax, xmm0
+    cvtsd2si eax, xmm0
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64

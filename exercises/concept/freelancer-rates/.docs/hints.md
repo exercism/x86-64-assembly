@@ -34,5 +34,4 @@
 - The first 8 floating-point arguments are passed in `xmm0` to `xmm7`.
 - You can use `roundsd` to round a double-precision floating-point number, using a third operand to indicate the rounding mode.
 - The number for a round down (floor) is `1`.
-- You can use `cvtsd2ss` to convert a double-precision floating-point number to a single-precision floating-point number.
-- You can use `cvtss2si` to convert a single-precision floating-point number to a 32-bit integer.
+- You can use `cvtsd2si` to convert a double-precision floating-point number to a 32-bit integer.
