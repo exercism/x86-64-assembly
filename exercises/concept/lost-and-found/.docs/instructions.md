@@ -8,6 +8,15 @@ This is all done on paper, so things sometimes get unwieldy!
 
 Leticia asked for your help in automating some of these tasks.
 
+~~~~exercism/note
+These are the instructions mentioned in this concept:
+
+| Instruction   | Description                                               |
+|---------------|-----------------------------------------------------------|
+| push a        | pushes a into the stack, reducing `rsp` by the size of a  |
+| pop a         | pops a from the stack, increasing `rsp` by the size of a  |
+~~~~
+
 ## 1. Create an entry for each item
 
 The first thing you need to do is to organize all items, so they can be looked up in a easier way.

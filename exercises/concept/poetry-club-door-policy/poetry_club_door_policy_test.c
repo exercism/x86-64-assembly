@@ -16,89 +16,98 @@ void tearDown(void) {
 }
 
 void test_front_door_response_s1(void) {
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('S', front_door_response("Sunshine warming my toes,"), "Passed line: Sunshine warming my toes,");
+    const char actual = front_door_response("Sunshine warming my toes,");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("S", &actual, 1, "Passed line: Sunshine warming my toes,");
 }
 
 void test_front_door_response_u1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('U', front_door_response("Underwater fun with my friends."),
-                                   "Passed line: Underwater fun with my friends.");
+    const char actual = front_door_response("Underwater fun with my friends.");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("U", &actual, 1, "Passed line: Underwater fun with my friends.");
 }
 
 void test_front_door_response_m1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('M', front_door_response("Making homemade ice cream on the porch,"),
-                                   "Passed line: Making homemade ice cream on the porch,");
+    const char actual = front_door_response("Making homemade ice cream on the porch,");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("M", &actual, 1, "Passed line: Making homemade ice cream on the porch,");
 }
 
 void test_front_door_response_m2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('M', front_door_response("Many long nights catching fireflies."),
-                                   "Passed line: Many long nights catching fireflies.");
+    const char actual = front_door_response("Many long nights catching fireflies.");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("M", &actual, 1, "Passed line: Many long nights catching fireflies.");
 }
 
 void test_front_door_response_e1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('E', front_door_response("Early morning walks to the creek,"),
-                                   "Passed line: Early morning walks to the creek,");
+    const char actual = front_door_response("Early morning walks to the creek,");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("E", &actual, 1, "Passed line: Early morning walks to the creek,");
 }
 
 void test_front_door_response_r1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('R', front_door_response("Reveling in the freedom of lazy days."),
-                                   "Passed line: Reveling in the freedom of lazy days.");
+    const char actual = front_door_response("Reveling in the freedom of lazy days.");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("R", &actual, 1, "Passed line: Reveling in the freedom of lazy days.");
 }
 
 void test_front_door_response_s2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('S', front_door_response("Serene, calming quality"), "Passed line: Serene, calming quality");
+    const char actual = front_door_response("Serene, calming quality");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("S", &actual, 1, "Passed line: Serene, calming quality");
 }
 
 void test_front_door_response_o1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('O', front_door_response("Organized, you always have it together"),
-                                   "Passed line: Organized, you always have it together");
+    const char actual = front_door_response("Organized, you always have it together");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("O", &actual, 1, "Passed line: Organized, you always have it together");
 }
 
 void test_front_door_response_p1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('P', front_door_response("Picturesque, strikingly beautiful"),
-                                   "Passed line: Picturesque, strikingly beautiful");
+    const char actual = front_door_response("Picturesque, strikingly beautiful");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("P", &actual, 1, "Passed line: Picturesque, strikingly beautiful");
 }
 
 void test_front_door_response_h1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('H', front_door_response("Honest, so genuine"), "Passed line: Honest, so genuine");
+    const char actual = front_door_response("Honest, so genuine");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("H", &actual, 1, "Passed line: Honest, so genuine");
 }
 
 void test_front_door_response_i1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('I', front_door_response("Imaginative, a creative mind"), "Passed line: Imaginative, a creative mind");
+    const char actual = front_door_response("Imaginative, a creative mind");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("I", &actual, 1, "Passed line: Imaginative, a creative mind");
 }
 
 void test_front_door_response_a1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('A', front_door_response("Alluring, so attractive"), "Passed line: Alluring, so attractive");
+    const char actual = front_door_response("Alluring, so attractive");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("A", &actual, 1, "Passed line: Alluring, so attractive");
 }
 
 void test_front_door_response_c1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('C', front_door_response("Compilers intensily bestow"), "Passed line: Compilers intensily bestow");
+    const char actual = front_door_response("Compilers intensily bestow");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("C", &actual, 1, "Passed line: Compilers intensily bestow");
 }
 
 void test_front_door_response_o2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('O', front_door_response("On commencing without ego"), "Passed line: On commencing without ego");
+    const char actual = front_door_response("On commencing without ego");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("O", &actual, 1, "Passed line: On commencing without ego");
 }
 
 void test_front_door_response_d1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('D', front_door_response("Different processes ajar"), "Passed line: Different processes ajar");
+    const char actual = front_door_response("Different processes ajar");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("D", &actual, 1, "Passed line: Different processes ajar");
 }
 
 void test_front_door_response_e2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('E', front_door_response("Exit with zero quick"), "Passed line: Exit with zero quick");
+    const char actual = front_door_response("Exit with zero quick");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("E", &actual, 1, "Passed line: Exit with zero quick");
 }
 
 void test_front_door_password_summer(void) {
@@ -124,48 +133,56 @@ void test_front_door_password_code(void) {
 
 void test_back_door_response_w1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('w', back_door_response("Compilers intensily bestow"), "Passed line: Compilers intensily bestow");
+    const char actual = back_door_response("Compilers intensily bestow");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("w", &actual, 1, "Passed line: Compilers intensily bestow");
 }
 
 void test_back_door_response_o1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('o', back_door_response("On commencing without ego"), "Passed line: On commencing without ego");
+    const char actual = back_door_response("On commencing without ego");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("o", &actual, 1, "Passed line: On commencing without ego");
 }
 
 void test_back_door_response_r1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('r', back_door_response("Different processes ajar"), "Passed line: Different processes ajar");
+    const char actual = back_door_response("Different processes ajar");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("r", &actual, 1, "Passed line: Different processes ajar");
 }
 
 void test_back_door_response_k1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('k', back_door_response("Exit with zero quick"), "Passed line: Exit with zero quick");
+    const char actual = back_door_response("Exit with zero quick");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("k", &actual, 1, "Passed line: Exit with zero quick");
 }
 
 void test_back_door_response_h1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('H', back_door_response("Stands so HIGH   "), "Passed line: Stands so HIGH   ");
+    const char actual = back_door_response("Stands so HIGH   ");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("H", &actual, 1, "Passed line: Stands so HIGH   ");
 }
 
 void test_back_door_response_o2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('o', back_door_response("	Huge ... hooves ... too!"), "Passed line: 	Huge ... hooves ... too!");
+    const char actual = back_door_response("	Huge ... hooves ... too!");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("o", &actual, 1, "Passed line: 	Huge ... hooves ... too!");
 }
 
 void test_back_door_response_r2(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('r', back_door_response("Impatiently waits for... 	 	"),
-                                   "Passed line: Impatiently waits for... 	 	");
+    const char actual = back_door_response("Impatiently waits for... 	 	");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("r", &actual, 1, "Passed line: Impatiently waits for... 	 	");
 }
 
 void test_back_door_response_s1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('s', back_door_response("    Reins and harness    "), "Passed line:     Reins and harness    ");
+    const char actual = back_door_response("    Reins and harness    ");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("s", &actual, 1, "Passed line:     Reins and harness    ");
 }
 
 void test_back_door_response_e1(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT8_MESSAGE('E', back_door_response("Eager to LEAVE!!!"), "Passed line: Eager to LEAVE!!!");
+    const char actual = back_door_response("Eager to LEAVE!!!");
+    TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("E", &actual, 1, "Passed line: Eager to LEAVE!!!");
 }
 
 void test_back_door_password_work(void) {
