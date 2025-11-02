@@ -258,7 +258,13 @@ Instead, it can be added as a prefix to the other mentioned instructions, _repea
 
 It works similarly to `loop`, i.e., it repeats an instruction by a number of times equal to the value in `rcx`.
 At each time, the value in `rcx` is decreased by `1`.
-Just as with the `loop` instructions, the value in `rcx` must be set before the instruction is used.
+Just as with the `loop` instructions, the value in `rcx` must be set before the instruction is used:
+
+```nasm
+mov rcx, 4
+rep movsq ; this repeats `movsq` 4 times
+          ; it copies 4 * 8 == 32 bytes from a memory location indicated by `rsi` to a memory location indicated by `rdi`
+```
 
 Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`) follow the same semantics as `loope` and `loopne`, i.e., they also stop execution if the `zero flag (ZF)` is cleared or set, respectively.
 
