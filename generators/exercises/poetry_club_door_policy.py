@@ -217,7 +217,7 @@ def gen_func_body(prop, inp, expected):
     if prop == "front_door_response" or prop == "back_door_response":
         message = f"Passed line: {inp}"
         str_list = []
-        str_list.append(f'const char actual = {{{prop}("{inp}")}};')
+        str_list.append(f'const char actual = {prop}("{inp}");')
         str_list.append(
             "TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("
             + f'"{expected}"'
