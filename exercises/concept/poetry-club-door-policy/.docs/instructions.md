@@ -21,13 +21,16 @@ This means all characters use ASCII encoding and every string ends when the '\0'
 ~~~~exercism/note
 These are the string instructions mentioned in this concept:
 
-| instruction  | what it does                                          |
-|--------------|-------------------------------------------------------|
-| `lods`       | loads from the memory location in `rsi` into `rax`    |
-| `stos`       | stores `rax` into the memory location in `rdi`        |
-| `movs`       | copies between memory locations (`rsi` to `rdi`)      |
-| `cmps`       | compares between memory locations (`rsi` and `rdi`)   |
-| `scas`       | compares `rax` with value in memory location in `rdi` |
+| instruction  | what it does                                                                                                      |
+|--------------|-------------------------------------------------------------------------------------------------------------------|
+| `lods`       | loads a value from a memory location indicated by `rsi` into `rax`                                                |
+| `stos`       | stores a value from `rax` into a memory location indicated by `rdi`                                               |
+| `movs`       | copies a value from a memory location indicated by `rsi` and stores it in a memory location indicated by `rdi`    |
+| `cmps`       | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
+| `scas`       | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
+
+All string instructions also modify addresses in `rsi` and/or `rdi` (only on those registers the instruction uses).
+By default, they increment the addresses by the size of the operation.
 
 These instructions repeat one of the string instructions:
 
