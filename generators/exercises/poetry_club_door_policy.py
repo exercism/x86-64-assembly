@@ -216,11 +216,14 @@ def unroll_args(args):
 def gen_func_body(prop, inp, expected):
     if prop == "front_door_response" or prop == "back_door_response":
         message = f"Passed line: {inp}"
-        return (
-            "TEST_ASSERT_EQUAL_INT8_MESSAGE("
-            + f"'{expected}'"
-            + f', {prop}("{inp}"), "{message}");\n'
+        str_list = []
+        str_list.append(f'const char actual = {{{prop}("{inp}")}};')
+        str_list.append(
+            "TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("
+            + f'"{expected}"'
+            + f', &actual, 1, "{message}");'
         )
+        return "\n".join(str_list)
     str_list = []
     if prop == "front_door_password":
         message = f"Combined letters are: {string_literal(inp)}"
