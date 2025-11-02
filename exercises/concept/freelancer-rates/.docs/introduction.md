@@ -35,8 +35,19 @@ This placeholder can take many forms, between them:
 For example:
 
 ```nasm
-cvtsi2ss xmm0, eax ; converts a signed integer to a single-precision floating-point
-cvtsd2si rax, xmm1 ; converts a double-precision floating-point to a signed integer
+cvtsi2ss xmm0, eax ; converts a 32-bit signed integer to a single-precision floating-point
+cvtsd2si rax, xmm1 ; converts a double-precision floating-point to a 64-bit signed integer
+```
+
+Note that it is possible to convert a 32-bit integer to a 64-bit floating-point or a 64-bit integer to a 32-bit floating-point.
+Similarly, it is also possible to convert a 32-bit floating-point to a 64-bit integer or a 64-bit floating-point to a 32-bit integer.
+In other words, the size of both operands in a `cvtxx2yy` _do not need to be the same_:
+
+```nasm
+cvtsi2sd xmm0, eax ; converts a 32-bit signed integer to a double-precision floating-point
+cvtsi2ss xmm0, rax ; converts a 64-bit signed integer to a single-precision floating-point
+cvtss2si rax, xmm0 ; converts a single-precision floating-point to a 64-bit signed integer
+cvtsd2si eax, xmm0 ; converts a double-precision floating-point to a 32-bit signed integer
 ```
 
 When the floating-point number can not be exactly expressed as an integer, `cvtxx2si` rounds the number according to the rounding control in a special register called `mxcsr`.
