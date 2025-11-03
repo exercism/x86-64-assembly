@@ -6,10 +6,6 @@ TRUCK_HEIGHT equ 300
 section .text
 
 global get_box_weight
-global max_number_of_boxes
-global items_to_be_moved
-global calculate_payment
-
 get_box_weight:
     movzx eax, dx
     movzx ecx, cx
@@ -22,16 +18,19 @@ get_box_weight:
     add eax, ecx
     ret
 
+global max_number_of_boxes
 max_number_of_boxes:
     mov ax, TRUCK_HEIGHT
     div dil
     ret
 
+global items_to_be_moved
 items_to_be_moved:
     sub edi, esi
     mov eax, edi
     ret
 
+global calculate_payment
 calculate_payment:
     mov esi, esi
     imul rax, rsi, PAY_PER_BOX

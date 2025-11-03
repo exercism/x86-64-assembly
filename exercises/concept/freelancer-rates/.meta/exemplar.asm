@@ -1,40 +1,41 @@
+CEILING_ROUNDING_CONTROL equ 2
+FLOOR_ROUNDING_CONTROL equ 1
+
+section .rodata
+    BILLABLE_HOURS_IN_DAY dq 8.0
+    BILLABLE_DAYS_IN_MONTH dq 22.0
+    PERCENTAGE_DIVISOR dq 100.0
+
 section .text
 
 global daily_rate
-global apply_discount
-global monthly_rate
-global days_in_budget
-
 daily_rate:
-    mov rax, 8
-    cvtsi2sd xmm1, rax
-    mulsd xmm0, xmm1
+    mulsd xmm0, qword [rel BILLABLE_HOURS_IN_DAY]
     ret
 
+global apply_discount
 apply_discount:
-    mov rax, 100
-    cvtsi2sd xmm2, rax
+    divsd xmm1, qword [rel PERCENTAGE_DIVISOR]
     mulsd xmm1, xmm0
-    divsd xmm1, xmm2
     subsd xmm0, xmm1
     ret
 
+global monthly_rate
 monthly_rate:
     call apply_discount
     call daily_rate
-    mov rax, 22
-    cvtsi2sd xmm1, eax
-    mulsd xmm0, xmm1
-    roundsd xmm0, xmm0, 2
+    mulsd xmm0, qword [rel BILLABLE_DAYS_IN_MONTH]
+    roundsd xmm0, xmm0, CEILING_ROUNDING_CONTROL
     cvtsd2si rax, xmm0
     ret
 
+global days_in_budget
 days_in_budget:
     call apply_discount
     call daily_rate
     cvtsi2sd xmm1, rdi
     divsd xmm1, xmm0
-    roundsd xmm0, xmm1, 1
+    roundsd xmm0, xmm1, FLOOR_ROUNDING_CONTROL
     cvtsd2si eax, xmm0
     ret
 

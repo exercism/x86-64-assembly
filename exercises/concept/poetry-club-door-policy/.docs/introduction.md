@@ -253,7 +253,7 @@ scasb ; compares one byte in `rax` with 1 byte read from the memory location who
 
 ### Rep
 
-Apart from those, the [rep][rep] instruction does not interact directly with memory.
+Apart from those, the **rep** instruction does not interact directly with memory.
 Instead, it can be added as a prefix to the other mentioned instructions, _repeating_ those instructions.
 
 It works similarly to `loop`, i.e., it repeats an instruction by a number of times equal to the value in `rcx`.

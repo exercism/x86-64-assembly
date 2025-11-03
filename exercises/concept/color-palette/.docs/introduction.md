@@ -46,7 +46,7 @@ They also have _static_ storage duration, which means they exist for the entire 
 ## Section .rodata
 
 The **section .rodata** is similar to `section .data`.
-Both sections contain initialized data, which is declared in the same way.
+Both sections contain initialized data, which is declared in the same way and have the same storage duration.
 
 The main difference between them is that data in `section .rodata` is immutable, i.e., read-only.
 
@@ -137,6 +137,22 @@ fn:
     mov byte [example1], 20   ; example1 now has value 20
     mov qword [example2], rdx ; example2 now has value equal to the contents in rdx
     mov dword [example3], eax ; example3 now has value equal to the contents in eax
+```
+
+Note that you can use memory operands in most instructions without first loading the contents in a register.
+However, it is not usually possible to use them in both source and destination operand, only one of the two:
+
+```nasm
+section .data
+    example4 dw 4
+    example5 dq -8
+    example6 dd 15
+
+section .text
+fn:
+    add word [example4], 5     ; example4 is now a 2-byte memory location with the value 4 + 5 = 9
+    imul rax, qword [example5] ; rax = rax * (-8)
+    ; this is not possible -> sub dword [example6], dword [example6]
 ```
 
 ### The LEA instruction

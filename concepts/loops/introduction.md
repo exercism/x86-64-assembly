@@ -35,7 +35,7 @@ out_of_loop:
 ```
 
 There are some instructions which can be used to create loop-like behavior.
-One of them is [loop][loop].
+One of them is **loop**.
 
 Its single operand is a label which has the address to the start of the loop.
 
@@ -74,5 +74,3 @@ fn:
     cmp rax, 3
     loopne .example ; this repeats the sequence starting in .example while rcx > 0 and rax != 3
 ```
-
-[loop]: https://www.felixcloutier.com/x86/loop:loopcc
