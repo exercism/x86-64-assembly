@@ -29,6 +29,15 @@ These are the string instructions mentioned in this concept:
 | `cmps`       | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
 | `scas`       | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
 
+All of them must have a suffix to indicate the size of the operation:
+
+| suffix | size             |
+|--------|------------------|
+| `b`    | byte             |
+| `w`    | word (2 bytes)   |
+| `d`    | dword (4 bytes)  |
+| `q`    | qword (8 bytes)  |
+
 All string instructions also modify addresses in `rsi` and/or `rdi` (only on those registers the instruction uses).
 By default, they increment the addresses by the size of the operation.
 

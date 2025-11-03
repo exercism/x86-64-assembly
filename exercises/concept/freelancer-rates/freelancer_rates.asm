@@ -20,6 +20,7 @@ daily_rate:
 ; TODO: define the 'monthly_rate' function.
 ; It takes as parameters an hourly_rate and a discount in percent, both as a 64-bit floating-point number.
 ; It returns the discounted monthly rate, as a 64-bit integer, rounded up.
+; A month has 22 billable days.
 
 ; TODO: define the 'days_in_budget' function.
 ; It takes as parameters:
@@ -27,7 +28,6 @@ daily_rate:
 ; 2. An hourly_rate, as a 64-bit floating-point number.
 ; 3. A discount in percent, as a 64-bit floating-point number.
 ; It returns the number of complete days of work the budget covers, as a 32-bit unsigned integer, rounded down.
-; A month has 22 billable days.
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits

@@ -118,7 +118,15 @@ There are two groups of instructions to make a comparison between two floating-p
 They take the form `comixx` and `ucomixx`, where `xx` is either `ss` or `sd`.
 Both set flags in `rflags` as usual, following the same semantics as `cmp`.
 
-The difference between them is that `ucomixx` sets the parity flag (PF) if one of the two floating-point numbers has a `NaN` value, whereas `comixx` raises an exception in this case.
+The difference between them is that `ucomixx` sets the `parity flag (PF)` if one of the two floating-point numbers has a `NaN` value, whereas `comixx` raises an exception in this case.
+
+The comparison between floating-point values is _unsigned_:
+
+```nasm
+ucomisd xmm0, xmm1
+ja .greater         ; 'ja' must be used for "greater", not 'jg'
+jb .lesser          ; 'jb' must be used for "lesser", not 'jl'
+```
 
 ## Other instructions
 

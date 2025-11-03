@@ -62,7 +62,7 @@ This can sometimes be used to optimize code flow.
 
 ### Unconditional Jump
 
-The instruction [jmp][jump] unconditionally transfers execution of the program to another point of the code.
+The instruction **jmp** unconditionally transfers execution of the program to another point of the code.
 Its single operand is a label which has the address to the point where execution will continue.
 
 Consider, for instance, the following function:
@@ -89,7 +89,7 @@ The value of `rax` when `fn` returns is 5.
 
 ### Conditional Jump
 
-The family of instructions [jcc][jcc] transfers execution of the program to another point only if a specific condition is met.
+The family of instructions **jcc** transfers execution of the program to another point only if a specific condition is met.
 Otherwise, execution continues sequentially.
 
 Each condition maps to one or more flags in `rflags`.
@@ -193,6 +193,3 @@ non_dotted:
     ...
     ret
 ```
-
-[jmp]: https://www.felixcloutier.com/x86/jmp
-[jcc]: https://www.felixcloutier.com/x86/jcc
