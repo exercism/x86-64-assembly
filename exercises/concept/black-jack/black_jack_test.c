@@ -91,9 +91,10 @@ void test_higher_card_4_8(void) {
     const card_t card_two = C8;
     const card_pair_t expected = {C8, 0};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C8, 0. The function was called with arguments: C4, C8.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: C4, C8.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "The second value should be 0. The function was called with arguments: C4, C8.");
 }
 
 void test_higher_card_a_a(void) {
@@ -102,9 +103,10 @@ void test_higher_card_a_a(void) {
     const card_t card_two = CA;
     const card_pair_t expected = {CA, CA};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is CA, CA. The function was called with arguments: CA, CA.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: CA, CA.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "Mismatch on the second higher card. The function was called with arguments: CA, CA.");
 }
 
 void test_higher_card_6_j(void) {
@@ -113,9 +115,10 @@ void test_higher_card_6_j(void) {
     const card_t card_two = CJ;
     const card_pair_t expected = {CJ, 0};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is CJ, 0. The function was called with arguments: C6, CJ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: C6, CJ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "The second value should be 0. The function was called with arguments: C6, CJ.");
 }
 
 void test_higher_card_10_j(void) {
@@ -124,9 +127,10 @@ void test_higher_card_10_j(void) {
     const card_t card_two = CJ;
     const card_pair_t expected = {C10, CJ};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C10, CJ. The function was called with arguments: C10, CJ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: C10, CJ.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "Mismatch on the second higher card. The function was called with arguments: C10, CJ.");
 }
 
 void test_higher_card_3_a(void) {
@@ -135,9 +139,10 @@ void test_higher_card_3_a(void) {
     const card_t card_two = CA;
     const card_pair_t expected = {C3, 0};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C3, 0. The function was called with arguments: C3, CA.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: C3, CA.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "The second value should be 0. The function was called with arguments: C3, CA.");
 }
 
 void test_higher_card_5_5(void) {
@@ -146,9 +151,10 @@ void test_higher_card_5_5(void) {
     const card_t card_two = C5;
     const card_pair_t expected = {C5, C5};
     const card_pair_t actual = higher_card(card_one, card_two);
-    const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;
-    const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;
-    TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is C5, C5. The function was called with arguments: C5, C5.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst,
+                                     "Mismatch on the higher card. The function was called with arguments: C5, C5.");
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd,
+                                     "Mismatch on the second higher card. The function was called with arguments: C5, C5.");
 }
 
 void test_value_of_ace_2_3(void) {

@@ -111,8 +111,8 @@ struct example_4 {
     short two;
     int32_t three;
 };
-// example_4 has alignment of 8 (the same as int64_t)
-// it occupies 16 bytes in space:
+// example_4 has one 8-byte field, one 4-byte field and one 2-byte field
+// it has an alignment of 8 and occupies 16 bytes in space:
 // 8 bytes for field 'one'
 // 2 bytes for field 'two'
 // 2 padding bytes
@@ -120,17 +120,17 @@ struct example_4 {
 // two' and 'three' are adjacent and can be grouped to sum up 8 bytes with only 2 bytes of padding
 
 struct example_5 {
-    int16_t one;
+    short one;
     int64_t two;
-    unsigned int three;
+    int32_t three;
 };
-// example_5 also has alignment of 8 (the same as int64_t)
-// however, it occupies 24 bytes in space:
+// example_5 also has one 8-byte field, one 4-byte field and one 2-byte field, in different positions
+// it also has an alignment of 8, however, it occupies 24 bytes in space:
 // 2 bytes for field 'one'
 // 6 bytes for padding
 // 8 bytes for field 'two'
 // 4 bytes for field 'three'
-// 4 padding bytes
+// 4 bytes for padding
 // 'one' can't be grouped with 'two' because their sum would be higher than the struct's alignment
 // 'two' and 'three' also can't be grouped, for the same reason
 // so padding bytes must be inserted in full after each field with less than 8 bytes in alignment
@@ -217,7 +217,7 @@ struct mixed_types {
 ```
 
 ~~~~exercism/caution
-When a conversion is made from a floating-point to an integer using `cvtsi2ss` or `cvtsi2sd`, this changes the organization of the underlying bytes.
+When a conversion is made from a floating-point to an integer using `cvtss2si` or `cvtsd2si`, this changes the organization of the underlying bytes.
 
 You can use `movd` (for 32-bit values) and `movq` (for 64-bit values) to move raw bytes from a `xmm` register to a GPR, without changing bit representation.
 ~~~~
