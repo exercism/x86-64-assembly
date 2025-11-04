@@ -137,12 +137,12 @@ free(list);
 
 PRINT_ITEM_DESCRIPTION_TEMPLATE = Template("""
 printf("\\n-------------------------------\\nStart of the printing test.\\n-------------------------------\\n\\n");
-for (size_t i = 0; i < ARRAY_SIZE(found_items); ++i) {
-    description_index = i;
-    char buffer[MAX_STRING_LENGTH];
-    print_item(buffer, found_items, description_index, print_helper);
-    TEST_ASSERT_EQUAL_UINT64_MESSAGE(i + 1, print_count, "The printing function was not called.");
-}
+
+char buffer[MAX_STRING_LENGTH];
+print_item(buffer, found_items, description_index, print_helper);
+TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+description_index++;
+
 printf("-------------------------------\\nEnd of the printing test.\\n-------------------------------\\n\\n");
 """)
 
@@ -227,7 +227,31 @@ def extra_cases():
             "expected": None,
         },
         {
-            "description": "print_items",
+            "description": "print_item_1",
+            "property": "print_item",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "print_item_2",
+            "property": "print_item",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "print_item_3",
+            "property": "print_item",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "print_item_4",
+            "property": "print_item",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "print_item_5",
             "property": "print_item",
             "input": None,
             "expected": None,

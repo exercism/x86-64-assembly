@@ -10,6 +10,8 @@ section .rodata
                db "CAD", 0
                db "INR", 0
 
+    percent dq 0.01
+
 section .text
 
 global stringify_currency
@@ -37,8 +39,7 @@ get_value_of_bills:
 
 global get_number_of_bills
 get_number_of_bills:
-    roundss xmm0, xmm0, 1
-    cvtss2si eax, xmm0
+    cvttss2si eax, xmm0
     mov eax, eax
     cqo
     div rdi
@@ -48,9 +49,7 @@ global exchangeable_value
 exchangeable_value:
     movzx rdi, dil
     cvtsi2sd xmm2, rdi
-    mov rdi, 100
-    cvtsi2sd xmm3, rdi
-    divsd xmm2, xmm3
+    mulsd xmm2, qword [percent]
     mulsd xmm2, xmm1
     addsd xmm1, xmm2
     cvtsd2ss xmm1, xmm1

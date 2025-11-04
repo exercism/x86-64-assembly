@@ -20,14 +20,14 @@ time_to_make_juice:
 
 ; TODO: define the 'limes_to_cut' function
 ; This function takes three arguments:
-; - The number of wedges needed.
+; - The number of wedges needed, as a 32-bit number.
 ; - An array with the current supply of limes, each represented by a 8-bit number.
 ; - The number of limes in the supply, as a 32-bit number.
 ; It returns the number of limes that need to be cut, as a 32-bit number
 
 ; TODO: define the 'remaining_orders' function
 ; This function takes two arguments:
-; - The time left in the shift.
+; - The time left in the shift, as a 32-bit number.
 ; - An array  with the IDs for ordered juices still not prepared, each ID a 32-bit number.
 ; It returns the number of juices made before the shift ends, as a 32-bit number.
 ; You may consider that:

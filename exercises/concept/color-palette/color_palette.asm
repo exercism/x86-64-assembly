@@ -9,7 +9,6 @@
 section .text
 
 ; You should implement functions in the .text section
-; A skeleton is provided for the first function
 
 ; the global directive makes a function visible to the test files
 global get_color_value
@@ -18,18 +17,24 @@ get_color_value:
     ; It must return the 32-bit value associated with the color
     ret
 
-; TODO: define the 'add_base_color' function
-; This function takes the address for a color as parameter
-; It saves the 32-bit value associated with this color in the variable 'base_color'
-; This variable must be accessible from other source files
-; This function has no return value
+global add_base_color
+add_base_color:
+    ; TODO: define the 'add_base_color' function
+    ; This function takes the address for a color as parameter
+    ; It saves the 32-bit value associated with this color in the variable 'base_color'
+    ; This variable must be accessible from other source files
+    ; This function has no return value
+    ret
 
-; TODO: define the 'make_color_combination' function
-; This function takes the following parameters:
-; - The address where the 32-bit value for the combined color should be stored.
-; - The address of a secondary color in the color table.
-; It should call 'combining_function' with the 32-bit value for base and secondary colors and store the result in the passed address
-; This function has no return value
+global make_color_combination
+make_color_combination:
+    ; TODO: define the 'make_color_combination' function
+    ; This function takes the following parameters:
+    ; - The address where the 32-bit value for the combined color should be stored.
+    ; - The address of a secondary color in the color table.
+    ; It should call 'combining_function' with the 32-bit value for base and secondary colors and store the result in the passed address
+    ; This function has no return value
+    ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
 section .note.GNU-stack noalloc noexec nowrite progbits

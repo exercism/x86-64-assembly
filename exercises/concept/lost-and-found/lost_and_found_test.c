@@ -226,16 +226,68 @@ void test_insert_found_items(void) {
     free(list);
 }
 
-void test_print_items(void) {
+void test_print_item_1(void) {
     TEST_IGNORE();
 
     printf("\n-------------------------------\nStart of the printing test.\n-------------------------------\n\n");
-    for (size_t i = 0; i < ARRAY_SIZE(found_items); ++i) {
-        description_index = i;
-        char buffer[MAX_STRING_LENGTH];
-        print_item(buffer, found_items, description_index, print_helper);
-        TEST_ASSERT_EQUAL_UINT64_MESSAGE(i + 1, print_count, "The printing function was not called.");
-    }
+
+    char buffer[MAX_STRING_LENGTH];
+    print_item(buffer, found_items, description_index, print_helper);
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+    description_index++;
+
+    printf("-------------------------------\nEnd of the printing test.\n-------------------------------\n\n");
+}
+
+void test_print_item_2(void) {
+    TEST_IGNORE();
+
+    printf("\n-------------------------------\nStart of the printing test.\n-------------------------------\n\n");
+
+    char buffer[MAX_STRING_LENGTH];
+    print_item(buffer, found_items, description_index, print_helper);
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+    description_index++;
+
+    printf("-------------------------------\nEnd of the printing test.\n-------------------------------\n\n");
+}
+
+void test_print_item_3(void) {
+    TEST_IGNORE();
+
+    printf("\n-------------------------------\nStart of the printing test.\n-------------------------------\n\n");
+
+    char buffer[MAX_STRING_LENGTH];
+    print_item(buffer, found_items, description_index, print_helper);
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+    description_index++;
+
+    printf("-------------------------------\nEnd of the printing test.\n-------------------------------\n\n");
+}
+
+void test_print_item_4(void) {
+    TEST_IGNORE();
+
+    printf("\n-------------------------------\nStart of the printing test.\n-------------------------------\n\n");
+
+    char buffer[MAX_STRING_LENGTH];
+    print_item(buffer, found_items, description_index, print_helper);
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+    description_index++;
+
+    printf("-------------------------------\nEnd of the printing test.\n-------------------------------\n\n");
+}
+
+void test_print_item_5(void) {
+    TEST_IGNORE();
+
+    printf("\n-------------------------------\nStart of the printing test.\n-------------------------------\n\n");
+
+    char buffer[MAX_STRING_LENGTH];
+    print_item(buffer, found_items, description_index, print_helper);
+    TEST_ASSERT_EQUAL_UINT64_MESSAGE(description_index + 1, print_count, "The printing function was not called.");
+    description_index++;
+
     printf("-------------------------------\nEnd of the printing test.\n-------------------------------\n\n");
 }
 
@@ -248,6 +300,10 @@ int main(void) {
     RUN_TEST(test_create_item_entry_5);
     RUN_TEST(test_create_monthly_lists);
     RUN_TEST(test_insert_found_items);
-    RUN_TEST(test_print_items);
+    RUN_TEST(test_print_item_1);
+    RUN_TEST(test_print_item_2);
+    RUN_TEST(test_print_item_3);
+    RUN_TEST(test_print_item_4);
+    RUN_TEST(test_print_item_5);
     return UNITY_END();
 }
