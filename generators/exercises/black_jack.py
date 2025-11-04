@@ -288,14 +288,16 @@ def gen_func_body(prop, inp, expected):
             str_list.append(f"const card_pair_t expected = {array_literal(expected)};")
             str_list.append(f"const card_pair_t actual = {prop}(card_one, card_two);")
             str_list.append(
-                "const bool first_cond = actual.fst == expected.snd && actual.snd == expected.fst;"
+                f'TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.fst, actual.fst, "Mismatch on the higher card. {message}");'
             )
-            str_list.append(
-                "const bool second_cond = actual.fst == expected.fst && actual.snd == expected.snd;"
-            )
-            str_list.append(
-                f'TEST_ASSERT_MESSAGE(first_cond || second_cond, "The expected result is {strip_brackets(expected)}. {message}");'
-            )
+            if expected[1] == "0":
+                str_list.append(
+                    f'TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd, "The second value should be 0. {message}");'
+                )
+            else:
+                str_list.append(
+                    f'TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected.snd, actual.snd, "Mismatch on the second higher card. {message}");'
+                )
         else:
             str_list.append(f"const bool expected = {str(expected).lower()};")
             str_list.append(f"const bool actual = {prop}(card_one, card_two);")
