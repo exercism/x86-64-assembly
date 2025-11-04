@@ -49,7 +49,7 @@ global exchangeable_value
 exchangeable_value:
     movzx rdi, dil
     cvtsi2sd xmm2, rdi
-    mulsd xmm2, qword [percent]
+    mulsd xmm2, [percent]
     mulsd xmm2, xmm1
     addsd xmm1, xmm2
     cvtsd2ss xmm1, xmm1
