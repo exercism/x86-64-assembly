@@ -10,14 +10,12 @@ section .text
 
 global daily_rate
 daily_rate:
-    movsd xmm1, qword [rel BILLABLE_HOURS_IN_DAY]
-    mulsd xmm0, xmm1
+    mulsd xmm0, [rel BILLABLE_HOURS_IN_DAY]
     ret
 
 global apply_discount
 apply_discount:
-    movsd xmm2, qword [rel PERCENTAGE_DIVISOR]
-    divsd xmm1, xmm2
+    divsd xmm1, [rel PERCENTAGE_DIVISOR]
     mulsd xmm1, xmm0
     subsd xmm0, xmm1
     ret
@@ -26,8 +24,7 @@ global monthly_rate
 monthly_rate:
     call apply_discount
     call daily_rate
-    movsd xmm1, qword [rel BILLABLE_DAYS_IN_MONTH]
-    mulsd xmm0, xmm1
+    mulsd xmm0, [rel BILLABLE_DAYS_IN_MONTH]
     roundsd xmm0, xmm0, CEILING_ROUNDING_CONTROL
     cvtsd2si rax, xmm0
     ret
