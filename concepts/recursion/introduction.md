@@ -59,7 +59,7 @@ This is called `tail call`.
 The main advantage of a `tail call` is avoiding the extra cost of `call`, i.e., pushing `rip` to the stack.
 This is particularly useful on a recursive function, which tends to call itself multiple times before returning.
 
-In some cases, with a manipulation of the order of the functions, even this `jmp` instruction might be dispensed:
+In some cases, with a manipulation of the order of the functions, even this `jmp` instruction might be avoided:
 
 ```nasm
 triple_of_square:
@@ -70,10 +70,10 @@ times_three:
     ret
 ```
 
-Notice that execution of `triple_of_square` fallthroughs to `times_three`, continuing sequentially.
+Note that execution of `triple_of_square` fallthroughs to `times_three`, continuing sequentially.
 It seems as if `times_three` is just a local label inside of `triple_of_square`.
 
 In reality, there's no essential difference between any local label and a function.
-Assembly does not give special treatment to any of them, they are just addresses in the `section .text`.
+x86-64 assembly does not give special treatment to any of them, they are just addresses in a section with executable code, such as the `section .text`.
 
 In this way, a tail recursive function can be thought of being similar to a loop, while a base case would be a condition that ends this loop.
