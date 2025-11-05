@@ -23,7 +23,7 @@ create_item_entry:
     ; ID, description, day, month, number of categories, and each category in order.
     ;
     ; This function has no return value.
-
+    ret
 
 ; TODO: implement the 'create_monthly_list' function.
 ; This function takes as parameters:

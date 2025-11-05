@@ -2,7 +2,7 @@ default rel
 
 section .rodata
     introductory_string db "Hi! This is an example introduction.", 0
-    introductory_string_sz dq $-introductory_string
+    introductory_string_sz equ $-introductory_string
 
 section .text
 
@@ -25,18 +25,18 @@ create_monthly_list:
     call rsi
     mov rdi, rax
     pop rcx
-    push rax
+    mov r10, rax
     mov al, 0
     rep stosb
-    pop rax
+    mov rax, r10
     ret
 
 global insert_found_item
 insert_found_item:
-    imul rsi, rsi, 120
+    mov rcx, 120
+    imul rsi, rcx
     lea rdi, [rdi + rsi]
     lea rsi, [rsp + 8]
-    mov rcx, 120
     rep movsb
     ret
 
@@ -51,7 +51,7 @@ print_item:
     lea r10, [rsi + r10]
 
     lea rsi, [introductory_string]
-    mov rcx, qword [introductory_string_sz]
+    mov rcx, introductory_string_sz
     rep movsb
 
     mov rdi, qword [rsp]
