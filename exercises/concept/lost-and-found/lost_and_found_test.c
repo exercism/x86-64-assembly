@@ -34,10 +34,11 @@ static uint64_t found_items_index = 0;
 static const uint64_t capacities[] = {1200, 1920, 600, 840, 2520, 1440};
 
 static uint64_t capacity_index = 0;
+void *list_space = NULL;
 
 static void *malloc_helper(uint64_t size) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(capacities[capacity_index], size, "In allocator: the requested size is different from expected.");
-    void *list_space = malloc(size);
+    list_space = malloc(size);
     unsigned char *bytes = (unsigned char *)list_space;
     for (size_t i = 0; i < size; ++i) {
         bytes[i] = i;
@@ -191,19 +192,94 @@ void test_create_item_entry_5(void) {
     found_items_index++;
 }
 
-void test_create_monthly_lists(void) {
+void test_create_monthly_list_1(void) {
     TEST_IGNORE();
 
-    for (size_t i = 0; i < ARRAY_SIZE(capacities); ++i) {
-        capacity_index = i;
-        item_t *list = create_monthly_list(capacities[i], malloc_helper);
-        TEST_ASSERT_NOT_NULL_MESSAGE(list, "The list is null");
-        const unsigned char *bytes = (const unsigned char *)list;
-        for (size_t j = 0; j < capacities[i]; ++j) {
-            TEST_ASSERT_MESSAGE(bytes[i] == 0, "There is at least one non-zero byte in the allocated space.");
-        }
-        free(list);
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
     }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
+}
+
+void test_create_monthly_list_2(void) {
+    TEST_IGNORE();
+
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
+    }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
+}
+
+void test_create_monthly_list_3(void) {
+    TEST_IGNORE();
+
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
+    }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
+}
+
+void test_create_monthly_list_4(void) {
+    TEST_IGNORE();
+
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
+    }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
+}
+
+void test_create_monthly_list_5(void) {
+    TEST_IGNORE();
+
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
+    }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
+}
+
+void test_create_monthly_list_6(void) {
+    TEST_IGNORE();
+
+    item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+    TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+    const unsigned char *bytes = (const unsigned char *)list;
+    for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+        TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
+    }
+    free(list);
+    list = NULL;
+    list_space = NULL;
+    capacity_index++;
 }
 
 void test_insert_found_items(void) {
@@ -298,7 +374,12 @@ int main(void) {
     RUN_TEST(test_create_item_entry_3);
     RUN_TEST(test_create_item_entry_4);
     RUN_TEST(test_create_item_entry_5);
-    RUN_TEST(test_create_monthly_lists);
+    RUN_TEST(test_create_monthly_list_1);
+    RUN_TEST(test_create_monthly_list_2);
+    RUN_TEST(test_create_monthly_list_3);
+    RUN_TEST(test_create_monthly_list_4);
+    RUN_TEST(test_create_monthly_list_5);
+    RUN_TEST(test_create_monthly_list_6);
     RUN_TEST(test_insert_found_items);
     RUN_TEST(test_print_item_1);
     RUN_TEST(test_print_item_2);

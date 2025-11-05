@@ -38,10 +38,11 @@ static const uint64_t capacities[] = {
 };
 
 static uint64_t capacity_index = 0;
+void *list_space = NULL;
 
 static void *malloc_helper(uint64_t size) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(capacities[capacity_index], size, "In allocator: the requested size is different from expected.");
-    void* list_space = malloc(size);
+    list_space = malloc(size);
     unsigned char *bytes = (unsigned char *)list_space;
     for (size_t i = 0; i < size; ++i) {
         bytes[i] = i;
@@ -107,16 +108,16 @@ TEST_ASSERT_EQUAL_UINT64_MESSAGE(${num_categories}, found_items[found_items_inde
 """)
 
 CREATE_MONTHLY_LIST_TEMPLATE = Template("""
-for (size_t i = 0; i < ARRAY_SIZE(capacities); ++i) {
-    capacity_index = i;
-    item_t *list = create_monthly_list(capacities[i], malloc_helper);
-    TEST_ASSERT_NOT_NULL_MESSAGE(list, "The list is null");
-    const unsigned char *bytes = (const unsigned char *)list;
-    for (size_t j = 0; j < capacities[i]; ++j) {
-        TEST_ASSERT_MESSAGE(bytes[i] == 0, "There is at least one non-zero byte in the allocated space.");
-    }
-    free(list);
+item_t *list = create_monthly_list(capacities[capacity_index], malloc_helper);
+TEST_ASSERT_MESSAGE((uintptr_t)list_space == (uintptr_t)list, "The returned list address is invalid.");
+const unsigned char *bytes = (const unsigned char *)list;
+for (size_t j = 0; j < capacities[capacity_index]; ++j) {
+    TEST_ASSERT_MESSAGE(bytes[j] == 0, "There is at least one non-zero byte in the allocated space.");
 }
+free(list);
+list = NULL;
+list_space = NULL;
+capacity_index++;
 """)
 
 INSERT_FOUND_ITEM_TEMPLATE = Template("""
@@ -215,7 +216,37 @@ def extra_cases():
             "expected": None,
         },
         {
-            "description": "create_monthly_lists",
+            "description": "create_monthly_list_1",
+            "property": "create_monthly_list",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "create_monthly_list_2",
+            "property": "create_monthly_list",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "create_monthly_list_3",
+            "property": "create_monthly_list",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "create_monthly_list_4",
+            "property": "create_monthly_list",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "create_monthly_list_5",
+            "property": "create_monthly_list",
+            "input": None,
+            "expected": None,
+        },
+        {
+            "description": "create_monthly_list_6",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
