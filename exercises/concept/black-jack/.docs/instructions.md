@@ -106,7 +106,7 @@ As mentioned earlier, a `CA` is worth _either_ 1 **or** 11 points, depending on 
 The rules of **Blackjack** require that the values of `CA`s be chosen to maximize the score of the hand but without going over 21 (going “bust”).
 
 Define the `value_of_ace` function with parameters `card_one` and `card_two`, which are two numbers representing a pair of cards already in the hand _before_ receiving the last `CA`.
-Your function must return which value, 1 or 11, will be assigned of the upcoming `CA`.
+Your function must return which value, 1 or 11, will be assigned to the upcoming `CA`.
 Remember: the value of the new hand (with the `CA`) needs to be as high as possible _without_ going over 21.
 
 **Hint**: if we already have a `CA` in hand, then the value for the upcoming `CA` would be 1.
@@ -121,12 +121,12 @@ value_of_ace(7, 3)
 
 ## 4. Determine if the hand is a blackjack
 
-If a player is dealt a `CA` and a ten-card (`C10`, `CJ`, `CQ`, or `CK`) as their first two cards, then the player has a score of 21.  This hand is known as
-a **blackjack**.
+If a player is dealt a `CA` and a ten-card (`C10`, `CJ`, `CQ`, or `CK`) as their first two cards, then the player has a score of 21.
+This hand is known as a **blackjack**.
 
 Define the `is_blackjack` function with parameters `card_one` and `card_two`, which are two numbers representing a pair of cards.
 The function must return 1 if the two-card hand is a **blackjack**, 0 otherwise.
-In order to make it easier to work with the boolean values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
+In order to make it easier to work with the values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
 
 **Note** : The score _calculation_ can be done in many ways.
 But if possible, we'd like you to check if there is a `CA` and a ten-card **_in_** the hand, as opposed to _summing_ the card values.
@@ -146,7 +146,7 @@ This is known as "splitting pairs".
 
 Define the `can_split_pairs` function with parameters `card_one` and `card_two`, which are two numbers representing a pair of cards.
 The function must return 1 if the two-card hand can be split into two hands, 0 otherwise.
-In order to make it easier to work with the boolean values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
+In order to make it easier to work with the values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
 
 ```c
 can_split_pair(12, 13)
@@ -162,8 +162,8 @@ When the original two cards dealt total 9, 10, or 11 points, a player can place 
 This is known as "doubling down".
 
 Define the `can_double_down` function with parameters `card_one` and `card_two`, which are two numbers representing a pair of cards.
-The function must return 1 if the two-card hand allows the player to "doubled down", 0 otherwise.
-In order to make it easier to work with the boolean values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
+The function must return 1 if the two-card hand allows the player to "double down", 0 otherwise.
+In order to make it easier to work with the values, the constants `TRUE` and `FALSE`, respectively equivalent to 1 and 0, are defined at the top of the file.
 
 ```c
 can_double_down(14, 9)
