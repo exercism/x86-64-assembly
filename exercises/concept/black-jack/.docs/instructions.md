@@ -48,8 +48,8 @@ Those are the conditions checked in a `jcc` after a `cmp a, b`:
 
 ## 1. Calculate the value of a card
 
-In **Blackjack**, the value of a `CA` is either 1 or 11, depending on the hand (_more on this later_).
-Face cards (`CJ`, `CQ`, and `CK`) are scored at 10 points and any other card is worth its "pip" (_numerical_) value.
+In **Blackjack**, the value of a `CA` is either 1 or 11, depending on the hand (more on this later).
+Face cards (`CJ`, `CQ`, and `CK`) are scored at 10 points and any other card is worth its _numerical_ value.
 
 Define the `value_of_card` function with parameter `card`, a number representing a card.
 The function must return the _numerical value_ of the passed-in card.
