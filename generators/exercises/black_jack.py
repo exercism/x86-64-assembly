@@ -217,6 +217,12 @@ def extra_cases():
             "expected": False,
         },
         {
+            "description": "can_split_10_K",
+            "property": "can_split_pairs",
+            "input": ["C10", "CK"],
+            "expected": True,
+        },
+        {
             "description": "can_double_down_A_9",
             "property": "can_double_down",
             "input": ["CA", "C9"],

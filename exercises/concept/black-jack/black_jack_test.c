@@ -310,6 +310,15 @@ void test_can_split_9_10(void) {
     TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "The function was called with arguments: C9, C10.");
 }
 
+void test_can_split_10_k(void) {
+    TEST_IGNORE();
+    const card_t card_one = C10;
+    const card_t card_two = CK;
+    const bool expected = true;
+    const bool actual = can_split_pairs(card_one, card_two);
+    TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "The function was called with arguments: C10, CK.");
+}
+
 void test_can_double_down_a_9(void) {
     TEST_IGNORE();
     const card_t card_one = CA;
@@ -396,6 +405,7 @@ int main(void) {
     RUN_TEST(test_can_split_a_a);
     RUN_TEST(test_can_split_6_6);
     RUN_TEST(test_can_split_9_10);
+    RUN_TEST(test_can_split_10_k);
     RUN_TEST(test_can_double_down_a_9);
     RUN_TEST(test_can_double_down_k_j);
     RUN_TEST(test_can_double_down_4_3);
