@@ -2,6 +2,9 @@
   "authors": [
     "oxe-i"
   ],
+  "contributors": [
+    "borderite"
+  ],
   "files": {
     "solution": [
       "black_jack.asm"
