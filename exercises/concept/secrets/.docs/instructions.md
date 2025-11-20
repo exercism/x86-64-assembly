@@ -57,7 +57,7 @@ However, of those, the 8 highest bits are not actually part of the message, but 
 Implement the `extract_higher_bits` function that takes a 16-bit integer and returns the 8 highest bits of it.
 
 ```c
-extract_mask(0b1010010011000101)
+extract_higher_bits(0b1010010011000101)
 // => 0b10100100
 ```
 
@@ -68,7 +68,7 @@ Having the ability of extracting the mask is not enough, you should also isolate
 Implement the `extract_lower_bits` function that takes a 16-bit integer and returns the 8 lowest bits of it.
 
 ```c
-extract_mask(0b1100010011000101);
+extract_lower_bits(0b1010010011000101);
 // => 0b11000101
 ```
 
@@ -82,7 +82,7 @@ A bit in the returned number should be set to 1 where it is also 1 in both the m
 All other bits should be _cleared_.
 
 ```c
-extract_redundant_bits(0b1100010011000101);
+extract_redundant_bits(0b1010010011000101);
 // => 0b10000100
 ```
 
@@ -91,11 +91,11 @@ extract_redundant_bits(0b1100010011000101);
 Next, there are some bits that need to be set to `1` in the message, according to the mask.
 
 Implement the `set_message_bits` function that takes a 16-bit integer, encoding both the message and a mask, and returns the result of setting the bits in the message to 1.
-A bit from the message should be set to 1 where the bit in the mask is also 1.
+A bit from the message should be set to 1 where the bit in the mask is 1.
 All other bits should be kept _unchanged_, so that they remain set if they were already set, and cleared if they were already cleared.
 
 ```c
-set_message_bits(0b1110010011000101);
+set_message_bits(0b1010010011000101);
 // => 0b11100101
 ```
 
@@ -111,8 +111,8 @@ Implement the `rotate_private_key` function that takes a 16-bit integer, encodin
 This result is a 16-bit integer.
 
 ```c
-rotate_private_key(0b1100010011000101);
-// => 0b1100110011110000
+rotate_private_key(0b1010010011000101);
+// => 0b1100110011110010
 ```
 
 ~~~~exercism/note
@@ -133,7 +133,7 @@ To fully format a private key, you must:
 - Rotate it.
 - Isolate the lowest 8-bit portion of the rotated private key, which is the base value.
 - Isolate the highest 8-bit portion of the rotated private key, which is a mask to be applied to the base value.
-- Flip set bits in the base value that are also set in the mask.
+- Flip bits in the base value that are also set in the mask.
 - Flip all bits in the result.
 
 A flipped bit is 1 if it was 0 and 0 if it was 1.
@@ -141,8 +141,8 @@ A flipped bit is 1 if it was 0 and 0 if it was 1.
 Implement the `format_private_key` function that takes a 16-bit integer, encoding both the message and a mask, and returns a fully formatted 8-bit private key.
 
 ```c
-format_private_key(0b1100010011000101);
-// => 0b11000011
+format_private_key(0b1010010011000101);
+// => 0b11000001
 ```
 
 ## 7. Finish decryption
@@ -159,6 +159,6 @@ Implement the `decrypt_message` function that takes a 16-bit integer encoding bo
 This function should make use of the formatted private key that you generate with `format_private_key` and also of the message with all relevant bits set with `set_message_bits`.
 
 ```c
-decrypt_message(0b1100010011000101);
-// => 0b1100001111100101
+decrypt_message(0b1010010011000101);
+// => 0b1100000111100101
 ```
