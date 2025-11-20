@@ -57,7 +57,7 @@ However, of those, the 8 highest bits are not actually part of the message, but 
 Implement the `extract_higher_bits` function that takes a 16-bit integer and returns the 8 highest bits of it.
 
 ```c
-extract_mask(0b1010010011000101)
+extract_higher_bits(0b1010010011000101)
 // => 0b10100100
 ```
 
@@ -68,7 +68,7 @@ Having the ability of extracting the mask is not enough, you should also isolate
 Implement the `extract_lower_bits` function that takes a 16-bit integer and returns the 8 lowest bits of it.
 
 ```c
-extract_mask(0b1010010011000101);
+extract_lower_bits(0b1010010011000101);
 // => 0b11000101
 ```
 
@@ -112,7 +112,7 @@ This result is a 16-bit integer.
 
 ```c
 rotate_private_key(0b1010010011000101);
-// => 0b1100110011011110
+// => 0b1100110011110010
 ```
 
 ~~~~exercism/note
