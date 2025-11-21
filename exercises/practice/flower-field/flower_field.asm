@@ -1,5 +1,5 @@
-.text
-.globl annotate
+section .text
+global annotate
 
 annotate:
         ret
