@@ -49,7 +49,7 @@ The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as 
 
 It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
 
-```nasm
+```x86asm
 add eax, -1          ; this is 4294967295 in unsigned representation
                      ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
 
@@ -88,13 +88,13 @@ As a rule, unsigned multiplication uses the instruction `mul`, while signed mult
 
 The `mul` instruction takes the following one-operand form, where src is the source operand:
 
-```nasm
+```x86asm
 mul src
 ```
 
 The `imul` instruction can take a one-operand, two-operand or three-operand form:
 
-```nasm
+```x86asm
 imul src
 imul dest, src
 imul dest, src1, src2
@@ -141,7 +141,7 @@ In case of a possible overflow, it is sometimes useful to move operands to a lar
 A `movzx` instruction can be used to convert a value in a 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
 This is called **zero extension**:
 
-```nasm
+```x86asm
 mov ax, 1000 ; lower 16 bits of eax are 1000, upper bits are undefined
 mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
@@ -169,7 +169,7 @@ Unsigned division uses the instruction `div`, while signed division uses `idiv`.
 
 Both instructions work with only one operand:
 
-```nasm
+```x86asm
 div src
 idiv src
 ```

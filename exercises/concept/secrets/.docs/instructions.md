@@ -119,7 +119,7 @@ rotate_private_key(0b1010010011000101);
 NASM (The Netwide Assembler, the assembler used by this track) has support to constants in binary format with `0b` prefixed.
 It also supports using an underscore (`_`) as separator in a constant, for readability:
 
-```nasm
+```x86asm
 PRIVATE_KEY equ 0b1011_0011_0011_1100
 ```
 ~~~~

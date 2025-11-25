@@ -27,9 +27,9 @@ Unsigned numbers are represented directly as the sum of all set bits in its sequ
 
 For instance, this represents the number `2⁰ + 2³ + 2⁵ + 2⁶ + 2⁷`, which is `233`:
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 1   | 1   | 1   | 0   | 1   | 0   | 0   | 1   |
 
 Given an arbitrary sequence of bytes, any non-negative whole number could be theoretically represented like this.
 
@@ -49,42 +49,42 @@ For instance, the number `-23` can be obtained from `23` like this:
 
 Original number (23):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 0   | 1   | 1   | 1   |
 
 Step 1 (flip all bits):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 1   | 1   | 1   | 0   | 1   | 0   | 0   | 0   |
 
 Step 2 (add 1):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 1   | 1   | 1   | 0   | 1   | 0   | 0   | 1   |
 
 The steps are the same when converting from a negative number to its positive counterpart.
 So, `-23` can be changed back to `23` in the same way:
 
 Original number (-23):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 1   | 1   | 1   | 0   | 1   | 0   | 0   | 1   |
 
 Step 1 (flip all bits):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 0 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 0   | 1   | 1   | 0   |
 
 Step 2 (add 1):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 0   | 1   | 1   | 1   |
 
 The [neg][neg] instruction can be used to change the sign of a number.
 
@@ -113,7 +113,7 @@ The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as 
 
 It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
 
-```nasm
+```x86asm
 add eax, -1          ; this is 4294967295 in unsigned representation
                      ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
 
@@ -138,24 +138,24 @@ For instance, consider:
 
 Number `30`:
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 0 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 1   | 1   | 1   | 0   |
 
 Number `13`:
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 0 | 1 | 1 | 0 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 0   | 1   | 1   | 0   | 1   |
 
 The bits in index `1` and `4` are only set in the number `30` and the bit in index `0` is only set in number `13`.
 So they are all set in the resulting sum:
 
 Step 1 (set all bits present in only of the numbers):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 0 | 0 | 1 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 0   | 0   | 1   | 1   |
 
 The bits in index `2` and `3`, however, are set in both numbers being added.
 So those indexes are cleared and their bits are carried over to the next index in the sum.
@@ -164,9 +164,9 @@ Since the bit in index `3` is not set in the sum, the carry from index `2` is pu
 
 Step 2 (carry over bit in index 2):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 0 | 1 | 1 | 0 | 1 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 0   | 1   | 1   | 0   | 1   | 1   |
 
 However, the bit in index `4` is already set in the sum, so the carry from index `3` clears it and moves to the next bit index.
 
@@ -174,9 +174,9 @@ Since the bit in index `5` is not set, the carry is put there:
 
 Step 3 (carry over bit in index 3):
 
-| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-|-------|---|---|---|---|---|---|---|---|
-| bits  | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 1 |
+| index | 7   | 6   | 5   | 4   | 3   | 2   | 1   | 0   |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bits  | 0   | 0   | 1   | 0   | 1   | 0   | 1   | 1   |
 
 The resulting number is `2⁵ + 2³ + 2¹ + 2⁰`, which is `43`, the sum of `30` and `13`.
 
@@ -191,7 +191,7 @@ It is a two-operand instruction, with the same syntax as `add`.
 
 There's also a [inc][inc] instruction, that simply sums 1 to the value in the destination operand:
 
-```nasm
+```x86asm
 inc dest ; dest = dest + 1
 ```
 
@@ -203,7 +203,7 @@ The subtraction of two integers is performed using the `sub` instruction.
 
 There's also a [dec][dec] instruction, that simply subtracts 1 from the value in the destination operand:
 
-```nasm
+```x86asm
 dec dest ; dest = dest - 1
 ```
 
@@ -216,13 +216,13 @@ As a rule, unsigned multiplication uses the instruction [mul][mul], while signed
 
 The `mul` instruction takes the following one-operand form, where src is the source operand:
 
-```nasm
+```x86asm
 mul src
 ```
 
 The `imul` instruction can take a one-operand, two-operand or three-operand form:
 
-```nasm
+```x86asm
 imul src
 imul dest, src
 imul dest, src1, src2
@@ -273,7 +273,7 @@ In case of a possible overflow, it is sometimes useful to move operands to a lar
 A [movzx][movzx] instruction can be used to convert a value in a 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
 This is called **zero extension**:
 
-```nasm
+```x86asm
 mov ax, 1000 ; lower 16 bits of eax are 1000, upper bits are undefined
 mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
@@ -301,7 +301,7 @@ Unsigned division uses the instruction [div][div], while signed division uses [i
 
 Both instructions work with only one operand:
 
-```nasm
+```x86asm
 div src
 idiv src
 ```

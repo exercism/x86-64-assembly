@@ -27,14 +27,14 @@ Both `xx` and `yy` are not literals, but placeholders:
 This placeholder can take many forms, between them:
 
 | placeholder | meaning               |
-|-------------|-----------------------|
+| ----------- | --------------------- |
 | `si`        | signed integer        |
 | `ss`        | 32-bit floating-point |
 | `sd`        | 64-bit floating-point |
 
 For example:
 
-```nasm
+```x86asm
 cvtsi2ss xmm0, eax ; converts a 32-bit signed integer to a single-precision floating-point
 cvtsd2si rax, xmm1 ; converts a double-precision floating-point to a 64-bit signed integer
 ```
@@ -43,7 +43,7 @@ Note that it is possible to convert a 32-bit integer to a 64-bit floating-point 
 Similarly, it is also possible to convert a 32-bit floating-point to a 64-bit integer or a 64-bit floating-point to a 32-bit integer.
 In other words, the size of both operands in a `cvtxx2yy` _do not need to be the same_:
 
-```nasm
+```x86asm
 cvtsi2sd xmm0, eax ; converts a 32-bit signed integer to a double-precision floating-point
 cvtsi2ss xmm0, rax ; converts a 64-bit signed integer to a single-precision floating-point
 cvtss2si rax, xmm0 ; converts a single-precision floating-point to a 64-bit signed integer
@@ -69,7 +69,7 @@ Those instructions take a constant number as third operand.
 This number indicates the rounding mode:
 
 | Number | Mode         |
-|:-------|:-------------|
+| :----- | :----------- |
 | 0      | Nearest      |
 | 1      | Floor (down) |
 | 2      | Ceil (up)    |
@@ -77,7 +77,7 @@ This number indicates the rounding mode:
 
 For example:
 
-```nasm
+```x86asm
 roundss xmm0, xmm1, 1 ; this rounds down (takes the floor) a 32-bit floating-point in xmm1 and stores it in xmm0
 roundsd xmm2, xmm2, 2 ; this rounds up (takes the ceil) a 64-bit floating-point in xmm2 and stores it in xmm2
 ```
@@ -89,7 +89,7 @@ Since those instructions produce an exact result, they can be used in preparatio
 Many operations with floating-point numbers take instructions with a similar name as its equivalent for integers, but adding the necessary placeholder (`ss` or `sd`) at the end.
 Those instructions are two-operand, with the usual semantics, even those that perform multiplication or division:
 
-```nasm
+```x86asm
 addss xmm1, xmm2 ; xmm1 = xmm1 + xmm2 (all 32-bit floating-point)
 mulsd xmm4, xmm5 ; xmm4 = xmm4 * xmm5 (all 64-bit floating-point)
 divss xmm0, xmm3 ; xmm0 = xmm0 / xmm3 (all 32-bit floating-point)
@@ -99,7 +99,7 @@ divss xmm0, xmm3 ; xmm0 = xmm0 / xmm3 (all 32-bit floating-point)
 
 The instructions to move from a XMM register to another are `movss` or `movsd`:
 
-```nasm
+```x86asm
 movss xmm1, xmm0 ; this copies a 32-bit floating-point from xmm0 to xmm1
 movsd xmm6, xmm4 ; this copies a 64-bit floating-point from xmm4 to xmm6
 ```
@@ -107,7 +107,7 @@ movsd xmm6, xmm4 ; this copies a 64-bit floating-point from xmm4 to xmm6
 It is **not** possible to move an immediate (a constant signed integer) to a xmm register directly.
 This number first needs to be moved into a general-purpose register and then converted using `cvtsi2xx`:
 
-```nasm
+```x86asm
 mov rax, 10        ; rax is a 64-bit integer with value 10
 cvtsi2sd xmm0, rax ; xmm0 is a 64-bit floating-point with value 10.0
 ```
@@ -122,7 +122,7 @@ The difference between them is that `ucomixx` sets the `parity flag (PF)` if one
 
 The comparison between floating-point values is _unsigned_:
 
-```nasm
+```x86asm
 ucomisd xmm0, xmm1
 ja .greater         ; 'ja' must be used for "greater", not 'jg'
 jb .lesser          ; 'jb' must be used for "lesser", not 'jl'
@@ -134,7 +134,7 @@ There are many more instructions for working with floating-point numbers, implem
 Some of them are:
 
 | Instruction | Description                                      |
-|:------------|:-------------------------------------------------|
+| :---------- | :----------------------------------------------- |
 | `sqrtxx`    | Computes square root (`sqrt(x)`)                 |
 | `rcpss`     | Computes reciprocal (`1/x`)                      |
 | `rsqrtss`   | Computes reciprocal of square root (`1/sqrt(x)`) |
@@ -158,7 +158,7 @@ All `xmm` registers are freely available to use, none of them is reserved for th
 Floating-point values can be defined in memory following the same semantics as integers of the same size.
 NASM (The Netwide Assembler - the assembler used by this track) also allows for declaration of floating-point values in scientific notation.
 
-```nasm
+```x86asm
 section .data
     pi dq 3.141592653589793 ; this is a double-precision floating-point value
     exp_num dd 1.e5 ; this is a single precision floating-point value equal to 1 * 10⁵

@@ -90,7 +90,7 @@ higher_card(4, 6)
 ~~~~exercism/note
 In order to return two integers from a function, you should use both `rax` and `rdx` registers:
 
-```nasm
+```x86asm
 returning_two_values:
     mov rax, rdi
     mov rdx, rsi

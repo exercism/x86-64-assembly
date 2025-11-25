@@ -3,13 +3,13 @@
 Memory is usually mapped for a program by the Operating System (OS) in a general layout:
 
 | address | memory region          |
-|:-------:|:-----------------------|
-| high    | stack                  |
+| :-----: | :--------------------- |
+|  high   | stack                  |
 |         | ...                    |
 |         | heap                   |
 |         | read-and-write segment |
 |         | code/read-only segment |
-| low     | reserved               |
+|   low   | reserved               |
 
 Memory in segments is organized in sections, with different permissions.
 
@@ -27,15 +27,15 @@ Each of these is separated with a space from the other and the label might optio
 The main directives and their related data sizes are:
 
 | directive | size    |
-|:---------:|:--------|
-| db        | 1 byte  |
-| dw        | 2 bytes |
-| dd        | 4 bytes |
-| dq        | 8 bytes |
+| :-------: | :------ |
+|    db     | 1 byte  |
+|    dw     | 2 bytes |
+|    dd     | 4 bytes |
+|    dq     | 8 bytes |
 
 For instance, this declares a byte variable named `space` with the value `10`:
 
-```nasm
+```x86asm
 section .data
     space db 10
 ```
@@ -71,7 +71,7 @@ A label is a symbol that encodes the specific address of data in memory.
 
 In NASM, trying to access data directly with its label does not yield the memory allocated, but its address:
 
-```nasm
+```x86asm
 section .data
     example dq 27 ; this declares a 8-byte variable initialized with 27
 
@@ -86,7 +86,7 @@ This is called **indirection**.
 
 In NASM, this is done with `[]`:
 
-```nasm
+```x86asm
 section .data
     example dq -27 ; this declares a 8-byte variable initialized with -27
 
@@ -102,7 +102,7 @@ In those cases, a prefix specifying this size must be used.
 These are the most important prefixes and their sizes in a typical x86-64 program:
 
 | prefix | size    |
-|:-------|:--------|
+| :----- | :------ |
 | byte   | 1 byte  |
 | word   | 2 bytes |
 | dword  | 4 bytes |
@@ -110,7 +110,7 @@ These are the most important prefixes and their sizes in a typical x86-64 progra
 
 The last example can be rewritten with the size prefix:
 
-```nasm
+```x86asm
 section .data
     example dq 27 ; this declares a 8-byte variable initialized with 27
 
@@ -126,7 +126,7 @@ It is good practice to always use a prefix when dereferencing memory.
 
 Writing to memory is done in the same way, by dereferencing an address:
 
-```nasm
+```x86asm
 section .data
     example1 db 10            ; example1 is a 1-byte memory location initialized with value 10
     example2 dq -456          ; example2 is a 8-byte memory location initialized with value -456
@@ -142,7 +142,7 @@ fn:
 Note that you can use memory operands in most instructions without first loading the contents in a register.
 However, it is not usually possible to use them in both source and destination operand, only one of the two:
 
-```nasm
+```x86asm
 section .data
     example4 dw 4
     example5 dq -8
@@ -162,7 +162,7 @@ Although a `mov` can be used to store the address of a variable in a register, t
 This instruction uses a memory-form operand, but it does _not_ read memory.
 Instead, it computes the effective address expression and writes the result in the destination operand:
 
-```nasm
+```x86asm
 lea rax, [example] ; this stores the address of 'example' in rax
 ```
 
@@ -185,7 +185,7 @@ This is usually called **RIP-relative addressing**.
 
 In NASM you can request RIP-relative access with the **[rel operator][rel]**:
 
-```nasm
+```x86asm
 mov rax, qword [rel variable]
 ```
 
@@ -201,7 +201,7 @@ If declared `global`, they are visible to other source files as well.
 Conversely, labels defined in other source files are visible to the current source file if declared `extern`.
 In this case, there is no indication of data size in assembly, this must be known in advance.
 
-```nasm
+```x86asm
 default rel
 
 section .data

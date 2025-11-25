@@ -4,7 +4,7 @@ A [loop][control] is a sequence of instructions that is potentially executed mor
 
 In x86-64 a loop is usually created with a jump to a previous label:
 
-```nasm
+```x86asm
 example_loop:
     ...
     jmp example_loop
@@ -15,7 +15,7 @@ This means the loop will keep repeating forever, unless there is another loop to
 
 For instance, this loop does not end:
 
-```nasm
+```x86asm
 infinite_loop:
     inc rax
     jmp infinite_loop ; always jumps to 'infinite_loop', repeating 'inc rax' forever
@@ -23,7 +23,7 @@ infinite_loop:
 
 And this loop may end, depending on the condition being met:
 
-```nasm
+```x86asm
 maybe_finite_loop:
     cmp rax, 1
     je out_of_loop ; jumps to 'out_of_loop' if rax == 1, breaking the loop
@@ -42,7 +42,7 @@ Its single operand is a label which has the address to the start of the loop.
 The `loop` instruction uses the value in `rcx` as a counter, decrementing it by 1 each time.
 Once the value in `rcx` reaches zero, the loop ends and execution continues sequentially:
 
-```nasm
+```x86asm
 section .text
 fn:
     mov rax, 0
@@ -57,14 +57,14 @@ There are two variants for the `loop` instruction that check for the zero flag (
 Apart from stopping the loop once `rcx` reaches zero, they also stop when the condition is _not_ met.
 
 | instruction       | condition |
-|-------------------|-----------|
+| ----------------- | --------- |
 | `loope`/`loopz`   | `ZF` == 1 |
 | `loopne`/`loopnz` | `ZF` == 0 |
 
 The `ZF` **is not tested** by those instructions.
 There must be a `cmp`, `test`, or another instruction that changes `ZF` before them:
 
-```nasm
+```x86asm
 section .text
 fn:
     mov rax, 0

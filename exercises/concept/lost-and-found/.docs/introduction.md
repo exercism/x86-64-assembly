@@ -7,7 +7,7 @@ The **call stack**, or just **stack**, is a special data structure that starts a
 The stack supports at least two operations, with instructions of the same name:
 
 | Instruction | Operation performed                                 |
-|-------------|-----------------------------------------------------|
+| ----------- | --------------------------------------------------- |
 | `push`      | adds an element to the stack                        |
 | `pop`       | removes and returns the most recently added element |
 
@@ -26,7 +26,7 @@ The value in `rsp` is then increased by the size of the retrieved value.
 It is also possible to manipulate the value of `rsp` directly.
 This is often used to create local variables for a function.
 
-```nasm
+```x86asm
 sub rsp, 24 ; this reserves 24 bytes of space in the stack
 add rsp, 24 ; this restores the previous value of rsp, "reducing" the stack by 24 bytes
 ```
@@ -89,7 +89,7 @@ This sequence is usually called **prologue**.
 At the end, the restoration of `rsp` is made with a `mov rsp, rbp` and then `rbp` is also restored with a `pop` from the stack.
 This sequence is usually called **epilogue**.
 
-```nasm
+```x86asm
 section .text
 fn:
     ; prologue

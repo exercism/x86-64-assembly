@@ -8,11 +8,11 @@ Its bits act like flags for various conditions.
 Some of those are listed below:
 
 | name     | symbol | bit |
-|:---------|:------:|:---:|
-| carry    | CF     | 0   |
-| zero     | ZF     | 6   |
-| sign     | SF     | 7   |
-| overflow | OF     | 11  |
+| :------- | :----: | :-: |
+| carry    |   CF   |  0  |
+| zero     |   ZF   |  6  |
+| sign     |   SF   |  7  |
+| overflow |   OF   | 11  |
 
 ## Comparison Instructions
 
@@ -31,11 +31,11 @@ The `cmp` instruction subtracts the second operand from the first and sets flags
 If A is the first operand and B, the second:
 
 | flag | set when                       |
-|:----:|:-------------------------------|
-| CF   | A < B (unsigned)               |
-| ZF   | A == B                         |
-| SF   | A < B (signed)                 |
-| OF   | overflow in signed subtraction |
+| :--: | :----------------------------- |
+|  CF  | A < B (unsigned)               |
+|  ZF  | A == B                         |
+|  SF  | A < B (signed)                 |
+|  OF  | overflow in signed subtraction |
 
 ## Branching
 
@@ -67,7 +67,7 @@ Its single operand is a label which has the address to the point where execution
 
 Consider, for instance, the following function:
 
-```nasm
+```x86asm
 fn:
     mov rax, 5
     jmp end
@@ -101,22 +101,22 @@ There are many suffixes and many of them test the same condition as another.
 Some of those refer directly to a flag, so that the instruction jumps to a label if the specific flag is set:
 
 | suffix | jumps if |
-|:------:|:--------:|
-| z      | ZF == 1  |
-| c      | CF == 1  |
-| s      | SF == 1  |
-| o      | OF == 1  |
+| :----: | :------: |
+|   z    | ZF == 1  |
+|   c    | CF == 1  |
+|   s    | SF == 1  |
+|   o    | OF == 1  |
 
 Many others are chosen in order to refer to their meaning in a `cmp` instruction.
 For example:
 
 | instruction | suffix | jumps if         |
-|-------------|:------:|:-----------------|
-| cmp A, B    | e      | A == B           |
-| cmp A, B    | l      | A < B (signed)   |
-| cmp A, B    | b      | A < B (unsigned) |
-| cmp A, B    | g      | A > B (signed)   |
-| cmp A, B    | a      | A > B (unsigned) |
+| ----------- | :----: | :--------------- |
+| cmp A, B    |   e    | A == B           |
+| cmp A, B    |   l    | A < B (signed)   |
+| cmp A, B    |   b    | A < B (unsigned) |
+| cmp A, B    |   g    | A > B (signed)   |
+| cmp A, B    |   a    | A > B (unsigned) |
 
 Note that somes suffixes are aliases to the same conditions.
 For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
@@ -124,7 +124,7 @@ This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which
 
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition:
 
-```nasm
+```x86asm
 cmp rcx, r8
 jge two      ; this jumps to 'two' if rcx is greater than, or equal to, r8 in a signed comparison
 jbe two      ; this jumps to 'two' if rcx is lesser than, or equal to, r8 in an unsigned comparison
@@ -144,7 +144,7 @@ So it is impossible to reuse a label name.
 In order to mimic the behavior of a local label, NASM has a special notation for a label declared with a period (`.`) before it.
 This notation defines a label which implicitly includes the name of the previous non-dotted label:
 
-```nasm
+```x86asm
 section .text
 fn1:
     ...
@@ -164,7 +164,7 @@ It is still possible to jump to this label from anywhere in the code by using th
 However, a jump that uses the part of the label starting at the dot will be made to the label _inside_ the upper function.
 For example, `.example` behaves as if it was local to the function:
 
-```nasm
+```x86asm
 section .text
 fn1:
     ...
@@ -181,7 +181,7 @@ fn2:
 
 Note that a non-dotted label inside a function in practice defines another function:
 
-```nasm
+```x86asm
 section .text
 fn1:
     ...

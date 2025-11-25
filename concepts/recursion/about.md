@@ -20,7 +20,7 @@ In some situations, a function does not perform any more work after calling anot
 
 Consider, for example:
 
-```nasm
+```x86asm
 times_three:
     imul rdi, rdi, 3
     mov rax, rdi
@@ -43,7 +43,7 @@ Notice that no work is done in `triple_of_square` after calling `times_three`, t
 
 In a situation like this, instead of using `call`, a function might use `jmp` and transfer execution to the called function:
 
-```nasm
+```x86asm
 times_three:
     imul rdi, rdi, 3
     mov rax, rdi
@@ -61,7 +61,7 @@ This is particularly useful on a recursive function, which tends to call itself 
 
 In some cases, with a manipulation of the order of the functions, even this `jmp` instruction might be avoided:
 
-```nasm
+```x86asm
 triple_of_square:
     imul rdi, rdi
 times_three:
