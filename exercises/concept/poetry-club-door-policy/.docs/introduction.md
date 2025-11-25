@@ -9,7 +9,7 @@ NASM (The Netwide Assembler, the assembler used by this track) has support to th
 
 Characters in NASM have up to 8 bytes and may be defined using single quotes (`'`), double quotes (`"`) or backticks (`` ` ``):
 
-```nasm
+```x86asm
 mov rax, '0' ; this copies the ASCII character '0' (decimal value 48)
 mov rcx, "z" ; this copies the ASCII character 'z' (decimal value 122)
 mov rdx, ` ` ; this copies the ASCII character ' ' (decimal value 32)
@@ -17,14 +17,14 @@ mov rdx, ` ` ; this copies the ASCII character ' ' (decimal value 32)
 
 Special characters must be defined in backticks and escaped with `\`:
 
-```nasm
+```x86asm
 mov rax, `\n` ; this copies the ASCII character newline (decimal value 10)
 mov rcx, `\t` ; this copies the ASCII character tab (decimal value 9)
 ```
 
 NASM also has support to **unicode characters** in UTF-8, specified with `\u` or `\U` and in backticks:
 
-```nasm
+```x86asm
 mov rax, `\u263a` ; UTF-8 smiley face (☺), value U+263a
 mov rcx, `\u0393` ; UTF-8 capital letter gamma (Γ), value U+0393
 ```
@@ -35,7 +35,7 @@ Data in assembly is a sequence of bytes and the interpretation of those bytes as
 For instance, the ASCII character '0' is a single byte with the value 48.
 So, storing 48 into a byte is exactly the same as storing the ASCII character '0':
 
-```nasm
+```x86asm
 mov al, '0' ; al has the value 48
 mov cl, 48  ; cl has the value '0'
 ; al and cl now have the same value
@@ -43,7 +43,7 @@ mov cl, 48  ; cl has the value '0'
 
 For this same reason, manipulating characters is done by directly transforming the values in those bytes:
 
-```nasm
+```x86asm
 mov al, 'A' ; al now has the value 'A', which is 65 in ASCII
 add al, 32 ; al now has the value 97, which is 'a' in ASCII
 ; so, summing 32 to an uppercase ASCII letter makes it lowercase
@@ -60,7 +60,7 @@ In assembly, it is usually implemented as an array.
 
 It is possible to declare a string in NASM in the same way any array might be declared:
 
-```nasm
+```x86asm
 section .data
     string1 db "h", "e", "l", "l", "o"
 ```
@@ -68,7 +68,7 @@ section .data
 One difference between strings and other arrays is that NASM also has support to the declaration of strings without a comma (`,`) separating values.
 It is also possible to interleave values with commas:
 
-```nasm
+```x86asm
 section .data
     string2 db "hello"
     string3 db "h", "ello"
@@ -76,7 +76,7 @@ section .data
 
 Note that, as already mentioned, characters are just bytes (or sequence of bytes in unicode encoding):
 
-```nasm
+```x86asm
 section .data
     string1 db "hi"
     string2 db "h", "i"
@@ -86,24 +86,24 @@ section .data
 
 Similarly, since each ASCII character takes a single byte, these are all equivalent:
 
-```nasm
+```x86asm
 section .data
     string1 dw 'hello' ; 3 words (2-byte)
     string2 dw 'he', "ll", `o` ; 3 words (2-byte)
     string3 db `hello`, 0 ; 3 words (2-byte)
 ```
 
-~~~~exercism/caution
+```exercism/caution
 In assembly, strings are not automatically ended by a ASCII NUL character (value `0`).
 
 When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
-~~~~
+```
 
 ## String instructions
 
 Since strings are arrays, you can work with them in the same way as any array, by explicitly dereferencing memory:
 
-```nasm
+```x86asm
 section .data
     hello_msg db "hello", 0
 
@@ -117,13 +117,13 @@ fn:
 In addition to that, there are some instructions for loading, moving and storing values in sequences of bytes in memory.
 Although called _string instructions_, they can be used with any sequence of bytes in memory, i.e., with any array:
 
-| instruction  | what it does                                                                                                      |
-|--------------|-------------------------------------------------------------------------------------------------------------------|
-| `lods`       | loads a value from a memory location indicated by `rsi` into `rax`                                                |
-| `stos`       | stores a value from `rax` into a memory location indicated by `rdi`                                               |
-| `movs`       | copies a value from a memory location indicated by `rsi` and stores it in a memory location indicated by `rdi`    |
-| `cmps`       | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
-| `scas`       | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
+| instruction | what it does                                                                                                      |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| `lods`      | loads a value from a memory location indicated by `rsi` into `rax`                                                |
+| `stos`      | stores a value from `rax` into a memory location indicated by `rdi`                                               |
+| `movs`      | copies a value from a memory location indicated by `rsi` and stores it in a memory location indicated by `rdi`    |
+| `cmps`      | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
+| `scas`      | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
 
 Note that those instructions do _not_ take any explicit operand.
 Their operands are implicit.
@@ -140,15 +140,15 @@ All of them may operate in different sizes.
 A suffix is appended to indicate this size:
 
 | prefix | meaning | size    |
-|:------:|---------|:--------|
-| `b`    | byte    | 1 byte  |
-| `w`    | word    | 2 bytes |
-| `d`    | dword   | 4 bytes |
-| `q`    | qword   | 8 bytes |
+| :----: | ------- | :------ |
+|  `b`   | byte    | 1 byte  |
+|  `w`   | word    | 2 bytes |
+|  `d`   | dword   | 4 bytes |
+|  `q`   | qword   | 8 bytes |
 
 For example:
 
-```nasm
+```x86asm
 movsb ; copies one byte from the memory location whose address is in `rsi` and stores it into the memory location whose address is in `rdi`
 lodsq ; copies one qword (8 bytes) from the memory location whose address is in `rsi` and stores it in `rax`
 stosw ; stores one word (2 bytes) into the memory location whose address is in `rdi`
@@ -166,7 +166,7 @@ So, _the default behavior is for memory to be read/written in ascending order of
 
 The instruction `cld` can be used to clear the direction flag, whereas the instruction `std`, to set it:
 
-```nasm
+```x86asm
 lea r8, [rdi]
 lea r9, [rsi]
 
@@ -188,10 +188,10 @@ stosd ; rdi increases (because `DF` is cleared) by 4 (`d` for dword)
 ; rsi == r9 + 6
 ```
 
-~~~~exercism/caution
+```exercism/caution
 The caller expects the `DF` to be cleared after any called function returns, as per System V ABI.
 If you ever set the `DF`, make sure to clear it before `ret`.
-~~~~
+```
 
 ### Lods
 
@@ -199,7 +199,7 @@ This instruction _reads_ from a memory location whose address is in `rsi` and co
 
 The value in `rsi` is updated by the number of bytes read:
 
-```nasm
+```x86asm
 lodsq ; copies one qword (8 bytes) from the address indicated by `rsi` to `rax`
 ; the address in `rsi` is now increased or decreased by 8, according to `DF` (by default, increased)
 ```
@@ -210,7 +210,7 @@ This instruction copies the value in `rax` and _writes_ it into a memory locatio
 
 The value in `rdi` is updated by the number of bytes written:
 
-```nasm
+```x86asm
 stosw ; copies one word (2 bytes) from `rax` to the address indicated by `rdi`
 ; the address in `rdi` is now increased or decreased by 2, according to `DF` (by default, increased)
 ```
@@ -222,7 +222,7 @@ The value in `rax` is not affected by this instruction.
 
 Both `rsi` and `rdi` are updated by the number of bytes copied from one memory location to the other:
 
-```nasm
+```x86asm
 movsb ; copies one byte from the address indicated by `rsi` to the address indicated by `rdi`
 ; the addresses in `rsi` and `rdi` are now increased or decreased by 1, according to `DF` (by default, increased)
 ```
@@ -234,7 +234,7 @@ It then compares the values and updates flags, as per `cmp`.
 
 Both `rsi` and `rdi` are updated by the number of bytes read from both locations:
 
-```nasm
+```x86asm
 cmpsd ; reads one dword (4 bytes) from the addresses indicated by `rsi` and `rdi` and compares them
 ; the addresses in `rsi` and `rdi` are now increased or decreased by 4, according to `DF` (by default, increased)
 ```
@@ -246,7 +246,7 @@ It then updates flags, as per `cmp`.
 
 The value in `rdi` is updated by the number of bytes read:
 
-```nasm
+```x86asm
 scasb ; compares one byte in `rax` with 1 byte read from the memory location whose address is in `rdi`
 ; the address in `rdi` is now increased or decreased by 1, according to `DF` (by default, increased)
 ```
@@ -260,7 +260,7 @@ It works similarly to `loop`, i.e., it repeats an instruction by a number of tim
 At each time, the value in `rcx` is decreased by `1`.
 Just as with the `loop` instructions, the value in `rcx` must be set before the instruction is used:
 
-```nasm
+```x86asm
 mov rcx, 4
 rep movsq ; this repeats movsq 4 times
           ; it copies 4 * 8 == 32 bytes from a memory location indicated by `rsi` to a memory location indicated by `rdi`
@@ -270,8 +270,8 @@ Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`)
 
 However, all `rep` instructions differ from their `loop` equivalent in that they can only be used to repeat a single string instruction, not a block of instructions:
 
-| instruction      | where can be added     | may stop earlier          |
-|------------------|------------------------|---------------------------|
-| `rep`            | `movs`, `lods`, `stos` | no                        |
-| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0  |
-| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1  |
+| instruction      | where can be added     | may stop earlier         |
+| ---------------- | ---------------------- | ------------------------ |
+| `rep`            | `movs`, `lods`, `stos` | no                       |
+| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0 |
+| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1 |

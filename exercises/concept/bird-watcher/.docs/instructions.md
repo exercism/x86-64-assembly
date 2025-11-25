@@ -4,9 +4,9 @@ You're an avid bird watcher that keeps track of how many birds have visited your
 
 You have six tasks, all dealing with the numbers of birds that visited your garden.
 
-~~~~exercism/note
+```exercism/note
 The number of birds in each day is represented as a 8-bit (1-byte) number.
-~~~~
+```
 
 ## 1. Check what the counts were last week
 
@@ -28,16 +28,16 @@ All days after the most recent one should have its corresponding byte zeroed-out
 
 At the start of the program, there is no count for the current week.
 
-~~~~exercism/note
+````exercism/note
 In order to return two integers from a function, you should use both `rax` and `rdx` registers:
 
-```nasm
+```x86asm
 returning_two_values:
     mov rax, rdi
     mov rdx, rsi
     ret
 ```
-~~~~
+````
 
 ## 3. Save count for each day
 

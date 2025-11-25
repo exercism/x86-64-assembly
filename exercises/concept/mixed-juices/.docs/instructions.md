@@ -9,16 +9,16 @@ You decide to use your coding skills to help Li Mei with her job.
 Li Mei likes to tell her customers in advance how long they have to wait for a juice from the menu that they ordered.
 She has a hard time remembering the exact numbers because the time it takes to mix the juices varies:
 
-| ID | Drink                   | Time |
-|----|-------------------------|------|
-| 1  | Pure Strawberry Joy     | 1    |
-| 2  | Energizer               | 3    |
-| 3  | Green Garden            | 3    |
-| 4  | Tropical Island         | 4    |
-| 5  | All or Nothing          | 5    |
-| 6  | Feel Good               | 4    |
-| 7  | Today’s Special         | 7    |
-| 8  | Client's Choice         | 10   |
+| ID  | Drink               | Time |
+| --- | ------------------- | ---- |
+| 1   | Pure Strawberry Joy | 1    |
+| 2   | Energizer           | 3    |
+| 3   | Green Garden        | 3    |
+| 4   | Tropical Island     | 4    |
+| 5   | All or Nothing      | 5    |
+| 6   | Feel Good           | 4    |
+| 7   | Today’s Special     | 7    |
+| 8   | Client's Choice     | 10   |
 
 Write a function `time_to_make_juice` that takes an ID for a juice, as a 32-bit number, and returns the time it takes to make the juice, also as a 32-bit number.
 
@@ -52,13 +52,13 @@ Implement the function `limes_to_cut` which takes the number of lime wedges Li M
 Each lime is represented in the array by a character with its size.
 Different sizes of lime can give Li Mei a different number of wedges:
 
-| Size  | Wedges |
-|-------|--------|
-| 'S'   | 6      |
-| 'M'   | 8      |
-| 'L'   | 10     |
+| Size | Wedges |
+| ---- | ------ |
+| 'S'  | 6      |
+| 'M'  | 8      |
+| 'L'  | 10     |
 
-~~~~exercism/note
+````exercism/note
 A character is a 8-bit number that can be used as any 8-bit number can:
 
 | Character | Value |
@@ -69,11 +69,11 @@ A character is a 8-bit number that can be used as any 8-bit number can:
 
 It can also be used directly in instructions, being equivalent to its value:
 
-```nasm
+```x86asm
 mov dl, 'S'
 cmp cl, 'M'
 ```
-~~~~
+````
 
 Li Mei always cuts the limes in the order in which they appear in the array, starting with the first item.
 She keeps going until she reached the number of wedges that she needs or until she runs out of limes.

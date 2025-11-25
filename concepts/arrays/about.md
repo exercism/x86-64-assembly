@@ -15,7 +15,7 @@ An effective address is an expression that may consist of:
 Note that this address is _0-indexed_, so that a base address, without any offset, points to the first byte of a variable.
 This is why dereferencing memory using just a label without any offset, as we have been done in previous concepts, yields a value starting at its first byte:
 
-```nasm
+```x86asm
 section .data
     example dq 10 ; example is a 8-byte variable
                   ; so it can be viewed as an array of those 8 bytes
@@ -31,7 +31,7 @@ fn:
 An initialized variable declared with a list of values is an array of those values, each element having the size specified.
 However, offsets are always for _bytes_, even when each element in the array has a greater size:
 
-```nasm
+```x86asm
 section .data
     arr dq 4, 8, 15, 23, 42 ; this defines an array of 5 qwords (8-byte elements)
                             ; the first qword has value 4 and can be accessed at [arr] (offset 0)
@@ -50,7 +50,7 @@ fn:
 
 Note that, since addresses are for bytes, it is possible to access directly an individual byte for any element in an array:
 
-```nasm
+```x86asm
 section .data
     arr dq 4, 8, 15, 16   ; this defines an array of 4 qwords (8-byte elements)
 
@@ -64,7 +64,7 @@ fn:
 
 For the same reason, it is possible to access more than an element's size in a single instruction:
 
-```nasm
+```x86asm
 section .data
     arr db 1, 2, 3, 4 ; this defines an array of 4 bytes
 
@@ -81,7 +81,7 @@ fn:
 NASM (The Netwide Assembler - the assembler used by this track) has a special symbol (`$`) that indicates the current location in memory.
 This symbol offers a convenient way to compute the total size in memory occupied by an array:
 
-```nasm
+```x86asm
 section .data
     example dd 4, 5, 6
     example_length dq $ - example  ; this is a qword variable with the size of the array, in bytes
@@ -104,22 +104,22 @@ Each of these is separated with a space from the other.
 The main directives and their related data sizes are:
 
 | directive | size    |
-|:---------:|:--------|
-| resb      | 1 byte  |
-| resw      | 2 bytes |
-| resd      | 4 bytes |
-| resq      | 8 bytes |
+| :-------: | :------ |
+|   resb    | 1 byte  |
+|   resw    | 2 bytes |
+|   resd    | 4 bytes |
+|   resq    | 8 bytes |
 
 For instance, this reserves uninitialized space for `3` bytes in a variable named `example`:
 
-```nasm
+```x86asm
 section .bss
     example resb 3
 ```
 
 And this reserves uninitialized space for `10` times `8` bytes (so, `80` bytes) in a variable named `arr`:
 
-```nasm
+```x86asm
 section .bss
     arr resq 10
 ```
@@ -136,21 +136,21 @@ It can be used to compute the address of any element in an array, following the 
 
 Note that in relative addressing it is often necessary to load the variable's address into a register before forming a more complex address:
 
-```nasm
+```x86asm
 lea rax, [rel arr]
 lea rdx, [rax + 8*r10 - 20] ; accessing 'arr' directly instead of loading it into rax first may yield an error
 ```
 
-~~~~exercism/note
+````exercism/note
 One of the advantages of `lea` is that it uses address-calculation arithmetic to compute a value without actually accessing the memory in that address.
 This makes it useful to do arithmetic computations even when none of the registers holds a memory address:
 
-```nasm
+```x86asm
 mov rcx, 3
 mov rdx, 5
 lea rax, [rcx + 8*rdx + 10] ; rax = rcx(3) + 8*rdx(5) + 10 = 3 + 40 + 10 = 53
 ```
-~~~~
+````
 
 [array]: https://en.wikipedia.org/wiki/Array_(data_structure)
 [bss]: https://en.wikipedia.org/wiki/.bss

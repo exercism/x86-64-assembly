@@ -29,12 +29,12 @@ In order to represent negative numbers, x86-64 uses the **two's complement** rep
 
 The `neg` instruction can be used to change the sign of a number.
 
-~~~~exercism/caution
+```exercism/caution
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can be a great aid in this task.
-~~~~
+```
 
 ## Immediates
 
@@ -49,7 +49,7 @@ The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as 
 
 It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
 
-```nasm
+```x86asm
 add eax, -1          ; this is 4294967295 in unsigned representation
                      ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
 
@@ -88,13 +88,13 @@ As a rule, unsigned multiplication uses the instruction `mul`, while signed mult
 
 The `mul` instruction takes the following one-operand form, where src is the source operand:
 
-```nasm
+```x86asm
 mul src
 ```
 
 The `imul` instruction can take a one-operand, two-operand or three-operand form:
 
-```nasm
+```x86asm
 imul src
 imul dest, src
 imul dest, src1, src2
@@ -115,10 +115,10 @@ The exception is the multiplication between two bytes.
 In this case, instead of `dl:al`, `ax` will be used.
 The lower portion of `ax` (`al`) will get the lower 8 bits of the product, while the upper portion (`ah`) will get the upper 8 bits.
 
-~~~~exercism/caution
+```exercism/caution
 The `rdx` register is implicitly used in an one-operand multiplication.
 This means any necessary value in `rdx` must be saved before that operation.
-~~~~
+```
 
 #### Two-operand form
 
@@ -141,7 +141,7 @@ In case of a possible overflow, it is sometimes useful to move operands to a lar
 A `movzx` instruction can be used to convert a value in a 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
 This is called **zero extension**:
 
-```nasm
+```x86asm
 mov ax, 1000 ; lower 16 bits of eax are 1000, upper bits are undefined
 mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
@@ -169,7 +169,7 @@ Unsigned division uses the instruction `div`, while signed division uses `idiv`.
 
 Both instructions work with only one operand:
 
-```nasm
+```x86asm
 div src
 idiv src
 ```
@@ -197,7 +197,7 @@ While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
 
 A variant of `movsx` called `movsxd` can sign-extend from a 32-bit source operand to a 64-bit destination operand, as well as between two 16-bit or two 32-bit operands.
 
-~~~~exercism/caution
+```exercism/caution
 The `rdx` register is implicitly used in an integer division.
 This means any necessary value in `rdx` must be saved before that operation.
-~~~~
+```

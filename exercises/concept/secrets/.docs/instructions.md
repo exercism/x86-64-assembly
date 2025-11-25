@@ -4,7 +4,7 @@ Your friend has just sent you a message with an important secret.
 Not wanting to make it easy for others to read it, the message was encrypted by performing a series of bit manipulations.
 You will need to write the methods to help decrypt the message.
 
-~~~~exercism/note
+```exercism/note
 These are the single bit instructions mentioned in this concept:
 
 | Name | Description                                                                   |
@@ -47,7 +47,7 @@ These are the miscellaneous instructions mentioned in this concept:
 | lzcnt    | Counts the number of leading zeros (a bit cleared before the first set bit)            |
 | bsr      | Gets the index of the most significant set bit. If no bit is set, result is undefined  |
 | bsf      | Gets the index of the least significant set bit. If no bit is set, result is undefined |
-~~~~
+```
 
 ## 1. Extract the mask
 
@@ -115,14 +115,14 @@ rotate_private_key(0b1010010011000101);
 // => 0b1100110011110010
 ```
 
-~~~~exercism/note
+````exercism/note
 NASM (The Netwide Assembler, the assembler used by this track) has support to constants in binary format with `0b` prefixed.
 It also supports using an underscore (`_`) as separator in a constant, for readability:
 
-```nasm
+```x86asm
 PRIVATE_KEY equ 0b1011_0011_0011_1100
 ```
-~~~~
+````
 
 ## 6. Format private key
 

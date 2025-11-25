@@ -12,11 +12,11 @@ Comments may be placed anywhere in the program and everything that comes after a
 An assembler-time constant can be defined in NASM using **equ**.
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
 
-```nasm
+```x86asm
 UNIVERSE equ 42
 ```
 
-Constants are evaluated once, when defined, and can *not* be redefined later.
+Constants are evaluated once, when defined, and can _not_ be redefined later.
 
 ## General Purpose Registers (GPRs)
 
@@ -30,17 +30,17 @@ Others have special or dedicated purposes.
 In x86-64, there are 16 64-bit General Purpose Registers (GPRs), which can also be accessed as 32-bit, 16-bit, or 8-bit.
 The GPRs are described below, where `n` in `rn` ranges from 8 to 15: `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14` and `r15`.
 
-| 64-bit    | 32-bit    | 16-bit    | 8-bit     |
-|:---------:|:---------:|:---------:|:---------:|
-|   rax     |   eax     |   ax      |   ah/al   |
-|   rbx     |   ebx     |   bx      |   bh/bl   |
-|   rcx     |   ecx     |   cx      |   ch/cl   |
-|   rdx     |   edx     |   dx      |   dh/dl   |
-|   rsi     |   esi     |   si      |   sil     |
-|   rdi     |   edi     |   di      |   dil     |
-|   rbp     |   ebp     |   bp      |   bpl     |
-|   rsp     |   esp     |   sp      |   spl     |
-|   rn      |   rnd     |   rnw     |   rnb     |
+| 64-bit | 32-bit | 16-bit | 8-bit |
+| :----: | :----: | :----: | :---: |
+|  rax   |  eax   |   ax   | ah/al |
+|  rbx   |  ebx   |   bx   | bh/bl |
+|  rcx   |  ecx   |   cx   | ch/cl |
+|  rdx   |  edx   |   dx   | dh/dl |
+|  rsi   |  esi   |   si   |  sil  |
+|  rdi   |  edi   |   di   |  dil  |
+|  rbp   |  ebp   |   bp   |  bpl  |
+|  rsp   |  esp   |   sp   |  spl  |
+|   rn   |  rnd   |  rnw   |  rnb  |
 
 When using less than 64-bits, the bits accessed are usually from the lower portion of the register.
 The exception to this rule are `ah`, `bh`, `ch` and `dh`, which access the upper 8-bits from the 16-bits portion of the register.
@@ -69,7 +69,7 @@ The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`,
 Instructions are pieces of computations a CPU can perform.
 They usually have the following form:
 
-```nasm
+```x86asm
 name destination, source
 ```
 
@@ -81,7 +81,7 @@ For example, the destination operand must also have 16 bits if the source operan
 
 For instance, to store a value in a register, we can use the `mov` instruction:
 
-```nasm
+```x86asm
 mov rax, rdx  ; rax = rdx
               ; mov is the name, rax is the destination operand and rdx is the source operand
 ```
@@ -90,7 +90,7 @@ The snippet above copies the contents of all 64 bits of `rdx`, the source operan
 
 It is possible to use constant integer numbers as source operands (but not as destination operands) in most instructions:
 
-```nasm
+```x86asm
 mov rcx, 42 ; rcx = 42
             ; rcx is the destination operand and 42 is the source operand
 ```
@@ -100,11 +100,12 @@ This is not true for 16-bit and 8-bit registers.
 
 For the arithmetic operations addition, subtraction, and multiplication, we can use the `add`, `sub`, and `imul` instructions:
 
-```nasm
+```x86asm
 add rax, rsi ; rax = rax + rsi
 imul rax, rdi ; rax = rax * rdi
 sub rax, r8 ; rax = rax - r8
 ```
+
 ## Functions
 
 Instructions are organized in functions.
@@ -127,7 +128,7 @@ In order to make a function visible to other source files, the `global` directiv
 
 For instance, this declares a function `sum`:
 
-```nasm
+```x86asm
 section .text ; functions are placed here
 
 global sum ; sum is visible to other source files
@@ -145,7 +146,7 @@ sum:
 
 And this calls our `sum` function with the arguments 3 and 5:
 
-```nasm
+```x86asm
 mov rdi, 3  ; First argument in rdi
 mov rsi, 5  ; Second argument in rsi
 call sum
