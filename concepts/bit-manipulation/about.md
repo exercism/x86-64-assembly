@@ -42,12 +42,20 @@ When we interpret one and zero as inclusion and exclusion, respectively, an inte
 A bitmask "masks out" items because a zero in the`i`th bit excludes the `i`th item, while a one includes it.
 We also commonly use a bitmask to include certain bits of an integer while excluding others.
 
-For example, suppose that
-```
-A = 0b10010101
-M = 0b00011101
-```
-Both are 8-bit integers. In this case, we can say that `A` is masked by `M` at the first and the fourth through eighth bit positions.
+For example, let `A` be an integer whose binary representation is
+
+
+| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+|-------|---|---|---|---|---|---|---|---|
+| bits  | 1 | 0 | 0 | 1 | 0 | 1 | 0 | 1 |
+
+Also, let `M` be an integer whose binary representation is
+
+| index | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+|-------|---|---|---|---|---|---|---|---|
+| bits  | 0 | 0 | 0 | 0 | 1 | 1 | 0 | 1 |
+
+Both are 8-bit integers. In this case, we can say that `A` is masked by `M` at the first and the fourth through seventh bit positions.
 
 The bitwise instructions discussed earlier are useful in manipulating integers with masks. 
 For example:
