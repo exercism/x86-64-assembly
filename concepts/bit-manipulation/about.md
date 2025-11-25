@@ -2,9 +2,10 @@
 
 In a previous concept, it was explored how an `integer` in assembly is essentially a sequence of bytes interpreted in a specific way.
 
-As there is no built-in data structure and very few abstractions in assembly, the ability to manipulate bits and bytes is essential.
-
-This is why x86-64 offers a variety of different instructions for bit manipulations.
+Each bit of an integer can be used to store a binary value. 
+Because many situations involve binary information---such as true or false, inclusion or exclusion, on or off---the binary representation of an N-bit integer provides a compact way to encode the binary state of N items.
+This makes the ability to manipulate bits and bytes essential in assmbly.
+The x86-64 instruction set offers a wide variety of bitwise manipulation instructions.
 
 ## Single bit manipulation
 
@@ -35,6 +36,24 @@ They all have an instruction with the same name as the performed bitwise operati
 
 Most of them take two operands, perform a bitwise operation on both and store the result in the destination operand.
 The exception is `not`, which takes just one destination operand.
+
+~~~~exercism/note
+When we interpret one and zero as inclusion and exclusion, respectively, an integer is called a *bitmask* (or simply a *mask*).
+A bitmask "masks out" items because a zero in the`i`th bit excludes the `i`th item, while a one includes it.
+We also commonly use a bitmask to include certain bits of an integer while excluding others.
+
+For example, suppose that
+```
+A = 0b10010101
+M = 0b00011101
+```
+Both are 8-bit integers. In this case, we can say that `A` is masked by `M` at the first and the fourth through eighth bit positions.
+
+The bitwise instructions discussed earlier are useful in manipulating integers with masks. 
+For example:
+- To *clear* the bits of `A`that are not selected by `M`, take the bitwise AND: `A AND M`.
+- To *set* the bits of `A` selected by `M`, take the bitwise OR: `A OR M`.
+~~~~
 
 ## TEST Instruction
 
