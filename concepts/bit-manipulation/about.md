@@ -2,7 +2,7 @@
 
 In a previous concept, it was explored how an `integer` in assembly is essentially a sequence of bytes interpreted in a specific way.
 
-Each bit of an integer can be used to store a binary value. 
+Each bit of an integer can be used to store a binary value.
 Because many situations involve binary information---such as true or false, inclusion or exclusion, on or off---the binary representation of an N-bit integer provides a compact way to encode the binary state of N items.
 This makes the ability to manipulate bits and bytes essential in assmbly.
 The x86-64 instruction set offers a wide variety of bitwise manipulation instructions.
@@ -57,7 +57,7 @@ Also, let `M` be an integer whose binary representation is
 
 Both are 8-bit integers. In this case, we can say that `A` is masked by `M` at the first and the fourth through seventh bit positions.
 
-The bitwise instructions discussed earlier are useful in manipulating integers with masks. 
+The bitwise instructions discussed earlier are useful in manipulating integers with masks.
 For example:
 - To *clear* the bits of `A`that are not selected by `M`, take the bitwise AND: `A AND M`.
 - To *set* the bits of `A` selected by `M`, take the bitwise OR: `A OR M`.
