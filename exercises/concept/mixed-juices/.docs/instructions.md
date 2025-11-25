@@ -58,7 +58,7 @@ Different sizes of lime can give Li Mei a different number of wedges:
 | 'M'  | 8      |
 | 'L'  | 10     |
 
-````exercism/note
+~~~~exercism/note
 A character is a 8-bit number that can be used as any 8-bit number can:
 
 | Character | Value |
@@ -73,7 +73,7 @@ It can also be used directly in instructions, being equivalent to its value:
 mov dl, 'S'
 cmp cl, 'M'
 ```
-````
+~~~~
 
 Li Mei always cuts the limes in the order in which they appear in the array, starting with the first item.
 She keeps going until she reached the number of wedges that she needs or until she runs out of limes.

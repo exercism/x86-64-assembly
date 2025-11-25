@@ -143,7 +143,7 @@ lea rax, [rel arr]
 lea rdx, [rax + 8*r10 - 20] ; accessing 'arr' directly instead of loading it into rax first may yield an error
 ```
 
-````exercism/note
+~~~~exercism/note
 One of the advantages of `lea` is that it uses address-calculation arithmetic to compute a value without actually accessing the memory in that address.
 This makes it useful to do arithmetic computations even when none of the registers holds a memory address:
 
@@ -152,4 +152,4 @@ mov rcx, 3
 mov rdx, 5
 lea rax, [rcx + 8*rdx + 10] ; rax = rcx(3) + 8*rdx(5) + 10 = 3 + 40 + 10 = 53
 ```
-````
+~~~~

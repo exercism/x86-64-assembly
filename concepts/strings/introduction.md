@@ -93,11 +93,11 @@ section .data
     string3 db `hello`, 0 ; 3 words (2-byte)
 ```
 
-```exercism/caution
+~~~~exercism/caution
 In assembly, strings are not automatically ended by a ASCII NUL character (value `0`).
 
 When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
-```
+~~~~
 
 ## String instructions
 
@@ -188,10 +188,10 @@ stosd ; rdi increases (because `DF` is cleared) by 4 (`d` for dword)
 ; rsi == r9 + 6
 ```
 
-```exercism/caution
+~~~~exercism/caution
 The caller expects the `DF` to be cleared after any called function returns, as per System V ABI.
 If you ever set the `DF`, make sure to clear it before `ret`.
-```
+~~~~
 
 ### Lods
 

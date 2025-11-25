@@ -3,7 +3,7 @@
 In this exercise you are going to implement some rules of [Blackjack][blackjack],
 such as the way the game is played and scored.
 
-```exercism/note
+~~~~exercism/note
 In this exercise, the cards are represented by numbers; each number card is represented by its numerical value, while jacks, queens, kings, and aces are identified by 11, 12, 13, and 14, respectively (jokers are not used in the game).
 
 In order to make it easier to work with this representation, some constants are defined at the top of the file; `C2` to `C10` are for number cards, `CJ` for a jack, `CQ` for a queen, `CK` for a king, and `CA` for an ace.
@@ -11,9 +11,9 @@ In order to make it easier to work with this representation, some constants are 
 A [standard French-suited 52-card deck][standard_deck] is assumed, but in most versions, several decks are shuffled together for play.
 
 [standard_deck]: https://en.wikipedia.org/wiki/Standard_52-card_deck
-```
+~~~~
 
-```exercism/note
+~~~~exercism/note
 These are the instructions mentioned in this concept:
 
 | Instruction   | Description                                            |
@@ -44,7 +44,7 @@ Those are the conditions checked in a `jcc` after a `cmp a, b`:
 | jnge        | !(a >= b) (signed)  |
 | jnbe        | !(a <= b) (unsigned)|
 | jnae        | !(a >= b) (unsigned)|
-```
+~~~~
 
 ## 1. Calculate the value of a card
 
@@ -87,7 +87,7 @@ higher_card(4, 6)
 // => 13
 ```
 
-````exercism/note
+~~~~exercism/note
 In order to return two integers from a function, you should use both `rax` and `rdx` registers:
 
 ```x86asm
@@ -98,7 +98,7 @@ returning_two_values:
 ```
 
 If only one card is returned, `rdx` must be set to 0.
-````
+~~~~
 
 ## 3. Calculate the value of an ace
 

@@ -93,12 +93,12 @@ Notice that the binary representation of `-23` and the binary representation of 
 In order to provide disambiguation, in a signed integer, the most significant bit is not summed up to the others, but indicates whether the number is negative.
 This bit is called the **sign bit**.
 
-```exercism/caution
+~~~~exercism/caution
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can be a great aid in this task.
-```
+~~~~
 
 ## Immediates
 
@@ -247,10 +247,10 @@ The exception is the multiplication between two bytes.
 In this case, instead of `dl:al`, `ax` will be used.
 The lower portion of `ax` (`al`) will get the lower 8 bits of the product, while the upper portion (`ah`) will get the upper 8 bits.
 
-```exercism/caution
+~~~~exercism/caution
 The `rdx` register is implicitly used in one-operand multiplication.
 This means any necessary value in `rdx` must be saved before that operation.
-```
+~~~~
 
 #### Two-operand form
 
@@ -327,10 +327,10 @@ So, the lower 8 bits of `ax` (`al`) will get the quotient of the operation and t
 There is also the instruction [movsx][movsx] that works similarly to `movzx`, extending from any 8-bit or 16-bit source operand to a larger destination operand.
 While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
 
-```exercism/caution
+~~~~exercism/caution
 The `rdx` register is implicitly used in an integer division.
 This means any necessary value in `rdx` must be saved before that operation.
-```
+~~~~
 
 [byte]: https://en.wikipedia.org/wiki/Byte
 [bit]: https://en.wikipedia.org/wiki/Bit

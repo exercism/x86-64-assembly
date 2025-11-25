@@ -29,12 +29,12 @@ In order to represent negative numbers, x86-64 uses the **two's complement** rep
 
 The `neg` instruction can be used to change the sign of a number.
 
-```exercism/caution
+~~~~exercism/caution
 In assembly, there's no way to tell if a sequence of bytes represents a signed or an unsigned number.
 It's the programmer's responsibility to give meaning to those bytes.
 
 The use of comments can be a great aid in this task.
-```
+~~~~
 
 ## Immediates
 
@@ -115,10 +115,10 @@ The exception is the multiplication between two bytes.
 In this case, instead of `dl:al`, `ax` will be used.
 The lower portion of `ax` (`al`) will get the lower 8 bits of the product, while the upper portion (`ah`) will get the upper 8 bits.
 
-```exercism/caution
+~~~~exercism/caution
 The `rdx` register is implicitly used in an one-operand multiplication.
 This means any necessary value in `rdx` must be saved before that operation.
-```
+~~~~
 
 #### Two-operand form
 
@@ -197,7 +197,7 @@ While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
 
 A variant of `movsx` called `movsxd` can sign-extend from a 32-bit source operand to a 64-bit destination operand, as well as between two 16-bit or two 32-bit operands.
 
-```exercism/caution
+~~~~exercism/caution
 The `rdx` register is implicitly used in an integer division.
 This means any necessary value in `rdx` must be saved before that operation.
-```
+~~~~

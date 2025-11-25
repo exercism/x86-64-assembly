@@ -8,7 +8,7 @@ x86-64 supports both.
 
 A single-precision floating-point number is 32-bit wide, whereas a double-precision is 64-bit wide.
 
-```exercism/note
+~~~~exercism/note
 Since floating-point numbers are an approximation of the whole of real numbers, operations with them may give imprecise results.
 
 For an in-depth explanation, please refer to [Appendix D][guide] of Oracle's Numerical Computation Guide "What Every Computer Scientist Should Know About Floating-Point Arithmetic".
@@ -17,7 +17,7 @@ The [Float Toy page][toy] has a nice, graphical explanation for how a floating-p
 
 [guide]: https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 [toy]: https://evanw.github.io/float-toy
-```
+~~~~
 
 ## XMM Registers
 
