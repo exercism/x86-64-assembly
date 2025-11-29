@@ -13,8 +13,9 @@ transpose:
     sub rsp, 32         ; map for length of each row in transposed matrix
     push rbx
 
-    vpxor ymm1, ymm1, ymm1    ; ymm1 (including xmm1) is all 0s
-    vmovdqu [rsp], ymm1 ; zero out map
+    vpxor xmm1, xmm1, xmm1    ; ymm1 (including xmm1) is all 0s
+    vmovdqu [rsp], xmm1 ; zero out map
+    vmovdqu [rsp + 16], xmm1
 
     xor r8d, r8d
 .find_longest_string_length:
