@@ -17,25 +17,24 @@ transpose:
     movdqu [rsp], xmm1       ; zero out map
     movdqu [rsp + 16], xmm1
 
+    mov rbx, rdi
+    xor r9d, r9d
     xor r8d, r8d
 .find_longest_string_length:
-    mov rbx, qword [rsi + 8*r8]
-    xor r9d, r9d
-.find_end:
-    pcmpistri xmm1, oword [rbx + r9], 0b00_10_10_00 ; finds the index of first char equal to its corresponding byte in xmm1, and returns it in ecx
-                                               ; since xmm1 is empty, it returns the index of NUL, or 16 if NUL was not found
-    add r9d, ecx                               ; accumulate total length for row
-    cmp ecx, 16
-    jz .find_end                               ; continue looping until NUL is found
+    mov rdi, qword [rsi + 8*r8]
+    mov rcx, -1
+    repne scasb
+    not rcx
+    dec rcx
 
-    cmp r9d, eax
-    cmova eax, r9d                             ; eax is now the length of the largest row
+    cmp ecx, r9d
+    cmova r9d, ecx                                  ; r9d is now the length of the largest row
 
     xor r10d, r10d
 .fill_map:
     movzx r11d, byte [rsp + r10]
-    cmp r11d, r9d
-    cmovb r11d, r9d                            ; if length of a previous row is smaller, it should be equal to length for current row
+    cmp r11d, ecx
+    cmovb r11d, ecx                                 ; if length of a previous row is smaller, it should be equal to length for current row
     mov byte [rsp + r10], r11b
 
     inc r10d
@@ -45,6 +44,9 @@ transpose:
     inc r8
     cmp r8, rdx
     jne .find_longest_string_length
+
+    mov rdi, rbx
+    mov eax, r9d
 
     xor ecx, ecx
     xor r8d, r8d             ; col
