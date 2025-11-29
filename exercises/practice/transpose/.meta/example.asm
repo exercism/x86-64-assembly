@@ -13,8 +13,8 @@ transpose:
     sub rsp, 32         ; map for length of each row in transposed matrix
     push rbx
 
-    pxor xmm1, xmm1, xmm1    ; ymm1 (including xmm1) is all 0s
-    movdqu [rsp], xmm1 ; zero out map
+    pxor xmm1, xmm1          ; xmm1 is all 0s
+    movdqu [rsp], xmm1       ; zero out map
     movdqu [rsp + 16], xmm1
 
     xor r8d, r8d
