@@ -12,12 +12,12 @@ transpose:
     ; prologue
     sub rsp, 32         ; map for length of each row in transposed matrix
     push rbx
-
-    pxor xmm1, xmm1          ; xmm1 is all 0s
-    movdqu [rsp], xmm1       ; zero out map
-    movdqu [rsp + 16], xmm1
-
     mov rbx, rdi
+
+    mov rcx, 32
+    mov rdi, rsp
+    rep stosb
+
     xor r9d, r9d
     xor r8d, r8d
 .find_longest_string_length:
