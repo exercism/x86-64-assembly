@@ -22,7 +22,7 @@ transpose:
     mov rbx, qword [rsi + 8*r8]
     xor r9d, r9d
 .find_end:
-    pcmpistri xmm1, [rbx + r9], 0b00_00_10_00 ; finds the index of first char equal to its corresponding byte in xmm1, and returns it in ecx
+    pcmpistri xmm1, [rbx + r9], 0b00_10_10_00 ; finds the index of first char equal to its corresponding byte in xmm1, and returns it in ecx
                                                ; since xmm1 is empty, it returns the index of NUL, or 16 if NUL was not found
     add r9d, ecx                               ; accumulate total length for row
     cmp ecx, 16
