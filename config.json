@@ -1249,7 +1249,9 @@
         "name": "Transpose",
         "uuid": "be4a96f9-ab59-4e1d-b41f-669961cfff95",
         "practices": [],
-        "prerequisites": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
         "difficulty": 7
       },
       {
