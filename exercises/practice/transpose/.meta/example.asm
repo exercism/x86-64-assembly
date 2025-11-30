@@ -14,9 +14,9 @@ transpose:
     sub rsp, 32         ; map for length of each row in transposed matrix
     mov rbx, rdi
 
-    mov rcx, 4
-    mov rdi, rsp
-    rep stosq
+    pxor xmm1, xmm1
+    movdqu [rsp], xmm1
+    movdqu [rsp + 16], xmm1
 
     xor r9d, r9d
     xor r8d, r8d
