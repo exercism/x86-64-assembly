@@ -13,7 +13,7 @@ transpose:
     push rbx
     sub rsp, 32              ; map for length of each row in transposed matrix
 
-    pxor xmm1, xmm1          ; xmm1 is all 0s
+    vpxor xmm1, xmm1          ; xmm1 is all 0s
     movdqu [rsp], xmm1
     movdqu [rsp + 16], xmm1  ; map is now cleared
 
@@ -35,7 +35,7 @@ transpose:
 .fill_map:
     movzx r11d, byte [rsp + r10]
     cmp r11d, r9d
-    cmovb r11d, r9d                            ; if length of a previous row is smaller, it should be equal to length for current row
+    cmovb r11d, r9d                             ; if length of a previous row is smaller, it should be equal to length for current row
     mov byte [rsp + r10], r11b
 
     inc r10d
