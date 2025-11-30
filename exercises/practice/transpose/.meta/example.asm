@@ -10,13 +10,13 @@ transpose:
     ; if a col is smaller than a subsequent col, padding space must be added
 
     ; prologue
-    sub rsp, 32         ; map for length of each row in transposed matrix
     push rbx
+    sub rsp, 32         ; map for length of each row in transposed matrix
     mov rbx, rdi
 
-    mov rcx, 32
+    mov rcx, 4
     mov rdi, rsp
-    rep stosb
+    rep stosq
 
     xor r9d, r9d
     xor r8d, r8d
@@ -86,8 +86,8 @@ transpose:
 
     ; epilogue
 
-    pop rbx
     add rsp, 32
+    pop rbx
 .ret:
     ret
 
