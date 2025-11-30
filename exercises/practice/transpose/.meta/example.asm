@@ -13,7 +13,7 @@ transpose:
     push rbx
     sub rsp, 32              ; map for length of each row in transposed matrix
 
-    vpxor xmm1, xmm1          ; xmm1 is all 0s
+    pxor xmm1, xmm1          ; xmm1 is all 0s
     movdqu [rsp], xmm1
     movdqu [rsp + 16], xmm1  ; map is now cleared
 
