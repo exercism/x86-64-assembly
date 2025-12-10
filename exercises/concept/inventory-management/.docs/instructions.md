@@ -21,8 +21,8 @@ These are the instructions mentioned in this concept:
 | mul a         | sets rax to a * rax (unsigned)                                       |
 | div a         | sets rax to rax / a and rdx to rax % a (unsigned)                    |
 | idiv a        | sets rax to rax / a and rdx to rax % a (signed)                      |
-| movzx a, b    | copies a to b, adding 0 to exceding bits                             |
-| movsx a, b    | copies a to b, adding 1 to exceding bits if num b < 0 or 0 otherwise |
+| movzx a, b    | copies b to a, adding 0 to exceding bits                             |
+| movsx a, b    | copies b to a, adding 1 to exceding bits if num b < 0 or 0 otherwise |
 ~~~~
 
 ~~~~exercism/note
