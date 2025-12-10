@@ -8,21 +8,21 @@ You have four tasks, all related to managing the transport.
 ~~~~exercism/note
 These are the instructions mentioned in this concept:
 
-| Instruction   | Description                                                          |
-|---------------|----------------------------------------------------------------------|
-| add a, b      | sets a to a + b                                                      |
-| adc a, b      | sets a to a + b + CF (previous carry)                                |
-| inc a         | sets a to a + 1                                                      |
-| sub a, b      | sets a to a - b                                                      |
-| dec a         | sets a to a - 1                                                      |
-| imul a        | sets rax to a * rax (signed)                                         |
-| imul a, b     | sets a to a * b                                                      |
-| imul a, b, c  | sets a to b * c                                                      |
-| mul a         | sets rax to a * rax (unsigned)                                       |
-| div a         | sets rax to rax / a and rdx to rax % a (unsigned)                    |
-| idiv a        | sets rax to rax / a and rdx to rax % a (signed)                      |
-| movzx a, b    | copies b to a, adding 0 to exceding bits                             |
-| movsx a, b    | copies b to a, adding 1 to exceding bits if num b < 0 or 0 otherwise |
+| Instruction   | Description                                                           |
+|---------------|-----------------------------------------------------------------------|
+| add a, b      | sets a to a + b                                                       |
+| adc a, b      | sets a to a + b + CF (previous carry)                                 |
+| inc a         | sets a to a + 1                                                       |
+| sub a, b      | sets a to a - b                                                       |
+| dec a         | sets a to a - 1                                                       |
+| imul a        | sets rax to a * rax (signed)                                          |
+| imul a, b     | sets a to a * b                                                       |
+| imul a, b, c  | sets a to b * c                                                       |
+| mul a         | sets rax to a * rax (unsigned)                                        |
+| div a         | sets rax to rax / a and rdx to rax % a (unsigned)                     |
+| idiv a        | sets rax to rax / a and rdx to rax % a (signed)                       |
+| movzx a, b    | copies b to a, adding 0 to exceeding bits                             |
+| movsx a, b    | copies b to a, adding 1 to exceeding bits if num b < 0 or 0 otherwise |
 ~~~~
 
 ~~~~exercism/note
