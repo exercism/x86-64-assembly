@@ -1,7 +1,7 @@
 exclude: |
     (?x)^(
-        exercises/practice/*/.docs/introduction.md|
-        exercises/practice/*/.docs/instructions.md|
+        exercises/practice/.*/.docs/introduction.md|
+        exercises/practice/.*/.docs/instructions.md|
         .*/vendor/.*|
         .github/CODEOWNERS
     )$
