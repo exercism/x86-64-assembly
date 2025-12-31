@@ -282,7 +282,7 @@ mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
 movzx eax, ax ; lower 16 bits of eax remain 1000, upper bits are cleared
 movzx ecx, cx ; lower 16 bits of ecx remain 200, upper bits are cleared
-mul ecx ; now eax correctly holds 200 * 100
+mul ecx ; now eax correctly holds 200 * 1000
 ```
 
 A 32-bit source operand is always zero-extended to all 64 bits of the destination operand with a simple `mov`.
