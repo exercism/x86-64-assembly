@@ -4,8 +4,8 @@ two_fer:
     ; Provide your implementation here
     ; The function has type signature void two_fer(const char *name, char *buffer)
     ; It has no return value
-    ; The first argument is the address to a read-only sequence of bytes stored in memory
-    ; The second argument is the address to a writable sequence of bytes stored in memory
+    ; The first argument is of type const char*, which is the address of a read-only NUL-terminated sequence of bytes stored in memory
+    ; The second argument is of type char*, which is the address of a writable sequence of bytes stored in memory
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64

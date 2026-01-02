@@ -5,7 +5,7 @@ is_isogram:
     ; The function has type signature int is_isogram(const char *str);
     ; The return value is of type int, which is a 32-bit signed integer
     ; The return value should be set to zero if false and non-zero if true
-    ; The argument is of type const char*, which is the address to a read-only NUL-terminated string
+    ; The argument is of type const char*, which is the address of a read-only NUL-terminated sequence of bytes stored in memory
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
