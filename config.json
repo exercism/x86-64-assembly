@@ -197,7 +197,8 @@
         "uuid": "e0a4dc83-dd93-40b0-b365-01581b57f66c",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "loops",
+          "integers"
         ],
         "difficulty": 1,
         "topics": [
@@ -213,7 +214,7 @@
         "uuid": "98887d08-92b7-4559-8133-4c05453bfe14",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "floating-point-numbers"
         ],
         "difficulty": 1
       },
@@ -223,7 +224,8 @@
         "uuid": "d050fbb3-db22-4b1a-9ae6-60bf246b1a6d",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "loops",
+          "integers"
         ],
         "difficulty": 1,
         "topics": [
@@ -249,7 +251,8 @@
         "uuid": "669b6523-0dfe-4ccc-b16e-51ee6a8e7e0b",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "conditionals",
+          "integers"
         ],
         "difficulty": 1,
         "topics": [
@@ -263,7 +266,7 @@
         "uuid": "799bdac9-e905-4fbd-aa55-94dc1154dc5e",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 1,
         "topics": [
@@ -276,7 +279,7 @@
         "uuid": "9520ca3d-926a-4cc3-949c-9d99dd9009bf",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 1,
         "topics": [
@@ -303,7 +306,8 @@
         "uuid": "8dcd4afd-7ef8-4bd1-85e1-b070357c970a",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "integers",
+          "loops"
         ],
         "difficulty": 1,
         "topics": [
@@ -334,7 +338,7 @@
         "uuid": "d0f241d3-4d99-49e3-bf90-2767cfb0c9c3",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 1,
         "topics": [
@@ -348,7 +352,7 @@
         "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "integers"
         ],
         "difficulty": 2,
         "topics": [
@@ -361,7 +365,7 @@
         "uuid": "c7177570-056f-4024-9022-9b0fcc37f246",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 2,
         "topics": [
@@ -375,7 +379,7 @@
         "uuid": "808128e8-d23c-40d6-a642-dd3eec3c13cc",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "arrays"
         ],
         "difficulty": 2
       },
@@ -395,7 +399,7 @@
         "uuid": "068f3bc2-48cc-46af-9e1e-5a664cc8025a",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 2,
         "topics": [
@@ -408,7 +412,7 @@
         "uuid": "360852bf-c2f0-4fba-990a-49813fd069c1",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "conditionals"
         ],
         "difficulty": 2,
         "topics": [
@@ -469,7 +473,7 @@
         "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "bit-manipulation"
         ],
         "difficulty": 3
       },
@@ -489,7 +493,7 @@
         "uuid": "015bc461-1d31-4d2f-a914-d6294f27592d",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 3,
         "topics": [
@@ -563,7 +567,7 @@
         "uuid": "1ddc9312-b16f-41fe-91c2-a1181d32fb15",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "strings"
         ],
         "difficulty": 3
       },
