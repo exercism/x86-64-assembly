@@ -28,6 +28,15 @@ fn:
     mov edx, dword [example + 1] ; this accesses 4 bytes starting at the second
 ```
 
+~~~~exercism/note
+x86-64 is [little endian][endianness].
+This means that the least significant byte of a multibyte value is stored at the smallest memory address.
+
+Consequently, when accessing the individual bytes of a multibyte value, it is necessary to add a positive offset to the base address to reach more significant bytes.
+
+[endianness]: https://en.wikipedia.org/wiki/Endianness
+~~~~
+
 An initialized variable declared with a list of values is an array of those values, each element having the size specified.
 However, offsets are always for **_bytes_**, even when each element in the array has a greater size:
 

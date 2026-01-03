@@ -11,11 +11,7 @@ One of the most important and fundamental abstractions are [integers][integer].
 They represent whole numbers such as `4`, `-2`, `0` or `64532`.
 
 In order to represent an integer as a sequence of bytes, the [binary notation][binary] is used.
-
-This means each bit in the sequence represents a distinct power of two.
-
-In x86-64, those bits are counted in ascending order from the smallest index.
-This means x86-64 is [little endian][endianness].
+In this system, each bit in the sequence represents a distinct power of two, with the value increasing as the index of the bit increases from right to left.
 
 ## Unsigned and Signed Integers
 
@@ -336,7 +332,6 @@ This means any necessary value in `rdx` must be saved before that operation.
 [bit]: https://en.wikipedia.org/wiki/Bit
 [integer]: https://en.wikipedia.org/wiki/Integer_(computer_science)
 [binary]: https://en.wikipedia.org/wiki/Binary_number
-[endianness]: https://en.wikipedia.org/wiki/Endianness
 [two-complement]: https://en.wikipedia.org/wiki/Two%27s_complement
 [negative]: https://en.wikipedia.org/wiki/Negative_number
 [neg]: https://www.felixcloutier.com/x86/neg

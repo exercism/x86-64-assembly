@@ -5,11 +5,7 @@
 An **integer** is an abstraction that represents whole numbers, such as `4`, `-2`, `0` or `64532`.
 
 In order to represent an integer as a sequence of bytes, the **binary notation** is used.
-
-This means each bit in the sequence represents a distinct power of two.
-
-In x86-64, those bits are counted in ascending order from the smallest index.
-This means x86-64 is **little endian**.
+In this system, each bit in the sequence represents a distinct power of two, with the value increasing as the index of the bit increases from right to left.
 
 ## Unsigned and Signed Integers
 
