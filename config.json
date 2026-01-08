@@ -293,7 +293,8 @@
         "uuid": "c6377959-f8fb-4df4-97c0-f48915076144",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "arrays",
+          "floating-point-numbers"
         ],
         "difficulty": 1,
         "topics": [
@@ -379,7 +380,7 @@
         "uuid": "808128e8-d23c-40d6-a642-dd3eec3c13cc",
         "practices": [],
         "prerequisites": [
-          "arrays"
+          "loops"
         ],
         "difficulty": 2
       },
