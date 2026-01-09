@@ -64,7 +64,7 @@ This can sometimes be used to optimize code flow.
 
 ### Unconditional Jump
 
-The instruction [jmp][jump] unconditionally transfers execution of the program to another point of the code.
+The instruction [jmp][jmp] unconditionally transfers execution of the program to another point of the code.
 Its single operand is a label which has the address to the point where execution will continue.
 
 Consider, for instance, the following function:
