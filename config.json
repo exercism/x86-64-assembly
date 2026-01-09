@@ -353,7 +353,9 @@
         "uuid": "a4a24a15-f553-4d98-9fde-7e579897f6d3",
         "practices": [],
         "prerequisites": [
-          "integers"
+          "integers",
+          "bit-manipulation",
+          "conditionals"
         ],
         "difficulty": 2,
         "topics": [
@@ -440,7 +442,7 @@
         "uuid": "63ea6d20-2a4c-4784-946c-05e582184a10",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "loops"
         ],
         "difficulty": 3,
         "topics": [
@@ -474,7 +476,8 @@
         "uuid": "36bd6f23-9c8e-4ccf-a145-38a707a5481f",
         "practices": [],
         "prerequisites": [
-          "bit-manipulation"
+          "bit-manipulation",
+          "loops"
         ],
         "difficulty": 3
       },

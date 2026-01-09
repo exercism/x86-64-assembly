@@ -124,12 +124,13 @@ mov rdx, 15  ; third argument
 mov rcx, 16  ; fourth argument
 mov r8, 23   ; fifth argument
 mov r9, 42   ; sixth argument
+
 ; any remaining integer argument goes on the stack in reversed order
 sub rsp, 16
 mov qword [rsp], 100      ; seventh argument
 mov qword [rsp + 8], 300  ; eigth argument
 
-call many_arguments_fn ; call implicitly pushes `rdi` on the stack
+call many_arguments_fn ; call implicitly pushes `rip` to the stack
 ; so, at point of entry, 'many_arguments_fn' finds the first six integer arguments in the usual registers
 ; the seventh argument is found in rsp + 8
 ; and the eight argument is found in rsp + 16
