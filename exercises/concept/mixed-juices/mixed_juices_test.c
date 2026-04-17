@@ -15,6 +15,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_time_to_make_pure_strawberry_joy(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, time_to_make_juice(1), "The function was called with arguments: 1.");
 }
@@ -54,6 +55,7 @@ void test_time_to_make_clients_choice(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(10, time_to_make_juice(8), "The function was called with arguments: 8.");
 }
 
+// TASK: 2
 void test_time_to_prepare_one_order(void) {
     TEST_IGNORE();
     const uint32_t IDs[] = {4};
@@ -73,6 +75,7 @@ void test_time_to_prepare_many_orders(void) {
                                      "The function was called with arguments: 7, 4, 1, 5, 6, 6, 8, 2, 7.");
 }
 
+// TASK: 3
 void test_limes_to_cut_one_small(void) {
     TEST_IGNORE();
     const uint8_t limes[] = {'S'};
@@ -140,6 +143,7 @@ void test_limes_to_cut_many_needed(void) {
         "Number of wedges needed: 99. Limes: 'S', 'M', 'L', 'M', 'L', 'S', 'L', 'M', 'S', 'M', 'S', 'L', 'M', 'L', 'S'.");
 }
 
+// TASK: 4
 void test_remaining_orders_one_order(void) {
     TEST_IGNORE();
     const uint32_t IDs[] = {1, 5, 3};

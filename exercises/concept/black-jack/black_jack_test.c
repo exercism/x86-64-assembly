@@ -37,6 +37,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_value_of_card_2(void) {
     const uint64_t actual = value_of_card(C2);
     const uint64_t expected = 2;
@@ -85,6 +86,7 @@ void test_value_of_card_q(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with argument: CQ.");
 }
 
+// TASK: 2
 void test_higher_card_4_8(void) {
     TEST_IGNORE();
     const card_t card_one = C4;
@@ -157,6 +159,7 @@ void test_higher_card_5_5(void) {
                                      "Mismatch on the second higher card. The function was called with arguments: C5, C5.");
 }
 
+// TASK: 3
 void test_value_of_ace_2_3(void) {
     TEST_IGNORE();
     const card_t card_one = C2;
@@ -211,6 +214,7 @@ void test_value_of_ace_7_4(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected, actual, "The function was called with arguments: C7, C4.");
 }
 
+// TASK: 4
 void test_is_blackjack_a_k(void) {
     TEST_IGNORE();
     const card_t card_one = CA;
@@ -265,6 +269,7 @@ void test_is_blackjack_j_a(void) {
     TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "The function was called with arguments: CJ, CA.");
 }
 
+// TASK: 5
 void test_can_split_q_k(void) {
     TEST_IGNORE();
     const card_t card_one = CQ;
@@ -319,6 +324,7 @@ void test_can_split_10_k(void) {
     TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "The function was called with arguments: C10, CK.");
 }
 
+// TASK: 6
 void test_can_double_down_a_9(void) {
     TEST_IGNORE();
     const card_t card_one = CA;

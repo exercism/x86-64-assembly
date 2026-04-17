@@ -14,6 +14,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_weight_of_small_box(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(2700, get_box_weight(30, 40, 50, 20), "The function was called with arguments: 30, 40, 50, 20.");
 }
@@ -29,6 +30,7 @@ void test_weight_of_large_box(void) {
                                      "The function was called with arguments: 12, 5600, 133, 521.");
 }
 
+// TASK: 2
 void test_max_stack_for_small_box(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(10, max_number_of_boxes(30), "The function was called with argument: 30.");
@@ -44,6 +46,7 @@ void test_max_stack_for_large_box(void) {
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(1, max_number_of_boxes(182), "The function was called with argument: 182.");
 }
 
+// TASK: 3
 void test_items_remaining_for_first_product(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT64_MESSAGE(76412, items_to_be_moved(76532, 120), "The function was called with arguments: 76532, 120.");
@@ -64,6 +67,7 @@ void test_items_remaining_accounting_error(void) {
     TEST_ASSERT_EQUAL_INT64_MESSAGE(-567, items_to_be_moved(156, 723), "The function was called with arguments: 156, 723.");
 }
 
+// TASK: 4
 void test_payment_few_lost_items(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_INT64_MESSAGE(2029, calculate_payment(2000, 1000, 5, 21, 2, 1),

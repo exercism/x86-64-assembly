@@ -46,6 +46,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_new_cars(void) {
     char name1[10] = "Thunder";
     struct car_t car1 = new_car(517, name1);
@@ -79,6 +80,7 @@ void test_new_cars(void) {
     TEST_ASSERT_FLOAT_WITHIN_MESSAGE(0.001, 100.0, car6.battery, "Mismatch on car battery.");
 }
 
+// TASK: 2
 void test_new_tracks(void) {
     TEST_IGNORE();
     struct track_t track1 = new_track(SAND, 4780);
@@ -95,6 +97,7 @@ void test_new_tracks(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(1384, track4.distance, "Mismatch on track distance.");
 }
 
+// TASK: 3
 void test_new_races(void) {
     TEST_IGNORE();
     struct race_t race1 = new_race(new_track(CLAY, 7628), 18);
@@ -119,6 +122,7 @@ void test_new_races(void) {
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(0, race4.num_of_running_cars, "Mismatch on number of running cars.");
 }
 
+// TASK: 4
 void test_add_participants(void) {
     TEST_IGNORE();
     struct race_t race = new_race(new_track(ASPHALT, 5287), 36);
@@ -166,6 +170,7 @@ void test_add_participants(void) {
                               "Number of cars in array before the function is called - 8.");
 }
 
+// TASK: 5
 void test_add_races(void) {
     TEST_IGNORE();
     struct tournament_t tournament = {0};

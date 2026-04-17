@@ -27,6 +27,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_stringify_currencies(void) {
     char buffer[4];
     stringify_currency(buffer, GBP);
@@ -47,6 +48,7 @@ void test_stringify_currencies(void) {
     TEST_ASSERT_EQUAL_STRING_MESSAGE("BRL", buffer, "Currency: BRL.");
 }
 
+// TASK: 2
 void test_exchange_rates(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(203.7504546329775, exchange_rate(JPY, GBP, value_in_US_dollars),
@@ -59,6 +61,7 @@ void test_exchange_rates(void) {
                                      "Domestic Currency: EUR; Foreign Currency: CNY.");
 }
 
+// TASK: 3
 void test_value_of_bills(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(6400000000, get_value_of_bills(5000000, 1280), "Denomination: 5000000; number of bills: 1280.");
@@ -66,6 +69,7 @@ void test_value_of_bills(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(40000, get_value_of_bills(200, 200), "Denomination: 200; number of bills: 200.");
 }
 
+// TASK: 4
 void test_number_of_bills(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(3, get_number_of_bills(163271, 50000), "Amount: 163271; Denomination: 50000.");
@@ -73,6 +77,7 @@ void test_number_of_bills(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(63, get_number_of_bills(127.99, 2), "Amount: 127.99; Denomination: 2.");
 }
 
+// TASK: 5
 void test_exchangeable_values(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(8568, exchangeable_value(100000, 10.61, 10, 1),
