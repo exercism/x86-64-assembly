@@ -15,90 +15,105 @@ extern uint32_t remaining_orders(uint32_t time_left, const uint32_t *IDs);
 def extra_cases():
     return [
         {
+            "task_id": 1,
             "description": "time_to_make_pure_strawberry_joy",
             "property": "time_to_make_juice",
             "input": 1,
             "expected": 1,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_energizer",
             "property": "time_to_make_juice",
             "input": 2,
             "expected": 3,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_green_garden",
             "property": "time_to_make_juice",
             "input": 3,
             "expected": 3,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_tropical_island",
             "property": "time_to_make_juice",
             "input": 4,
             "expected": 4,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_all_or_nothing",
             "property": "time_to_make_juice",
             "input": 5,
             "expected": 5,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_feel_good",
             "property": "time_to_make_juice",
             "input": 6,
             "expected": 4,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_todays_special",
             "property": "time_to_make_juice",
             "input": 7,
             "expected": 7,
         },
         {
+            "task_id": 1,
             "description": "time_to_make_clients_choice",
             "property": "time_to_make_juice",
             "input": 8,
             "expected": 10,
         },
         {
+            "task_id": 2,
             "description": "time_to_prepare_one_order",
             "property": "time_to_prepare",
             "input": {"IDs": [4], "number_of_IDs": 1},
             "expected": 4,
         },
         {
+            "task_id": 2,
             "description": "time_to_prepare_a_few_orders",
             "property": "time_to_prepare",
             "input": {"IDs": [2, 5, 6], "number_of_IDs": 3},
             "expected": 12,
         },
         {
+            "task_id": 2,
             "description": "time_to_prepare_many_orders",
             "property": "time_to_prepare",
             "input": {"IDs": [7, 4, 1, 5, 6, 6, 8, 2, 7], "number_of_IDs": 9},
             "expected": 7 + 4 + 1 + 5 + 4 + 4 + 10 + 3 + 7,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_small",
             "property": "limes_to_cut",
             "input": {"wedges_needed": 6, "limes": ["S"], "number_of_limes": 1},
             "expected": 1,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_medium",
             "property": "limes_to_cut",
             "input": {"wedges_needed": 8, "limes": ["M"], "number_of_limes": 1},
             "expected": 1,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_large",
             "property": "limes_to_cut",
             "input": {"wedges_needed": 10, "limes": ["L"], "number_of_limes": 1},
             "expected": 1,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_two_smalls",
             "property": "limes_to_cut",
             "input": {
@@ -109,6 +124,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_small_one_medium",
             "property": "limes_to_cut",
             "input": {
@@ -119,6 +135,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_small_one_large",
             "property": "limes_to_cut",
             "input": {
@@ -129,6 +146,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_two_mediums",
             "property": "limes_to_cut",
             "input": {
@@ -139,6 +157,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_one_medium_one_large",
             "property": "limes_to_cut",
             "input": {
@@ -149,6 +168,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_not_exact",
             "property": "limes_to_cut",
             "input": {
@@ -159,6 +179,7 @@ def extra_cases():
             "expected": 4,
         },
         {
+            "task_id": 3,
             "description": "limes_to_cut_many_needed",
             "property": "limes_to_cut",
             "input": {
@@ -185,6 +206,7 @@ def extra_cases():
             "expected": 13,
         },
         {
+            "task_id": 4,
             "description": "remaining_orders_one_order",
             "property": "remaining_orders",
             "input": {
@@ -194,6 +216,7 @@ def extra_cases():
             "expected": 1,
         },
         {
+            "task_id": 4,
             "description": "remaining_orders_two_orders",
             "property": "remaining_orders",
             "input": {
@@ -203,6 +226,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 4,
             "description": "remaining_orders_three_orders",
             "property": "remaining_orders",
             "input": {
@@ -212,6 +236,7 @@ def extra_cases():
             "expected": 3,
         },
         {
+            "task_id": 4,
             "description": "remaining_orders_work_longer",
             "property": "remaining_orders",
             "input": {
@@ -221,6 +246,7 @@ def extra_cases():
             "expected": 2,
         },
         {
+            "task_id": 4,
             "description": "remaining_orders_many_orders_left",
             "property": "remaining_orders",
             "input": {

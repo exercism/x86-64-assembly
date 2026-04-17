@@ -58,6 +58,7 @@ static void generate_bitstring(char buffer[], uint64_t number) {
 def extra_cases():
     return [
         {
+            "task_id": 1,
             "description": "last_week_default",
             "property": "last_week_counts",
             "input": None,
@@ -70,12 +71,14 @@ def extra_cases():
             | (4 << 48),
         },
         {
+            "task_id": 2,
             "description": "current_week_default",
             "property": "current_week_counts",
             "input": None,
             "expected": [0, 0],
         },
         {
+            "task_id": 3,
             "description": "save_count_first_day",
             "property": "save_count",
             "input": [5],
@@ -91,18 +94,21 @@ def extra_cases():
             },
         },
         {
+            "task_id": 4,
             "description": "today_count_first_entry",
             "property": "today_count",
             "input": None,
             "expected": 5,
         },
         {
+            "task_id": 5,
             "description": "update_today_count_first_entry",
             "property": "update_today_count",
             "input": 2,
             "expected": 7,
         },
         {
+            "task_id": 3,
             "description": "save_count_finish_week",
             "property": "save_count",
             "input": [13, 22, 8, 0, 34, 42],
@@ -127,18 +133,21 @@ def extra_cases():
             },
         },
         {
+            "task_id": 4,
             "description": "today_count_current_week",
             "property": "today_count",
             "input": None,
             "expected": 42,
         },
         {
+            "task_id": 5,
             "description": "update_today_count_current_week",
             "property": "update_today_count",
             "input": 14,
             "expected": 56,
         },
         {
+            "task_id": 3,
             "description": "save_count_wrap_current_week",
             "property": "save_count",
             "input": [12],
@@ -154,18 +163,21 @@ def extra_cases():
             },
         },
         {
+            "task_id": 4,
             "description": "today_count_new_week",
             "property": "today_count",
             "input": None,
             "expected": 12,
         },
         {
+            "task_id": 5,
             "description": "update_today_count_new_week",
             "property": "update_today_count",
             "input": 29,
             "expected": 41,
         },
         {
+            "task_id": 3,
             "description": "continuous_save_count",
             "property": "save_count",
             "input": [45, 12, 3, 9, 0, 2, 4, 8, 7, 2, 3, 4, 26, 32, 5, 6, 1, 19],
@@ -181,6 +193,7 @@ def extra_cases():
             },
         },
         {
+            "task_id": 3,
             "description": "save_count_finish_week_again",
             "property": "save_count",
             "input": [1, 7],
@@ -205,6 +218,7 @@ def extra_cases():
             },
         },
         {
+            "task_id": 6,
             "description": "update_week_count_one",
             "property": "update_week_counts",
             "input": 3
@@ -235,6 +249,7 @@ def extra_cases():
             },
         },
         {
+            "task_id": 6,
             "description": "update_week_count_two",
             "property": "update_week_counts",
             "input": 23

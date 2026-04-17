@@ -30,12 +30,14 @@ extern uint32_t exchangeable_value(float budget, double exchange_rate, uint8_t s
 def extra_cases():
     return [
         {
+            "task_id": 1,
             "description": "stringify_currencies",
             "property": "stringify_currency",
             "input": ["GBP", "AUD", "JPY", "CNY", "EUR", "INR", "CAD", "BRL"],
             "expected": ["GBP", "AUD", "JPY", "CNY", "EUR", "INR", "CAD", "BRL"],
         },
         {
+            "task_id": 2,
             "description": "exchange_rates",
             "property": "exchange_rate",
             "input": [("JPY", "GBP"), ("CAD", "INR"), ("BRL", "AUD"), ("EUR", "CNY")],
@@ -47,18 +49,21 @@ def extra_cases():
             ],
         },
         {
+            "task_id": 3,
             "description": "value_of_bills",
             "property": "get_value_of_bills",
             "input": [(5000000, 1280), (50, 360), (200, 200)],
             "expected": [6400000000, 18000, 40000],
         },
         {
+            "task_id": 4,
             "description": "number_of_bills",
             "property": "get_number_of_bills",
             "input": [(163271, 50000), (54361, 1000), (127.99, 2)],
             "expected": [3, 54, 63],
         },
         {
+            "task_id": 5,
             "description": "exchangeable_values",
             "property": "exchangeable_value",
             "input": [
