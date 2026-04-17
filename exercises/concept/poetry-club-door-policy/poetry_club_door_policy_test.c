@@ -15,6 +15,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_front_door_response_s1(void) {
     const char actual = front_door_response("Sunshine warming my toes,");
     TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("S", &actual, 1, "Passed line: Sunshine warming my toes,");
@@ -110,6 +111,7 @@ void test_front_door_response_e2(void) {
     TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("E", &actual, 1, "Passed line: Exit with zero quick");
 }
 
+// TASK: 2
 void test_front_door_password_summer(void) {
     TEST_IGNORE();
     char letters[] = "SUMMER";
@@ -131,6 +133,7 @@ void test_front_door_password_code(void) {
     TEST_ASSERT_EQUAL_STRING_MESSAGE("Code", letters, "Combined letters are: Code");
 }
 
+// TASK: 3
 void test_back_door_response_w1(void) {
     TEST_IGNORE();
     const char actual = back_door_response("Compilers intensily bestow");
@@ -185,6 +188,7 @@ void test_back_door_response_e1(void) {
     TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE("E", &actual, 1, "Passed line: Eager to LEAVE!!!");
 }
 
+// TASK: 4
 void test_back_door_password_work(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE];

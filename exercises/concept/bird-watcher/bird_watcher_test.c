@@ -58,6 +58,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_last_week_default(void) {
     const uint64_t actual = last_week_counts();
     char exp_buffer_last[BUFFER_SIZE] = {0};
@@ -67,6 +68,7 @@ void test_last_week_default(void) {
     TEST_ASSERT_EQUAL_STRING_MESSAGE(exp_buffer_last, actual_buffer_last, "Counts for last week are different than expected.");
 }
 
+// TASK: 2
 void test_current_week_default(void) {
     TEST_IGNORE();
     current_week_t crt = current_week_counts();
@@ -78,6 +80,7 @@ void test_current_week_default(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(0, crt.length, "The number of counts is different than expected.");
 }
 
+// TASK: 3
 void test_save_count_first_day(void) {
     TEST_IGNORE();
     save_count(5);
@@ -96,12 +99,14 @@ void test_save_count_first_day(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(1, crt.length, "The number of counts is different than expected.");
 }
 
+// TASK: 4
 void test_today_count_first_entry(void) {
     TEST_IGNORE();
     const uint8_t actual = today_count();
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(5, actual, "Today's count is different than expected.");
 }
 
+// TASK: 5
 void test_update_today_count_first_entry(void) {
     TEST_IGNORE();
     update_today_count(2);
@@ -109,6 +114,7 @@ void test_update_today_count_first_entry(void) {
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(7, actual, "Today's count is different than expected.");
 }
 
+// TASK: 3
 void test_save_count_finish_week(void) {
     TEST_IGNORE();
     save_count(13);
@@ -132,12 +138,14 @@ void test_save_count_finish_week(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(7, crt.length, "The number of counts is different than expected.");
 }
 
+// TASK: 4
 void test_today_count_current_week(void) {
     TEST_IGNORE();
     const uint8_t actual = today_count();
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(42, actual, "Today's count is different than expected.");
 }
 
+// TASK: 5
 void test_update_today_count_current_week(void) {
     TEST_IGNORE();
     update_today_count(14);
@@ -145,6 +153,7 @@ void test_update_today_count_current_week(void) {
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(56, actual, "Today's count is different than expected.");
 }
 
+// TASK: 3
 void test_save_count_wrap_current_week(void) {
     TEST_IGNORE();
     save_count(12);
@@ -163,12 +172,14 @@ void test_save_count_wrap_current_week(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(1, crt.length, "The number of counts is different than expected.");
 }
 
+// TASK: 4
 void test_today_count_new_week(void) {
     TEST_IGNORE();
     const uint8_t actual = today_count();
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(12, actual, "Today's count is different than expected.");
 }
 
+// TASK: 5
 void test_update_today_count_new_week(void) {
     TEST_IGNORE();
     update_today_count(29);
@@ -176,6 +187,7 @@ void test_update_today_count_new_week(void) {
     TEST_ASSERT_EQUAL_UINT8_MESSAGE(41, actual, "Today's count is different than expected.");
 }
 
+// TASK: 3
 void test_continuous_save_count(void) {
     TEST_IGNORE();
     save_count(45);
@@ -230,6 +242,7 @@ void test_save_count_finish_week_again(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(7, crt.length, "The number of counts is different than expected.");
 }
 
+// TASK: 6
 void test_update_week_count_one(void) {
     TEST_IGNORE();
     update_week_counts(321276659632387);

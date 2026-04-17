@@ -14,6 +14,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_daily_rate_is_hourly_times_8(void) {
     TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(400.0, daily_rate(50), "The function was called with arguments: 50.");
 }
@@ -28,6 +29,7 @@ void test_daily_rate_does_not_round(void) {
     TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(440.8, daily_rate(55.1), "The function was called with arguments: 55.1.");
 }
 
+// TASK: 2
 void test_apply_discount_10_percent(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(126.0, apply_discount(140.0, 10.0), "The function was called with arguments: 140.0, 10.0.");
@@ -38,6 +40,7 @@ void test_apply_discount_does_not_round(void) {
     TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(96.11015, apply_discount(111.11, 13.5), "The function was called with arguments: 111.11, 13.5.");
 }
 
+// TASK: 3
 void test_monthly_rate_is_daily_rate_times_22(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(10912, monthly_rate(62.0, 0.0), "The function was called with arguments: 62.0, 0.0.");
@@ -58,6 +61,7 @@ void test_monthly_rate_gives_a_discount(void) {
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(10377, monthly_rate(67.0, 12.0), "The function was called with arguments: 67.0, 12.0.");
 }
 
+// TASK: 4
 void test_days_in_budget_is_budget_divided_by_daily_rate(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(4, days_in_budget(1600, 50.0, 0.0), "The function was called with arguments: 1600, 50.0, 0.0.");

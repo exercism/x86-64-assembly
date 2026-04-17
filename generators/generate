@@ -96,20 +96,31 @@ def gen_test_case(mod, case, test_ignore):
     return "".join(str_list)
 
 
-def gen_test_cases(mod, cases):
+def gen_test_cases(mod, cases, is_concept=False):
     str_list = []
     test_ignore = False
+    current_task = None
     for case in cases:
+        task_id = case.get("task_id")
+        if is_concept:
+            if task_id is None:
+                funcname = gen_funcname(mod, case)
+                raise SystemExit(
+                    f"Error: concept exercise test case '{funcname}' is missing task_id"
+                )
+            if task_id != current_task:
+                str_list.append(f"// TASK: {task_id}\n")
+                current_task = task_id
         str_list.append(gen_test_case(mod, case, test_ignore))
         test_ignore = True
     return "".join(str_list)
 
 
-def gen_test_file(mod, cases):
+def gen_test_file(mod, cases, is_concept=False):
     str_list = []
     str_list.append(mod.FUNC_PROTO)
     str_list.append("\nvoid setUp(void) {\n}\n\nvoid tearDown(void) {\n}\n\n")
-    str_list.append(gen_test_cases(mod, cases))
+    str_list.append(gen_test_cases(mod, cases, is_concept))
     str_list.append(gen_main(mod, cases))
     return "".join(str_list)
 
@@ -162,7 +173,7 @@ def main():
     if hasattr(mod, "extra_cases"):
         cases = cases[:]
         cases.extend(mod.extra_cases())
-    s = gen_test_file(mod, cases)
+    s = gen_test_file(mod, cases, is_concept=args.type == "concept")
     path = f"{sys.path[0]}/../exercises/{args.type}/{args.exercise}/{exercise}_test.c"
     with open(path, "w") as f:
         f.write(s)

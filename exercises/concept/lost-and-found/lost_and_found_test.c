@@ -102,6 +102,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_create_item_entry_1(void) {
     create_item_entry(&found_items[found_items_index], 128465, "A blue watch.", 20, 10, 2, "watch", "blue");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(128465, found_items[found_items_index].ID, "Expected a different ID for the item.");
@@ -192,6 +193,7 @@ void test_create_item_entry_5(void) {
     found_items_index++;
 }
 
+// TASK: 2
 void test_create_monthly_list_1(void) {
     TEST_IGNORE();
 
@@ -282,6 +284,7 @@ void test_create_monthly_list_6(void) {
     capacity_index++;
 }
 
+// TASK: 3
 void test_insert_found_items(void) {
     TEST_IGNORE();
 
@@ -302,6 +305,7 @@ void test_insert_found_items(void) {
     free(list);
 }
 
+// TASK: 4
 void test_print_item_1(void) {
     TEST_IGNORE();
 

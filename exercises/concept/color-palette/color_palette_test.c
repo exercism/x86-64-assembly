@@ -41,6 +41,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
+// TASK: 1
 void test_get_color_value_cyan(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(*cyan, get_color_value(cyan), "The color value for cyan is different from expected.");
 }
@@ -60,6 +61,7 @@ void test_get_color_value_byzantium(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(*byzantium, get_color_value(byzantium), "The color value for byzantium is different from expected.");
 }
 
+// TASK: 2
 void test_base_color_default(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_MESSAGE(base_color, *white, "The value for the base color is different from expected.");
@@ -83,6 +85,7 @@ void test_base_color_coffee(void) {
     TEST_ASSERT_EQUAL_MESSAGE(base_color, *coffee, "The value for the base color is different from expected.");
 }
 
+// TASK: 3
 void test_constant_red(void) {
     TEST_IGNORE();
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0xFF000000, RED, "The value for the constant 0xFF000000 is different from expected.");
@@ -98,6 +101,7 @@ void test_constant_blue(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0x0000FF00, BLUE, "The value for the constant 0x0000FF00 is different from expected.");
 }
 
+// TASK: 4
 void test_combine_red_green_is_yellow(void) {
     TEST_IGNORE();
     uint32_t combined_color;
