@@ -46,6 +46,7 @@ extern void add_race(struct tournament_t *tournament, struct race_t race);
 def extra_cases():
     return [
         {
+            "task_id": 1,
             "description": "new_cars",
             "property": "new_car",
             "input": [
@@ -66,6 +67,7 @@ def extra_cases():
             ],
         },
         {
+            "task_id": 2,
             "description": "new_tracks",
             "property": "new_track",
             "input": [
@@ -82,6 +84,7 @@ def extra_cases():
             ],
         },
         {
+            "task_id": 3,
             "description": "new_races",
             "property": "new_race",
             "input": [
@@ -98,6 +101,7 @@ def extra_cases():
             ],
         },
         {
+            "task_id": 4,
             "description": "add_participants",
             "property": "add_participant",
             "input": (
@@ -116,6 +120,7 @@ def extra_cases():
             "expected": [True, True, True, True, True, True, False, False],
         },
         {
+            "task_id": 5,
             "description": "add_races",
             "property": "add_race",
             "input": [

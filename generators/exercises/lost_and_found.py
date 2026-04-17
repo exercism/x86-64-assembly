@@ -151,6 +151,7 @@ printf("-------------------------------\\nEnd of the printing test.\\n----------
 def extra_cases():
     return [
         {
+            "task_id": 1,
             "description": "create_item_entry_1",
             "property": "create_item_entry",
             "input": {
@@ -164,6 +165,7 @@ def extra_cases():
             "expected": None,
         },
         {
+            "task_id": 1,
             "description": "create_item_entry_2",
             "property": "create_item_entry",
             "input": {
@@ -177,6 +179,7 @@ def extra_cases():
             "expected": None,
         },
         {
+            "task_id": 1,
             "description": "create_item_entry_3",
             "property": "create_item_entry",
             "input": {
@@ -190,6 +193,7 @@ def extra_cases():
             "expected": None,
         },
         {
+            "task_id": 1,
             "description": "create_item_entry_4",
             "property": "create_item_entry",
             "input": {
@@ -203,6 +207,7 @@ def extra_cases():
             "expected": None,
         },
         {
+            "task_id": 1,
             "description": "create_item_entry_5",
             "property": "create_item_entry",
             "input": {
@@ -216,72 +221,84 @@ def extra_cases():
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_1",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_2",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_3",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_4",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_5",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 2,
             "description": "create_monthly_list_6",
             "property": "create_monthly_list",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 3,
             "description": "insert_found_items",
             "property": "insert_found_item",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 4,
             "description": "print_item_1",
             "property": "print_item",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 4,
             "description": "print_item_2",
             "property": "print_item",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 4,
             "description": "print_item_3",
             "property": "print_item",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 4,
             "description": "print_item_4",
             "property": "print_item",
             "input": None,
             "expected": None,
         },
         {
+            "task_id": 4,
             "description": "print_item_5",
             "property": "print_item",
             "input": None,
