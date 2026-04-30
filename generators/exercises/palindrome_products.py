@@ -21,6 +21,18 @@ extern int64_t largest(factor_t *factors, uint64_t min, uint64_t max);
 extern int64_t smallest(factor_t *factors, uint64_t min, uint64_t max);
 """
 
+
+def extra_cases():
+    return [
+        {
+            "description": "find the smallest palindrome from five digit factors",
+            "property": "smallest",
+            "input": {"min": 54773, "max": 63245},
+            "expected": {"value": 3030220303, "factors": [[54799, 55297]]},
+        }
+    ]
+
+
 VALID_RESULT_TEMPLATE = Template("""
 factor_t factors = {0};
 const int64_t result = ${prop}(&factors, ${min}, ${max});
