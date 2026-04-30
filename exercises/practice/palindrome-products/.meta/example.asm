@@ -23,51 +23,44 @@ section .text
 global largest
 global smallest
 
-%macro get_digits 1
-    xor rcx, rcx
-    mov rax, %1
-%%loop:
-    mov r10, 10
+
+; precondition: r10 = 10
+; result in flag: ZF=1 → palindrome, ZF=0 → not
+%macro is_palindrome 1
+    mov r9, %1 ; leading digits
+    xor rcx, rcx ; trailing digits, reversed
+
+    mov rax, r9
     xor rdx, rdx
     div r10
+    test rdx, rdx
+    jnz %%check
 
-    dec rsp
-    mov byte [rsp], dl
-    inc rcx
+    test r9, r9 ; ZF=1 iff leading == 0 (palindrome); else non-zero multiple of 10
+    jmp %%done
 
-    cmp rax, 0
-    jg %%loop
+%%step:
+    mov rax, rcx
+    mul r10
+    mov rcx, rax
+    mov rax, r9
+    xor rdx, rdx
+    div r10
+    add rcx, rdx ; trailing := trailing * 10 + leading % 10
+    mov r9, rax ; leading := leading / 10
+
+%%check:
+    cmp r9, rcx
+    ja %%step ; leading > trailing ?
+    je %%done ; leading == trailing ? (even-length)
+
+    mov rax, rcx
+    xor rdx, rdx
+    div r10
+    cmp r9, rax ; ZF = (leading == trailing / 10), odd-length
+%%done:
 %endmacro
 
-%macro is_palindrome 1
-    get_digits %1
-
-    mov rdx, rcx
-    shr rdx, 1
-
-    mov r8, -1 ; counter
-    mov rax, 1 ; flag
-%%compare_loop:
-    inc r8
-
-    cmp r8, rdx
-    jge %%end_loop
-
-    mov r9b, byte [rsp + r8]
-    mov r10, rcx
-    dec r10
-    sub r10, r8
-    mov r10b, byte [rsp + r10]
-
-    cmp r9b, r10b
-    sete r9b
-
-    and al, r9b
-    jmp %%compare_loop
-
-%%end_loop:
-    add rsp, rcx
-%endmacro
 
 largest:
     ; RDI - pointer to a struct of a uint64_t and a buffer of 20 arrays of 2 uint64_t
@@ -78,6 +71,7 @@ largest:
     cmp rsi, rdx
     jg invalid
 
+    mov r10, 10
     push rbp
     mov rbp, rsp
     sub rsp, 32
@@ -98,11 +92,7 @@ largest:
     imul rsi, qword [rbp - 16]
 
     is_palindrome rsi
-
-    cmp rax, 1
-    je .add_to_buffer
-
-    jmp .inner
+    jne .inner
 
 .add_to_buffer:
     cmp rsi, r11
@@ -152,6 +142,7 @@ smallest:
     cmp rsi, rdx
     jg invalid
 
+    mov r10, 10
     push rbp
     mov rbp, rsp
     sub rsp, 32
@@ -172,11 +163,7 @@ smallest:
     imul rsi, qword [rbp - 16]
 
     is_palindrome rsi
-
-    cmp rax, 1
-    je .add_to_buffer
-
-    jmp .inner
+    jne .inner
 
 .add_to_buffer:
     cmp rsi, r11
