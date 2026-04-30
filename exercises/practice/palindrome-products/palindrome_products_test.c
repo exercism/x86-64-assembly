@@ -184,6 +184,21 @@ void test_smallest_product_does_not_use_the_smallest_factor(void) {
     }
 }
 
+void test_find_the_smallest_palindrome_from_five_digit_factors(void) {
+    TEST_IGNORE();
+
+    factor_t factors = {0};
+    const int64_t result = smallest(&factors, 54773, 63245);
+    const uint64_t expected[][2] = {{54799, 55297}};
+
+    TEST_ASSERT_EQUAL_INT64(3030220303, result);
+    TEST_ASSERT_EQUAL_UINT64(ARRAY_SIZE(expected), factors.count);
+
+    for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
+        TEST_ASSERT_EQUAL_UINT64_ARRAY(expected[i], factors.factors[i], 2);
+    }
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_find_the_smallest_palindrome_from_single_digit_factors);
@@ -199,5 +214,6 @@ int main(void) {
     RUN_TEST(test_error_result_for_smallest_if_min_is_more_than_max);
     RUN_TEST(test_error_result_for_largest_if_min_is_more_than_max);
     RUN_TEST(test_smallest_product_does_not_use_the_smallest_factor);
+    RUN_TEST(test_find_the_smallest_palindrome_from_five_digit_factors);
     return UNITY_END();
 }

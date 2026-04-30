@@ -172,14 +172,14 @@ smallest:
     inc qword [rbp - 32]
     imul rsi, qword [rbp - 16]
 
+    cmp rsi, r11
+    ja .end_inner
+    je .add
+
     is_palindrome rsi
     jne .inner
 
 .add_to_buffer:
-    cmp rsi, r11
-    ja .inner
-    je .add
-
     mov r11, rsi
     mov rdi, qword [rbp - 8]
     mov qword [rdi], 0
