@@ -24,30 +24,40 @@ global largest
 global smallest
 
 
-; precondition: r10 = 10
+; r10 = 0xCCCCCCCCCCCCCCCD = ⌈2^67 / 10⌉
+; To divide by 10: multiply by r10 and shift rdx right by 3
+; https://lemire.me/blog/2019/02/08/faster-remainders-when-the-divisor-is-a-constant-beating-compilers-and-libdivide/
+
 ; result in flag: ZF=1 → palindrome, ZF=0 → not
 %macro is_palindrome 1
     mov r9, %1 ; leading digits
     xor rcx, rcx ; trailing digits, reversed
 
+    ; check whether leading is a multiple of 10
     mov rax, r9
-    xor rdx, rdx
-    div r10
-    test rdx, rdx
-    jnz %%check
+    mul r10
+    shr rdx, 3 ; rdx = leading / 10
+    lea rax, [rdx + rdx*4]
+    add rax, rax ; rax = 10 * (leading / 10)
+    cmp r9, rax
+    jne %%absorb ; not a multiple of 10 → first iteration
 
     test r9, r9 ; ZF=1 iff leading == 0 (palindrome); else non-zero multiple of 10
     jmp %%done
 
 %%step:
-    mov rax, rcx
-    mul r10
-    mov rcx, rax
     mov rax, r9
-    xor rdx, rdx
-    div r10
-    add rcx, rdx ; trailing := trailing * 10 + leading % 10
-    mov r9, rax ; leading := leading / 10
+    mul r10
+    shr rdx, 3 ; rdx = leading / 10
+    lea rax, [rdx + rdx*4]
+    add rax, rax ; rax = 10 * (leading / 10)
+
+%%absorb:
+    sub r9, rax ; r9 = leading % 10
+    lea rcx, [rcx + rcx*4]
+    add rcx, rcx ; rcx = 10 * trailing
+    add rcx, r9 ; trailing := trailing * 10 + leading % 10
+    mov r9, rdx ; leading := leading / 10
 
 %%check:
     cmp r9, rcx
@@ -55,9 +65,9 @@ global smallest
     je %%done ; leading == trailing ? (even-length)
 
     mov rax, rcx
-    xor rdx, rdx
-    div r10
-    cmp r9, rax ; ZF = (leading == trailing / 10), odd-length
+    mul r10
+    shr rdx, 3 ; rdx = trailing / 10
+    cmp r9, rdx ; ZF = (leading == trailing / 10), odd-length
 %%done:
 %endmacro
 
@@ -71,7 +81,7 @@ largest:
     cmp rsi, rdx
     jg invalid
 
-    mov r10, 10
+    mov r10, 0xCCCCCCCCCCCCCCCD
     push rbp
     mov rbp, rsp
     sub rsp, 32
@@ -142,7 +152,7 @@ smallest:
     cmp rsi, rdx
     jg invalid
 
-    mov r10, 10
+    mov r10, 0xCCCCCCCCCCCCCCCD
     push rbp
     mov rbp, rsp
     sub rsp, 32
