@@ -42,4 +42,4 @@ jobs:
         env:
           CC: ${{ matrix.compiler }}
           CC_FOR_BUILD: ${{ matrix.compiler }}
-        run: bin/verify-exercises
+        run: bin/verify-exercises -j "$(getconf _NPROCESSORS_ONLN)"

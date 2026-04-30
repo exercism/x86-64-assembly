@@ -10,6 +10,9 @@
 # Example: verify single exercise
 # bin/verify-exercises two-fer
 
+# Example: verify all exercises in parallel, N jobs at a time
+# bin/verify-exercises -j N
+
 set -eo pipefail
 
 die() { echo "$*" >&2; exit 1; }
@@ -19,9 +22,7 @@ required_tool() {
         die "${1} is required but not installed. Please install it and make sure it's in your PATH."
 }
 
-required_tool jq
-
-copy_example_or_examplar_to_solution() {
+copy_example_or_exemplar_to_solution() {
     jq -c '[.files.solution, .files.exemplar // .files.example] | transpose | map({src: .[1], dst: .[0]}) | .[]' .meta/config.json \
     | while read -r src_and_dst; do
         cp "$(jq -r '.src' <<< "${src_and_dst}")" "$(jq -r '.dst' <<< "${src_and_dst}")"
@@ -44,7 +45,7 @@ verify_exercise() {
         cp -r "${dir}/." "${tmp_dir}"
         cd "${tmp_dir}"
 
-        copy_example_or_examplar_to_solution
+        copy_example_or_exemplar_to_solution
         sed -i.bak 's#TEST_IGNORE();#// &#' "${slug//-/_}"_test.c
         make clean
         make
@@ -52,20 +53,31 @@ verify_exercise() {
 }
 
 verify_exercises() {
-    local exercise_slug
-
-    exercise_slug="${1}"
-
     shopt -s nullglob
-    count=0
-    for exercise_dir in ./exercises/{concept,practice}/${exercise_slug}/; do
-        if [[ -d "${exercise_dir}" ]]; then
-            verify_exercise "${exercise_dir}"
-            ((++count))
-        fi
+    local dirs=()
+    for exercise_dir in ./exercises/{concept,practice}/${1}/; do
+        [[ -d "${exercise_dir}" ]] && dirs+=("${exercise_dir}")
     done
-    ((count > 0)) || die 'no matching exercises found!'
+    ((${#dirs[@]} > 0)) || die 'no matching exercises found!'
+
+    local self
+    self=$(realpath "${BASH_SOURCE[0]}")
+    printf '%s\n' "${dirs[@]}" | xargs -P "${jobs}" -I{} "${self}" --single {}
 }
 
-exercise_slug="${1:-*}"
-verify_exercises "${exercise_slug}"
+if [[ "${1:-}" == "--single" ]]; then
+    verify_exercise "${2}"
+    exit
+fi
+
+jobs=1
+while getopts ":j:" opt; do
+    case "$opt" in
+        j) jobs="$OPTARG" ;;
+        *) die "Usage: ${0##*/} [-j N] [slug]" ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+required_tool jq
+verify_exercises "${1:-*}"
