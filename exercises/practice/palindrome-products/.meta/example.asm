@@ -1,23 +1,13 @@
 EMPTY_RESULT equ 0
 INVALID_INPUT equ -1
 
-; Both functions have a similar and straightforward implementation:
-;
-; 1 - They iterate over all numbers from current min to max in an outer loop;
-; 2 - In each iteration of the outer loop, they iterate over all numbers
-; from current min to max, again;
-; 3 - Both numbers are multiplied and checked for being palindromic;
-; 4.1 - If they are, the largest function checks if the product is larger than the current
-; accumulator. If it is, the new product is stored, the buffer is reset and the new factors
-; are stored. If the product is equal, the new factors are stored after the current ones;
-; 4.2 - The smallest function does the same, but checking if the product is lesser than
-; current accumulator;
-; 5 - Since both loops (outer and inner) go in increasing order of factors, then the factors
-; are already stored in sorted order, as expected by the tests;
-; 6 - At the end, the accumulator is passed to RAX. In the case of largest function,
-; starting value for the accumulator is EMPTY_RESULT, so nothing else needs to be done. And
-; in the case of smallest function, the starting value is MAX_UINT64, so RAX is reset to
-; EMPTY_RESULT and a CMOV is used to move the accumulator if lesser than MAX_UINT64
+; largest iterates outer from max down to min.
+; For each outer, inner iterates from outer down to min.
+
+; smallest iterates outer from min up to max.
+; For each outer, inner iterates from outer up to max.
+
+; Inner exits early once the running product can no longer beat the best palindrome found.
 
 section .text
 global largest
@@ -81,67 +71,62 @@ largest:
     cmp rsi, rdx
     jg invalid
 
-    mov r10, 0xCCCCCCCCCCCCCCCD
-    push rbp
-    mov rbp, rsp
-    sub rsp, 32
+    push r13
+    push r14
+    push r15
 
-    mov qword [rbp - 8], rdi
-    mov qword [rbp - 16], rsi
-    mov qword [rbp - 24], rdx
-    mov r11, EMPTY_RESULT
+    mov r8, rdi ; pointer to struct
+    mov r10, 0xCCCCCCCCCCCCCCCD ; see is_palindrome
+    xor r11, r11 ; best product
+    mov r13, rsi ; min value
+    mov r14, rdx ; index for outer loop
 
 .outer:
-    mov qword [rbp - 32], rsi
-.inner:
-    mov rsi, qword [rbp - 32]
-    cmp rsi, qword [rbp - 24]
-    jg .end_inner
+    mov r15, r14 ; upcoming index for inner loop
 
-    inc qword [rbp - 32]
-    imul rsi, qword [rbp - 16]
+.inner:
+    mov rsi, r15
+    cmp rsi, r13
+    jl .end_inner
+
+    dec r15 ; upcoming index for inner loop
+    imul rsi, r14 ; product
+
+    cmp rsi, r11
+    jb .end_inner
+    je .add
 
     is_palindrome rsi
     jne .inner
 
-.add_to_buffer:
-    cmp rsi, r11
-    jl .inner
-    je .add
-
-    mov r11, rsi
-    mov rdi, qword [rbp - 8]
-    mov qword [rdi], 0
+    mov r11, rsi ; new best product
+    mov rdi, r8
+    xor rax, rax ; initial count 0
+    stosq
 .add:
-    mov rdi, qword [rbp - 8]
-    mov rax, qword [rdi]
-    inc qword [rdi]
+    inc qword [r8]
 
-    add rdi, 8
-    shl rax, 4
-    add rdi, rax
-
-    mov rax, qword [rbp - 16]
+    mov rax, r15
+    inc rax ; index for inner loop
     stosq
 
-    mov rax, qword [rbp - 32]
-    dec rax
+    mov rax, r14 ; index for outer loop
     stosq
 
     jmp .inner
 
 .end_inner:
-    inc qword [rbp - 16]
-    mov rsi, qword [rbp - 16]
-
-    cmp rsi, qword [rbp - 24]
-    jle .outer
+    dec r14
+    cmp r14, r13
+    jge .outer
 
     mov rax, r11
 
-    mov rsp, rbp
-    pop rbp
+    pop r15
+    pop r14
+    pop r13
     ret
+
 
 smallest:
     ; RDI - pointer to a struct of a uint64_t and a buffer of 20 arrays of 2 uint64_t
@@ -152,25 +137,26 @@ smallest:
     cmp rsi, rdx
     jg invalid
 
-    mov r10, 0xCCCCCCCCCCCCCCCD
-    push rbp
-    mov rbp, rsp
-    sub rsp, 32
+    push r13
+    push r14
+    push r15
 
-    mov qword [rbp - 8], rdi
-    mov qword [rbp - 16], rsi
-    mov qword [rbp - 24], rdx
-    mov r11, -1
+    mov r8, rdi ; pointer to struct
+    mov r10, 0xCCCCCCCCCCCCCCCD ; see is_palindrome
+    mov r11, -1 ; best product
+    mov r13, rdx ; max value
+    mov r14, rsi ; index for outer loop
 
 .outer:
-    mov qword [rbp - 32], rsi
+    mov r15, r14 ; upcoming index for inner loop
+
 .inner:
-    mov rsi, qword [rbp - 32]
-    cmp rsi, qword [rbp - 24]
+    mov rsi, r15
+    cmp rsi, r13
     jg .end_inner
 
-    inc qword [rbp - 32]
-    imul rsi, qword [rbp - 16]
+    inc r15 ; upcoming index for inner loop
+    imul rsi, r14 ; product
 
     cmp rsi, r11
     ja .end_inner
@@ -179,42 +165,36 @@ smallest:
     is_palindrome rsi
     jne .inner
 
-.add_to_buffer:
-    mov r11, rsi
-    mov rdi, qword [rbp - 8]
-    mov qword [rdi], 0
+    mov r11, rsi ; new best product
+    mov rdi, r8
+    xor rax, rax ; initial count 0
+    stosq
 .add:
-    mov rdi, qword [rbp - 8]
-    mov rax, qword [rdi]
-    inc qword [rdi]
+    inc qword [r8]
 
-    add rdi, 8
-    shl rax, 4
-    add rdi, rax
-
-    mov rax, qword [rbp - 16]
+    mov rax, r14 ; index for outer loop
     stosq
 
-    mov rax, qword [rbp - 32]
-    dec rax
+    mov rax, r15
+    dec rax ; index for inner loop
     stosq
 
     jmp .inner
 
 .end_inner:
-    inc qword [rbp - 16]
-    mov rsi, qword [rbp - 16]
-
-    cmp rsi, qword [rbp - 24]
+    inc r14
+    cmp r14, r13
     jle .outer
 
     mov rax, EMPTY_RESULT
     cmp r11, -1
     cmovne rax, r11
 
-    mov rsp, rbp
-    pop rbp
+    pop r15
+    pop r14
+    pop r13
     ret
+
 
 invalid:
     mov rax, INVALID_INPUT

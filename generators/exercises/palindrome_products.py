@@ -29,7 +29,13 @@ def extra_cases():
             "property": "smallest",
             "input": {"min": 54773, "max": 63245},
             "expected": {"value": 3030220303, "factors": [[54799, 55297]]},
-        }
+        },
+        {
+            "description": "find the largest palindrome from five digit factors",
+            "property": "largest",
+            "input": {"min": 54773, "max": 63245},
+            "expected": {"value": 3956776593, "factors": [[62799, 63007]]},
+        },
     ]
 
 
