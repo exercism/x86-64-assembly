@@ -1084,6 +1084,16 @@
         "difficulty": 5
       },
       {
+        "slug": "tournament",
+        "name": "Tournament",
+        "uuid": "7d7c977e-82bc-4f7a-bcca-46726d40f7c4",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
+        "difficulty": 5
+      },
+      {
         "slug": "yacht",
         "name": "Yacht",
         "uuid": "dfb8f9b9-3080-4c7e-b259-5fff1df959d9",
