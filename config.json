@@ -1263,6 +1263,16 @@
         "difficulty": 7
       },
       {
+        "slug": "tournament",
+        "name": "Tournament",
+        "uuid": "7d7c977e-82bc-4f7a-bcca-46726d40f7c4",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-types"
+        ],
+        "difficulty": 7
+      },
+      {
         "slug": "transpose",
         "name": "Transpose",
         "uuid": "be4a96f9-ab59-4e1d-b41f-669961cfff95",

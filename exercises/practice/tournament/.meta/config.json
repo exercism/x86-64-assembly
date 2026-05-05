@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "tournament.asm"
+    ],
+    "test": [
+      "tournament_test.c"
+    ],
+    "example": [
+      ".meta/example.asm"
+    ]
+  },
+  "blurb": "Tally the results of a small football competition."
+}
