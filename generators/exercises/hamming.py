@@ -12,8 +12,7 @@ extern int distance(const char strand1[], const char strand2[]);
 def gen_func_body(prop, inp, expected):
     strand1 = inp["strand1"]
     strand2 = inp["strand2"]
-    if len(strand1) >= 16 or len(strand2) >= 16:
-        return ""
+    assert len(strand1) < 16 and len(strand2) < 16
     if type(expected) is not int:
         expected = -1
     str_list = []

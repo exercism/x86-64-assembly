@@ -12,14 +12,16 @@ comma times 16 db 59
 
 TEAM_COL_SZ equ 31
 DIV_10_CONST equ 0xFFFFFFFFFFFFFFFF / 10 + 1
+MAX_NUM_TEAMS equ 20
+NODE_SIZE equ 16
 
 section .text
 
 %define ZERO_SIMD xmm0
 %define COMMA_SIMD xmm5
 %define MAP_INDEX rbx
-%define SAVE_RDI rbp
-%define SAVE_RSI r15
+%define SAVE_RSI rbp
+%define SAVE_RDI r15
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Registers with dedicated use. DO NOT TOUCH!
@@ -35,9 +37,9 @@ section .text
     movdqa xmm2, [r11 + 16]
     movdqa xmm3, [r11 + 32]
     movdqa xmm4, [r11 + 48]
-    movdqu [rdi], xmm1
-    movdqu [rdi + 16], xmm2
-    movdqu [rdi + 32], xmm3
+    movdqa [rdi], xmm1
+    movdqa [rdi + 16], xmm2
+    movdqa [rdi + 32], xmm3
     movdqa [rdi + 48], xmm4
     add rdi, ROW_SZ
 %endmacro
@@ -46,14 +48,14 @@ section .text
 ; 2. length of first string
 ; 3. pointer for second string
 ; 4. length of second string
-; result in ZF
+; result in RFLAGS
 %macro strcmp 4
     ; save RDI and rsi
-    mov SAVE_RDI, rsi
-    mov SAVE_RSI, rdi
+    mov SAVE_RSI, rsi
+    mov SAVE_RDI, rdi
 
     movzx rcx, %4
-    cmp %2, cx
+    cmp cx, %2
     cmova cx, %2
 
     ; compare strings
@@ -61,15 +63,24 @@ section .text
     lea rsi, [%3]
     repe cmpsb
     ; flags are set by cmpsb
+    jne %%endcmp
 
-    ; restore RDI and RSI
-    mov rsi, SAVE_RDI
-    mov rdi, SAVE_RSI
-    ; mov does not affect flags
+    ; if ZF remains set, we have one of the following:
+    ; 1. the strings are equal, or
+    ; 2. one is prefix of the other
+    cmp %2, %4 ; decide by length
 %%endcmp:
+    ; restore RDI and RSI
+    mov rsi, SAVE_RSI
+    mov rdi, SAVE_RDI
+    ; mov does not affect flags
 %endmacro
 
-; map holds nodes for up to 32 distinct teams
+; map holds nodes for up to 20 distinct teams
+;
+; the max number of teams is:
+; (BUFFER_SIZE / (ROW_SZ + 1 (for newline))) - 1 (for header) == 17
+;
 ; each node is 16 bytes wide:
 ; 1. name pointer   - 8 bytes
 ; 2. length of name - 2 bytes
@@ -78,31 +89,29 @@ section .text
 ; 5. draws          - 1 bytes
 ; 6. losses         - 1 bytes
 ; 7. score          - 2 bytes
-; MAP_INDEX is clobbered to serve as index
+;
+; RBX is clobbered to serve as index
 %macro build_map 0
-    sub rsp, 32 * 16 + 8 ; stack is 16-byte aligned
+    sub rsp, MAX_NUM_TEAMS * NODE_SIZE + 8 ; stack is 16-byte aligned
 
     xor eax, eax
 %%clear_map:
     movdqa [rsp + rax], ZERO_SIMD
-    add eax, 16
-    cmp eax, 32 * 16
+    add eax, NODE_SIZE
+    cmp eax, MAX_NUM_TEAMS * NODE_SIZE
     jnz %%clear_map
 
     xor ebx, ebx
 %endmacro
 
 %macro tear_map 0
-    add rsp, 32 * 16 + 8
+    add rsp, MAX_NUM_TEAMS * NODE_SIZE + 8
 %endmacro
 
-; arguments:
-; 1. pointer to a string
-; 2. length of a string
 %macro insert_map 2
-    mov eax, -16
+    mov eax, -NODE_SIZE
 %%check:
-    add eax, 16
+    add eax, NODE_SIZE
     cmp rax, MAP_INDEX
     jae %%insert
 
@@ -112,13 +121,12 @@ section .text
     strcmp %1, %2w, r12, r13w
     jnz %%check
 
-    shr %2, 16
-    shl %2, 16
+    and r13, ~0xFFFF
     add %2, r13
 %%insert:
     mov [rsp + rax], %1
     mov [rsp + rax + 8], %2
-    lea r14, [MAP_INDEX + 16]
+    lea r14, [MAP_INDEX + NODE_SIZE]
     cmp rax, MAP_INDEX
     cmove MAP_INDEX, r14
 %endmacro
@@ -204,10 +212,8 @@ section .text
     mul r14
     mov r13, rdx   ; quotient
     mul r10        ; RDX now holds remainder
-    add rdx, '0'   ; digit
-    and rdx, 0xFF
     shl r12, 8
-    or r12, rdx    ; accumulates each digit in a byte of r12
+    lea r12, [r12 + rdx + '0'] ; accumulates each digit in a byte of r12
     mov rax, r13   ; RAX holds quotient for next iteration
     test rax, rax
     jnz %%loop     ; keeps iterating until quotient is 0
@@ -227,9 +233,8 @@ section .text
     neg rdx
     add rdx, 8      ; number of bytes with digits
 
-    mov rcx, %1
+    mov rcx, %1 - %2
     sub rcx, rdx    ; pad
-    sub rcx, %2
     mov eax, ' '    ; space
     rep stosb
 
