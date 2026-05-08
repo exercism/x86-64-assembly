@@ -27,6 +27,37 @@ for exercise_dir in exercises/practice/*; do
         num_updated=$((num_updated + 1))
     fi
 
+    debug=${exercise_dir}/debug.mac
+    if ! cmp -s templates/debug.mac "${debug}"; then
+        echo "Updating ${debug}"
+        cp templates/debug.mac "${debug}"
+        num_updated=$((num_updated + 1))
+    fi
+
+    current_vendor_hash=$(hash_dir "${exercise_dir}/vendor")
+    if [[ "${current_vendor_hash}" != "${vendor_hash}" ]]; then
+        echo "Updating ${exercise_dir}/vendor"
+        rm -rf "${exercise_dir}/vendor"
+        cp -r templates/vendor "${exercise_dir}"
+        num_updated=$((num_updated + 1))
+    fi
+done
+
+for exercise_dir in exercises/concept/*; do
+    makefile=${exercise_dir}/Makefile
+    if ! cmp -s templates/concept_Makefile "${makefile}"; then
+        echo "Updating ${makefile}"
+        cp templates/concept_Makefile "${makefile}"
+        num_updated=$((num_updated + 1))
+    fi
+
+    debug=${exercise_dir}/debug.mac
+    if ! cmp -s templates/debug.mac "${debug}"; then
+        echo "Updating ${debug}"
+        cp templates/debug.mac "${debug}"
+        num_updated=$((num_updated + 1))
+    fi
+
     current_vendor_hash=$(hash_dir "${exercise_dir}/vendor")
     if [[ "${current_vendor_hash}" != "${vendor_hash}" ]]; then
         echo "Updating ${exercise_dir}/vendor"

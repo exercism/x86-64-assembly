@@ -13,9 +13,6 @@ extern "C"
 {
 #endif
 
-#define UNITY_INCLUDE_DOUBLE 1
-#define UNITY_DOUBLE_PRECISION 0.000001
-
 #include "unity_internals.h"
 
 /*-------------------------------------------------------
