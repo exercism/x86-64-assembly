@@ -80,6 +80,9 @@ _fmt_xmm_is zx, "%zX"
 ; saves all caller-saved and XMM registers, as well as RFLAGS
 %macro save_registers 0
 
+    ; Preserve RFLAGS
+    pushfq
+
     ; Preserve caller-save registers
     push rax
     push rcx
@@ -101,16 +104,10 @@ _fmt_xmm_is zx, "%zX"
     %assign n n + 1
 %endrep
 
-    ; Preserve RFLAGS
-    pushfq
-
 %endmacro
 
 ; restores all caller-saved and XMM registers, as well as RFLAGS, to their original values
 %macro restore_registers 0
-
-    ; Restore RFLAGS
-    popfq
 
     ; Restore xmm registers
 %assign i 0
@@ -132,6 +129,9 @@ _fmt_xmm_is zx, "%zX"
     pop rdx
     pop rcx
     pop rax
+
+    ; Restore RFLAGS
+    popfq
 
 %endmacro
 
@@ -484,6 +484,13 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 8-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness ("s") or unsignedness ("z") of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm8 3
 
     %defalias _mov_xmm %[mov %+ %2 %+ x]
@@ -563,6 +570,13 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 16-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness ("s") or unsignedness ("z") of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm16 3
 
     %defalias _mov_xmm %[mov %+ %2 %+ x]
@@ -633,6 +647,13 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 32-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness or unsignedness of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm32 3
 
     save_registers
@@ -685,6 +706,12 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 64-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm64 2
 
     save_registers
