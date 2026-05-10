@@ -10,22 +10,22 @@ section .rodata
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; formatting string for signed integers
-fmtzd: db "debug... %zd", 0xA, 0x0
+fmtzd: db "debug signed integer... %zd", 0xA, 0x0
 
 ; formatting string for unsigned integers
-fmtzu: db "debug... %zu", 0xA, 0x0
+fmtzu: db "debug unsigned integer... %zu", 0xA, 0x0
 
 ; formatting string for unsigned integers in hexadecimal format
-fmtzx: db "debug... %zX", 0xA, 0x0
+fmtzx: db "debug hexadecimal... %zX", 0xA, 0x0
 
 ; formatting string for floating-point values
-fmtf: db "debug... %f", 0xA, 0x0
+fmtf: db "debug floating-point... %f", 0xA, 0x0
 
 ; formatting string for characters
-fmtc: db "debug... %c", 0xA, 0x0
+fmtc: db "debug character... %c", 0xA, 0x0
 
 ; formatting string for strings
-fmts: db "debug... %s", 0xA, 0x0
+fmts: db "debug string... %s", 0xA, 0x0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                           FORMATTING STRINGS FOR PACKED VALUES
@@ -135,7 +135,7 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
-; preserves RSP (prologue)
+; preserves RSP
 %macro save_sp 0
 
     push rbp
@@ -143,7 +143,7 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
-; restores RSP (epilogue)
+; restores RSP
 %macro restore_sp 0
 
     mov rsp, rbp
@@ -158,6 +158,21 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+%macro prologue 0
+
+    save_registers
+    save_sp
+    align_sp
+
+%endmacro
+
+%macro epilogue 0
+
+    restore_sp
+    restore_registers
+
+%endmacro
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                                      DEBUGGING MACROS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -166,6 +181,7 @@ _fmt_xmm_is zx, "%zX"
 ;                                      CALLING CONVENTION
 ;
 ; All the following macros may be called with: 1. registers or 2. memory operands.
+; The macros may be called with multiple arguments, that must be separated by a comma (`,`)
 ;
 ; If called with a memory operand, it might be necessary to specify the size, e.g.:
 ; - byte [<address>]
@@ -205,282 +221,295 @@ _fmt_xmm_is zx, "%zX"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; prints the value of a 8-bit signed integer
-%macro debugd8 1
+%macro debugd8 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzd]
-    movsx rsi, %1
+        lea rdi, [rel fmtzd]
+        movsx rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 16-bit signed integer
-%macro debugd16 1
+%macro debugd16 1-*
 
-    debugd8 %1
+    debugd8 %{1:-1}
 
 %endmacro
 
 ; prints the value of a 32-bit signed integer
-%macro debugd32 1
+%macro debugd32 1-*
 
-    debugd8 %1
+    debugd8 %{1:-1}
 
 %endmacro
 
 ; prints the value of a 64-bit signed integer
-%macro debugd64 1
+%macro debugd64 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzd]
-    mov rsi, %1
+        lea rdi, [rel fmtzd]
+        mov rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 8-bit unsigned integer
-%macro debugu8 1
+%macro debugu8 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzu]
-    movzx rsi, %1
+        lea rdi, [rel fmtzu]
+        movzx rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 16-bit unsigned integer
-%macro debugu16 1
+%macro debugu16 1-*
 
-    debugu8 %1
+    debugu8 %{1:-1}
 
 %endmacro
 
 ; prints the value of a 32-bit unsigned integer
-%macro debugu32 1
+%macro debugu32 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzu]
-    mov esi, %1
+        lea rdi, [rel fmtzu]
+        mov esi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 64-bit unsigned integer
-%macro debugu64 1
+%macro debugu64 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzu]
-    mov rsi, %1
+        lea rdi, [rel fmtzu]
+        mov rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 8-bit unsigned integer in hexadecimal format
-%macro debugx8 1
+%macro debugx8 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzx]
-    movzx rsi, %1
+        lea rdi, [rel fmtzx]
+        movzx rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 16-bit unsigned integer in hexadecimal format
-%macro debugx16 1
+%macro debugx16 1-*
 
-    debugx8 %1
+    debugx8 %{1:-1}
 
 %endmacro
 
 ; prints the value of a 32-bit unsigned integer in hexadecimal format
-%macro debugx32 1
+%macro debugx32 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzx]
-    mov esi, %1
+        lea rdi, [rel fmtzx]
+        mov esi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 64-bit unsigned integer in hexadecimal format
-%macro debugx64 1
+%macro debugx64 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtzx]
-    mov rsi, %1
+        lea rdi, [rel fmtzx]
+        mov rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 32-bit floating-point number
-%macro debugf32 1
+%macro debugf32 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtf]
-    cvtss2sd xmm0, %1
+        lea rdi, [rel fmtf]
+        cvtss2sd xmm0, %1
+        mov eax, 1
 
-    mov eax, 1
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints the value of a 64-bit floating-point number
-%macro debugf64 1
+%macro debugf64 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtf]
-    movsd xmm0, %1
+        lea rdi, [rel fmtf]
+        movsd xmm0, %1
+        mov eax, 1
 
-    mov eax, 1
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a 8-bit unsigned integer interpreted as a character
-%macro debugc 1
+%macro debugc 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmtc]
-    movzx rsi, %1
+        lea rdi, [rel fmtc]
+        movzx rsi, %1
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a NUL-terminated string. The argument is a 64-bit memory address
-%macro debugs 1
+%macro debugs 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmts]
-    lea rsi, [%1]
+        lea rdi, [rel fmts]
+        lea rsi, [%1]
+        xor eax, eax
 
-    xor eax, eax
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 4 packed 32-bit floating-point numbers
-%macro debugf32_xmm 1
+%macro debugf32_xmm 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmt_xmm_f32]
+        lea rdi, [rel fmt_xmm_f32]
+        sub rsp, 16
+        movdqu xmm0, %1
+        movdqa [rsp], xmm0
 
-    sub rsp, 16
-    movdqa xmm0, %1
-    movdqa [rsp], xmm0
+        cvtss2sd xmm0, [rsp]
+        cvtss2sd xmm1, [rsp + 4]
+        cvtss2sd xmm2, [rsp + 8]
+        cvtss2sd xmm3, [rsp + 12]
+        mov eax, 4
 
-    cvtss2sd xmm0, [rsp]
-    cvtss2sd xmm1, [rsp + 4]
-    cvtss2sd xmm2, [rsp + 8]
-    cvtss2sd xmm3, [rsp + 12]
+        call printf wrt ..plt
 
-    mov eax, 4
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 2 packed 64-bit floating-point numbers
-%macro debugf64_xmm 1
+%macro debugf64_xmm 1-*
 
-    save_registers
-    save_sp
-    align_sp
+    %rep %0
+        prologue
 
-    lea rdi, [rel fmt_xmm_f32]
+        lea rdi, [rel fmt_xmm_f64]
 
-    sub rsp, 16
-    movdqa xmm0, %1
-    movdqa [rsp], xmm0
+        sub rsp, 16
+        movdqu xmm0, %1
+        movdqa [rsp], xmm0
 
-    movsd xmm0, [rsp]
-    movsd xmm1, [rsp + 8]
+        movsd xmm0, [rsp]
+        movsd xmm1, [rsp + 8]
+        mov eax, 2
 
-    mov eax, 2
-    call printf wrt ..plt
-    restore_sp
-    restore_registers
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
@@ -493,16 +522,14 @@ _fmt_xmm_is zx, "%zX"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm8 3
 
-    %defalias _mov_xmm %[mov %+ %2 %+ x]
+    prologue
 
-    save_registers
-    save_sp
-    align_sp
+    %defalias _mov_xmm %[mov %+ %2 %+ x]
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 8]
 
     sub rsp, 96
-    movdqa xmm0, %1
+    movdqu xmm0, %1
     movdqa [rsp], xmm0
 
     mov r10, [rsp]
@@ -544,29 +571,38 @@ _fmt_xmm_is zx, "%zX"
 
     xor eax, eax
     call printf wrt ..plt
-    restore_sp
-    restore_registers
+
+    epilogue
 
 %endmacro
 
 ; prints a XMM register interpreted as 16 packed 8-bit signed integers
-%macro debugd8_xmm 1
+%macro debugd8_xmm 1-*
 
-    _debug_si_xmm8 %1, s, zd
+    %rep %0
+        _debug_si_xmm8 %1, s, zd
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 16 packed 8-bit unsigned integers
-%macro debugu8_xmm 1
+%macro debugu8_xmm 1-*
 
-    _debug_si_xmm8 %1, z, zu
+    %rep %0
+        _debug_si_xmm8 %1, z, zu
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 16 packed 8-bit unsigned integers in hexadecimal format
-%macro debugx8_xmm 1
+%macro debugx8_xmm 1-*
 
-    _debug_si_xmm8 %1, z, zx
+    %rep %0
+        _debug_si_xmm8 %1, z, zx
+    %rotate 1
+    %endrep
 
 %endmacro
 
@@ -579,16 +615,14 @@ _fmt_xmm_is zx, "%zX"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm16 3
 
-    %defalias _mov_xmm %[mov %+ %2 %+ x]
+    prologue
 
-    save_registers
-    save_sp
-    align_sp
+    %defalias _mov_xmm %[mov %+ %2 %+ x]
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 16]
 
     sub rsp, 32
-    movdqa xmm0, %1
+    movdqu xmm0, %1
     movdqa [rsp], xmm0
 
     mov rax, [rsp]
@@ -621,29 +655,38 @@ _fmt_xmm_is zx, "%zX"
 
     xor eax, eax
     call printf wrt ..plt
-    restore_sp
-    restore_registers
+
+    epilogue
 
 %endmacro
 
 ; prints a XMM register interpreted as 8 packed 16-bit signed integers
-%macro debugd16_xmm 1
+%macro debugd16_xmm 1-*
 
-    _debug_si_xmm16  %1, s, zd
+    %rep %0
+        _debug_si_xmm16  %1, s, zd
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 8 packed 16-bit unsigned integers
-%macro debugu16_xmm 1
+%macro debugu16_xmm 1-*
 
-    _debug_si_xmm16 %1, z, zu
+    %rep %0
+        _debug_si_xmm16 %1, z, zu
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 8 packed 16-bit unsigned integers in hexadecimal format
-%macro debugx16_xmm 1
+%macro debugx16_xmm 1-*
 
-    _debug_si_xmm16 %1, z, zx
+    %rep %0
+        _debug_si_xmm16 %1, z, zx
+    %rotate 1
+    %endrep
 
 %endmacro
 
@@ -656,14 +699,12 @@ _fmt_xmm_is zx, "%zX"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm32 3
 
-    save_registers
-    save_sp
-    align_sp
+    prologue
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 32]
 
     sub rsp, 16
-    movdqa xmm0, %1
+    movdqu xmm0, %1
     movdqa [rsp], xmm0
 
     mov esi, dword [rsp]
@@ -671,7 +712,7 @@ _fmt_xmm_is zx, "%zX"
     mov ecx, dword [rsp + 8]
     mov r8d, dword [rsp + 12]
 
-    %if %2 = 's'
+    %ifidn %2, s
         movsx rsi, esi
         movsx rdx, edx
         movsx rcx, ecx
@@ -680,29 +721,38 @@ _fmt_xmm_is zx, "%zX"
 
     xor eax, eax
     call printf wrt ..plt
-    restore_sp
-    restore_registers
+
+    epilogue
 
 %endmacro
 
 ; prints a XMM register interpreted as 4 packed 32-bit signed integers
-%macro debugd32_xmm 1
+%macro debugd32_xmm 1-*
 
-    _debug_si_xmm32 %1, s, zd
+    %rep %0
+        _debug_si_xmm32 %1, s, zd
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 4 packed 32-bit unsigned integers
-%macro debugu32_xmm 1
+%macro debugu32_xmm 1-*
 
-    _debug_si_xmm32 %1, z, zu
+    %rep %0
+        _debug_si_xmm32 %1, z, zu
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 4 packed 32-bit unsigned integers in hexadecimal format
-%macro debugx32_xmm 1
+%macro debugx32_xmm 1-*
 
-    _debug_si_xmm32 %1, z, zx
+    %rep %0
+        _debug_si_xmm32 %1, z, zx
+    %rotate 1
+    %endrep
 
 %endmacro
 
@@ -714,44 +764,51 @@ _fmt_xmm_is zx, "%zX"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %macro _debug_si_xmm64 2
 
-    save_registers
-    save_sp
-    align_sp
+    prologue
 
     lea rdi, [rel fmt_xmm_ %+ %2 %+ 64]
 
     sub rsp, 16
-    movdqa xmm0, %1
+    movdqu xmm0, %1
     movdqa [rsp], xmm0
 
     mov rsi, [rsp]
     mov rdx, [rsp + 8]
-
     xor eax, eax
+
     call printf wrt ..plt
-    restore_sp
-    restore_registers
+
+    epilogue
 
 %endmacro
 
 ; prints a XMM register interpreted as 2 packed 64-bit signed integers
-%macro debugd64_xmm 1
+%macro debugd64_xmm 1-*
 
-    _debug_si_xmm64 %1, zd
+    %rep %0
+        _debug_si_xmm64 %1, zd
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 2 packed 64-bit unsigned integers
-%macro debugu64_xmm 1
+%macro debugu64_xmm 1-*
 
-    _debug_si_xmm64 %1, zu
+    %rep %0
+        _debug_si_xmm64 %1, zu
+    %rotate 1
+    %endrep
 
 %endmacro
 
 ; prints a XMM register interpreted as 2 packed 64-bit unsigned integers in hexadecimal format
-%macro debugx64_xmm 1
+%macro debugx64_xmm 1-*
 
-    _debug_si_xmm64 %1, zx
+    %rep %0
+        _debug_si_xmm64 %1, zx
+    %rotate 1
+    %endrep
 
 %endmacro
 
