@@ -25,7 +25,7 @@ fmtf: db "debug floating-point... %f", 0xA, 0x0
 fmtc: db "debug character... %c", 0xA, 0x0
 
 ; formatting string for strings
-fmts: db "debug string... %s", 0xA, 0x0
+fmts: db `debug string... "%s"`, 0xA, 0x0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                           FORMATTING STRINGS FOR PACKED VALUES
