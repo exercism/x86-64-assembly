@@ -25,7 +25,7 @@ fmtf: db "debug floating-point... %f", 0xA, 0x0
 fmtc: db "debug character... %c", 0xA, 0x0
 
 ; formatting string for strings
-fmts: db "debug string... %s", 0xA, 0x0
+fmts: db `debug string... "%s"`, 0xA, 0x0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                           FORMATTING STRINGS FOR PACKED VALUES
@@ -226,8 +226,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzd]
         movsx rsi, %1
+        lea rdi, [rel fmtzd]
         xor eax, eax
 
         call printf wrt ..plt
@@ -248,7 +248,18 @@ _fmt_xmm_is zx, "%zX"
 ; prints the value of a 32-bit signed integer
 %macro debugd32 1-*
 
-    debugd8 %{1:-1}
+    %rep %0
+        prologue
+
+        movsxd rsi, %1
+        lea rdi, [rel fmtzd]
+        xor eax, eax
+
+        call printf wrt ..plt
+
+        epilogue
+    %rotate 1
+    %endrep
 
 %endmacro
 
@@ -258,8 +269,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzd]
         mov rsi, %1
+        lea rdi, [rel fmtzd]
         xor eax, eax
 
         call printf wrt ..plt
@@ -276,8 +287,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzu]
         movzx rsi, %1
+        lea rdi, [rel fmtzu]
         xor eax, eax
 
         call printf wrt ..plt
@@ -301,8 +312,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzu]
         mov esi, %1
+        lea rdi, [rel fmtzu]
         xor eax, eax
 
         call printf wrt ..plt
@@ -319,8 +330,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzu]
         mov rsi, %1
+        lea rdi, [rel fmtzu]
         xor eax, eax
 
         call printf wrt ..plt
@@ -337,8 +348,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzx]
         movzx rsi, %1
+        lea rdi, [rel fmtzx]
         xor eax, eax
 
         call printf wrt ..plt
@@ -362,8 +373,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzx]
         mov esi, %1
+        lea rdi, [rel fmtzx]
         xor eax, eax
 
         call printf wrt ..plt
@@ -380,8 +391,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtzx]
         mov rsi, %1
+        lea rdi, [rel fmtzx]
         xor eax, eax
 
         call printf wrt ..plt
@@ -398,8 +409,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtf]
         cvtss2sd xmm0, %1
+        lea rdi, [rel fmtf]
         mov eax, 1
 
         call printf wrt ..plt
@@ -416,8 +427,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtf]
         movsd xmm0, %1
+        lea rdi, [rel fmtf]
         mov eax, 1
 
         call printf wrt ..plt
@@ -434,8 +445,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmtc]
         movzx rsi, %1
+        lea rdi, [rel fmtc]
         xor eax, eax
 
         call printf wrt ..plt
@@ -452,8 +463,8 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmts]
         lea rsi, [%1]
+        lea rdi, [rel fmts]
         xor eax, eax
 
         call printf wrt ..plt
@@ -470,7 +481,6 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmt_xmm_f32]
         sub rsp, 16
         movdqu xmm0, %1
         movdqa [rsp], xmm0
@@ -479,6 +489,7 @@ _fmt_xmm_is zx, "%zX"
         cvtss2sd xmm1, [rsp + 4]
         cvtss2sd xmm2, [rsp + 8]
         cvtss2sd xmm3, [rsp + 12]
+        lea rdi, [rel fmt_xmm_f32]
         mov eax, 4
 
         call printf wrt ..plt
@@ -495,14 +506,13 @@ _fmt_xmm_is zx, "%zX"
     %rep %0
         prologue
 
-        lea rdi, [rel fmt_xmm_f64]
-
         sub rsp, 16
         movdqu xmm0, %1
         movdqa [rsp], xmm0
 
         movsd xmm0, [rsp]
         movsd xmm1, [rsp + 8]
+        lea rdi, [rel fmt_xmm_f64]
         mov eax, 2
 
         call printf wrt ..plt
@@ -525,8 +535,6 @@ _fmt_xmm_is zx, "%zX"
     prologue
 
     %defalias _mov_xmm %[mov %+ %2 %+ x]
-
-    lea rdi, [rel fmt_xmm_ %+ %3 %+ 8]
 
     sub rsp, 96
     movdqu xmm0, %1
@@ -569,6 +577,7 @@ _fmt_xmm_is zx, "%zX"
         %assign _i_d8_xmm _i_d8_xmm + 8
     %endrep
 
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 8]
     xor eax, eax
     call printf wrt ..plt
 
@@ -619,8 +628,6 @@ _fmt_xmm_is zx, "%zX"
 
     %defalias _mov_xmm %[mov %+ %2 %+ x]
 
-    lea rdi, [rel fmt_xmm_ %+ %3 %+ 16]
-
     sub rsp, 32
     movdqu xmm0, %1
     movdqa [rsp], xmm0
@@ -653,6 +660,7 @@ _fmt_xmm_is zx, "%zX"
     _mov_xmm r10, ax
     mov [rsp + 16], r10
 
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 16]
     xor eax, eax
     call printf wrt ..plt
 
@@ -701,8 +709,6 @@ _fmt_xmm_is zx, "%zX"
 
     prologue
 
-    lea rdi, [rel fmt_xmm_ %+ %3 %+ 32]
-
     sub rsp, 16
     movdqu xmm0, %1
     movdqa [rsp], xmm0
@@ -713,12 +719,13 @@ _fmt_xmm_is zx, "%zX"
     mov r8d, dword [rsp + 12]
 
     %ifidn %2, s
-        movsx rsi, esi
-        movsx rdx, edx
-        movsx rcx, ecx
-        movsx r8, r8d
+        movsxd rsi, esi
+        movsxd rdx, edx
+        movsxd rcx, ecx
+        movsxd r8, r8d
     %endif
 
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 32]
     xor eax, eax
     call printf wrt ..plt
 
@@ -766,14 +773,13 @@ _fmt_xmm_is zx, "%zX"
 
     prologue
 
-    lea rdi, [rel fmt_xmm_ %+ %2 %+ 64]
-
     sub rsp, 16
     movdqu xmm0, %1
     movdqa [rsp], xmm0
 
     mov rsi, [rsp]
     mov rdx, [rsp + 8]
+    lea rdi, [rel fmt_xmm_ %+ %2 %+ 64]
     xor eax, eax
 
     call printf wrt ..plt
