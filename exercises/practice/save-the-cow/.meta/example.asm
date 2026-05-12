@@ -82,7 +82,9 @@ guess:
 
     dec ecx                  ; one less letter remaining to unmask
 
-    blsr r10d, r10d          ; reset lowest bit and sets ZF in bitmap
+    btr r10d, eax            ; reset lowest bit
+
+    test r10d, r10d
     jnz .set_in_masked_word  ; keep unmasking until there is no bit set
 
     test ecx, ecx
