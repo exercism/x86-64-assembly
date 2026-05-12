@@ -23,9 +23,14 @@ guess:
     mov r8d, -16
 .find_length:
     add r8d, 16
-    pcmpistri xmm0, [rsi + r8], 0b00_00_10_00
-    ja .find_length
-    add ecx, r8d             ; length of input word
+    movdqu xmm1, [rsi + r8]
+    pcmpeqb xmm1, xmm0
+    pmovmskb eax, xmm1
+    test eax, eax
+    jz .find_length
+
+    tzcnt eax, eax
+    lea ecx, [r8d + eax] ; length of input word
 
     movdqu [rdi], xmm0
     movdqu [rdi + 16], xmm0  ; the struct is all zeros now
