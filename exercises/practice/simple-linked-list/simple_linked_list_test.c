@@ -19,7 +19,9 @@ typedef struct {
 } list_t;
 
 extern list_t *create_list(allocator_t alloc, deallocator_t dealloc);
+extern size_t count_list(const list_t *list);
 extern void push_list(list_t *list, int64_t data);
+extern int64_t peek_list(const list_t *list);
 extern int64_t pop_list(list_t *list);
 extern void reverse_list(list_t *list);
 extern void delete_list(list_t *list);
@@ -42,265 +44,421 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-void test_can_create_list(void) {
+void test_empty_list_has_length_of_zero(void) {
     list_t *list = create_list(allocator, deallocator);
     TEST_ASSERT_NOT_NULL(list);
     TEST_ASSERT_EQUAL(1, alloc_count);
-    node_t *node = list->head;
-    TEST_ASSERT_NULL(node);
+    TEST_ASSERT_EQUAL(0, count_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
     delete_list(list);
     TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
 }
 
-void test_can_push(void) {
+void test_singleton_list_has_length_of_one(void) {
     TEST_IGNORE();
     list_t *list = create_list(allocator, deallocator);
     TEST_ASSERT_NOT_NULL(list);
     TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, 16);
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    node_t *node = list->head;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(16, node->data);
-    node = node->next;
-    TEST_ASSERT_NULL(node);
-    delete_list(list);
-    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
-}
-
-void test_push_updates_head(void) {
-    TEST_IGNORE();
-    list_t *list = create_list(allocator, deallocator);
-    TEST_ASSERT_NOT_NULL(list);
-    TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, 99);
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    push_list(list, -123);
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    node_t *node = list->head;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-123, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(99, node->data);
-    node = node->next;
-    TEST_ASSERT_NULL(node);
-    delete_list(list);
-    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
-}
-
-void test_can_pop(void) {
-    TEST_IGNORE();
-    list_t *list = create_list(allocator, deallocator);
-    TEST_ASSERT_NOT_NULL(list);
-    TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, -123);
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    TEST_ASSERT_EQUAL(-123, pop_list(list));
-    TEST_ASSERT_EQUAL(1, alloc_count);
-    node_t *node = list->head;
-    TEST_ASSERT_NULL(node);
-    delete_list(list);
-    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
-}
-
-void test_pop_multiple_values(void) {
-    TEST_IGNORE();
-    list_t *list = create_list(allocator, deallocator);
-    TEST_ASSERT_NOT_NULL(list);
-    TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, -123);
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    push_list(list, 234);
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    push_list(list, 456);
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, 789);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    TEST_ASSERT_EQUAL(789, pop_list(list));
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    TEST_ASSERT_EQUAL(456, pop_list(list));
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    TEST_ASSERT_EQUAL(234, pop_list(list));
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    node_t *node = list->head;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-123, node->data);
-    node = node->next;
-    TEST_ASSERT_NULL(node);
-    delete_list(list);
-    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
-}
-
-void test_multiple_operations(void) {
-    TEST_IGNORE();
-    list_t *list = create_list(allocator, deallocator);
-    TEST_ASSERT_NOT_NULL(list);
-    TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, 24);
-    TEST_ASSERT_EQUAL(2, alloc_count);
-    push_list(list, -15);
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    push_list(list, 28);
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, 576);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    TEST_ASSERT_EQUAL(576, pop_list(list));
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    TEST_ASSERT_EQUAL(28, pop_list(list));
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    push_list(list, 1245);
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, 9829);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    push_list(list, -65555);
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    push_list(list, 234);
-    TEST_ASSERT_EQUAL(7, alloc_count);
-    TEST_ASSERT_EQUAL(234, pop_list(list));
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    TEST_ASSERT_EQUAL(-65555, pop_list(list));
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    TEST_ASSERT_EQUAL(9829, pop_list(list));
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, -777);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    push_list(list, 0);
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    push_list(list, 19);
-    TEST_ASSERT_EQUAL(7, alloc_count);
-    TEST_ASSERT_EQUAL(19, pop_list(list));
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    TEST_ASSERT_EQUAL(0, pop_list(list));
-    TEST_ASSERT_EQUAL(5, alloc_count);
     push_list(list, 1);
-    TEST_ASSERT_EQUAL(6, alloc_count);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, count_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_nonempty_list_has_correct_length(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    TEST_ASSERT_EQUAL(3, count_list(list));
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_pop_from_singleton_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
     TEST_ASSERT_EQUAL(1, pop_list(list));
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    TEST_ASSERT_EQUAL(-777, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_pop_from_nonempty_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_pop_multiple_items(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_pop_updates_the_count(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, count_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, count_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    TEST_ASSERT_EQUAL(0, count_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_push_to_an_empty_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_push_to_a_nonempty_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_push_updates_count(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    TEST_ASSERT_EQUAL(3, count_list(list));
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_push_and_pop(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, count_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(3, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    TEST_ASSERT_EQUAL(0, count_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_peek_on_singleton_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, peek_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_peek_on_nonempty_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, peek_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_peek_does_not_change_the_count(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, peek_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, count_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_can_peek_after_a_pop_and_push(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, peek_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, peek_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(3, peek_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_empty_linked_list_to_list_is_empty(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    node_t *node = list->head;
+    TEST_ASSERT_NULL(node);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_to_list_with_multiple_values(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
     TEST_ASSERT_EQUAL(4, alloc_count);
     node_t *node = list->head;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(1245, node->data);
+    TEST_ASSERT_EQUAL(3, node->data);
     node = node->next;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-15, node->data);
+    TEST_ASSERT_EQUAL(2, node->data);
     node = node->next;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(24, node->data);
+    TEST_ASSERT_EQUAL(1, node->data);
     node = node->next;
     TEST_ASSERT_NULL(node);
     delete_list(list);
     TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
 }
 
-void test_reverse_list(void) {
+void test_to_list_after_a_pop(void) {
     TEST_IGNORE();
     list_t *list = create_list(allocator, deallocator);
     TEST_ASSERT_NOT_NULL(list);
     TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, 0);
+    push_list(list, 1);
     TEST_ASSERT_EQUAL(2, alloc_count);
-    push_list(list, 45);
+    push_list(list, 2);
     TEST_ASSERT_EQUAL(3, alloc_count);
-    push_list(list, -71);
+    push_list(list, 3);
     TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, 4567890);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    push_list(list, 8000);
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    push_list(list, 27);
-    TEST_ASSERT_EQUAL(7, alloc_count);
-    reverse_list(list);
-    TEST_ASSERT_EQUAL(7, alloc_count);
+    TEST_ASSERT_EQUAL(3, pop_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 4);
+    TEST_ASSERT_EQUAL(4, alloc_count);
     node_t *node = list->head;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(0, node->data);
+    TEST_ASSERT_EQUAL(4, node->data);
     node = node->next;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(45, node->data);
+    TEST_ASSERT_EQUAL(2, node->data);
     node = node->next;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-71, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(4567890, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(8000, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(27, node->data);
+    TEST_ASSERT_EQUAL(1, node->data);
     node = node->next;
     TEST_ASSERT_NULL(node);
     delete_list(list);
     TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
 }
 
-void test_reverse_of_a_reverse_is_original_list(void) {
+void test_reversed_empty_list_has_same_values(void) {
     TEST_IGNORE();
     list_t *list = create_list(allocator, deallocator);
     TEST_ASSERT_NOT_NULL(list);
     TEST_ASSERT_EQUAL(1, alloc_count);
-    push_list(list, 8);
+    reverse_list(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    node_t *node = list->head;
+    TEST_ASSERT_NULL(node);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_reversed_singleton_list_is_same_list(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
     TEST_ASSERT_EQUAL(2, alloc_count);
-    push_list(list, 2198);
-    TEST_ASSERT_EQUAL(3, alloc_count);
-    push_list(list, -33);
-    TEST_ASSERT_EQUAL(4, alloc_count);
-    push_list(list, 24);
-    TEST_ASSERT_EQUAL(5, alloc_count);
-    push_list(list, 10);
-    TEST_ASSERT_EQUAL(6, alloc_count);
-    push_list(list, 175532);
-    TEST_ASSERT_EQUAL(7, alloc_count);
-    push_list(list, -6534);
-    TEST_ASSERT_EQUAL(8, alloc_count);
-    push_list(list, 892838);
-    TEST_ASSERT_EQUAL(9, alloc_count);
     reverse_list(list);
-    TEST_ASSERT_EQUAL(9, alloc_count);
-    reverse_list(list);
-    TEST_ASSERT_EQUAL(9, alloc_count);
+    TEST_ASSERT_EQUAL(2, alloc_count);
     node_t *node = list->head;
     TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(892838, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-6534, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(175532, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(10, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(24, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(-33, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(2198, node->data);
-    node = node->next;
-    TEST_ASSERT_NOT_NULL(node);
-    TEST_ASSERT_EQUAL(8, node->data);
+    TEST_ASSERT_EQUAL(1, node->data);
     node = node->next;
     TEST_ASSERT_NULL(node);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_reversed_nonempty_list_is_reversed(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    reverse_list(list);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    TEST_ASSERT_EQUAL(3, count_list(list));
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    TEST_ASSERT_EQUAL(1, pop_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(3, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    delete_list(list);
+    TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
+}
+
+void test_double_reverse(void) {
+    TEST_IGNORE();
+    list_t *list = create_list(allocator, deallocator);
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_EQUAL(1, alloc_count);
+    push_list(list, 1);
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    push_list(list, 2);
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    push_list(list, 3);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    reverse_list(list);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    reverse_list(list);
+    TEST_ASSERT_EQUAL(4, alloc_count);
+    TEST_ASSERT_EQUAL(3, pop_list(list));
+    TEST_ASSERT_EQUAL(3, alloc_count);
+    TEST_ASSERT_EQUAL(2, pop_list(list));
+    TEST_ASSERT_EQUAL(2, alloc_count);
+    TEST_ASSERT_EQUAL(1, pop_list(list));
+    TEST_ASSERT_EQUAL(1, alloc_count);
     delete_list(list);
     TEST_ASSERT_EQUAL_UINT64(0, alloc_count);
 }
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_can_create_list);
-    RUN_TEST(test_can_push);
-    RUN_TEST(test_push_updates_head);
-    RUN_TEST(test_can_pop);
-    RUN_TEST(test_pop_multiple_values);
-    RUN_TEST(test_multiple_operations);
-    RUN_TEST(test_reverse_list);
-    RUN_TEST(test_reverse_of_a_reverse_is_original_list);
+    RUN_TEST(test_empty_list_has_length_of_zero);
+    RUN_TEST(test_singleton_list_has_length_of_one);
+    RUN_TEST(test_nonempty_list_has_correct_length);
+    RUN_TEST(test_can_pop_from_singleton_list);
+    RUN_TEST(test_can_pop_from_nonempty_list);
+    RUN_TEST(test_can_pop_multiple_items);
+    RUN_TEST(test_pop_updates_the_count);
+    RUN_TEST(test_can_push_to_an_empty_list);
+    RUN_TEST(test_can_push_to_a_nonempty_list);
+    RUN_TEST(test_push_updates_count);
+    RUN_TEST(test_push_and_pop);
+    RUN_TEST(test_can_peek_on_singleton_list);
+    RUN_TEST(test_can_peek_on_nonempty_list);
+    RUN_TEST(test_peek_does_not_change_the_count);
+    RUN_TEST(test_can_peek_after_a_pop_and_push);
+    RUN_TEST(test_empty_linked_list_to_list_is_empty);
+    RUN_TEST(test_to_list_with_multiple_values);
+    RUN_TEST(test_to_list_after_a_pop);
+    RUN_TEST(test_reversed_empty_list_has_same_values);
+    RUN_TEST(test_reversed_singleton_list_is_same_list);
+    RUN_TEST(test_reversed_nonempty_list_is_reversed);
+    RUN_TEST(test_double_reverse);
     return UNITY_END();
 }

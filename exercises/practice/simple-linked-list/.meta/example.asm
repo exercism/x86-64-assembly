@@ -1,7 +1,9 @@
 section .text
 
 global create_list
+global count_list
 global push_list
+global peek_list
 global pop_list
 global reverse_list
 global delete_list
@@ -27,11 +29,12 @@ create_list:
     mov qword [rsp], rdi
     mov qword [rsp + 8], rsi
 
+    mov rcx, rdi
     mov rdi, 24 ; size of a list_t
-    call qword [rsp] ; stack is 16-byte aligned:
-                     ; 1 qword for pushing rbp
-                     ; 2 qwords for subbing rsp
-                     ; 1 qword for pushing RIP (in CALL)
+    call rcx    ; stack is 16-byte aligned:
+                ; 1 qword for pushing rbp
+                ; 2 qwords for subbing rsp
+                ; 1 qword for pushing RIP (in CALL)
 
     mov qword [rax], 0 ; head is null
 
@@ -43,6 +46,16 @@ create_list:
 
     mov rsp, rbp
     pop rbp
+    ret
+
+count_list:
+    sub rdi, 8   ; head is first QWORD of list, but next is second QWORD of each node
+    mov eax, -1
+.count_loop:
+    inc eax
+    mov rdi, qword [rdi + 8] ; accesses head and next for each node
+    test rdi, rdi
+    jnz .count_loop          ; next non-null, keeps looping
     ret
 
 push_list:
@@ -77,6 +90,11 @@ push_list:
 
     mov rsp, rbp
     pop rbp
+    ret
+
+peek_list:
+    mov rdi, [rdi] ; gets head node
+    mov rax, [rdi] ; gets data in head
     ret
 
 pop_list:
