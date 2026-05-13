@@ -1,7 +1,9 @@
 section .text
 
 global create_list
+global count_list
 global push_list
+global peek_list
 global pop_list
 global reverse_list
 global delete_list
@@ -10,7 +12,15 @@ create_list:
     ; Provide your implementation here
     ret
 
+count_list:
+    ; Provide your implementation here
+    ret
+
 push_list:
+    ; Provide your implementation here
+    ret
+
+peek_list:
     ; Provide your implementation here
     ret
 
