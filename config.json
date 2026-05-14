@@ -1054,6 +1054,16 @@
         "difficulty": 5
       },
       {
+        "slug": "save-the-cow",
+        "name": "Save the Cow",
+        "uuid": "ac814b61-e2e2-4d19-8965-6e34b7a4e049",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
+        "difficulty": 5
+      },
+      {
         "slug": "sieve",
         "name": "Sieve",
         "uuid": "6cc147ff-65cb-417d-9883-6b7cf910e828",
