@@ -37,3 +37,4 @@ jq "${filter}" config.json > config.sorted && mv config.sorted config.json
 
 cp templates/Makefile "exercises/practice/${slug}/Makefile"
 cp -r templates/vendor "exercises/practice/${slug}/vendor"
+cp templates/debug.mac "exercises/practice/${slug}/debug.mac"
