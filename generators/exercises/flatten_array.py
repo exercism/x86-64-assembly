@@ -75,7 +75,7 @@ def gen_func_body(prop, inp, expected):
     str_list.append("")
     str_list.append("alignas(32) int64_t buffer[BUFFER_SIZE];")
     str_list.append(f"const size_t length = {prop}(buffer, &box);")
-    str_list.append("for (size_t i = 0; i < num_obj; ++i) {")
+    str_list.append("for (size_t i = num_obj; i-- > 0; ) {")
     str_list.append("free(objs[i]);")
     str_list.append("objs[i] = NULL;")
     str_list.append("}")

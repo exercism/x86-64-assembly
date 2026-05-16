@@ -47,7 +47,7 @@ void test_empty(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -76,7 +76,7 @@ void test_no_nesting(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -109,7 +109,7 @@ void test_flattens_a_nested_array(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -155,7 +155,7 @@ void test_flattens_array_with_just_integers_present(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -230,7 +230,7 @@ void test_5_level_nesting(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -310,7 +310,7 @@ void test_6_level_nesting(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -340,7 +340,7 @@ void test_null_values_are_omitted_from_the_final_result(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -369,7 +369,7 @@ void test_consecutive_null_values_at_the_front_of_the_array_are_omitted_from_the
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -400,7 +400,7 @@ void test_consecutive_null_values_in_the_middle_of_the_array_are_omitted_from_th
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -480,7 +480,7 @@ void test_6_level_nested_array_with_null_values(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
@@ -546,7 +546,7 @@ void test_all_values_in_nested_array_are_null(void) {
 
     alignas(32) int64_t buffer[BUFFER_SIZE];
     const size_t length = flatten(buffer, &box);
-    for (size_t i = 0; i < num_obj; ++i) {
+    for (size_t i = num_obj; i-- > 0;) {
         free(objs[i]);
         objs[i] = NULL;
     }
