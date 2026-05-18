@@ -940,6 +940,16 @@
         "difficulty": 5
       },
       {
+        "slug": "flatten-array",
+        "name": "Flatten Array",
+        "uuid": "bafd78a7-f13b-4de2-a688-92e19cb8d7f7",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
+        "difficulty": 5
+      },
+      {
         "slug": "gigasecond",
         "name": "Gigasecond",
         "uuid": "d0a8097d-759f-4785-83bc-aa00fec0c365",
@@ -1050,6 +1060,16 @@
         "practices": [],
         "prerequisites": [
           "interfacing-with-c-types"
+        ],
+        "difficulty": 5
+      },
+      {
+        "slug": "save-the-cow",
+        "name": "Save the Cow",
+        "uuid": "ac814b61-e2e2-4d19-8965-6e34b7a4e049",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
         ],
         "difficulty": 5
       },
