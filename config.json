@@ -1248,7 +1248,7 @@
         "uuid": "987dd0af-5f92-4d97-af70-9f4d659154cd",
         "practices": [],
         "prerequisites": [
-          "interfacing-with-c-types"
+          "interfacing-with-c-structs"
         ],
         "difficulty": 7
       },
