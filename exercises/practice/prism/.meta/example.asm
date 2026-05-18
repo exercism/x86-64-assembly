@@ -26,6 +26,8 @@ ABS_MSK: dd 0x7FFFFFFF                ; CLEARS SIGN BIT IN A 32-BIT FLOAT
 INF: dd 0x7F800000
 DELTA: dd 0.0001
 
+FLOOR equ 1
+
 section .text
 global find_sequence
 
@@ -41,7 +43,7 @@ global find_sequence
 ; 1. reduces the problem to the first quadrant.
 ; 2. calculates both sin and cos using taylor expansion with
 ;    precalculated constants for factorial divisors.
-; 3. fix sign at the end according to the original quadrant
+; 3. fix sign and swaps sin and cos according to the quadrant
 ;
 ; The argument (angle, in degrees) is passed in XMM0.
 ; It is converted to radians by the function.
@@ -64,7 +66,7 @@ global find_sequence
    movaps xmm1, [rel TWO_DIV_PI]  ; 2 / PI
 
    mulps xmm1, xmm0              ; (2 / PI) * angle
-   roundps xmm1, xmm1, 0         ; round ((2 / PI) * angle)
+   roundps xmm1, xmm1, FLOOR     ; xmm1 = floor ((2 / PI) * angle) -> the whole number of quadrants
    cvtss2si eax, xmm1            ; eax mod 4 indicates the quadrant
 
    ; This follows from:
@@ -82,15 +84,18 @@ global find_sequence
    ;
    ; since k < 2 * PI, we've exhausted all options
 
-   mulps xmm1, [rel PI_DIV_TWO]  ; round ((2 / PI) * angle) * (PI / 2)
-   subps xmm0, xmm1              ; angle mod (2 / PI)
+   mulps xmm1, [rel PI_DIV_TWO]  ; xmm1 = floor ((2 / PI) * angle) * (PI / 2)
+   ; now xmm1 holds the angle corresponding to the whole number of quadrants
+
+   subps xmm0, xmm1              ; xmm0 = angle - (floor ((2 / PI) * angle) * (PI / 2))
+   ; now xmm0 holds the residual angle x, reduced to the first quadrant
 
    movaps xmm3, xmm0             ; x
    mulps xmm0, xmm0              ; x^2
 
    movaps xmm1, xmm0
 
-   ; we go from lowest to highest factor, so that multiplication accumulates
+   ; we go backwards from the last term in the taylor expansion, so that multiplication accumulates correctly
    ; at the end the factor divided by n! will correspond to x^n
    mulps xmm0, [rel C4]  ; sin = (x^2 / 9!), cos = (x^2 / 8!)
    addps xmm0, [rel C3]  ; sin = (x^2 / 9!) - (1 / 7!), cos = (x^2 / 8!) - (1 / 6!)
@@ -249,7 +254,7 @@ find_sequence:
 
    mov rdx, [r10 + 4]
    movq xmm0, rdx              ; xmm0 = [x, y]
-   subps xmm0, xmm5            ; xmm0 - [delta x, delta y]
+   subps xmm0, xmm5            ; xmm0 = [delta x, delta y]
 
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ; We need to check 3 things:
@@ -278,11 +283,11 @@ find_sequence:
    ; For an angle approaching zero, tan(angle) also approaches zero
    ; However, we need to account for precision errors, so we use a minimum DELTA as substitute for tan(angle):
    ;
-   ; ABS(cross / dot) < DELTA
+   ; ABS(cross / dot) <= DELTA
    ;
    ; To avoid an expensive DIVSS instruction, we use the equivalent;
    ;
-   ; ABS(cross) < DELTA * ABS(dot)
+   ; ABS(cross) <= DELTA * ABS(dot)
    ;
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -310,7 +315,7 @@ find_sequence:
    ucomiss xmm3, xmm2
    ja .loop
 
-   ; ABS(cross) < DELTA * ABS(dot) -> prism is on the ray's path and in front of it
+   ; ABS(cross) <= DELTA * ABS(dot) -> prism is on the ray's path and in front of it
 
    squared_distance xmm0 ; xmm0 is modified in-place
 
