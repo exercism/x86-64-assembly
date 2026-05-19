@@ -7,19 +7,19 @@ Most, if not all, abstractions are built on top of this.
 
 ## Binary notation
 
-One of the most important and fundamental abstractions are [integers][integer].
+[Integers][integer] are one of the most important and fundamental abstractions.
 They represent whole numbers such as `4`, `-2`, `0` or `64532`.
 
-In order to represent an integer as a sequence of bytes, the [binary notation][binary] is used.
+To represent an integer as a sequence of bytes, the [binary notation][binary] is used.
 In this system, each bit in the sequence represents a distinct power of two, with the value increasing as the index of the bit increases from right to left.
 
 ## Unsigned and Signed Integers
 
 ### Unsigned numbers
 
-If the number is know to be non-negative, it's called an **unsigned** number.
+If the number is known to be non-negative, it's called an **unsigned** number.
 
-Unsigned numbers are represented directly as the sum of all set bits in its sequence.
+Unsigned numbers are represented directly as the sum of all set bits in their sequence.
 
 For instance, this represents the number `2⁰ + 2³ + 2⁵ + 2⁶ + 2⁷`, which is `233`:
 
@@ -36,7 +36,7 @@ So, the range of representable non-negative integers in a register goes from `0`
 
 If an integer can assume positive or negative values, it's called a **signed** number.
 
-In order to represent [negative numbers][negative], x86-64 uses the [two's complement][two-complement] representation.
+To represent [negative numbers][negative], x86-64 uses the [two's complement][two-complement] representation.
 
 In two's complement, a negative number is represented by flipping all bits and then adding `1` to the result.
 Flipping a bit means that the values are inverted: a bit with the value of `1` becomes `0` and a bit with the value of `0` becomes `1`.
@@ -84,9 +84,12 @@ Step 2 (add 1):
 
 The [neg][neg] instruction can be used to change the sign of a number.
 
-Notice that the binary representation of `-23` and the binary representation of `233` are equal.
+Note that the binary representation of `-23` and the binary representation of `233` are equal.
 
-In order to provide disambiguation, in a signed integer, the most significant bit is not summed up to the others, but indicates whether the number is negative.
+To provide disambiguation, in a signed integer, the most significant bit is not summed up to the others.
+Instead, its value is subtracted.
+
+Since this bit corresponds to a higher value than the sum of all the others, a number with this bit set is always negative.
 This bit is called the **sign bit**.
 
 ~~~~exercism/caution
@@ -110,10 +113,10 @@ The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as 
 It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
 
 ```x86asm
-add eax, -1          ; this is 4294967295 in unsigned representation
-                     ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
+add rax, -1  ; this is 18446744073709551615 in unsigned representation
+             ; an attempt to use 18446744073709551615 directly wouldn't work because immediates are usually 32-bit signed integers
 
-mov eax, 4294967295  ; this works because mov can take a 64-bit immediate as source operand
+mov rax, 18446744073709551615  ; this works because mov can take a 64-bit immediate as source operand
 ```
 
 ## Arithmetic
@@ -185,7 +188,7 @@ The `CF` can also be set by other instructions, performing other operations.
 The instruction [adc][adc] can be used to sum two numbers and also the value in the carry flag.
 It is a two-operand instruction, with the same syntax as `add`.
 
-There's also a [inc][inc] instruction, that simply sums 1 to the value in the destination operand:
+There's also an [inc][inc] one-operand instruction, that sums 1 to the value in its operand:
 
 ```x86asm
 inc dest ; dest = dest + 1
@@ -197,7 +200,7 @@ The sum of two integers operates in the same way for both unsigned and signed nu
 
 The subtraction of two integers is performed using the `sub` instruction.
 
-There's also a [dec][dec] instruction, that simply subtracts 1 from the value in the destination operand:
+There's also a [dec][dec] one-operand instruction, that subtracts 1 from the value in its operand:
 
 ```x86asm
 dec dest ; dest = dest - 1
@@ -266,14 +269,14 @@ This product is also truncated to fit into the destination operand.
 
 In case of a possible overflow, it is sometimes useful to move operands to a larger register size.
 
-A [movzx][movzx] instruction can be used to convert a value in a 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
+A [movzx][movzx] instruction can be used to convert a value in an 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
 This is called **zero extension**:
 
 ```x86asm
 mov ax, 1000 ; lower 16 bits of eax are 1000, upper bits are undefined
 mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
-; 200 * 1000 does not fit in 16 bits, so a 32 bits multiplication is necessary
+; 200 * 1000 does not fit in 16 bits, so a 32-bit multiplication is necessary
 ; however, multiplying eax by ecx may produce an incorrect result due to undefined bits
 
 movzx eax, ax ; lower 16 bits of eax remain 1000, upper bits are cleared
@@ -305,23 +308,30 @@ idiv src
 In both cases, the value in `rdx:rax` is divided by the value in the source operand.
 The quotient is written to the `rax` register and the remainder is written to the `rdx` register.
 
-Notice that as `rdx:rax` is the dividend, both registers must have the appropriate bits set.
+Note that as `rdx:rax` is the dividend, both registers must have the appropriate bits set.
 
-So, whenever working with 64-bit integers, all bits in the `rdx` register must be cleared for a non-negative number in `rax` and set for a negative number.
+So, whenever working with 64-bit integers, the `rdx` register must be set up before the division.
+
+For unsigned division, all bits in `rdx` must be cleared.
+This is called **zero extension**.
+
+For signed division, all bits in `rdx` must be cleared for a non-negative number in `rax`, and set for a negative number.
 This is called **sign extension**.
 
-Failing to perform sign extension can cause a wrong result for the division or, if the quotient is too large to fit in `rax`, an error.
+Failing to do this can cause a wrong result for the division or, if the quotient is too large to fit in `rax`, an error.
 
-There are three instructions that automate this process: [cwd][sign-extension], [cdq][sign-extension] and [cqo][sign-extension].
+There are three instructions that automate the sign extension: [cwd][sign-extension], [cdq][sign-extension] and [cqo][sign-extension].
 They perform sign extension from `ax` to `dx`, from `eax` to `edx` and from `rax` to `rdx`, respectively.
 
-There's no equivalent instruction for sign extending `al` to `dl` because division between two bytes operate differently.
+There's no equivalent instruction for sign extending `al` to `dl` because division between two bytes operates differently.
 Instead of using `dl:al`, `ax` is used.
 
 So, the lower 8 bits of `ax` (`al`) will get the quotient of the operation and the higher 8 bits (`ah`) will get the remainder.
 
 There is also the instruction [movsx][movsx] that works similarly to `movzx`, extending from any 8-bit or 16-bit source operand to a larger destination operand.
-While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
+While `movzx` performs zero-extension, `movsx` performs sign-extension.
+
+A variant of `movsx` called `movsxd` can sign-extend from a 32-bit source operand to a 64-bit destination operand.
 
 ~~~~exercism/caution
 The `rdx` register is implicitly used in an integer division.
