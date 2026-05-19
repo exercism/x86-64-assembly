@@ -4,7 +4,7 @@
 
 An **integer** is an abstraction that represents whole numbers, such as `4`, `-2`, `0` or `64532`.
 
-In order to represent an integer as a sequence of bytes, the **binary notation** is used.
+To represent an integer as a sequence of bytes, the **binary notation** is used.
 In this system, each bit in the sequence represents a distinct power of two, with the value increasing as the index of the bit increases from right to left.
 
 ## Unsigned and Signed Integers
@@ -13,7 +13,7 @@ In this system, each bit in the sequence represents a distinct power of two, wit
 
 If the number can only be non-negative, it's called an **unsigned** number.
 
-Unsigned numbers are represented directly as the sum of all set bits in its sequence.
+Unsigned numbers are represented directly as the sum of all set bits in their sequence.
 
 The range of representable non-negative integers in a register goes from `0` (no bit set) to `2⁶⁴ - 1` (sum of all 64 bits set).
 
@@ -21,7 +21,7 @@ The range of representable non-negative integers in a register goes from `0` (no
 
 If an integer can assume positive or negative values, it's called a **signed** number.
 
-In order to represent negative numbers, x86-64 uses the **two's complement** representation.
+To represent negative numbers, x86-64 uses the **two's complement** representation.
 
 The `neg` instruction can be used to change the sign of a number.
 
@@ -46,10 +46,10 @@ The exception to this rule is `mov`, which accepts a _64-bit signed integer_ as 
 It is possible to use a signed negative integer as immediate in place of an unsigned integer with the same bit representation:
 
 ```x86asm
-add eax, -1          ; this is 4294967295 in unsigned representation
-                     ; an attempt to use 4294967295 directly wouldn't work because immediates are usually 32-bit signed integers
+add rax, -1  ; this is 18446744073709551615 in unsigned representation
+             ; an attempt to use 18446744073709551615 directly wouldn't work because immediates are usually 32-bit signed integers
 
-mov eax, 4294967295  ; this works because mov can take a 64-bit immediate as source operand
+mov rax, 18446744073709551615  ; this works because mov can take a 64-bit immediate as source operand
 ```
 
 ## Arithmetic
@@ -65,7 +65,7 @@ The `CF` can also be set by other instructions, performing other operations.
 The instruction `adc` can be used to sum two numbers and also the value in the carry flag.
 It is a two-operand instruction, with the same syntax as `add`.
 
-There's also a `inc` one-operand instruction, that sums 1 to the value in its operand.
+There's also an `inc` one-operand instruction, that sums 1 to the value in its operand.
 
 The sum of two integers operates in the same way for both unsigned and signed numbers.
 
@@ -73,7 +73,7 @@ The sum of two integers operates in the same way for both unsigned and signed nu
 
 The subtraction of two integers is performed using the `sub` instruction.
 
-There's also a `dec` one-operand instruction, that subtracts 1 from the value in its operand:
+There's also a `dec` one-operand instruction, that subtracts 1 from the value in its operand.
 
 The subtraction of two integers also operates in the same way for both unsigned and signed numbers.
 
@@ -112,7 +112,7 @@ In this case, instead of `dl:al`, `ax` will be used.
 The lower portion of `ax` (`al`) will get the lower 8 bits of the product, while the upper portion (`ah`) will get the upper 8 bits.
 
 ~~~~exercism/caution
-The `rdx` register is implicitly used in an one-operand multiplication.
+The `rdx` register is implicitly used in a one-operand multiplication.
 This means any necessary value in `rdx` must be saved before that operation.
 ~~~~
 
@@ -134,14 +134,14 @@ This product is also truncated to fit into the destination operand.
 
 In case of a possible overflow, it is sometimes useful to move operands to a larger register size.
 
-A `movzx` instruction can be used to convert a value in a 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
+A `movzx` instruction can be used to convert a value in an 8-bit or 16-bit source operand to a larger destination operand, clearing all remaining bits.
 This is called **zero extension**:
 
 ```x86asm
 mov ax, 1000 ; lower 16 bits of eax are 1000, upper bits are undefined
 mov cx, 200 ; lower 16 bits of ecx are 200, upper bits are undefined
 
-; 200 * 1000 does not fit in 16 bits, so a 32 bits multiplication is necessary
+; 200 * 1000 does not fit in 16 bits, so a 32-bit multiplication is necessary
 ; however, multiplying eax by ecx may produce an incorrect result due to undefined bits
 
 movzx eax, ax ; lower 16 bits of eax remain 1000, upper bits are cleared
@@ -150,13 +150,6 @@ mul ecx ; now eax correctly holds 200 * 1000
 ```
 
 A 32-bit source operand is always zero-extended to all 64 bits of the destination operand with a simple `mov`.
-
-#### Using imul with unsigned numbers
-
-It is possible to use `imul` to multiply unsigned numbers.
-However, this may give an incorrect result if one of the numbers may be interpreted as negative.
-
-Since the sign bit in a signed integer corresponds to the most significant bit in an unsigned integer, in practice, this difference becomes relevant when more than the truncated result is needed, i.e., when the full range of `rdx:rax` is used.
 
 ### Division
 
@@ -173,25 +166,30 @@ idiv src
 In both cases, the value in `rdx:rax` is divided by the value in the source operand.
 The quotient is written to the `rax` register and the remainder is written to the `rdx` register.
 
-Notice that as `rdx:rax` is the dividend, both registers must have the appropriate bits set.
+Note that as `rdx:rax` is the dividend, both registers must have the appropriate bits set.
 
-So, whenever working with 64-bit integers, all bits in the `rdx` register must be cleared for a non-negative number in `rax`, and set for a negative number.
+So, whenever working with 64-bit integers, the `rdx` register must be set up before the division.
+
+For unsigned division, all bits in `rdx` must be cleared.
+This is called **zero extension**.
+
+For signed division, all bits in `rdx` must be cleared for a non-negative number in `rax`, and set for a negative number.
 This is called **sign extension**.
 
-Failing to perform sign extension can cause a wrong result for the division or, if the quotient is too large to fit in `rax`, an error.
+Failing to do this can cause a wrong result for the division or, if the quotient is too large to fit in `rax`, an error.
 
-There are three instructions that automate this process: `cwd`, `cdq` and `cqo`.
+There are three instructions that automate the sign extension: `cwd`, `cdq` and `cqo`.
 They perform sign extension from `ax` to `dx`, from `eax` to `edx` and from `rax` to `rdx`, respectively.
 
-There's no equivalent instruction for sign extending `al` to `dl` because division between two bytes operate differently.
+There's no equivalent instruction for sign extending `al` to `dl` because division between two bytes operates differently.
 Instead of using `dl:al`, `ax` is used.
 
 So, the lower 8 bits of `ax` (`al`) will get the quotient of the operation and the higher 8 bits (`ah`) will get the remainder.
 
 There is also the instruction `movsx` that works similarly to `movzx`, extending from any 8-bit or 16-bit source operand to a larger destination operand.
-While `movzx` performs zero-extension, however, `movsx` performs sign-extension.
+While `movzx` performs zero-extension, `movsx` performs sign-extension.
 
-A variant of `movsx` called `movsxd` can sign-extend from a 32-bit source operand to a 64-bit destination operand, as well as between two 16-bit or two 32-bit operands.
+A variant of `movsx` called `movsxd` can sign-extend from a 32-bit source operand to a 64-bit destination operand.
 
 ~~~~exercism/caution
 The `rdx` register is implicitly used in an integer division.

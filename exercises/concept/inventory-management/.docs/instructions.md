@@ -8,21 +8,21 @@ You have four tasks, all related to managing the transport.
 ~~~~exercism/note
 These are the instructions mentioned in this concept:
 
-| Instruction   | Description                                                           |
-|---------------|-----------------------------------------------------------------------|
-| add a, b      | sets a to a + b                                                       |
-| adc a, b      | sets a to a + b + CF (previous carry)                                 |
-| inc a         | sets a to a + 1                                                       |
-| sub a, b      | sets a to a - b                                                       |
-| dec a         | sets a to a - 1                                                       |
-| imul a        | sets rax to a * rax (signed)                                          |
-| imul a, b     | sets a to a * b                                                       |
-| imul a, b, c  | sets a to b * c                                                       |
-| mul a         | sets rax to a * rax (unsigned)                                        |
-| div a         | sets rax to rax / a and rdx to rax % a (unsigned)                     |
-| idiv a        | sets rax to rax / a and rdx to rax % a (signed)                       |
-| movzx a, b    | copies b to a, adding 0 to exceeding bits                             |
-| movsx a, b    | copies b to a, adding 1 to exceeding bits if num b < 0 or 0 otherwise |
+| Instruction   | Description                                                     |
+|---------------|-----------------------------------------------------------------|
+| add a, b      | a = a + b                                                       |
+| adc a, b      | a = a + b + CF (previous carry)                                 |
+| inc a         | a = a + 1                                                       |
+| sub a, b      | a = a - b                                                       |
+| dec a         | a = a - 1                                                       |
+| imul a        | rdx:rax = a * rax (signed)                                      |
+| imul a, b     | a = a * b (signed)                                              |
+| imul a, b, c  | a = b * c (signed)                                              |
+| mul a         | rdx:rax = a * rax (unsigned)                                    |
+| div a         | rax = quotient, rdx = remainder of rdx:rax / a (unsigned)       |
+| idiv a        | rax = quotient, rdx = remainder of rdx:rax / a (signed)         |
+| movzx a, b    | a = b, adding 0 to the extra bits                               |
+| movsx a, b    | a = b, adding 1 to the extra bits if b < 0 or 0 otherwise       |
 ~~~~
 
 ~~~~exercism/note
@@ -39,7 +39,7 @@ You can refer to the [previous concept][basics] for the full table.
 Items are being packed in boxes that must be labeled with their weight.
 There is no scale around, but luckily you know how much each item weighs on average.
 
-In order to better organize things, a box holds only items of two different products.
+To better organize things, a box holds only items of two different products.
 
 Define a function `get_box_weight` that returns the total weight of a box, in `g`.
 This function takes as parameters, in this order:
@@ -50,7 +50,7 @@ This function takes as parameters, in this order:
 - The weight of each item of the second product, in `g`
 
 Consider that an empty box weighs **500 g**.
-A constant `WEIGHT_OF_EMPTY_BOX` is defined at the top of the file.
+A constant `WEIGHT_OF_EMPTY_BOX` is defined at the top of the solution file.
 
 Example:
 
@@ -70,7 +70,7 @@ Define a function `max_number_of_boxes` that returns how many boxes of a certain
 
 This function takes as parameter the height of the box, in `cm`.
 Consider that the truck interior height is **300 cm**.
-A constant TRUCK_HEIGHT is defined at the top of the file.
+A constant `TRUCK_HEIGHT` is defined at the top of the solution file.
 
 Example:
 
@@ -80,6 +80,7 @@ max_number_of_boxes(30);
 ```
 
 The argument and the return value are 8-bit non-negative integers.
+The box height is always at least `2`, so the result fits in 8 bits.
 
 ## 3. Check if all products are accounted for
 
@@ -107,13 +108,21 @@ In case of an error in the process, it is possible that the result is a negative
 
 Your payment is based on how many boxes were moved and how many truck trips were necessary.
 For each box, you will be paid **5 dollars** and for each trip, you will be paid **220 dollars**.
-You may have received part of this payment up front to cover initial costs.
+Constants `PAY_PER_BOX` and `PAY_PER_TRUCK_TRIP` are defined at the top of the solution file.
 
-However, some products are not covered by insurance and your payment will be reduced by the value of any of those items broken or missing.
+Note that you may have received part of this payment up front to cover initial costs, and this up-front payment should be subtracted from the final pay.
+In addition, some products are not covered by insurance and your payment will also be reduced by the value of any of those items broken or missing.
 It is possible that you end up owing money if you are not careful!
+
+This means the net amount you are owed, or owe, is:
+
+```c
+net = boxes * PAY_PER_BOX + trips * PAY_PER_TRUCK_TRIP - up_front - broken_items * item_value
+```
 
 This payment, or debt, will be divided equally between you and a number of workers you hired.
 Any remaining money, or debt, is yours.
+For example, if the net amount of money is `100` being shared amongst `6` people (you and `5` workers), you get `20` (`100/(5 + 1) = 16` plus the remaining `4`).
 
 Define a function `calculate_payment` that returns how much you should be paid, or pay, at the end.
 This function takes as parameters, in this order:
@@ -123,7 +132,7 @@ This function takes as parameters, in this order:
 - The number of truck trips made, as a 32-bit non-negative integer
 - The number of broken or missing items, as a 32-bit non-negative integer
 - The value of each lost item, as a 64-bit non-negative integer
-- The number of workers to split the payment or debt with you, as a 8-bit positive integer
+- The number of workers to split the payment or debt with you, as an 8-bit positive integer
 
 Example:
 
