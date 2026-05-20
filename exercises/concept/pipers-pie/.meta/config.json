@@ -16,6 +16,6 @@
   "forked_from": [
     "elm/pipers-pie"
   ],
-  "blurb": "Learn about recursion in x86-64 assembly.",
-  "icon": "kitchen-calculator"
+  "icon": "kitchen-calculator",
+  "blurb": "Learn about recursion in x86-64 assembly."
 }
