@@ -1263,6 +1263,16 @@
         "status": "deprecated"
       },
       {
+        "slug": "prism",
+        "name": "Prism",
+        "uuid": "987dd0af-5f92-4d97-af70-9f4d659154cd",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-structs"
+        ],
+        "difficulty": 7
+      },
+      {
         "slug": "say",
         "name": "Say",
         "uuid": "56fbd855-0e23-4380-a5ce-1a6996250497",
