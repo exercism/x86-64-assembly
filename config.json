@@ -188,6 +188,20 @@
           "interfacing-with-c-types"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "pipers-pie",
+        "name": "Piper's Pie",
+        "uuid": "43bbc65f-da88-44ac-90c8-5fc8e55a32c8",
+        "concepts": [
+          "recursion"
+        ],
+        "prerequisites": [
+          "loops",
+          "stack",
+          "floating-point-numbers"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [

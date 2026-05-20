@@ -4,6 +4,10 @@
     "description": "Wikipedia Entry for Recursion"
   },
   {
+    "url": "https://en.wikipedia.org/wiki/Stack_overflow",
+    "description": "Wikipedia Entry for Stack Overflow"
+  },
+  {
     "url": "https://en.wikipedia.org/wiki/Tail_call",
     "description": "Wikipedia Entry for Tail Call"
   }
