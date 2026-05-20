@@ -1,5 +1,7 @@
 # Introduction
 
+## Recursion
+
 A function is `recursive` when it calls itself.
 
 One key difference between a function call and a loop is that calling a function pushes the address to be returned to the stack.
@@ -43,7 +45,7 @@ This means each recursive call adds 16 bytes to the stack:
 The function will keeping adding those bytes to the stack until it reaches its base case.
 Only then does it begin to unwind, with each stack frame doing its `pop rdi` and `ret`.
 
-## Tail Call
+### Tail Call
 
 In some situations, a function does not perform any more work after calling another and before returning.
 
@@ -87,7 +89,7 @@ A `call` pushes a return address onto the stack, and for control to come back to
 
 A tail call skips both: there is no return address to push, and no extra `ret` to pair with, just the called function's own `ret`.
 
-## Tail Recursion
+### Tail Recursion
 
 A tail call is particularly useful for recursive functions that may call themselves many times before returning.
 

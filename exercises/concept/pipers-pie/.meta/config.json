@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "pipers_pie.asm"
+    ],
+    "test": [
+      "pipers_pie_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "forked_from": [
+    "elm/pipers-pie"
+  ],
+  "icon": "kitchen-calculator",
+  "blurb": "Learn about recursion in x86-64 assembly."
+}
