@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "bookkeeping.asm"
+    ],
+    "test": [
+      "bookkeeping_test.c",
+      "helper.asm"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "savings-account",
+  "blurb": "Learn about thunks in x86-64 assembly."
+}
