@@ -2,12 +2,11 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include <stdbool.h>
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 typedef uint64_t (*transaction_t)(uint64_t);
-typedef bool (*guard_t)(uint64_t);
+typedef uint64_t (*guard_t)(uint64_t);
 
 typedef struct {
     uint64_t balance;
@@ -16,6 +15,7 @@ typedef struct {
 
 extern uint64_t clobber(uint64_t result);
 
+// transactions
 static uint64_t identity(uint64_t x) {
     return clobber(x);
 }
@@ -35,19 +35,19 @@ static uint64_t sub_sixty(uint64_t x) {
     return clobber(x - 60);
 }
 
-static bool always_true(uint64_t x) {
+// guards
+static uint64_t always_true(uint64_t x) {
     x = 1;
     return clobber(x);
 }
-static bool always_false(uint64_t x) {
+static uint64_t always_false(uint64_t x) {
     x = 0;
     return clobber(x);
 }
-
-static bool not_below_50(uint64_t x) {
+static uint64_t not_below_50(uint64_t x) {
     return clobber(x >= 50);
 }
-static bool is_even(uint64_t x) {
+static uint64_t is_even(uint64_t x) {
     return clobber(!(x & 1));
 }
 

@@ -63,7 +63,7 @@ dispatch:
 A thunk that reads or updates some persistent memory between calls may behave differently depending on what came before.
 Its result may depend on more than its arguments alone.
 
-For example, a _counter_ that returns the number of times it has been called:
+For example, a _counter_ that takes a function and invokes it with the current count, advancing the count each time:
 
 ```x86asm
 section .data
@@ -71,13 +71,14 @@ section .data
 
 section .text
 tick:
-    mov rax, [rel count]
-    inc qword [rel count]
-    ret
+    mov rax, rdi               ; saves the function address
+    mov rdi, [rel count]       ; loads the current count as the function's argument
+    inc qword [rel count]      ; advances the count
+    jmp rax                    ; tail-calls the function
 ```
 
-Each call to `tick` returns the current value of `count` and advances it.
-The information about how many calls have been made persists in memory rather than being recomputed each time.
+`tick` invokes the given function with the current count as its argument, then advances the count.
+So a first call `tick(square)` invokes `square(0)`, the next call `tick(square)` invokes `square(1)`, the next `square(2)`, and so on.
 
 Another example would be a _delayed computation_:
 

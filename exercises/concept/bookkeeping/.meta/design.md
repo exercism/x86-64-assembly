@@ -5,7 +5,7 @@
 - Know what is a thunk.
 - Know how to load and store function addresses
 - Know what is a dispatch table
-- Know how to use
+- Know how to use persistent state to alter the behavior of a function.
 
 ## Out of Scope
 

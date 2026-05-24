@@ -9,7 +9,7 @@ remember_transaction:
 
 global apply_remembered
 apply_remembered:
-    jmp [rel transaction]
+    jmp qword [rel transaction]
 
 global register_transaction
 register_transaction:
@@ -80,7 +80,7 @@ process_with_guard:
     mov rdi, rax
     call r15       ; check if valid
 
-    test al, al
+    test rax, rax
     jz .loop       ; not valid, approved and balance unchanged
     ; otherwise
 
