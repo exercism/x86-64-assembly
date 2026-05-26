@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "pocket_console.asm"
+    ],
+    "test": [
+      "pocket_console_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "low-power-embedded-game",
+  "blurb": "Learn about branchless code in x86-64 assembly."
+}

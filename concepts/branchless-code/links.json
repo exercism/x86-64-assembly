@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://exercism.org/tracks/x86-64-assembly/concepts/conditionals",
+    "description": "Conditionals Concept in Exercism"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Branch_predictor",
+    "description": "Wikipedia Entry for Branch Predictor"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86",
+    "description": "Reference for x86-64 instructions"
+  },
+  {
+    "url": "https://www.agner.org/optimize/microarchitecture.pdf#%5B%7B%22num%22%3A32%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C87%2C785%2C0%5D",
+    "description": "Chapter on Branch prediction"
+  }
+]

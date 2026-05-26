@@ -216,6 +216,21 @@
           "loops"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "pocket-console",
+        "name": "Pocket Console",
+        "uuid": "81f7669b-4e09-421e-b32b-2535bb13fc16",
+        "concepts": [
+          "branchless-code"
+        ],
+        "prerequisites": [
+          "conditionals",
+          "loops",
+          "arrays",
+          "integers"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1508,6 +1523,11 @@
       "uuid": "151fb004-9d26-43b0-8b30-dba2641fa8d5",
       "slug": "thunks",
       "name": "Thunks"
+    },
+    {
+      "uuid": "f4c4eda0-4948-43b4-a2c2-a4bfb70ea35e",
+      "slug": "branchless-code",
+      "name": "Branchless Code"
     }
   ],
   "key_features": [
