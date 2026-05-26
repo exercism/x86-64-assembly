@@ -5,7 +5,7 @@ add_bonus:
     lea rax, [rdi + rsi]
     mov rdi, 999999
     cmp rax, rdi
-    cmova rax, rdi
+    cmovg rax, rdi
     ret
 
 global compare_scores

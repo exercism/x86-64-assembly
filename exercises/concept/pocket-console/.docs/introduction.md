@@ -32,8 +32,8 @@ The `cc` suffix follows the same naming as in `jcc`, with the same meaning:
 
 | instruction | move if                              |
 |-------------|--------------------------------------|
-| `cmove`     | `ZF == 1` (equal)                    |
-| `cmovne`    | `ZF == 0` (not equal)                |
+| `cmove`     | A == B after `cmp A, B`              |
+| `cmovne`    | A != B after `cmp A, B`              |
 | `cmovl`     | A < B (signed) after `cmp A, B`      |
 | `cmovb`     | A < B (unsigned) after `cmp A, B`    |
 | `cmovg`     | A > B (signed) after `cmp A, B`      |
