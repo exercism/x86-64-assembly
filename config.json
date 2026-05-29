@@ -231,6 +231,20 @@
           "integers"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "production-line",
+        "name": "Production Line",
+        "uuid": "3d6febe0-885a-4ef6-91ba-997dc635464a",
+        "concepts": [
+          "simd"
+        ],
+        "prerequisites": [
+          "floating-point-numbers",
+          "loops",
+          "arrays"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1528,6 +1542,11 @@
       "uuid": "f4c4eda0-4948-43b4-a2c2-a4bfb70ea35e",
       "slug": "branchless-code",
       "name": "Branchless Code"
+    },
+    {
+      "uuid": "1f1d4891-131e-4f75-be06-38ee55e746e0",
+      "slug": "simd",
+      "name": "SIMD"
     }
   ],
   "key_features": [
