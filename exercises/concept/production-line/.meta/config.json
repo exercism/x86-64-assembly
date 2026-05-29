@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "production_line.asm"
+    ],
+    "test": [
+      "production_line_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "assembly-line",
+  "blurb": "Learn about SIMD instructions in x86-64 assembly."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Single_instruction,_multiple_data",
+    "description": "Wikipedia Entry for SIMD"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/",
+    "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Advanced_Vector_Extensions",
+    "description": "Wikipedia Entry for AVX"
+  }
+]
