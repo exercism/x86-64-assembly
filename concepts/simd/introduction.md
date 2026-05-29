@@ -215,7 +215,7 @@ You are free to use them.
 
 ~~~~exercism/note
 It is good practice to be consistent in your use of SIMD variants.
-Try to not mix SSE and AVX variants for the same instructions.
+Try not to mix SSE and AVX variants for the same instructions.
 
 If your code base mixes those variants, it is good practice to use `vzeroupper` after you have finished your work with AVX and before using SSE.
 This breaks dependency chains and avoids a costly stall when the CPU transitions between AVX and SSE state.

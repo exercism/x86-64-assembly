@@ -151,6 +151,13 @@ mem2: dq 6.0, 2.1
 section .bss
 alignb 16
 mem3: resb 16
+
+section .text
+fn:
+    movaps xmm0, oword [rel mem1] ; loads 4 packed 32-bit floats in xmm0
+    movapd xmm1, oword [rel mem2] ; loads 2 packed 64-bit floats in xmm1
+    movaps oword [rel mem3], xmm0 ; stores 4 packed 32-bit floats in mem3
+    ret
 ```
 
 Memory operands smaller than 16 bytes, such as the 8-byte source of `cvtps2pd`, have no alignment requirement.
@@ -208,7 +215,7 @@ You are free to use them.
 
 ~~~~exercism/note
 It is good practice to be consistent in your use of SIMD variants.
-Try to not mix SSE and AVX variants for the same instructions.
+Try not to mix SSE and AVX variants for the same instructions.
 
 If your code base mixes those variants, it is good practice to use `vzeroupper` after you have finished your work with AVX and before using SSE.
 This breaks dependency chains and avoids a costly stall when the CPU transitions between AVX and SSE state.
