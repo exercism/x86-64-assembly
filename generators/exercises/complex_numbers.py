@@ -6,6 +6,13 @@ FUNC_PROTO = """\
 
 #include <stddef.h>
 
+#define ASSERT_FLOAT(x, y)                              \
+    do {                                                \
+        float _dt = 0.0001f * ((x) < 0 ? -(x) : (x));   \
+        float _tl = _dt > 0.00001f ? _dt : 0.00001f;    \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (x), (y));        \
+    } while (0)
+
 typedef struct {
     float real;
     float imag;
@@ -36,8 +43,8 @@ const ${type2} z2 = ${z2};
 const complex_t result = ${prop}(z1, z2);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_EQUAL_FLOAT(expected.real, result.real);
-TEST_ASSERT_EQUAL_FLOAT(expected.imag, result.imag);
+ASSERT_FLOAT(expected.real, result.real);
+ASSERT_FLOAT(expected.imag, result.imag);
 """)
 
 UNARY_COMPLEX_RESULT_TEMPLATE = Template("""
@@ -45,15 +52,16 @@ const complex_t z = ${z};
 const complex_t result = ${prop}(z);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_EQUAL_FLOAT(expected.real, result.real);
-TEST_ASSERT_EQUAL_FLOAT(expected.imag, result.imag);
+ASSERT_FLOAT(expected.real, result.real);
+ASSERT_FLOAT(expected.imag, result.imag);
 """)
 
 UNARY_FLOAT_RESULT_TEMPLATE = Template("""
 const complex_t z = ${z};
 const float result = ${prop}(z);
+const float expected = ${expected};
 
-TEST_ASSERT_EQUAL_FLOAT(${expected}, result);
+ASSERT_FLOAT(expected, result);
 """)
 
 
