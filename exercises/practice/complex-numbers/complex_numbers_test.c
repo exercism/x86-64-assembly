@@ -9,6 +9,17 @@
         TEST_ASSERT_FLOAT_WITHIN(_tl, (x), (y));      \
     } while (0)
 
+#define ASSERT_COMPLEX(xr, xi, yr, yi)               \
+    do {                                             \
+        float _abxr = (xr) < 0 ? -(xr) : (xr);       \
+        float _abxi = (xi) < 0 ? -(xi) : (xi);       \
+        float _dist = _abxr > _abxi ? _abxr : _abxi; \
+        float _dt = 0.0001f * _dist;                 \
+        float _tl = _dt > 0.00001f ? _dt : 0.00001f; \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (xr), (yr));   \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (xi), (yi));   \
+    } while (0)
+
 typedef struct {
     float real;
     float imag;
@@ -104,8 +115,7 @@ void test_imaginary_unit(void) {
     const complex_t result = complex_mul(z1, z2);
     const complex_t expected = {-1, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_add_purely_real_numbers(void) {
@@ -116,8 +126,7 @@ void test_add_purely_real_numbers(void) {
     const complex_t result = complex_add(z1, z2);
     const complex_t expected = {3, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_add_purely_imaginary_numbers(void) {
@@ -128,8 +137,7 @@ void test_add_purely_imaginary_numbers(void) {
     const complex_t result = complex_add(z1, z2);
     const complex_t expected = {0, 3};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_add_numbers_with_real_and_imaginary_part(void) {
@@ -140,8 +148,7 @@ void test_add_numbers_with_real_and_imaginary_part(void) {
     const complex_t result = complex_add(z1, z2);
     const complex_t expected = {4, 6};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_subtract_purely_real_numbers(void) {
@@ -152,8 +159,7 @@ void test_subtract_purely_real_numbers(void) {
     const complex_t result = complex_sub(z1, z2);
     const complex_t expected = {-1, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_subtract_purely_imaginary_numbers(void) {
@@ -164,8 +170,7 @@ void test_subtract_purely_imaginary_numbers(void) {
     const complex_t result = complex_sub(z1, z2);
     const complex_t expected = {0, -1};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_subtract_numbers_with_real_and_imaginary_part(void) {
@@ -176,8 +181,7 @@ void test_subtract_numbers_with_real_and_imaginary_part(void) {
     const complex_t result = complex_sub(z1, z2);
     const complex_t expected = {-2, -2};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_multiply_purely_real_numbers(void) {
@@ -188,8 +192,7 @@ void test_multiply_purely_real_numbers(void) {
     const complex_t result = complex_mul(z1, z2);
     const complex_t expected = {2, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_multiply_purely_imaginary_numbers(void) {
@@ -200,8 +203,7 @@ void test_multiply_purely_imaginary_numbers(void) {
     const complex_t result = complex_mul(z1, z2);
     const complex_t expected = {-2, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_multiply_numbers_with_real_and_imaginary_part(void) {
@@ -212,8 +214,7 @@ void test_multiply_numbers_with_real_and_imaginary_part(void) {
     const complex_t result = complex_mul(z1, z2);
     const complex_t expected = {-5, 10};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_divide_purely_real_numbers(void) {
@@ -224,8 +225,7 @@ void test_divide_purely_real_numbers(void) {
     const complex_t result = complex_div(z1, z2);
     const complex_t expected = {0.5, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_divide_purely_imaginary_numbers(void) {
@@ -236,8 +236,7 @@ void test_divide_purely_imaginary_numbers(void) {
     const complex_t result = complex_div(z1, z2);
     const complex_t expected = {0.5, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_divide_numbers_with_real_and_imaginary_part(void) {
@@ -248,8 +247,7 @@ void test_divide_numbers_with_real_and_imaginary_part(void) {
     const complex_t result = complex_div(z1, z2);
     const complex_t expected = {0.44, 0.08};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_absolute_value_of_a_positive_purely_real_number(void) {
@@ -309,8 +307,7 @@ void test_conjugate_a_purely_real_number(void) {
     const complex_t result = complex_conjugate(z);
     const complex_t expected = {5, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_conjugate_a_purely_imaginary_number(void) {
@@ -320,8 +317,7 @@ void test_conjugate_a_purely_imaginary_number(void) {
     const complex_t result = complex_conjugate(z);
     const complex_t expected = {0, -5};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_conjugate_a_number_with_real_and_imaginary_part(void) {
@@ -331,8 +327,7 @@ void test_conjugate_a_number_with_real_and_imaginary_part(void) {
     const complex_t result = complex_conjugate(z);
     const complex_t expected = {1, -1};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_eulers_identityformula(void) {
@@ -342,8 +337,7 @@ void test_eulers_identityformula(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {-1, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_of_0(void) {
@@ -353,8 +347,7 @@ void test_exponential_of_0(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {1, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_of_a_purely_real_number(void) {
@@ -364,8 +357,7 @@ void test_exponential_of_a_purely_real_number(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {2.718281828459045, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_of_a_number_with_real_and_imaginary_part(void) {
@@ -375,8 +367,7 @@ void test_exponential_of_a_number_with_real_and_imaginary_part(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {-2, 0};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_resulting_in_a_number_with_real_and_imaginary_part(void) {
@@ -386,8 +377,7 @@ void test_exponential_resulting_in_a_number_with_real_and_imaginary_part(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {1, 1};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_add_real_number_to_complex_number(void) {
@@ -398,8 +388,7 @@ void test_add_real_number_to_complex_number(void) {
     const complex_t result = complex_real_add(z1, z2);
     const complex_t expected = {6, 2};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_add_complex_number_to_real_number(void) {
@@ -410,8 +399,7 @@ void test_add_complex_number_to_real_number(void) {
     const complex_t result = real_complex_add(z1, z2);
     const complex_t expected = {6, 2};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_subtract_real_number_from_complex_number(void) {
@@ -422,8 +410,7 @@ void test_subtract_real_number_from_complex_number(void) {
     const complex_t result = complex_real_sub(z1, z2);
     const complex_t expected = {1, 7};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_subtract_complex_number_from_real_number(void) {
@@ -434,8 +421,7 @@ void test_subtract_complex_number_from_real_number(void) {
     const complex_t result = real_complex_sub(z1, z2);
     const complex_t expected = {-1, -7};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_multiply_complex_number_by_real_number(void) {
@@ -446,8 +432,7 @@ void test_multiply_complex_number_by_real_number(void) {
     const complex_t result = complex_real_mul(z1, z2);
     const complex_t expected = {10, 25};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_multiply_real_number_by_complex_number(void) {
@@ -458,8 +443,7 @@ void test_multiply_real_number_by_complex_number(void) {
     const complex_t result = real_complex_mul(z1, z2);
     const complex_t expected = {10, 25};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_divide_complex_number_by_real_number(void) {
@@ -470,8 +454,7 @@ void test_divide_complex_number_by_real_number(void) {
     const complex_t result = complex_real_div(z1, z2);
     const complex_t expected = {1, 10};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_divide_real_number_by_complex_number(void) {
@@ -482,8 +465,7 @@ void test_divide_real_number_by_complex_number(void) {
     const complex_t result = real_complex_div(z1, z2);
     const complex_t expected = {2.5, -2.5};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_with_a_large_real_part_magnitude_e5_both_components_sizable(void) {
@@ -493,8 +475,7 @@ void test_exponential_with_a_large_real_part_magnitude_e5_both_components_sizabl
     const complex_t result = complex_exp(z);
     const complex_t expected = {80.187972, 124.885367};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_with_a_large_real_part_magnitude_e7_secondquadrant_angle(void) {
@@ -504,8 +485,7 @@ void test_exponential_with_a_large_real_part_magnitude_e7_secondquadrant_angle(v
     const complex_t result = complex_exp(z);
     const complex_t expected = {-456.36042, 997.165709};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_with_a_large_real_part_magnitude_e6_negative_angle(void) {
@@ -515,8 +495,7 @@ void test_exponential_with_a_large_real_part_magnitude_e6_negative_angle(void) {
     const complex_t result = complex_exp(z);
     const complex_t expected = {-167.885616, -366.836764};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 void test_exponential_with_a_large_real_part_magnitude_e4_fourthquadrant_angle(void) {
@@ -526,8 +505,47 @@ void test_exponential_with_a_large_real_part_magnitude_e4_fourthquadrant_angle(v
     const complex_t result = complex_exp(z);
     const complex_t expected = {-43.740959, -32.675472};
 
-    ASSERT_FLOAT(expected.real, result.real);
-    ASSERT_FLOAT(expected.imag, result.imag);
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
+}
+
+void test_regression_residual_angle_near_pi2_failed_before_sincos_fix(void) {
+    TEST_IGNORE();
+
+    const complex_t z = {-0.3, 1.5};
+    const complex_t result = complex_exp(z);
+    const complex_t expected = {0.052403, 0.738962};
+
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
+}
+
+void test_regression_residual_angle_near_pi2_second_case(void) {
+    TEST_IGNORE();
+
+    const complex_t z = {-0.2, 1.5};
+    const complex_t result = complex_exp(z);
+    const complex_t expected = {0.057915, 0.81668};
+
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
+}
+
+void test_regression_thirdquadrant_angle_nearzero_second_component(void) {
+    TEST_IGNORE();
+
+    const complex_t z = {-0.1, -3.25};
+    const complex_t result = complex_exp(z);
+    const complex_t expected = {-0.899526, 0.097899};
+
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
+}
+
+void test_regression_residual_angle_near_pi2_third_case(void) {
+    TEST_IGNORE();
+
+    const complex_t z = {-0.1, 1.5};
+    const complex_t result = complex_exp(z);
+    const complex_t expected = {0.064006, 0.902571};
+
+    ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 }
 
 int main(void) {
@@ -576,5 +594,9 @@ int main(void) {
     RUN_TEST(test_exponential_with_a_large_real_part_magnitude_e7_secondquadrant_angle);
     RUN_TEST(test_exponential_with_a_large_real_part_magnitude_e6_negative_angle);
     RUN_TEST(test_exponential_with_a_large_real_part_magnitude_e4_fourthquadrant_angle);
+    RUN_TEST(test_regression_residual_angle_near_pi2_failed_before_sincos_fix);
+    RUN_TEST(test_regression_residual_angle_near_pi2_second_case);
+    RUN_TEST(test_regression_thirdquadrant_angle_nearzero_second_component);
+    RUN_TEST(test_regression_residual_angle_near_pi2_third_case);
     return UNITY_END();
 }

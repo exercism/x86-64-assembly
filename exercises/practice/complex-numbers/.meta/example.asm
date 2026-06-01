@@ -21,8 +21,12 @@ C4:   dd 2.7557319223985893e-06        ; 1 / 9!
       dd 2.4801587301587302e-05        ; 1 / 8!
       times 2 dd 0
 
-TWO_DIV_PI: times 4 dd 0.6366197723675814     ; 2 / PI
-PI_DIV_TWO: times 4 dd 1.5707963705062866     ; PI / 2
+C5:   dd -2.5052108385441720e-08       ; -1 / 11!
+      dd -2.7557319223985890e-07       ; -1 / 10!
+      times 2 dd 0
+
+TWO_DIV_PI: times 4 dd 0.63661977236   ; 2 / PI
+PI_DIV_TWO: times 4 dd 1.57079632679   ; PI / 2
 ONE: times 4 dd 1.0
 
 ONE_DIV_LOG2: dd 1.4426950408889634
@@ -153,25 +157,21 @@ global real_complex_div
    mulps xmm1, xmm0
    movaps xmm3, xmm1
    ; xmm1 = x^2
-   mulps xmm3, [rel C4]
-   ; sin = (x^2 / 9!), cos = (x^2 / 8!)
+   mulps  xmm3, [rel C5]
+   ; sin = -(x^2 / 11!), cos = -(x^2 / 10!)
+   addps  xmm3, [rel C4]
+   ; sin = -(x^2 / 11!) + 1/9!, cos = -(x^2 / 10!) + 1/8!
+   mulps  xmm3, xmm1
+   ; sin = -(x^4 / 11!) + (x^2 / 9!), cos = -(x^4 / 10!) + (x^2 / 8!)
+   ; and so on...
    addps xmm3, [rel C3]
-   ; sin = (x^2 / 9!) - (1 / 7!), cos = (x^2 / 8!) - (1 / 6!)
    mulps xmm3, xmm1
-   ; sin = (x^4 / 9!) - (x^2 / 7!), cos = (x^4 / 8!) - (x^2 / 6!)
    addps xmm3, [rel C2]
-   ; sin = (x^4 / 9!) - (x^2 / 7!) + 1 / 5!, cos = (x^4 / 8!) - (x^2 / 6!) + (1 / 4!)
    mulps xmm3, xmm1
-   ; sin = (x^6 / 9!) - (x^4 / 7!) + (x^2 / 5!), cos = (x^6 / 8!) - (x^4 / 6!) + (x^2 / 4!)
    addps xmm3, [rel C1]
-   ; sin = (x^6 / 9!) - (x^4 / 7!) + (x^2 / 5!) - (1 / 3!), cos = (x^6 / 8!) - (x^4 / 6!) + (x^2 / 4!) - (1 / 2!)
    mulps xmm3, xmm1
-   ; sin = (x^8 / 9!) - (x^6 / 7!) + (x^4 / 5!) - (x^2 / 3!), cos = (x^8 / 8!) - (x^6 / 6!) + (x^4 / 4!) - (x^2 / 2!)
    addps xmm3, xmm2
-   ; sin = (x^8 / 9!) - (x^6 / 7!) + (x^4 / 5!) - (x^2 / 3!) + 1, cos = (x^8 / 8!) - (x^6 / 6!) + (x^4 / 4!) - (x^2 / 2!) + 1
-   mulss xmm3, xmm0
-   ; cos is complete, sin requires one extra multiplication by x
-   ; Result: sin = (x^9 / 9!) - (x^7 / 7!) + (x^5 / 5!) - (x^3 / 3!) + x, cos = (x^8 / 8!) - (x^6 / 6!) + (x^4 / 4!) - (x^2 / 2!) + 1
+   mulss xmm3, xmm0 ; cos is complete, sin requires one extra multiplication by x
 
    ; We have calculated sin and cos for the reduced angle at the first quadrant
    ; So this is our base case
