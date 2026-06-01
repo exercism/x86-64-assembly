@@ -36,8 +36,8 @@ const ${type2} z2 = ${z2};
 const complex_t result = ${prop}(z1, z2);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.real, result.real);
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.imag, result.imag);
+TEST_ASSERT_EQUAL_FLOAT(expected.real, result.real);
+TEST_ASSERT_EQUAL_FLOAT(expected.imag, result.imag);
 """)
 
 UNARY_COMPLEX_RESULT_TEMPLATE = Template("""
@@ -45,16 +45,45 @@ const complex_t z = ${z};
 const complex_t result = ${prop}(z);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.real, result.real);
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.imag, result.imag);
+TEST_ASSERT_EQUAL_FLOAT(expected.real, result.real);
+TEST_ASSERT_EQUAL_FLOAT(expected.imag, result.imag);
 """)
 
 UNARY_FLOAT_RESULT_TEMPLATE = Template("""
 const complex_t z = ${z};
 const float result = ${prop}(z);
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, ${expected}, result);
+TEST_ASSERT_EQUAL_FLOAT(${expected}, result);
 """)
+
+
+def extra_cases():
+    return [
+        {
+            "description": "exponential with a large real part: magnitude e^5, both components sizable",
+            "property": "exp",
+            "input": {"z": [5, 1]},
+            "expected": [80.187972, 124.885367],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^7, second-quadrant angle",
+            "property": "exp",
+            "input": {"z": [7, 2]},
+            "expected": [-456.360420, 997.165709],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^6, negative angle",
+            "property": "exp",
+            "input": {"z": [6, -2]},
+            "expected": [-167.885616, -366.836764],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^4, fourth-quadrant angle",
+            "property": "exp",
+            "input": {"z": [4, -2.5]},
+            "expected": [-43.740959, -32.675472],
+        },
+    ]
 
 
 def get_type(x):
