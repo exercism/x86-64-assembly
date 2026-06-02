@@ -6,6 +6,24 @@ FUNC_PROTO = """\
 
 #include <stddef.h>
 
+#define ASSERT_FLOAT(x, y)                              \
+    do {                                                \
+        float _dt = 0.0001f * ((x) < 0 ? -(x) : (x));   \
+        float _tl = _dt > 0.00001f ? _dt : 0.00001f;    \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (x), (y));        \
+    } while (0)
+
+#define ASSERT_COMPLEX(xr, xi, yr, yi)                  \
+    do {                                                \
+        float _abxr = (xr) < 0 ? -(xr) : (xr);          \
+        float _abxi = (xi) < 0 ? -(xi) : (xi);          \
+        float _dist = _abxr > _abxi ? _abxr : _abxi;    \
+        float _dt  = 0.0001f * _dist;                   \
+        float _tl  = _dt > 0.00001f ? _dt : 0.00001f;   \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (xr), (yr));      \
+        TEST_ASSERT_FLOAT_WITHIN(_tl, (xi), (yi));      \
+    } while (0)
+
 typedef struct {
     float real;
     float imag;
@@ -36,8 +54,7 @@ const ${type2} z2 = ${z2};
 const complex_t result = ${prop}(z1, z2);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.real, result.real);
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.imag, result.imag);
+ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 """)
 
 UNARY_COMPLEX_RESULT_TEMPLATE = Template("""
@@ -45,16 +62,69 @@ const complex_t z = ${z};
 const complex_t result = ${prop}(z);
 const complex_t expected = ${expected};
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.real, result.real);
-TEST_ASSERT_FLOAT_WITHIN(0.0001, expected.imag, result.imag);
+ASSERT_COMPLEX(expected.real, expected.imag, result.real, result.imag);
 """)
 
 UNARY_FLOAT_RESULT_TEMPLATE = Template("""
 const complex_t z = ${z};
 const float result = ${prop}(z);
+const float expected = ${expected};
 
-TEST_ASSERT_FLOAT_WITHIN(0.0001, ${expected}, result);
+ASSERT_FLOAT(expected, result);
 """)
+
+
+def extra_cases():
+    return [
+        {
+            "description": "exponential with a large real part: magnitude e^5, both components sizable",
+            "property": "exp",
+            "input": {"z": [5, 1]},
+            "expected": [80.187972, 124.885367],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^7, second-quadrant angle",
+            "property": "exp",
+            "input": {"z": [7, 2]},
+            "expected": [-456.360420, 997.165709],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^6, negative angle",
+            "property": "exp",
+            "input": {"z": [6, -2]},
+            "expected": [-167.885616, -366.836764],
+        },
+        {
+            "description": "exponential with a large real part: magnitude e^4, fourth-quadrant angle",
+            "property": "exp",
+            "input": {"z": [4, -2.5]},
+            "expected": [-43.740959, -32.675472],
+        },
+        {
+            "description": "regression: residual angle near pi/2 (failed before sin/cos fix)",
+            "property": "exp",
+            "input": {"z": [-0.3, 1.5]},
+            "expected": [0.052403, 0.738962],
+        },
+        {
+            "description": "regression: residual angle near pi/2, second case",
+            "property": "exp",
+            "input": {"z": [-0.2, 1.5]},
+            "expected": [0.057915, 0.816680],
+        },
+        {
+            "description": "regression: third-quadrant angle, near-zero second component",
+            "property": "exp",
+            "input": {"z": [-0.1, -3.25]},
+            "expected": [-0.899526, 0.097899],
+        },
+        {
+            "description": "regression: residual angle near pi/2, third case",
+            "property": "exp",
+            "input": {"z": [-0.1, 1.5]},
+            "expected": [0.064006, 0.902571],
+        },
+    ]
 
 
 def get_type(x):
