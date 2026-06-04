@@ -2,7 +2,6 @@
 
 #include <stddef.h>
 #include <stdbool.h>
-#include <stdalign.h>
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
@@ -66,7 +65,7 @@ void test_keeps_everything(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 3, 5};
+    int input[] = {1, 3, 5};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, always);
@@ -80,7 +79,7 @@ void test_keeps_nothing(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 3, 5};
+    int input[] = {1, 3, 5};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, never);
@@ -92,7 +91,7 @@ void test_keeps_first_and_last(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 2, 3};
+    int input[] = {1, 2, 3};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, is_odd);
@@ -106,7 +105,7 @@ void test_keeps_neither_first_nor_last(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 2, 3};
+    int input[] = {1, 2, 3};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, is_even);
@@ -120,7 +119,7 @@ void test_keeps_strings(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(const char *);
     size_t num_elems = 0;
-    alignas(32) const char *input[] = {"apple", "zebra", "banana", "zombies", "cherimoya", "zealot"};
+    const char *input[] = {"apple", "zebra", "banana", "zombies", "cherimoya", "zealot"};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, starts_with_z);
@@ -134,7 +133,7 @@ void test_keeps_lists(void) {
     void *ptr = NULL;
     size_t elem_size = 3 * sizeof(const int);
     size_t num_elems = 0;
-    alignas(32) const int input[][3] = {{1, 2, 3}, {5, 5, 5}, {5, 1, 2}, {2, 1, 2}, {1, 5, 2}, {2, 2, 1}, {1, 2, 5}};
+    const int input[][3] = {{1, 2, 3}, {5, 5, 5}, {5, 1, 2}, {2, 1, 2}, {1, 5, 2}, {2, 2, 1}, {1, 2, 5}};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = keep(ptr, elem_size, num_elems, contains_5);
@@ -159,7 +158,7 @@ void test_discards_everything(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 3, 5};
+    int input[] = {1, 3, 5};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, always);
@@ -171,7 +170,7 @@ void test_discards_nothing(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 3, 5};
+    int input[] = {1, 3, 5};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, never);
@@ -185,7 +184,7 @@ void test_discards_first_and_last(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 2, 3};
+    int input[] = {1, 2, 3};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, is_odd);
@@ -199,7 +198,7 @@ void test_discards_neither_first_nor_last(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(int);
     size_t num_elems = 0;
-    alignas(32) int input[] = {1, 2, 3};
+    int input[] = {1, 2, 3};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, is_even);
@@ -213,7 +212,7 @@ void test_discards_strings(void) {
     void *ptr = NULL;
     size_t elem_size = sizeof(const char *);
     size_t num_elems = 0;
-    alignas(32) const char *input[] = {"apple", "zebra", "banana", "zombies", "cherimoya", "zealot"};
+    const char *input[] = {"apple", "zebra", "banana", "zombies", "cherimoya", "zealot"};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, starts_with_z);
@@ -227,7 +226,7 @@ void test_discards_lists(void) {
     void *ptr = NULL;
     size_t elem_size = 3 * sizeof(const int);
     size_t num_elems = 0;
-    alignas(32) const int input[][3] = {{1, 2, 3}, {5, 5, 5}, {5, 1, 2}, {2, 1, 2}, {1, 5, 2}, {2, 2, 1}, {1, 2, 5}};
+    const int input[][3] = {{1, 2, 3}, {5, 5, 5}, {5, 1, 2}, {2, 1, 2}, {1, 5, 2}, {2, 2, 1}, {1, 2, 5}};
     ptr = (void *)input;
     num_elems = ARRAY_SIZE(input);
     const size_t size = discard(ptr, elem_size, num_elems, contains_5);

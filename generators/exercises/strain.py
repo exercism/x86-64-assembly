@@ -3,7 +3,6 @@ FUNC_PROTO = """\
 
 #include <stddef.h>
 #include <stdbool.h>
-#include <stdalign.h>
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
@@ -63,7 +62,7 @@ def gen_func_body(prop, inp, expected):
         str_list.append("size_t elem_size = sizeof(const char*);")
         str_list.append("size_t num_elems = 0;")
         if lst:
-            str_list.append(f"alignas(32) const char *input[] = {array_literal(lst)};")
+            str_list.append(f"const char *input[] = {array_literal(lst)};")
             str_list.append("ptr = (void*)input;")
             str_list.append("num_elems = ARRAY_SIZE(input);")
         str_list.append(
@@ -82,7 +81,7 @@ def gen_func_body(prop, inp, expected):
         str_list.append("size_t elem_size = 3 * sizeof(const int);")
         str_list.append("size_t num_elems = 0;")
         if lst:
-            str_list.append(f"alignas(32) const int input[][3] = {array_literal(lst)};")
+            str_list.append(f"const int input[][3] = {array_literal(lst)};")
             str_list.append("ptr = (void*)input;")
             str_list.append("num_elems = ARRAY_SIZE(input);")
         str_list.append(
@@ -101,7 +100,7 @@ def gen_func_body(prop, inp, expected):
         str_list.append("size_t elem_size = sizeof(int);")
         str_list.append("size_t num_elems = 0;")
         if lst:
-            str_list.append(f"alignas(32) int input[] = {array_literal(lst)};")
+            str_list.append(f"int input[] = {array_literal(lst)};")
             str_list.append("ptr = (void*)input;")
             str_list.append("num_elems = ARRAY_SIZE(input);")
         if pred == "fn(x) -> true":
