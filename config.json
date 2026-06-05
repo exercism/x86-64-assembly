@@ -917,6 +917,17 @@
         "difficulty": 4
       },
       {
+        "slug": "strain",
+        "name": "Strain",
+        "uuid": "0bf66d89-1ebb-498d-a2e0-4b97b1ee560d",
+        "practices": [],
+        "prerequisites": [
+          "interfacing-with-c-types",
+          "thunks"
+        ],
+        "difficulty": 4
+      },
+      {
         "slug": "twelve-days",
         "name": "Twelve Days",
         "uuid": "404a8125-db44-48b3-b981-49a368815001",
