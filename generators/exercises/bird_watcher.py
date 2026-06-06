@@ -94,20 +94,6 @@ def extra_cases():
             },
         },
         {
-            "task_id": 4,
-            "description": "today_count_first_entry",
-            "property": "today_count",
-            "input": None,
-            "expected": 5,
-        },
-        {
-            "task_id": 5,
-            "description": "update_today_count_first_entry",
-            "property": "update_today_count",
-            "input": 2,
-            "expected": 7,
-        },
-        {
             "task_id": 3,
             "description": "save_count_finish_week",
             "property": "save_count",
@@ -121,7 +107,7 @@ def extra_cases():
                 | (8 << 40)
                 | (4 << 48),
                 "current_week": [
-                    7
+                    5
                     | (13 << 8)
                     | (22 << 16)
                     | (8 << 24)
@@ -133,48 +119,20 @@ def extra_cases():
             },
         },
         {
-            "task_id": 4,
-            "description": "today_count_current_week",
-            "property": "today_count",
-            "input": None,
-            "expected": 42,
-        },
-        {
-            "task_id": 5,
-            "description": "update_today_count_current_week",
-            "property": "update_today_count",
-            "input": 14,
-            "expected": 56,
-        },
-        {
             "task_id": 3,
             "description": "save_count_wrap_current_week",
             "property": "save_count",
             "input": [12],
             "expected": {
-                "last_week": 7
+                "last_week": 5
                 | (13 << 8)
                 | (22 << 16)
                 | (8 << 24)
                 | (0 << 32)
                 | (34 << 40)
-                | (56 << 48),
+                | (42 << 48),
                 "current_week": [12, 1],
             },
-        },
-        {
-            "task_id": 4,
-            "description": "today_count_new_week",
-            "property": "today_count",
-            "input": None,
-            "expected": 12,
-        },
-        {
-            "task_id": 5,
-            "description": "update_today_count_new_week",
-            "property": "update_today_count",
-            "input": 29,
-            "expected": 41,
         },
         {
             "task_id": 3,
@@ -218,6 +176,85 @@ def extra_cases():
             },
         },
         {
+            "task_id": 4,
+            "description": "today_count_first_entry",
+            "property": "today_count",
+            "input": None,
+            "expected": {"today": 7},
+        },
+        {
+            "task_id": 5,
+            "description": "update_today_count_same_day",
+            "property": "update_today_count",
+            "input": [[], 7],
+            "expected": {
+                "last_week": 4
+                | (8 << 8)
+                | (7 << 16)
+                | (2 << 24)
+                | (3 << 32)
+                | (4 << 40)
+                | (26 << 48),
+                "current_week": [
+                    32
+                    | (5 << 8)
+                    | (6 << 16)
+                    | (1 << 24)
+                    | (19 << 32)
+                    | (1 << 40)
+                    | (14 << 48),
+                    7,
+                ],
+                "today": 14,
+            },
+        },
+        {
+            "task_id": 5,
+            "description": "update_today_count_start_next_week",
+            "property": "update_today_count",
+            "input": [[3], 14],
+            "expected": {
+                "last_week": 32
+                | (5 << 8)
+                | (6 << 16)
+                | (1 << 24)
+                | (19 << 32)
+                | (1 << 40)
+                | (14 << 48),
+                "current_week": [
+                    17,
+                    1,
+                ],
+                "today": 17,
+            },
+        },
+        {
+            "task_id": 5,
+            "description": "update_today_count_end_next_week",
+            "property": "update_today_count",
+            "input": [[4, 17, 2, 13, 8, 15], 14],
+            "expected": {
+                "last_week": 32
+                | (5 << 8)
+                | (6 << 16)
+                | (1 << 24)
+                | (19 << 32)
+                | (1 << 40)
+                | (14 << 48),
+                "current_week": [
+                    17
+                    | (4 << 8)
+                    | (17 << 16)
+                    | (2 << 24)
+                    | (13 << 32)
+                    | (8 << 40)
+                    | (29 << 48),
+                    7,
+                ],
+                "today": 29,
+            },
+        },
+        {
             "task_id": 6,
             "description": "update_week_count_one",
             "property": "update_week_counts",
@@ -229,13 +266,13 @@ def extra_cases():
             | (36 << 40)
             | (1 << 48),
             "expected": {
-                "last_week": 32
-                | (5 << 8)
-                | (6 << 16)
-                | (1 << 24)
-                | (19 << 32)
-                | (1 << 40)
-                | (7 << 48),
+                "last_week": 17
+                | (4 << 8)
+                | (17 << 16)
+                | (2 << 24)
+                | (13 << 32)
+                | (8 << 40)
+                | (29 << 48),
                 "current_week": [
                     3
                     | (9 << 8)
@@ -304,11 +341,11 @@ def check_current_week(prop, expected):
 
 def check_last_week(prop, expected):
     str_list = []
-    str_list.append(f"const uint64_t actual = {prop}();")
+    str_list.append(f"const uint64_t last = {prop}();")
     str_list.append("char exp_buffer_last[BUFFER_SIZE] = {0};")
     str_list.append("char actual_buffer_last[BUFFER_SIZE] = {0};")
     str_list.append(f"generate_bitstring(exp_buffer_last, {expected});")
-    str_list.append("generate_bitstring(actual_buffer_last, actual);")
+    str_list.append("generate_bitstring(actual_buffer_last, last);")
     str_list.append(
         'TEST_ASSERT_EQUAL_STRING_MESSAGE(exp_buffer_last, actual_buffer_last, "Counts for last week are different than expected.");'
     )
@@ -337,9 +374,15 @@ def gen_func_body(prop, inp, expected):
         )
         return "\n".join(str_list)
     if prop == "update_today_count":
-        str_list.append(f"{prop}({inp});")
+        for val in inp[0]:
+            str_list.append(f"save_count({val});")
+        str_list.append(f"{prop}({inp[1]});")
+        str_list.append(check_last_week("last_week_counts", expected["last_week"]))
+        str_list.append(
+            check_current_week("current_week_counts", expected["current_week"])
+        )
     str_list.append("const uint8_t actual = today_count();")
     str_list.append(
-        f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected}, actual, "Today\'s count is different than expected.");'
+        f'TEST_ASSERT_EQUAL_UINT8_MESSAGE({expected["today"]}, actual, "Today\'s count is different than expected.");'
     )
     return "\n".join(str_list)
