@@ -13,5 +13,6 @@
       ".meta/exemplar.asm"
     ]
   },
-  "blurb": ""
+  "icon": "scale-generator",
+  "blurb": "Learn about SIMD operations with packed integers in x86-64 assembly."
 }
