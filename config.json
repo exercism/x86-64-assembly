@@ -245,6 +245,20 @@
           "arrays"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "mixing-console",
+        "name": "mixing-console",
+        "uuid": "3bb1c7a8-63d8-47b6-9a92-9f91a60db2ca",
+        "concepts": [
+          "simd-integers"
+        ],
+        "prerequisites": [
+          "integers",
+          "arrays",
+          "simd"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1558,6 +1572,11 @@
       "uuid": "1f1d4891-131e-4f75-be06-38ee55e746e0",
       "slug": "simd",
       "name": "SIMD"
+    },
+    {
+      "uuid": "4d0b9141-152c-440f-b789-e1a83a3f6669",
+      "slug": "simd-integers",
+      "name": "SIMD: Integers"
     }
   ],
   "key_features": [
