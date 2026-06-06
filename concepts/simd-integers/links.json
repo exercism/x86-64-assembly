@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://exercism.org/tracks/x86-64-assembly/concepts/simd",
+    "description": "Exercism SIMD Concept"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/",
+    "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Saturation_arithmetic",
+    "description": "Wikipedia Entry for Saturation Arithmetic"
+  }
+]
