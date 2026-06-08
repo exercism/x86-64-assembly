@@ -248,7 +248,7 @@
       },
       {
         "slug": "mixing-console",
-        "name": "mixing-console",
+        "name": "Mixing Console",
         "uuid": "3bb1c7a8-63d8-47b6-9a92-9f91a60db2ca",
         "concepts": [
           "simd-integers"

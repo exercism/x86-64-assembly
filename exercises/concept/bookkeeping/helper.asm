@@ -9,6 +9,15 @@ section .text
     mov r9, 0xFFFFFFFFFFFFFFFF
     mov r10, 0xFFFFFFFFFFFFFFFF
     mov r11, 0xFFFFFFFFFFFFFFFF
+
+    pxor xmm0, xmm0
+    pcmpeqb xmm0, xmm0
+    %assign _i 1
+    %rep 15
+        movdqa xmm %+ _i, xmm0
+        %assign _i _i + 1
+    %endrep
+    %undef _i
 %endmacro
 
 global clobber

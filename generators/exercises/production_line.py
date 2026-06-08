@@ -278,15 +278,15 @@ def gen_func_body(prop, inp, expected):
         str_list.append(
             f"alignas(16) const double measured[2] = {array_literal(inp[0])};"
         )
-        str_list.append("const char x1 = 'X';")
+        str_list.append("alignas(16) const char x1 = 'X';")
         str_list.append("(void)x1;")
         str_list.append(f"alignas(8) const double target[2] = {array_literal(inp[1])};")
-        str_list.append("const char x2 = 'X';")
+        str_list.append("alignas(16) const char x2 = 'X';")
         str_list.append("(void)x2;")
         str_list.append(
             f"alignas(8) const double sensitivity[2] = {array_literal(inp[2])};"
         )
-        str_list.append("const char x3 = 'X';")
+        str_list.append("alignas(16) const char x3 = 'X';")
         str_list.append("(void)x3;")
         str_list.append("alignas(8) double result[2];")
         str_list.append(f"{prop}(measured, target, sensitivity, result);")
@@ -298,7 +298,7 @@ def gen_func_body(prop, inp, expected):
             'TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(expected[1], result[1], "The 64-bit floating-point number at lane 1 is different from expected");'
         )
     elif prop == "calibrate_batch":
-        str_list.append("const char x = 'X';")
+        str_list.append("alignas(16) const char x = 'X';")
         str_list.append("(void)x;")
         str_list.append(f"alignas(4) const float raw[] = {array_literal(inp[0])};")
         str_list.append(

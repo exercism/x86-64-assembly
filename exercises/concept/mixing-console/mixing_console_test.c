@@ -157,15 +157,15 @@ void test_mix_tracks_mixed_extremes(void) {
 // TASK: 2
 void test_remove_bleed_example(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {10000, -30000, 5000, 32767, 0, 200, -200, 15000};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {2000, 5000, 5000, -5, 0, 300, 300, 5000};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {8000, -32768, 0, 32767, 0, -100, -500, 10000};
+    alignas(2) const int16_t expected[8] = {8000, -32768, 0, 32767, 0, -100, -500, 10000};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -178,15 +178,15 @@ void test_remove_bleed_example(void) {
 
 void test_remove_bleed_all_zeros(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    alignas(2) const int16_t expected[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -199,15 +199,15 @@ void test_remove_bleed_all_zeros(void) {
 
 void test_remove_bleed_no_saturation(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {100, 200, 300, 400, 500, 600, 700, 800};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {50, 50, 50, 50, 50, 50, 50, 50};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {50, 150, 250, 350, 450, 550, 650, 750};
+    alignas(2) const int16_t expected[8] = {50, 150, 250, 350, 450, 550, 650, 750};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -220,15 +220,15 @@ void test_remove_bleed_no_saturation(void) {
 
 void test_remove_bleed_saturates_negative(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {-32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {1, 1, 1, 1, 1, 1, 1, 1};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {-32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768};
+    alignas(2) const int16_t expected[8] = {-32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -241,15 +241,15 @@ void test_remove_bleed_saturates_negative(void) {
 
 void test_remove_bleed_saturates_positive(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {32767, 32767, 32767, 32767, 32767, 32767, 32767, 32767};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {32767, 32767, 32767, 32767, 32767, 32767, 32767, 32767};
+    alignas(2) const int16_t expected[8] = {32767, 32767, 32767, 32767, 32767, 32767, 32767, 32767};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -262,15 +262,15 @@ void test_remove_bleed_saturates_positive(void) {
 
 void test_remove_bleed_cancels_to_zero(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {5, 10, 15, 20, 25, 30, 35, 40};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {5, 10, 15, 20, 25, 30, 35, 40};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    alignas(2) const int16_t expected[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -283,15 +283,15 @@ void test_remove_bleed_cancels_to_zero(void) {
 
 void test_remove_bleed_mixed_extremes(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {0, 0, -100, 100, 32767, -32768, 1000, -1000};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {32767, -32768, 100, -100, -1, 1, 500, -500};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {-32767, 32767, -200, 200, 32767, -32768, 500, -500};
+    alignas(2) const int16_t expected[8] = {-32767, 32767, -200, 200, 32767, -32768, 500, -500};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
@@ -304,15 +304,15 @@ void test_remove_bleed_mixed_extremes(void) {
 
 void test_remove_bleed_goes_negative(void) {
     TEST_IGNORE();
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(2) int16_t result[8];
     alignas(16) const int16_t track[8] = {10, 20, 30, 40, 50, 60, 70, 80};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(2) const int16_t bleed[8] = {100, 100, 100, 100, 100, 100, 100, 100};
     remove_bleed(result, track, bleed);
-    const int16_t expected[8] = {-90, -80, -70, -60, -50, -40, -30, -20};
+    alignas(2) const int16_t expected[8] = {-90, -80, -70, -60, -50, -40, -30, -20};
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[0], result[0], "The 16-bit sample at lane 0 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[1], result[1], "The 16-bit sample at lane 1 is different from expected");
     TEST_ASSERT_EQUAL_INT16_MESSAGE(expected[2], result[2], "The 16-bit sample at lane 2 is different from expected");
