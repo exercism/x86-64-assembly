@@ -700,17 +700,19 @@ def gen_func_body(prop, inp, expected):
         str_list.append(f"const int16_t expected[8] = {array_literal(expected)};")
         str_list.extend(int16_lane_asserts())
     elif prop == "remove_bleed":
-        str_list.append("const char x1 = 'X';")
+        str_list.append("alignas(16) const char x1 = 'X';")
         str_list.append("(void)x1;")
         str_list.append("alignas(2) int16_t result[8];")
         str_list.append(
             f"alignas(16) const int16_t track[8] = {array_literal(inp[0])};"
         )
-        str_list.append("const char x2 = 'X';")
+        str_list.append("alignas(16) const char x2 = 'X';")
         str_list.append("(void)x2;")
         str_list.append(f"alignas(2) const int16_t bleed[8] = {array_literal(inp[1])};")
         str_list.append("remove_bleed(result, track, bleed);")
-        str_list.append(f"const int16_t expected[8] = {array_literal(expected)};")
+        str_list.append(
+            f"alignas(2) const int16_t expected[8] = {array_literal(expected)};"
+        )
         str_list.extend(int16_lane_asserts())
     elif prop == "combine_meters":
         str_list.append(
