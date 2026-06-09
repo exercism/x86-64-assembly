@@ -1,6 +1,101 @@
 %ifndef DEBUG_MAC
 %define DEBUG_MAC
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                   DEBUGGING UTILITY FILE FOR EXERCISM'S X86-64 ASSEMBLY TRACK
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      CALLING CONVENTION
+;
+; There are macros for debugging:
+; 1. scalar values
+; 2. strings
+; 3. packed (SIMD) values
+; 4. conditions and flags
+;
+; All the macros may be called with multiple arguments, that must be separated by a comma (`,`).
+;
+; Note that the stack is modified temporarily by all macros.
+; This means any value pointed by RSP won't be valid at the time it is dereferenced.
+; Such value should be loaded on a register before debugging.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           SCALAR DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; A scalar debugging macro name is usually of the form: "debug" + type + size.
+;
+; The type is one of the following:
+; 1. "d", for signed integers
+; 2. "u", for unsigned integers in decimal format
+; 3. "x", for unsigned integers in hexadecimal format
+; 4. "f", for floating-point numbers
+;
+; The sizes are:
+; 1. 8, for 8-bit values
+; 2. 16, for 16-bit values
+; 3. 32, for 32-bit values
+; 4. 64, for 64-bit values
+;
+; The exception is debugc, which prints an individual character and does not need a size suffix.
+;
+; Scalar debugging macros may be called with registers or memory operands.
+;
+; If the macro is called with a memory operand, it should be passed in brackets and a size prefix may be necessary, e.g.:
+; - byte [<address>]
+; - word [<address>]
+; (where <address> is a valid dereferenceable relative memory address).
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           STRING DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; The debugs macro prints a NUL-terminated string and does not need a size suffix.
+;
+; It accepts a memory address as argument, without brackets.
+; If this address is given as a label, it must be RIP-relative.
+; This means either the label is passed with a preceding "rel" or there's a "default rel" directive:
+;
+; debugs rel label
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           SIMD DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; For SIMD debug, the form is: "debug" + type + size + "_xmm".
+;
+; The type is one of the following:
+; 1. "d", for signed integers
+; 2. "u", for unsigned integers in decimal format
+; 3. "x", for unsigned integers in hexadecimal format
+; 4. "f", for floating-point numbers
+;
+; The sizes are:
+; 1. 8, for 8-bit values
+; 2. 16, for 16-bit values
+; 3. 32, for 32-bit values
+; 4. 64, for 64-bit values
+;
+; In SIMD debugging, sizes refer to each individual lane.
+; For example, debugd16_xmm interprets a 128-bit argument as 8 16-bit packed numbers.
+;
+; SIMD debugging macros may be called with registers or memory operands.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           FLAG DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; The debug_flag macro prints if a certain condition is true or false.
+; It is called with a condition as tested by, e.g., SETcc or Jcc instructions.
+; For example:
+;
+; debug_flag ae, z, c
+;
+; This example prints true if jae, jz and jc would jump, respectively, and false otherwise.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 extern printf
 
 section .rodata
@@ -28,6 +123,13 @@ fmtc: db "debug character... %c", 0xA, 0x0
 fmts: db `debug string... "%s"`, 0xA, 0x0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           FORMATTING STRINGS FOR FLAGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+fmt_flag_true: db "debug flag... true", 0xA, 0x0
+fmt_flag_false: db "debug flag... false", 0xA, 0x0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                           FORMATTING STRINGS FOR PACKED VALUES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -51,6 +153,7 @@ fmts: db `debug string... "%s"`, 0xA, 0x0
         %assign _i_x _i_x + 1
     %endrep
     db "]", 0xA, 0x0
+    %undef  _i_x
 %endmacro
 
 ; generates formatting string for floating-point SIMD values
@@ -66,6 +169,8 @@ _fmt_xmm f64, "%f", 2
         %assign _i_is (_i_is * 2)
         %assign _j_is (_j_is / 2)
     %endrep
+    %undef _i_is
+    %undef _j_is
 %endmacro
 
 ; generates formatting string for integer SIMD values
@@ -103,6 +208,8 @@ _fmt_xmm_is zx, "%zX"
     %assign i i + 16
     %assign n n + 1
 %endrep
+%undef i
+%undef n
 
 %endmacro
 
@@ -117,6 +224,9 @@ _fmt_xmm_is zx, "%zX"
     %assign i i + 16
     %assign n n + 1
 %endrep
+%undef i
+%undef n
+
     add rsp, 16 * 16
 
     ; Restore caller-save registers
@@ -173,51 +283,22 @@ _fmt_xmm_is zx, "%zX"
 
 %endmacro
 
+%macro call_print 0
+
+    %ifidn __OUTPUT_FORMAT__,elf64
+        call printf wrt ..plt
+    %else
+        call printf
+    %endif
+
+%endmacro
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                                      DEBUGGING MACROS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;                                      CALLING CONVENTION
-;
-; All the following macros may be called with: 1. registers or 2. memory operands.
-; The macros may be called with multiple arguments, that must be separated by a comma (`,`)
-;
-; If called with a memory operand, it might be necessary to specify the size, e.g.:
-; - byte [<address>]
-; - word [<address>]
-; (where <address> is a valid dereferenceable relative memory address).
-;
-; Note that the stack is modified temporarily by all macros
-; This means any value pointed by RSP won't be valid at the time it is dereferenced
-; Such value should be loaded on a register before debugging
-;
-; The macro name is usually of the form: "debug" + type + size
-;
-; The type is one of the following:
-; 1. "d", for signed integers
-; 2. "u", for unsigned integers in decimal format
-; 3. "x", for unsigned integers in hexadecimal format
-; 4. "f", for floating-point numbers
-;
-; The sizes are:
-; 1. 8, for 8-bit values
-; 2. 16, for 16-bit values
-; 3. 32, for 32-bit values
-; 4. 64, for 64-bit values
-;
-; For SIMD debug, the form is: "debug" + type + size + "_xmm"
-;
-; In this case, the types are the same and the sizes refer to each individual lane.
-; For example, debugd16_xmm interprets a 128-bit argument as 8 16-bit packed numbers.
-;
-; Finally, "debugc" and "debugs" do not need an explicit size.
-; They print an individual character and a NUL-terminated string, respectively.
-;
-; Note that the `debugs` macro expects a memory address.
-; If not in a register, this address should be passed directly, without brackets:
-; - debugs <address>
-;
+;                                      DEBUGGING SCALAR
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; prints the value of a 8-bit signed integer
@@ -230,7 +311,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzd]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -255,7 +336,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzd]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -273,7 +354,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzd]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -291,7 +372,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzu]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -316,7 +397,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzu]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -334,7 +415,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzu]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -352,7 +433,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzx]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -377,7 +458,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzx]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -395,7 +476,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtzx]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -413,7 +494,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtf]
         mov eax, 1
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -431,7 +512,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtf]
         mov eax, 1
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -449,7 +530,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmtc]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -467,13 +548,17 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmts]
         xor eax, eax
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
     %endrep
 
 %endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING SIMD
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; prints a XMM register interpreted as 4 packed 32-bit floating-point numbers
 %macro debugf32_xmm 1-*
@@ -492,7 +577,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmt_xmm_f32]
         mov eax, 4
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -515,7 +600,7 @@ _fmt_xmm_is zx, "%zX"
         lea rdi, [rel fmt_xmm_f64]
         mov eax, 2
 
-        call printf wrt ..plt
+        call_print
 
         epilogue
     %rotate 1
@@ -576,10 +661,12 @@ _fmt_xmm_is zx, "%zX"
         mov [rsp + _i_d8_xmm], rax
         %assign _i_d8_xmm _i_d8_xmm + 8
     %endrep
+    %undef _i_d8_xmm
+    %undefalias _mov_xmm
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 8]
     xor eax, eax
-    call printf wrt ..plt
+    call_print
 
     epilogue
 
@@ -659,10 +746,11 @@ _fmt_xmm_is zx, "%zX"
 
     _mov_xmm r10, ax
     mov [rsp + 16], r10
+    %undefalias _mov_xmm
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 16]
     xor eax, eax
-    call printf wrt ..plt
+    call_print
 
     epilogue
 
@@ -727,7 +815,7 @@ _fmt_xmm_is zx, "%zX"
 
     lea rdi, [rel fmt_xmm_ %+ %3 %+ 32]
     xor eax, eax
-    call printf wrt ..plt
+    call_print
 
     epilogue
 
@@ -782,7 +870,7 @@ _fmt_xmm_is zx, "%zX"
     lea rdi, [rel fmt_xmm_ %+ %2 %+ 64]
     xor eax, eax
 
-    call printf wrt ..plt
+    call_print
 
     epilogue
 
@@ -813,6 +901,35 @@ _fmt_xmm_is zx, "%zX"
 
     %rep %0
         _debug_si_xmm64 %1, zx
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING FLAGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+%macro debug_flag 1-*
+
+    %rep %0
+        prologue
+
+        xor esi, esi
+
+        push qword [rbp + 16 * 16 + 10 * 8]
+        popfq
+
+        set%1 sil
+
+        lea rdi, [rel fmt_flag_true]
+        lea rdx, [rel fmt_flag_false]
+        test esi, esi
+        cmovz rdi, rdx
+
+        call_print
+
+        epilogue
     %rotate 1
     %endrep
 
