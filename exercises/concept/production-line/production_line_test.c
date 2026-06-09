@@ -124,13 +124,13 @@ void test_sum_yields_both_negative(void) {
 void test_scaled_deviation_example(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {10.5, 20.5};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {10.0, 20.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {2.0, 4.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -142,13 +142,13 @@ void test_scaled_deviation_example(void) {
 void test_scaled_deviation_zero_deviation(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {5.0, 5.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {5.0, 5.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {2.0, 2.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -160,13 +160,13 @@ void test_scaled_deviation_zero_deviation(void) {
 void test_scaled_deviation_negative_deviation(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {1.0, 2.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {3.0, 5.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {1.0, 1.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -178,13 +178,13 @@ void test_scaled_deviation_negative_deviation(void) {
 void test_scaled_deviation_zero_sensitivity(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {100.0, 200.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {50.0, 50.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {0.0, 0.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -196,13 +196,13 @@ void test_scaled_deviation_zero_sensitivity(void) {
 void test_scaled_deviation_fractional_sensitivity(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {4.0, 8.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {2.0, 4.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {0.5, 0.25};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -214,13 +214,13 @@ void test_scaled_deviation_fractional_sensitivity(void) {
 void test_scaled_deviation_negative_target(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {0.0, 0.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {-3.0, -7.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {1.0, 1.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -232,13 +232,13 @@ void test_scaled_deviation_negative_target(void) {
 void test_scaled_deviation_negative_sensitivity(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {10.0, 10.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {5.0, 5.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {-2.0, -3.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -250,13 +250,13 @@ void test_scaled_deviation_negative_sensitivity(void) {
 void test_scaled_deviation_larger_values(void) {
     TEST_IGNORE();
     alignas(16) const double measured[2] = {1000.0, 2000.0};
-    const char x1 = 'X';
+    alignas(16) const char x1 = 'X';
     (void)x1;
     alignas(8) const double target[2] = {1000.0, 1500.0};
-    const char x2 = 'X';
+    alignas(16) const char x2 = 'X';
     (void)x2;
     alignas(8) const double sensitivity[2] = {3.0, 2.0};
-    const char x3 = 'X';
+    alignas(16) const char x3 = 'X';
     (void)x3;
     alignas(8) double result[2];
     scaled_deviation(measured, target, sensitivity, result);
@@ -268,7 +268,7 @@ void test_scaled_deviation_larger_values(void) {
 // TASK: 3
 void test_calibrate_batch_example(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {10.0, 20.0, 25.0, 50.0};
     alignas(16) const double reference[2] = {100.0, 100.0};
@@ -288,7 +288,7 @@ void test_calibrate_batch_example(void) {
 
 void test_calibrate_batch_uniform(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {6.0, 6.0, 6.0, 6.0};
     alignas(16) const double reference[2] = {12.0, 12.0};
@@ -308,7 +308,7 @@ void test_calibrate_batch_uniform(void) {
 
 void test_calibrate_batch_different_offset_per_lane(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {10.0, 10.0, 10.0, 10.0};
     alignas(16) const double reference[2] = {20.0, 20.0};
@@ -328,7 +328,7 @@ void test_calibrate_batch_different_offset_per_lane(void) {
 
 void test_calibrate_batch_negative_raw(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {-2.0, -4.0, -8.0, -16.0};
     alignas(16) const double reference[2] = {16.0, 16.0};
@@ -348,7 +348,7 @@ void test_calibrate_batch_negative_raw(void) {
 
 void test_calibrate_batch_different_reference_per_lane(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {10.0, 10.0, 10.0, 10.0};
     alignas(16) const double reference[2] = {100.0, 50.0};
@@ -368,7 +368,7 @@ void test_calibrate_batch_different_reference_per_lane(void) {
 
 void test_calibrate_batch_fractional_raw(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {0.5, 1.0, 2.0, 4.0};
     alignas(16) const double reference[2] = {4.0, 4.0};
@@ -388,7 +388,7 @@ void test_calibrate_batch_fractional_raw(void) {
 
 void test_calibrate_batch_offset_exceeds_raw(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {2.0, 2.0, 6.0, 8.0};
     alignas(16) const double reference[2] = {8.0, 8.0};
@@ -408,7 +408,7 @@ void test_calibrate_batch_offset_exceeds_raw(void) {
 
 void test_calibrate_batch_mixed_reference_offset(void) {
     TEST_IGNORE();
-    const char x = 'X';
+    alignas(16) const char x = 'X';
     (void)x;
     alignas(4) const float raw[] = {3.0, 5.0, 9.0, 17.0};
     alignas(16) const double reference[2] = {2.0, 4.0};
