@@ -6,12 +6,12 @@ Readings arrive as blocks of values.
 Some are ground displacements stored as 32-bit floating-point numbers, others are raw counts and status words stored as 32-bit integers.
 The station processes a whole block at once, applying the same operation to each value.
 
-You have five tasks, each operating on a block of values held in memory.
+You have six tasks, each operating on a block of values held in memory.
 You receive the operands through memory addresses and write your answer through a result address.
 All memory addresses in this exercise are 16-byte aligned.
 
 ~~~~exercism/note
-The computations in this exercise should be performed using SIMD bitwise and shifts, not scalar operations.
+The computations in this exercise should be performed using SIMD bitwise operations and shifts, not scalar operations.
 ~~~~
 
 ## 1. Rectify the trace
@@ -79,7 +79,7 @@ result = { 128,  -128,  3,  -4}
 ```
 
 ~~~~exercism/note
-The instruction `movq` may be used to copy a 64-bit integer from a general-purpose register to a `xmm` register without changing the underlying bit representation.
+The instruction `movq` may be used to copy a 64-bit integer from a general-purpose register to an `xmm` register without changing the underlying bit representation.
 ~~~~
 
 This function has no return value.
@@ -135,8 +135,7 @@ This function has no return value.
 
 Each channel of the array has its own gain trim, expressed as a power of two: a gain of `3` multiplies the channel's reading by `8`, a gain of `-5` divides it by `32`.
 
-The station applies these gains without a single floating-point multiplication.
-A floating-point number is scaled by `2^k` by adding `k` directly to its exponent field: shift `k` into position and add it to the raw bits.
+The station applies these gains without a single multiplication, by manipulating the exponent field of each floating-point number.
 
 Implement the `amplify_trace` function, which multiplies each reading by `2` raised to its channel's gain, operating only on the raw bits.
 

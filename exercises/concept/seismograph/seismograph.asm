@@ -40,7 +40,8 @@ coarsen_displacements:
     ; 2. `counts`: 16-byte aligned memory address of the counts, with 4 signed 32-bit integers
     ; 3. `shift`: the power of two to divide by, as a 64-bit unsigned integer between 0 and 31
     ;
-    ; The instruction `movq` may be used to copy a 64-bit integer from a general-purpose register to a `xmm` register without changing the underlying bit representation.
+    ; The instruction `movq` may be used to copy a 64-bit integer from a general-purpose register to an `xmm` register.
+    ; It does not change the underlying bit representation.
     ;
     ; The function has no return value.
     ; The computation should use SIMD instructions, not scalar operations.
@@ -83,9 +84,8 @@ global amplify_trace
 amplify_trace:
     ; TODO: implement the `amplify_trace` function
     ;
-    ; This function multiplies each reading by 2 raised to its channel's gain,
-    ; operating only on the raw bits: no floating-point multiplication.
-    ; Adding k to the exponent field (bits 30-23) multiplies the value by 2^k.
+    ; This function multiplies each reading by 2 raised to its channel's gain.
+    ; This is done by manipulating the exponent field of the reading, without any actual multiplication.
     ;
     ; This function takes as arguments, in order:
     ; 1. `result`: 16-byte aligned memory address where the 4 amplified readings are written

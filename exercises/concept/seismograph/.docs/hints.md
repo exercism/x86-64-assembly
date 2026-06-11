@@ -11,13 +11,14 @@
 - The sign of a 32-bit floating-point number is its top bit.
   Clearing the uppermost bit makes the number non-negative.
 - It is possible to clear the uppermost bit by ANDing with a 32-bit number where all bits are set except the uppermost one.
+- A mask can be defined in memory with 4 packed 32-bit numbers.
 - The instruction `andps` applies AND to floating-point values.
 
 ## 2. Read the scale of a tremor
 
 - The exponent field in a 32-bit IEEE-754 floating-point number is in the bits at positions 23 to 30, inclusive.
 - The exponent bits can be isolated by ANDing (`andps` or `pand`) the floats with a mask where only bits 23 to 30 are set.
-- Once the exponent bits are isolated, they can be slided to the bottom of each lane with a shift right logical (`psrld`).
+- Once the exponent bits are isolated, they can be slid to the bottom of each lane with a shift right logical (`psrld`).
 - The bias for a 32-bit IEEE-754 float is 127.
   It can be removed by subtracting 127 from each lane (`psubd`).
 
@@ -25,7 +26,7 @@
 
 - A shift right arithmetic (`psrad`) by `n` divides by `2^n` while preserving the sign and rounding toward negative infinity.
 - The packed shift instructions take their count from an immediate or from an `xmm` register, not from a general-purpose register (GPR).
-- The instruction `movq` may be used to move raw 64 bits from a GPR to a `xmm` register.
+- The instruction `movq` may be used to move raw 64 bits from a GPR to an `xmm` register.
 
 ## 4. Gate the channels
 

@@ -19,8 +19,8 @@ rectify_trace:
 
 global reading_scale
 reading_scale:
-    movaps xmm0, [rsi]
-    andps xmm0, [rel exp_mask]
+    movdqa xmm0, [rsi]
+    pand xmm0, [rel exp_mask]
     psrld xmm0, 23
     psubd xmm0, [rel bias_f32]
     movdqa [rdi], xmm0
