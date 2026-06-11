@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "seismograph.asm"
+    ],
+    "test": [
+      "seismograph_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "factory-sensors",
+  "blurb": "Learn about bitwise and shift ops on packed values in x86-64 assembly."
+}
