@@ -259,6 +259,19 @@
           "simd"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "seismograph",
+        "name": "Seismograph",
+        "uuid": "cb2e8406-e8b8-4d42-8fde-1fe4c78aee65",
+        "concepts": [
+          "simd-bitwise"
+        ],
+        "prerequisites": [
+          "simd-integers",
+          "bit-manipulation"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1577,6 +1590,11 @@
       "uuid": "4d0b9141-152c-440f-b789-e1a83a3f6669",
       "slug": "simd-integers",
       "name": "SIMD: Integers"
+    },
+    {
+      "uuid": "f79ccc56-d581-4419-8e34-afc5e13b5df6",
+      "slug": "simd-bitwise",
+      "name": "SIMD: Bitwise"
     }
   ],
   "key_features": [

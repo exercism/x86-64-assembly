@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://exercism.org/tracks/x86-64-assembly/concepts/simd-integers",
+    "description": "Exercism SIMD: Integers Concept"
+  },
+  {
+    "url": "https://www.felixcloutier.com/x86/",
+    "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/IEEE_754",
+    "description": "Wikipedia Entry for IEEE-754"
+  },
+    {
+    "url": "https://evanw.github.io/float-toy/",
+    "description": "Graphical representation for how floating-point values are represented in binary"
+  }
+]
