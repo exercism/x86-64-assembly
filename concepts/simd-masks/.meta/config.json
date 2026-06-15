@@ -1,0 +1,4 @@
+{
+  "blurb": "Packed comparisons, masks and lane selection in x86-64 assembly.",
+  "authors": ["oxe-i"]
+}

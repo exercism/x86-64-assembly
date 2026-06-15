@@ -58,12 +58,18 @@ for exercise_dir in exercises/concept/*; do
         num_updated=$((num_updated + 1))
     fi
 
-    current_vendor_hash=$(hash_dir "${exercise_dir}/vendor")
-    if [[ "${current_vendor_hash}" != "${vendor_hash}" ]]; then
-        echo "Updating ${exercise_dir}/vendor"
-        rm -rf "${exercise_dir}/vendor"
+    if [[ ! -d "${exercise_dir}/vendor" ]]; then
+        echo "Adding ${exercise_dir}/vendor"
         cp -r templates/vendor "${exercise_dir}"
         num_updated=$((num_updated + 1))
+    else
+        current_vendor_hash=$(hash_dir "${exercise_dir}/vendor")
+        if [[ "${current_vendor_hash}" != "${vendor_hash}" ]]; then
+            echo "Updating ${exercise_dir}/vendor"
+            rm -rf "${exercise_dir}/vendor"
+            cp -r templates/vendor "${exercise_dir}"
+            num_updated=$((num_updated + 1))
+        fi
     fi
 done
 

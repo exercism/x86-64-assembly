@@ -272,6 +272,19 @@
           "bit-manipulation"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "grade-sheet",
+        "name": "Grade Sheet",
+        "uuid": "f5691368-7a5e-4e74-8c61-4039ed8ce42e",
+        "concepts": [
+          "simd-masks"
+        ],
+        "prerequisites": [
+          "simd-bitwise",
+          "branchless-code"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1595,6 +1608,11 @@
       "uuid": "f79ccc56-d581-4419-8e34-afc5e13b5df6",
       "slug": "simd-bitwise",
       "name": "SIMD: Bitwise"
+    },
+    {
+      "uuid": "7cbffa2c-359f-4d1d-8bda-1ce2653eba94",
+      "slug": "simd-masks",
+      "name": "SIMD: Masks and Conditions"
     }
   ],
   "key_features": [
