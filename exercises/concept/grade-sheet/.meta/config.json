@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "grade_sheet.asm"
+    ],
+    "test": [
+      "grade_sheet_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "grade-school",
+  "blurb": "Learn about SIMD comparisons and masks in x86-64 assembly."
+}
