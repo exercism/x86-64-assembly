@@ -175,7 +175,7 @@ The general-purpose register may be 32-bit or 64-bit wide.
 There is also a packed variant of the `test` scalar instruction: `ptest`.
 
 It is similar to its scalar counterpart in that it performs an AND operation between two operands, without modifying them.
-Differently from `test`, `ptest` also performs an ANDN operation, negating the first operand.
+Unlike `test`, `ptest` also performs an ANDN operation, negating the first operand.
 
 Thus, `ptest` can be thought of as a non-destructive version of `pand` and `pandn` that sets flags according to the result.
 In much the same way as these two instructions, `ptest` treats the whole SIMD register as a single lane and so it does not take a size prefix.

@@ -176,3 +176,9 @@ fn:
   psubd  xmm0, [rel bias]     ; remove the bias
   ...
 ```
+
+~~~~exercism/caution
+Operating on the raw bits of floating-point numbers, while useful in some situations, should be done with caution.
+Adding to, or subtracting from, the exponent field is only safe if there is no over or underflow and if the input number is normal.
+Also, adding a valid `x` to the exponent field of `0.0` results in `2^(x - bias)`, not in `0.0 * 2^x`.
+~~~~
