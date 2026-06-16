@@ -1,6 +1,18 @@
 [
   {
+    "url": "https://en.wikipedia.org/wiki/Control_flow#loop-statement",
+    "description": "Wikipedia Entry for Loops"
+  },
+  {
     "url": "https://www.felixcloutier.com/x86",
     "description": "Reference for x86-64 Instructions"
+  },
+  {
+    "url": "https://cdrdv2-public.intel.com/821612/248966-Optimization-Reference-Manual-V1-050.pdf",
+    "description": "Intel optimization reference manual: volume 1"
+  },
+  {
+    "url": "https://www.agner.org/optimize/microarchitecture.pdf",
+    "description": "The microarchitecture of Intel, AMD, and VIA CPUs, by Agner Fog"
   }
 ]
