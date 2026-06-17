@@ -63,7 +63,9 @@ In some situations, modern CPUs are able to merge two different instructions in 
 This optimization is called **macrofusion**.
 
 Many arithmetic instructions such as `sub` and `add`, as well as `cmp` and `test`, commonly fuse with a conditional jump that follows just after it.
-This means that an instruction such as `cmp rax, rdx` immediately followed by a conditional jump can be treated by the CPU as a single operation.
+This means that an instruction such as `cmp rax, rdx` immediately followed by a conditional jump can usually be treated by the CPU as a single operation.
+
+Macrofusion depends on the CPU and there is some variation on which instructions fuse with which conditional jump.
 
 A useful reference is [The microarchitecture of Intel, AMD, and VIA CPUs, by Agner Fog][agner-uarch].
 Section 3.4.2.2 (Optimizing for Macrofusion) of the [Intel optimization reference manual][intel-opt] also lists fusible pairs for Intel CPUs.

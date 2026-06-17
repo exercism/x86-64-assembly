@@ -144,10 +144,9 @@ fn:
 ```
 
 ~~~~exercism/caution
-Despite their convenience, `loop`, `loope`, and `loopne` are slow on modern processors.
-They are microcoded: on Intel cores `loop` decodes into roughly seven micro-ops, and `loope`/`loopne` into about eleven, sustaining only one iteration every [five cycles or so][agner-tables].
-The equivalent `sub`/`jnz` or `cmp`/`jnz` sequence is one fused micro-op on most processors, so it is several times faster even though it uses two instructions.
-This is why compilers avoid the `loop` family.
+Despite their convenience, `loop`, `loope`, and `loopne` are usually much slower on modern processors than the equivalent `sub`/`jnz` or `cmp`/`jnz` sequence.
+
+A good reference on the performance of instructions in many different CPUs is the [Agner's tables][agner-tables].
 
 [agner-tables]: https://www.agner.org/optimize/instruction_tables.pdf
 ~~~~

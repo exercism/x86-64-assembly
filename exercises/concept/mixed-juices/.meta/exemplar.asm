@@ -27,7 +27,8 @@ time_to_prepare:
     mov edi, dword [rdx + 4*rcx - 4]
     call time_to_make_juice
     add r8d, eax
-    loop .loop
+    sub ecx, 1
+    jnz .loop
 
     mov eax, r8d
     ret
@@ -85,7 +86,6 @@ remaining_orders:
     call time_to_make_juice
 
     sub ecx, eax
-    cmp ecx, 0
     jg .loop
 
     mov eax, edx
