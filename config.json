@@ -285,6 +285,18 @@
           "branchless-code"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "channel-swizzle",
+        "name": "Channel Swizzle",
+        "uuid": "efd9698e-3088-4654-ac71-eaf20e8cc5a3",
+        "concepts": [
+          "simd-cross-lane"
+        ],
+        "prerequisites": [
+          "simd-masks"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1613,6 +1625,11 @@
       "uuid": "7cbffa2c-359f-4d1d-8bda-1ce2653eba94",
       "slug": "simd-masks",
       "name": "SIMD: Masks and Conditions"
+    },
+    {
+      "uuid": "81f0a650-481c-4d31-9b0f-e2a6d695565b",
+      "slug": "simd-cross-lane",
+      "name": "SIMD: Cross-Lane Operations"
     }
   ],
   "key_features": [

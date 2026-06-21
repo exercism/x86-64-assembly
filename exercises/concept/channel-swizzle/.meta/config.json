@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "channel_swizzle.asm"
+    ],
+    "test": [
+      "channel_swizzle_test.c"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "circular-buffer",
+  "blurb": "Learn about SIMD cross-lane operations in x86-64 assembly."
+}
