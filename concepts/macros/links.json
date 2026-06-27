@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Macro_(computer_science)",
+    "description": "Wikipedia Entry for Macros"
+  },
+  {
+    "url": "https://nasm.us/xdoc/2.16.03/html/nasmdoc4.html",
+    "description": "NASM Documentation for the Preprocessor"
+  },
+  {
+    "url": "https://nasm.us/xdoc/2.16.03/html/nasmdoc5.html#section-5.9",
+    "description": "NASM Documentation for Declaring Structure Data Types"
+  }
+]

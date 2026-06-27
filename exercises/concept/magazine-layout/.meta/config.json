@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "oxe-i"
+  ],
+  "files": {
+    "solution": [
+      "magazine_layout.asm"
+    ],
+    "test": [
+      "magazine_layout_test.c",
+      "helper.asm"
+    ],
+    "exemplar": [
+      ".meta/exemplar.asm"
+    ]
+  },
+  "icon": "magazine-cutout",
+  "blurb": "Learn about macros in the NASM assembler."
+}
