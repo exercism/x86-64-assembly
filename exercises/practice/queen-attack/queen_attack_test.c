@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 // Returns 1 if queen can be created, otherwise 0.

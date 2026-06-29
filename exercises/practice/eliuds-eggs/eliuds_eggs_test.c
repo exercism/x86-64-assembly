@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 extern int egg_count(int number);
@@ -29,11 +27,17 @@ void test_13_eggs(void) {
     TEST_ASSERT_EQUAL_INT(13, egg_count(2000000000));
 }
 
+void test_negative_number(void) {
+    TEST_IGNORE();
+    TEST_ASSERT_EQUAL_INT(32, egg_count(-1));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_0_eggs);
     RUN_TEST(test_1_egg);
     RUN_TEST(test_4_eggs);
     RUN_TEST(test_13_eggs);
+    RUN_TEST(test_negative_number);
     return UNITY_END();
 }
