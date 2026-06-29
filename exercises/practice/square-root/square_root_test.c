@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 extern int square_root(int radicand);
@@ -39,6 +37,11 @@ void test_root_of_65025(void) {
     TEST_ASSERT_EQUAL_INT(255, square_root(65025));
 }
 
+void test_max_perfect_square_in_range(void) {
+    TEST_IGNORE();
+    TEST_ASSERT_EQUAL_INT(46340, square_root(2147395600));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_root_of_1);
@@ -47,5 +50,6 @@ int main(void) {
     RUN_TEST(test_root_of_81);
     RUN_TEST(test_root_of_196);
     RUN_TEST(test_root_of_65025);
+    RUN_TEST(test_max_perfect_square_in_range);
     return UNITY_END();
 }
