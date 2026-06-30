@@ -1,6 +1,5 @@
 #include "vendor/unity.h"
 
-#include <stddef.h>
 #include <stdint.h>
 
 #define BUFFER_SIZE 20
@@ -12,7 +11,7 @@
 #define NEGATIVE_LENGTH -3
 #define EXCESSIVE_LENGTH -4
 
-extern int64_t slices(char buffer[][SLICE_SIZE], const char *series, size_t slice_length);
+extern int64_t slices(char buffer[][SLICE_SIZE], const char *series, int64_t slice_length);
 
 void setUp(void) {
 }
@@ -22,7 +21,7 @@ void tearDown(void) {
 
 void test_slices_of_one_from_one(void) {
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"1"};
+    const char expected[][SLICE_SIZE] = {"1"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "1", 1));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);
@@ -32,7 +31,7 @@ void test_slices_of_one_from_one(void) {
 void test_slices_of_one_from_two(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"1", "2"};
+    const char expected[][SLICE_SIZE] = {"1", "2"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "12", 1));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);
@@ -42,7 +41,7 @@ void test_slices_of_one_from_two(void) {
 void test_slices_of_two(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"35"};
+    const char expected[][SLICE_SIZE] = {"35"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "35", 2));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);
@@ -52,7 +51,7 @@ void test_slices_of_two(void) {
 void test_slices_of_two_overlap(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"91", "14", "42"};
+    const char expected[][SLICE_SIZE] = {"91", "14", "42"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "9142", 2));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);
@@ -62,7 +61,7 @@ void test_slices_of_two_overlap(void) {
 void test_slices_can_include_duplicates(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"777", "777", "777", "777"};
+    const char expected[][SLICE_SIZE] = {"777", "777", "777", "777"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "777777", 3));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);
@@ -72,7 +71,7 @@ void test_slices_can_include_duplicates(void) {
 void test_slices_of_a_long_series(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE][SLICE_SIZE];
-    const char *expected[] = {"91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243"};
+    const char expected[][SLICE_SIZE] = {"91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243"};
     TEST_ASSERT_EQUAL_INT64(ARRAY_SIZE(expected), slices(buffer, "918493904243", 5));
     for (size_t i = 0; i < ARRAY_SIZE(expected); ++i) {
         TEST_ASSERT_EQUAL_STRING(expected[i], buffer[i]);

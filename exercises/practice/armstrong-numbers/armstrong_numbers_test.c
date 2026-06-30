@@ -1,8 +1,9 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
-extern int is_armstrong_number(int number);
+#include <stdbool.h>
+#include <stdint.h>
+
+extern bool is_armstrong_number(uint32_t number);
 
 void setUp(void) {
 }
@@ -65,5 +66,5 @@ int main(void) {
     RUN_TEST(test_four_digit_number_that_is_not_an_armstrong_number);
     RUN_TEST(test_seven_digit_number_that_is_an_armstrong_number);
     RUN_TEST(test_seven_digit_number_that_is_not_an_armstrong_number);
-    return UnityEnd();
+    return UNITY_END();
 }
