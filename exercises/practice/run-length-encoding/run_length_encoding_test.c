@@ -109,9 +109,9 @@ void test_consistency_consistency_with_punctuation(void) {
     TEST_IGNORE();
     alignas(16) char buffer1[BUFFER_SIZE];
     alignas(16) char buffer2[BUFFER_SIZE];
-    encode(buffer1, "		///::::°@@@[[```{{{{");
+    encode(buffer1, "\t\t///::::\xB0@@@[[```{{{{");
     decode(buffer2, buffer1);
-    TEST_ASSERT_EQUAL_STRING("		///::::°@@@[[```{{{{", buffer2);
+    TEST_ASSERT_EQUAL_STRING("\t\t///::::\xB0@@@[[```{{{{", buffer2);
 }
 
 int main(void) {

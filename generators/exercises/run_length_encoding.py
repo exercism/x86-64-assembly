@@ -15,8 +15,8 @@ def extra_cases():
         {
             "description": "consistency with punctuation",
             "property": "consistency",
-            "input": {"string": "\t\t///::::\xb0@@@[[```{{{{"},
-            "expected": "\t\t///::::\xb0@@@[[```{{{{",
+            "input": {"string": "\\t\\t///::::\\xB0@@@[[```{{{{"},
+            "expected": "\\t\\t///::::\\xB0@@@[[```{{{{",
         }
     ]
 
