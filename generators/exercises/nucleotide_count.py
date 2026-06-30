@@ -15,6 +15,10 @@ extern void nucleotide_counts(const char strand[], int64_t counts[]);
 """
 
 
+def describe(case):
+    return case["description"].replace("-", " ")
+
+
 def gen_func_body(prop, inp, expected):
     strand = inp["strand"]
     counts = (

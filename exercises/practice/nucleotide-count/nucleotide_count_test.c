@@ -28,7 +28,7 @@ void test_empty_strand(void) {
     TEST_ASSERT_EQUAL_INT64(0, counts[THYMINE]);
 }
 
-void test_can_count_one_nucleotide_in_singlecharacter_input(void) {
+void test_can_count_one_nucleotide_in_single_character_input(void) {
     TEST_IGNORE();
     alignas(16) const char strand[] = "G";
     int64_t counts[4];
@@ -75,7 +75,7 @@ void test_strand_with_invalid_nucleotides(void) {
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_empty_strand);
-    RUN_TEST(test_can_count_one_nucleotide_in_singlecharacter_input);
+    RUN_TEST(test_can_count_one_nucleotide_in_single_character_input);
     RUN_TEST(test_strand_with_repeated_nucleotide);
     RUN_TEST(test_strand_with_multiple_nucleotides);
     RUN_TEST(test_strand_with_invalid_nucleotides);
