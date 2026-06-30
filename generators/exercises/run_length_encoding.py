@@ -17,7 +17,21 @@ def extra_cases():
             "property": "consistency",
             "input": {"string": "\\t\\t///::::\\xB0@@@[[```{{{{"},
             "expected": "\\t\\t///::::\\xB0@@@[[```{{{{",
-        }
+        },
+        {
+            "description": "long run",
+            "property": "encode",
+            "input": {
+                "string": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+            },
+            "expected": "123z",
+        },
+        {
+            "description": "long run",
+            "property": "decode",
+            "input": {"string": "123z"},
+            "expected": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+        },
     ]
 
 

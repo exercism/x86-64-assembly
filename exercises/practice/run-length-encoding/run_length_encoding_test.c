@@ -114,6 +114,23 @@ void test_consistency_consistency_with_punctuation(void) {
     TEST_ASSERT_EQUAL_STRING("\t\t///::::\xB0@@@[[```{{{{", buffer2);
 }
 
+void test_encode_long_run(void) {
+    TEST_IGNORE();
+    alignas(16) char buffer[BUFFER_SIZE];
+    encode(buffer,
+           "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+    TEST_ASSERT_EQUAL_STRING("123z", buffer);
+}
+
+void test_decode_long_run(void) {
+    TEST_IGNORE();
+    alignas(16) char buffer[BUFFER_SIZE];
+    decode(buffer, "123z");
+    TEST_ASSERT_EQUAL_STRING(
+        "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+        buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_encode_empty_string);
@@ -130,5 +147,7 @@ int main(void) {
     RUN_TEST(test_decode_lowercase_string);
     RUN_TEST(test_consistency_encode_followed_by_decode_gives_original_string);
     RUN_TEST(test_consistency_consistency_with_punctuation);
+    RUN_TEST(test_encode_long_run);
+    RUN_TEST(test_decode_long_run);
     return UNITY_END();
 }

@@ -120,6 +120,24 @@ void test_factors_include_a_large_prime(void) {
     TEST_ASSERT_EQUAL_UINT64_ARRAY(expected, actual, size);
 }
 
+void test_product_of_three_large_primes(void) {
+    TEST_IGNORE();
+    const uint64_t expected[] = {2077681, 2099191, 2101243};
+    uint64_t actual[MAX_ARRAY_SIZE];
+    const size_t size = factors(actual, 9164464719174396253);
+    TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
+    TEST_ASSERT_EQUAL_UINT64_ARRAY(expected, actual, size);
+}
+
+void test_one_very_large_prime(void) {
+    TEST_IGNORE();
+    const uint64_t expected[] = {4016465016163};
+    uint64_t actual[MAX_ARRAY_SIZE];
+    const size_t size = factors(actual, 4016465016163);
+    TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
+    TEST_ASSERT_EQUAL_UINT64_ARRAY(expected, actual, size);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_no_factors);
@@ -134,5 +152,7 @@ int main(void) {
     RUN_TEST(test_product_of_primes_and_non_primes);
     RUN_TEST(test_product_of_primes);
     RUN_TEST(test_factors_include_a_large_prime);
+    RUN_TEST(test_product_of_three_large_primes);
+    RUN_TEST(test_one_very_large_prime);
     return UNITY_END();
 }

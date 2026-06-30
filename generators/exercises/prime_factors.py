@@ -12,6 +12,23 @@ extern size_t factors(uint64_t dest[], uint64_t value);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "product of three large primes",
+            "property": "factors",
+            "input": {"value": 9164464719174396253},
+            "expected": [2077681, 2099191, 2101243],
+        },
+        {
+            "description": "one very large prime",
+            "property": "factors",
+            "input": {"value": 4016465016163},
+            "expected": [4016465016163],
+        },
+    ]
+
+
 def describe(case):
     return case["description"].replace("-", " ")
 
