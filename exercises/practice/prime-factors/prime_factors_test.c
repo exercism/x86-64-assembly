@@ -93,7 +93,7 @@ void test_product_of_first_and_second_prime(void) {
     TEST_ASSERT_EQUAL_UINT64_ARRAY(expected, actual, size);
 }
 
-void test_product_of_primes_and_nonprimes(void) {
+void test_product_of_primes_and_non_primes(void) {
     TEST_IGNORE();
     const uint64_t expected[] = {2, 2, 3};
     uint64_t actual[MAX_ARRAY_SIZE];
@@ -131,7 +131,7 @@ int main(void) {
     RUN_TEST(test_product_of_second_prime);
     RUN_TEST(test_product_of_third_prime);
     RUN_TEST(test_product_of_first_and_second_prime);
-    RUN_TEST(test_product_of_primes_and_nonprimes);
+    RUN_TEST(test_product_of_primes_and_non_primes);
     RUN_TEST(test_product_of_primes);
     RUN_TEST(test_factors_include_a_large_prime);
     return UNITY_END();

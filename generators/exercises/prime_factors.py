@@ -12,6 +12,10 @@ extern size_t factors(uint64_t dest[], uint64_t value);
 """
 
 
+def describe(case):
+    return case["description"].replace("-", " ")
+
+
 def array_literal(numbers):
     return str(numbers).replace("[", "{").replace("]", "}")
 
