@@ -2,8 +2,8 @@
 
 #define BUFFER_SIZE 256
 
-extern void encode(char *buffer, const char *phrase, int a, int b);
-extern void decode(char *buffer, const char *phrase, int a, int b);
+extern void encode(char *buffer, const char *phrase, unsigned a, unsigned b);
+extern void decode(char *buffer, const char *phrase, unsigned a, unsigned b);
 
 void setUp(void) {
 }
@@ -138,6 +138,14 @@ void test_decode_with_a_not_coprime_to_m(void) {
     TEST_ASSERT_EQUAL_STRING("", buffer);
 }
 
+void test_encode_boundary_characters(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+
+    encode(buffer, "/09:@AMNZ[`amnz{", 25, 12);
+    TEST_ASSERT_EQUAL_STRING("09maz nmazn", buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_encode_yes);
@@ -156,5 +164,6 @@ int main(void) {
     RUN_TEST(test_decode_with_no_spaces_in_input);
     RUN_TEST(test_decode_with_too_many_spaces);
     RUN_TEST(test_decode_with_a_not_coprime_to_m);
+    RUN_TEST(test_encode_boundary_characters);
     return UNITY_END();
 }

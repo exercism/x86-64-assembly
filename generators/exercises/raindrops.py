@@ -7,6 +7,17 @@ extern void convert(int number, char *buffer);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "three digit prime",
+            "property": "convert",
+            "input": {"number": 829},
+            "expected": "829",
+        }
+    ]
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     number = inp["number"]
