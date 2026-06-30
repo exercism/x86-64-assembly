@@ -13,5 +13,5 @@ def describe(case):
 
 
 def gen_func_body(prop, inp, expected):
-    assertion = "TEST_ASSERT_TRUE" if expected else "TEST_ASSERT_FALSE"
-    return f"{assertion}({prop}({inp['number']}));"
+    result = "true" if expected else "false"
+    return f"TEST_ASSERT_EQUAL({result}, {prop}({inp['number']}));"
