@@ -1,13 +1,12 @@
-// Version: 0
+#include "vendor/unity.h"
 
 #include <stddef.h>
 #include <stdint.h>
-#include "vendor/unity.h"
 
 #define MAX_ARRAY_SIZE 800
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
-extern size_t rows(uint64_t* dest, size_t count);
+extern size_t rows(uint64_t dest[], size_t count);
 
 void setUp(void) {
 }
@@ -23,7 +22,7 @@ void test_zero_rows(void) {
 
 void test_single_row(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1};
+    const uint64_t expected[] = {1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 1);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -32,7 +31,7 @@ void test_single_row(void) {
 
 void test_two_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1};
+    const uint64_t expected[] = {1, 1, 1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 2);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -41,7 +40,7 @@ void test_two_rows(void) {
 
 void test_three_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1, 1, 2, 1};
+    const uint64_t expected[] = {1, 1, 1, 1, 2, 1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 3);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -50,7 +49,7 @@ void test_three_rows(void) {
 
 void test_four_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1};
+    const uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 4);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -59,7 +58,7 @@ void test_four_rows(void) {
 
 void test_five_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1};
+    const uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 5);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -68,7 +67,7 @@ void test_five_rows(void) {
 
 void test_six_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, 1, 5, 10, 10, 5, 1};
+    const uint64_t expected[] = {1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, 1, 5, 10, 10, 5, 1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 6);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -77,8 +76,8 @@ void test_six_rows(void) {
 
 void test_ten_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {1, 1, 1,  1,  2,  1,  1, 3, 3, 1, 1,  4,  6,  4,  1,  1, 5, 10, 10, 5,  1,  1,   6,   15, 20, 15, 6, 1,
-                           1, 7, 21, 35, 35, 21, 7, 1, 1, 8, 28, 56, 70, 56, 28, 8, 1, 1,  9,  36, 84, 126, 126, 84, 36, 9,  1};
+    const uint64_t expected[] = {1, 1, 1,  1,  2,  1,  1, 3, 3, 1, 1,  4,  6,  4,  1,  1, 5, 10, 10, 5,  1,  1,   6,   15, 20, 15, 6, 1,
+                                 1, 7, 21, 35, 35, 21, 7, 1, 1, 8, 28, 56, 70, 56, 28, 8, 1, 1,  9,  36, 84, 126, 126, 84, 36, 9,  1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 10);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
@@ -87,7 +86,7 @@ void test_ten_rows(void) {
 
 void test_thirty_seven_rows(void) {
     TEST_IGNORE();
-    uint64_t expected[] = {
+    const uint64_t expected[] = {
         1,          1,          1,          1,          2,          1,          1,          3,          3,          1,          1,
         4,          6,          4,          1,          1,          5,          10,         10,         5,          1,          1,
         6,          15,         20,         15,         6,          1,          1,          7,          21,         35,         35,
@@ -151,8 +150,7 @@ void test_thirty_seven_rows(void) {
         324632,     52360,      6545,       595,        35,         1,          1,          36,         630,        7140,       58905,
         376992,     1947792,    8347680,    30260340,   94143280,   254186856,  600805296,  1251677700, 2310789600, 3796297200, 5567902560,
         7307872110, 8597496600, 9075135300, 8597496600, 7307872110, 5567902560, 3796297200, 2310789600, 1251677700, 600805296,  254186856,
-        94143280,   30260340,   8347680,    1947792,    376992,     58905,      7140,       630,        36,         1,
-    };
+        94143280,   30260340,   8347680,    1947792,    376992,     58905,      7140,       630,        36,         1};
     uint64_t actual[MAX_ARRAY_SIZE];
     const size_t size = rows(actual, 37);
     TEST_ASSERT_EQUAL_UINT(ARRAY_SIZE(expected), size);
