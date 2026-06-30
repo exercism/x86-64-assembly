@@ -1,5 +1,3 @@
-// Version: 1.0.0
-
 #include "vendor/unity.h"
 
 extern int value(const char *first, const char *second, const char *third);
@@ -11,37 +9,44 @@ void tearDown(void) {
 }
 
 void test_brown_and_black(void) {
-    TEST_ASSERT_EQUAL_INT(10, value("brown", "black", NULL));
+    const int result = value("brown", "black", NULL);
+    TEST_ASSERT_EQUAL_INT(10, result);
 }
 
 void test_blue_and_grey(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(68, value("blue", "grey", NULL));
+    const int result = value("blue", "grey", NULL);
+    TEST_ASSERT_EQUAL_INT(68, result);
 }
 
 void test_yellow_and_violet(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(47, value("yellow", "violet", NULL));
+    const int result = value("yellow", "violet", NULL);
+    TEST_ASSERT_EQUAL_INT(47, result);
 }
 
 void test_white_and_red(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(92, value("white", "red", NULL));
+    const int result = value("white", "red", NULL);
+    TEST_ASSERT_EQUAL_INT(92, result);
 }
 
 void test_orange_and_orange(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(33, value("orange", "orange", NULL));
+    const int result = value("orange", "orange", NULL);
+    TEST_ASSERT_EQUAL_INT(33, result);
 }
 
 void test_ignore_additional_colors(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(51, value("green", "brown", "orange"));
+    const int result = value("green", "brown", "orange");
+    TEST_ASSERT_EQUAL_INT(51, result);
 }
 
 void test_black_and_brown_one_digit(void) {
     TEST_IGNORE();
-    TEST_ASSERT_EQUAL_INT(1, value("black", "brown", NULL));
+    const int result = value("black", "brown", NULL);
+    TEST_ASSERT_EQUAL_INT(1, result);
 }
 
 int main(void) {
