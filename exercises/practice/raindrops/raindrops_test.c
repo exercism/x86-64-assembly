@@ -153,6 +153,14 @@ void test_the_sound_for_3125_is_plang_as_it_has_a_factor_5(void) {
     TEST_ASSERT_EQUAL_STRING("Plang", buffer);
 }
 
+void test_three_digit_prime(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+
+    convert(829, buffer);
+    TEST_ASSERT_EQUAL_STRING("829", buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_the_sound_for_1_is_1);
@@ -173,5 +181,6 @@ int main(void) {
     RUN_TEST(test_the_sound_for_52_is_52);
     RUN_TEST(test_the_sound_for_105_is_plingplangplong_as_it_has_factors_3_5_and_7);
     RUN_TEST(test_the_sound_for_3125_is_plang_as_it_has_a_factor_5);
+    RUN_TEST(test_three_digit_prime);
     return UNITY_END();
 }

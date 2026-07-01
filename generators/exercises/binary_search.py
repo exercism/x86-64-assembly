@@ -7,6 +7,17 @@ extern int find(int *array, int size, int value);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "five digits",
+            "property": "find",
+            "input": {"array": [11638, 18389, 21454, 29416, 32039], "value": 21454},
+            "expected": 2,
+        }
+    ]
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     array = str(inp["array"]).replace("[", "{").replace("]", "}")

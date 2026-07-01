@@ -89,6 +89,14 @@ void test_rotate_all_letters(void) {
     TEST_ASSERT_EQUAL_STRING("Gur dhvpx oebja sbk whzcf bire gur ynml qbt.", buffer);
 }
 
+void test_rotate_boundary_characters(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+
+    rotate("/09:@AMNZ[`amnz{", 13, buffer);
+    TEST_ASSERT_EQUAL_STRING("/09:@NZAM[`nzam{", buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_rotate_a_by_0_same_output_as_input);
@@ -101,5 +109,6 @@ int main(void) {
     RUN_TEST(test_rotate_numbers);
     RUN_TEST(test_rotate_punctuation);
     RUN_TEST(test_rotate_all_letters);
+    RUN_TEST(test_rotate_boundary_characters);
     return UNITY_END();
 }

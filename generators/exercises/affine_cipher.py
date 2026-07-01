@@ -3,9 +3,20 @@ FUNC_PROTO = """\
 
 #define BUFFER_SIZE 256
 
-extern void encode(char *buffer, const char *phrase, int a, int b);
-extern void decode(char *buffer, const char *phrase, int a, int b);
+extern void encode(char *buffer, const char *phrase, unsigned a, unsigned b);
+extern void decode(char *buffer, const char *phrase, unsigned a, unsigned b);
 """
+
+
+def extra_cases():
+    return [
+        {
+            "description": "encode boundary characters",
+            "property": "encode",
+            "input": {"phrase": "/09:@AMNZ[`amnz{", "key": {"a": 25, "b": 12}},
+            "expected": "09maz nmazn",
+        }
+    ]
 
 
 def gen_func_body(prop, inp, expected):

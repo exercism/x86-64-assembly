@@ -11,6 +11,7 @@
 
 [ae86ea7d-bd07-4357-90b3-ac7d256bd5c5]
 description = "empty matrix"
+include = false
 
 [4ea5ccb7-7b73-4281-954a-bed1b0f139a5]
 description = "live cells with zero live neighbors die"

@@ -7,6 +7,17 @@ extern void rotate(const char *text, int shift_key, char *buffer);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "rotate boundary characters",
+            "property": "rotate",
+            "input": {"text": "/09:@AMNZ[`amnz{", "shiftKey": 13},
+            "expected": "/09:@NZAM[`nzam{",
+        }
+    ]
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     text = inp["text"]
