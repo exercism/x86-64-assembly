@@ -1,39 +1,36 @@
-// Version: 0
-
 #include "vendor/unity.h"
 
 #include <stdbool.h>
 #include <stddef.h>
 
-#define MAX_ARRAY_SIZE 16
+#define BUFFER_SIZE 16
 
-#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+#define ARRAY_SIZE(x) ((int)(sizeof(x) / sizeof((x)[0])))
 
-extern int append(const int *first_array, const int first_array_size, const int *second_array, const int second_array_size,
-                  int *result_array);
-extern int filter(const int *array, const int array_size, bool (*filter_predicate)(int), int *result_array);
-extern int map(const int *array, const int array_size, int (*map_transform)(int), int *result_array);
-extern int foldl(const int *array, const int array_size, int initial, int (*fold_accumulate)(int, int));
-extern int foldr(const int *array, const int array_size, int initial, int (*fold_accumulate)(int, int));
-extern int reverse(const int *array, const int array_size, int *result_array);
+extern int append(const int *list1, const int list1_size, const int *list2, const int list2_size, int *result);
+extern int filter(const int *list, const int list_size, bool (*filter_predicate)(int), int *result);
+extern int map(const int *list, const int list_size, int (*map_transform)(int), int *result);
+extern int foldl(const int *list, const int list_size, int initial, int (*fold_accumulate)(int, int));
+extern int foldr(const int *list, const int list_size, int initial, int (*fold_accumulate)(int, int));
+extern int reverse(const int *list, const int list_size, int *result);
 
-static bool filter_odd(int x) {
+static bool is_odd(int x) {
     return x % 2 == 1;
 }
 
-static int map_increment(int x) {
+static int plus_one(int x) {
     return x + 1;
 }
 
-static int fold_multiply(int acc, int el) {
+static int multiply(int acc, int el) {
     return el * acc;
 }
 
-static int fold_add(int acc, int el) {
+static int add(int acc, int el) {
     return el + acc;
 }
 
-static int fold_divide(int acc, int el) {
+static int divide(int acc, int el) {
     return acc == 0 ? 0 : el / acc;
 }
 
@@ -44,143 +41,115 @@ void tearDown(void) {
 }
 
 void test_append_empty_lists(void) {
-    int actual[MAX_ARRAY_SIZE];
-    int size = append(NULL, 0, NULL, 0, actual);
-    TEST_ASSERT_EQUAL_INT(0, size);
+    int buffer[BUFFER_SIZE];
+    TEST_ASSERT_EQUAL_INT(0, append(NULL, 0, NULL, 0, buffer));
 }
 
 void test_append_list_to_empty_list(void) {
     TEST_IGNORE();
-    int second_array[] = {1, 2, 3, 4};
-    int expected[] = {1, 2, 3, 4};
-    int actual[MAX_ARRAY_SIZE];
-    int size = append(NULL, 0, second_array, ARRAY_SIZE(second_array), actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list2[] = {1, 2, 3, 4};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {1, 2, 3, 4};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), append(NULL, 0, list2, ARRAY_SIZE(list2), buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 void test_append_empty_list_to_list(void) {
     TEST_IGNORE();
-    int first_array[] = {1, 2, 3, 4};
-    int expected[] = {1, 2, 3, 4};
-    int actual[MAX_ARRAY_SIZE];
-    int size = append(first_array, ARRAY_SIZE(first_array), NULL, 0, actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list1[] = {1, 2, 3, 4};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {1, 2, 3, 4};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), append(list1, ARRAY_SIZE(list1), NULL, 0, buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 void test_append_nonempty_lists(void) {
     TEST_IGNORE();
-    int first_array[] = {1, 2};
-    int second_array[] = {2, 3, 4, 5};
-    int expected[] = {1, 2, 2, 3, 4, 5};
-    int actual[MAX_ARRAY_SIZE];
-    int size = append(first_array, ARRAY_SIZE(first_array), second_array, ARRAY_SIZE(second_array), actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list1[] = {1, 2};
+    const int list2[] = {2, 3, 4, 5};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {1, 2, 2, 3, 4, 5};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), append(list1, ARRAY_SIZE(list1), list2, ARRAY_SIZE(list2), buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 void test_filter_empty_list(void) {
     TEST_IGNORE();
-    int actual[MAX_ARRAY_SIZE];
-    int size = filter(NULL, 0, filter_odd, actual);
-    TEST_ASSERT_EQUAL_INT(0, size);
+    int buffer[BUFFER_SIZE];
+    TEST_ASSERT_EQUAL_INT(0, filter(NULL, 0, is_odd, buffer));
 }
 
 void test_filter_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {1, 2, 3, 5};
-    int expected[] = {1, 3, 5};
-    int actual[MAX_ARRAY_SIZE];
-    int size = filter(array, ARRAY_SIZE(array), filter_odd, actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list[] = {1, 2, 3, 5};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {1, 3, 5};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), filter(list, ARRAY_SIZE(list), is_odd, buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 void test_map_empty_list(void) {
     TEST_IGNORE();
-    int actual[MAX_ARRAY_SIZE];
-    int size = map(NULL, 0, map_increment, actual);
-    TEST_ASSERT_EQUAL_INT(0, size);
+    int buffer[BUFFER_SIZE];
+    TEST_ASSERT_EQUAL_INT(0, map(NULL, 0, plus_one, buffer));
 }
 
 void test_map_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {1, 3, 5, 7};
-    int expected[] = {2, 4, 6, 8};
-    int actual[MAX_ARRAY_SIZE];
-    int size = map(array, ARRAY_SIZE(array), map_increment, actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list[] = {1, 3, 5, 7};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {2, 4, 6, 8};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), map(list, ARRAY_SIZE(list), plus_one, buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 void test_foldl_empty_list(void) {
     TEST_IGNORE();
-    int initial = 2;
-    int expected = 2;
-    int actual = foldl(NULL, 0, initial, fold_multiply);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    TEST_ASSERT_EQUAL_INT(2, foldl(NULL, 0, 2, multiply));
 }
 
 void test_foldl_direction_independent_function_applied_to_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {1, 2, 3, 4};
-    int initial = 5;
-    int expected = 15;
-    int actual = foldl(array, ARRAY_SIZE(array), initial, fold_add);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    const int list[] = {1, 2, 3, 4};
+    TEST_ASSERT_EQUAL_INT(15, foldl(list, ARRAY_SIZE(list), 5, add));
 }
 
 void test_foldl_direction_dependent_function_applied_to_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {2, 5};
-    int initial = 5;
-    int expected = 0;
-    int actual = foldl(array, ARRAY_SIZE(array), initial, fold_divide);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    const int list[] = {2, 5};
+    TEST_ASSERT_EQUAL_INT(0, foldl(list, ARRAY_SIZE(list), 5, divide));
 }
 
 void test_foldr_empty_list(void) {
     TEST_IGNORE();
-    int initial = 2;
-    int expected = 2;
-    int actual = foldr(NULL, 0, initial, fold_multiply);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    TEST_ASSERT_EQUAL_INT(2, foldr(NULL, 0, 2, multiply));
 }
 
 void test_foldr_direction_independent_function_applied_to_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {1, 2, 3, 4};
-    int initial = 5;
-    int expected = 15;
-    int actual = foldr(array, ARRAY_SIZE(array), initial, fold_add);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    const int list[] = {1, 2, 3, 4};
+    TEST_ASSERT_EQUAL_INT(15, foldr(list, ARRAY_SIZE(list), 5, add));
 }
 
 void test_foldr_direction_dependent_function_applied_to_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {2, 5};
-    int initial = 5;
-    int expected = 2;
-    int actual = foldr(array, ARRAY_SIZE(array), initial, fold_divide);
-    TEST_ASSERT_EQUAL_INT(expected, actual);
+    const int list[] = {2, 5};
+    TEST_ASSERT_EQUAL_INT(2, foldr(list, ARRAY_SIZE(list), 5, divide));
 }
 
 void test_reverse_empty_list(void) {
     TEST_IGNORE();
-    int actual[MAX_ARRAY_SIZE];
-    int size = reverse(NULL, 0, actual);
-    TEST_ASSERT_EQUAL_INT(0, size);
+    int buffer[BUFFER_SIZE];
+    TEST_ASSERT_EQUAL_INT(0, reverse(NULL, 0, buffer));
 }
 
 void test_reverse_nonempty_list(void) {
     TEST_IGNORE();
-    int array[] = {1, 3, 5, 7};
-    int expected[] = {7, 5, 3, 1};
-    int actual[MAX_ARRAY_SIZE];
-    int size = reverse(array, ARRAY_SIZE(array), actual);
-    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, size);
+    const int list[] = {1, 3, 5, 7};
+    int buffer[BUFFER_SIZE];
+    const int expected[] = {7, 5, 3, 1};
+    TEST_ASSERT_EQUAL_INT(ARRAY_SIZE(expected), reverse(list, ARRAY_SIZE(list), buffer));
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected, buffer, ARRAY_SIZE(expected));
 }
 
 int main(void) {

@@ -61,7 +61,7 @@ def flatten_cases(data):
 def add_case(cases_by_id, case):
     if "reimplements" in case:
         cases_by_id[case["reimplements"]] = case
-    else:
+    elif case["uuid"] not in cases_by_id:
         cases_by_id[case["uuid"]] = case
 
 
