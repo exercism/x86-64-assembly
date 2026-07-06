@@ -11,11 +11,11 @@ endif
 	ALL_LDFLAGS = -Wl,-pie
 	ALL_ASFLAGS = -f macho64 --prefix _
 else
-	ALL_LDFLAGS = -pie -Wl,--fatal-warnings
+	ALL_LDFLAGS = -pie -Wl,--fatal-warnings -pthread
 	ALL_ASFLAGS = -f elf64
 endif
 
-ALL_CFLAGS += -std=c99 -fPIE -m64 $(CFLAGS)
+ALL_CFLAGS += -std=c99 -fPIE -m64 -pthread $(CFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
 ALL_ASFLAGS += $(ASFLAGS)
 

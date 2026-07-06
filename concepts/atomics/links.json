@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://www.felixcloutier.com/x86/",
+    "description": "x86 Instruction Reference"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Compare-and-swap",
+    "description": "Wikipedia Entry for Compare-and-Swap"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Memory_barrier",
+    "description": "Wikipedia Entry for Memory Barriers"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Test-and-set",
+    "description": "Wikipedia Entry for Test-and-Set"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Test_and_test-and-set",
+    "description": "Wikipedia Entry for Test-and-Test-and-Set"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Spinlock",
+    "description": "Wikipedia Entry for Spinlocks"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/ABA_problem",
+    "description": "Wikipedia Entry for the ABA Problem"
+  }
+]
