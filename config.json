@@ -309,6 +309,21 @@
           "strings"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "opening-night",
+        "name": "Opening Night",
+        "uuid": "dcd0bee4-1b49-45e1-9bdf-9d9794a73501",
+        "concepts": [
+          "atomics"
+        ],
+        "prerequisites": [
+          "bit-manipulation",
+          "memory",
+          "thunks",
+          "branchless-code"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -1647,6 +1662,11 @@
       "uuid": "1e90baac-92e4-4c0e-9cc3-dd543347318f",
       "slug": "nasm-macros",
       "name": "NASM Macros"
+    },
+    {
+      "uuid": "614ef480-fc35-44ac-bdcf-2578618080b3",
+      "slug": "atomics",
+      "name": "Atomics"
     }
   ],
   "key_features": [
