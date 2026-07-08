@@ -1,13 +1,15 @@
 # Introduction
 
-## Comments
+## Basics
+
+### Comments
 
 The x86-64 track in Exercism uses **NASM** (The Netwide Assembler) as its assembler.
 In NASM, comments are prefixed by a semicolon (`;`).
 
 Comments may be placed anywhere in the program and everything that comes after a `;` is ignored by the assembler.
 
-## Constants
+### Constants
 
 An assembler-time constant can be defined in NASM using **equ**.
 For instance, this defines a constant named `UNIVERSE` with the value `42`:
@@ -18,7 +20,7 @@ UNIVERSE equ 42
 
 Constants are evaluated once, when defined, and can _not_ be redefined later.
 
-## General Purpose Registers (GPRs)
+### General Purpose Registers (GPRs)
 
 In assembly, instead of variables, we typically use registers to store values.
 A **CPU Register** is a piece of fast memory inside a computer's processor.
@@ -64,7 +66,12 @@ Failing to preserve them may lead to an error or to undefined behaviour.
 
 The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 
-## Instructions
+~~~~exercism/caution
+Later on the syllabus, you will learn how to preserve registers.
+For now, use only the second type of registers: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
+~~~~
+
+### Instructions
 
 Instructions are pieces of computations a CPU can perform.
 They usually have the following form:
@@ -106,7 +113,7 @@ imul rax, rdi ; rax = rax * rdi
 sub rax, r8 ; rax = rax - r8
 ```
 
-## Functions
+### Functions
 
 Instructions are organized in functions.
 All functions are placed in the **section .text** of the source file.
