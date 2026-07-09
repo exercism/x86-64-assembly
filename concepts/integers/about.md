@@ -88,7 +88,7 @@ Step 2 (add 1):
 
 Note that the binary representation of `-23` and the binary representation of `233` are equal.
 
-To provide disambiguation, in a signed integer the uppermost bit (the one corresponding to `2⁶³`) is not summed up to the others.
+To provide disambiguation, in a signed integer the uppermost bit is not summed up to the others.
 Instead, its value is subtracted.
 
 Since this bit corresponds to a higher value than the sum of all the others, in practice this means a number with this bit set is always negative.

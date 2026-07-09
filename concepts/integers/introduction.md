@@ -28,7 +28,7 @@ If an integer can assume positive or negative values, it's called a **signed** n
 To represent negative numbers, x86-64 uses the **two's complement** representation.
 
 In two's complement, signed numbers are also represented as the sum of the powers of two corresponding to set bits.
-However, if the uppermost bit is set (the one corresponding to `2⁶³`), it is subtracted instead of added to the others.
+However, if the uppermost bit is set, it is subtracted instead of added to the others.
 
 Since this bit corresponds to a higher value than the sum of all the others, in practice this means a number with this bit set is always negative.
 This special bit is called the **sign bit**.
