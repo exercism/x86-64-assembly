@@ -11,13 +11,12 @@ These are the instructions mentioned in this concept:
 | Instruction   | Description                                                     |
 |---------------|-----------------------------------------------------------------|
 | add a, b      | a = a + b                                                       |
-| adc a, b      | a = a + b + CF (previous carry)                                 |
 | inc a         | a = a + 1                                                       |
 | sub a, b      | a = a - b                                                       |
 | dec a         | a = a - 1                                                       |
 | imul a        | rdx:rax = a * rax (signed)                                      |
-| imul a, b     | a = a * b (signed)                                              |
-| imul a, b, c  | a = b * c (signed)                                              |
+| imul a, b     | a = a * b (signed, truncated)                                   |
+| imul a, b, c  | a = b * c (signed, truncated)                                   |
 | mul a         | rdx:rax = a * rax (unsigned)                                    |
 | div a         | rax = quotient, rdx = remainder of rdx:rax / a (unsigned)       |
 | idiv a        | rax = quotient, rdx = remainder of rdx:rax / a (signed)         |

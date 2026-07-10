@@ -10,9 +10,9 @@ These are the instructions mentioned in this concept:
 | Instruction | Description                     |
 |-------------|---------------------------------|
 | mov a, b    | copies the contents from b to a |
-| add a, b    | sets a to a + b                 |
-| sub a, b    | sets a to a - b                 |
-| imul a, b   | sets a to a * b                 |
+| add a, b    | a = a + b                       |
+| sub a, b    | a = a - b                       |
+| imul a, b   | a = a * b                       |
 | call a      | calls function a                |
 | ret         | returns from a function         |
 ~~~~
