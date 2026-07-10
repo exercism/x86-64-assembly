@@ -67,7 +67,7 @@ Failing to preserve them may lead to an error or to undefined behaviour.
 The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 
 ~~~~exercism/caution
-Later on the syllabus, you will learn how to preserve registers.
+Later on in the syllabus, you will learn how to preserve registers.
 For now, use only the second type of registers: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 ~~~~
 

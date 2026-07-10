@@ -65,8 +65,8 @@ Failing to preserve them may lead to an error or to undefined behaviour.
 The others are not preserved and may be used freely: `rax`, `rcx`, `rdx`, `rdi`, `rsi`, `r8`, `r9`, `r10` and `r11`.
 
 ~~~~exercism/note
-Registers are usually preserved on the stack, with a `push` instruction.
-They are then restored before the end of the function, with a `pop` instruction.
+Registers are usually preserved on the stack using a `push` instruction.
+They are then restored before the end of the function using a `pop` instruction.
 ~~~~
 
 ## Instructions
