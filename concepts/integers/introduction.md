@@ -57,7 +57,7 @@ An immediate is not held in a register or in memory: it is encoded inside the in
 In most instructions, the space reserved for it is only 32 bits wide, no matter how large the destination operand is.
 
 When the destination operand is 64 bits wide, those 32 bits are _sign-extended_ to fill it.
-The upper half of the operand receives copies of the uppermost bit of the immediate, so only a number in the range of a _32-bit signed integer_ can be written this way:
+The upper half of the operand is entirely filled with copies of the uppermost bit of the immediate, so only a number in the range of a _32-bit signed integer_ can be written this way:
 
 ```x86asm
 add rax, -1          ; the immediate is sign-extended, so all 64 bits of rax are affected
@@ -65,8 +65,8 @@ add rax, 2147483647  ; the largest immediate an instruction like this accepts
 ```
 
 A number outside that range can not be used as an immediate.
-The exception to this rule is `mov`, which has a special form, available only when the destination operand is a register, that carries a full 64-bit immediate.
-If a 64-bit immediate is needed, first use `mov` to load it into a register, then use the register:
+The exception to this rule is `mov`, which can take a full 64-bit immediate when the destination operand is a register.
+If a 64-bit immediate is needed, first use `mov` to load it into a register, then use that register:
 
 ```x86asm
 mov rax, 3435973837           ; this works, mov can take a 64-bit immediate
