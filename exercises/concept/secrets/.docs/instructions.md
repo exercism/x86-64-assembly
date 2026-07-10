@@ -36,15 +36,12 @@ These are the rotation instructions mentioned in this concept:
 |---------|-----------------------------------------------|
 |rol      |Rotates bits to the left                       |
 |ror      |Rotates bits to the right                      |
-|rcl      |Rotates bits to the left, including the `CF`   |
-|rcr      |Rotates bits to the right, including the `CF`  |
 
 These are the miscellaneous instructions mentioned in this concept:
 
 | Name     | Description                                                                            |
 |----------|----------------------------------------------------------------------------------------|
 | popcnt   | Counts the number of bits set                                                          |
-| lzcnt    | Counts the number of leading zeros (a bit cleared before the first set bit)            |
 | bsr      | Gets the index of the most significant set bit. If no bit is set, result is undefined  |
 | bsf      | Gets the index of the least significant set bit. If no bit is set, result is undefined |
 ~~~~
