@@ -14,9 +14,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04
             compiler: gcc
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04
             compiler: clang
           - os: macos-15
             compiler: clang
