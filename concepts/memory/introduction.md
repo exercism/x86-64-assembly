@@ -108,16 +108,10 @@ These are the most important prefixes and their sizes in a typical x86-64 progra
 | dword  | 4 bytes |
 | qword  | 8 bytes |
 
-The last example can be rewritten with the size prefix:
+The same load can be written with the size stated explicitly:
 
 ```x86asm
-section .data
-    example dq 27 ; this declares a 8-byte variable initialized with 27
-
-section .text
-fn:
-    mov rax, qword [example] ; this dereferences example and access the value stored in memory (27)
-    ...
+    mov rax, qword [example] ; same dereference, size stated explicitly
 ```
 
 It is good practice to always use a prefix when dereferencing memory.
@@ -170,15 +164,10 @@ It is more idiomatic to use `lea` to compute and store memory addresses in regis
 
 ### Relative Addressing
 
-When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**.
-This means that the assembler usually produces a fixed memory address.
+When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**, i.e., fixed memory addresses.
 
-However, this can sometimes introduce security concerns, by making addresses predictable to an attacker.
-
-One possible mitigation for this involves randomizing locations of memory regions, so that an attacker can't reliably predict addresses.
-In order to do that, executables must be built as **PIE (Position Independent Executable)**.
-
-However, in a `PIE`, the final address of a variable is not known at link time.
+For security reasons, executables are often built as **PIE (Position Independent Executable)**, where memory regions are placed at randomized locations.
+In a `PIE`, the final address of a variable is not known at link time.
 So, code instead computes addresses as an offset from the value in a special register called `rip`, which points to the next instruction to be executed.
 
 This is usually called **RIP-relative addressing**.
