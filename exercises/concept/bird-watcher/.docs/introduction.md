@@ -81,11 +81,17 @@ section .data
 
 section .text
 fn:
-    lea rcx, [rel arr]
-    mov r11, dword [arr] ; this accesses all bytes in arr as a 32-bit value with bytes
-                         ; the least significant byte is 1, the next is 2 and so on
-                         ; the resulting number is 0x04030201 or 67305985 in decimal
+    mov r11d, dword [rel arr] ; this accesses all bytes in arr as a 32-bit value with bytes
+                              ; the least significant byte is 1, the next is 2 and so on
+                              ; the resulting number is 0x04030201 or 67305985 in decimal
 ```
+
+~~~~exercism/caution
+Assembly performs no bounds checking on array accesses.
+An index past the end of an array reads or writes memory outside it.
+This may lead to silently incorrect results, to the corruption of other data, and, if the accessed memory is not mapped, to a runtime fault.
+The programmer is responsible for keeping every effective address within the array.
+~~~~
 
 ### Computing the size of an initialized array
 
@@ -107,7 +113,7 @@ So, by defining `example_length` with this value, we have created a 8-byte varia
 ### Section .bss
 
 Uninitialized data is declared in the **section .bss**.
-On most platforms, this data is automatically filled with zero by the OS at the start of the program.
+On most platforms, this data is filled with zero by the OS at the start of the program.
 
 In NASM, an uninitialized variable has a name, a directive that indicates data size and the number of elements to be reserved.
 Each of these is separated with a space from the other.
