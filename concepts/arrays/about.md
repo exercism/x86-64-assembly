@@ -79,11 +79,17 @@ section .data
 
 section .text
 fn:
-    lea rcx, [rel arr]
-    mov r11, dword [arr] ; this accesses all bytes in arr as a 32-bit value with bytes
-                         ; the least significant byte is 1, the next is 2 and so on
-                         ; the resulting number is 0x04030201 or 67305985 in decimal
+    mov r11d, dword [rel arr] ; this accesses all bytes in arr as a 32-bit value with bytes
+                              ; the least significant byte is 1, the next is 2 and so on
+                              ; the resulting number is 0x04030201 or 67305985 in decimal
 ```
+
+~~~~exercism/caution
+Assembly performs no bounds checking on array accesses.
+An index past the end of an array reads or writes memory outside it.
+This may lead to silently incorrect results, to the corruption of other data, and, if the accessed memory is not mapped, to a runtime fault.
+The programmer is responsible for keeping every effective address within the array.
+~~~~
 
 ## Computing the size of an initialized array
 
