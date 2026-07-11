@@ -68,6 +68,7 @@ This name is called a **label**.
 
 A label is a symbol that encodes the specific address of data in memory.
 **Addresses in x86-64 are 64-bit values**.
+A value that holds such an address, whether kept in a register or stored in memory, is what higher-level languages call a **[pointer][pointer]**.
 
 In NASM, trying to access data directly with its label does not yield the memory allocated, but its address:
 
@@ -108,16 +109,10 @@ These are the most important prefixes and their sizes in a typical x86-64 progra
 | dword  | 4 bytes |
 | qword  | 8 bytes |
 
-The last example can be rewritten with the size prefix:
+The same load can be written with the size stated explicitly:
 
 ```x86asm
-section .data
-    example dq 27 ; this declares a 8-byte variable initialized with 27
-
-section .text
-fn:
-    mov rax, qword [example] ; this dereferences example and access the value stored in memory (27)
-    ...
+    mov rax, qword [example] ; same dereference, size stated explicitly
 ```
 
 It is good practice to always use a prefix when dereferencing memory.
@@ -170,15 +165,10 @@ It is more idiomatic to use `lea` to compute and store memory addresses in regis
 
 ### Relative Addressing
 
-When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**.
-This means that the assembler usually produces a fixed memory address.
+When accessing memory locations, the default behavior in NASM is to generate **absolute addresses**, i.e., fixed memory addresses.
 
-However, this can sometimes introduce security concerns, by making addresses predictable to an attacker.
-
-One possible mitigation for this involves randomizing locations of memory regions, so that an attacker can't reliably predict addresses.
-In order to do that, executables must be built as **PIE (Position Independent Executable)**.
-
-However, in a `PIE`, the final address of a variable is not known at link time.
+For security reasons, executables are often built as **PIE (Position Independent Executable)**, where memory regions are placed at randomized locations.
+In a `PIE`, the final address of a variable is not known at link time.
 So, code instead computes addresses as an offset from the value in a special register called `rip`, which points to the next instruction to be executed.
 
 This is usually called **RIP-relative addressing**.
@@ -192,6 +182,29 @@ mov rax, qword [rel variable]
 Relative addressing can also be made the default for a source file with `default rel` at the top.
 
 All exercises in this track are compiled and linked as `PIE`, so `rel` should be used to generate relative addresses.
+
+The randomized layout mentioned above is a mitigation known as address space layout randomization.
+By making the base of each memory region unpredictable, it denies an attacker the fixed addresses that many exploitation techniques rely on, and `PIE` is what lets the loader place those regions anywhere.
+
+Because of this, absolute addressing is not merely discouraged in this track, it is unusable.
+An absolute reference such as `[abs variable]` asks the assembler to embed a fixed 32-bit address into the instruction.
+On Linux the `PIE` linker rejects the relocation this produces, and on macOS the `macho64` format does not support 32-bit absolute addresses at all, so the file fails to assemble.
+
+RIP-relative addressing avoids both problems, since the instruction encodes only an offset from `rip` and never a fixed address.
+The idiomatic way to place an address into a register under `PIE` is therefore `lea` with a `rel` operand:
+
+```x86asm
+default rel
+
+section .data
+    variable dq 7
+
+section .text
+fn:
+    lea rax, [rel variable]       ; materialize the address (PIE-safe)
+    mov rcx, qword [rel variable] ; load the value through a RIP-relative access
+    ...
+```
 
 ### Visibility
 
@@ -222,7 +235,7 @@ fn:
     ...
 ```
 
+[data]: https://en.wikipedia.org/wiki/Data_segment
 [pointer]: https://en.wikipedia.org/wiki/Pointer_(computer_programming)
 [lea]: https://www.felixcloutier.com/x86/lea
 [rel]: https://www.nasm.us/xdoc/2.16.03/html/nasmdoc3.html#section-3.3
-[data]: https://en.wikipedia.org/wiki/Data_segment
