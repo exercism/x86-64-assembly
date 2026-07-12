@@ -33,7 +33,7 @@ jobs:
       - name: Install project dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
         run: |
-          export NASM_VERSION=2.16.01
+          export NASM_VERSION=3.01
           curl -O https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/macosx/nasm-${NASM_VERSION}-macosx.zip
           unzip nasm-${NASM_VERSION}-macosx.zip
           echo $(pwd)/nasm-${NASM_VERSION} >> $GITHUB_PATH
