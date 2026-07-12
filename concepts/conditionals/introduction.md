@@ -22,7 +22,7 @@ Instead, they are set by many different instructions.
 For instance, `ZF` is set by many arithmetic or bitwise operations when the result is zero.
 
 One of the most common instructions used to test conditions is `cmp`.
-It takes two operands and update the flags, but **do not modify its operands**.
+It takes two operands and updates the flags, but **does not modify its operands**.
 
 ### CMP Instruction
 
@@ -34,7 +34,7 @@ If A is the first operand and B, the second:
 | :--: | :----------------------------- |
 |  CF  | A < B (unsigned)               |
 |  ZF  | A == B                         |
-|  SF  | A < B (signed)                 |
+|  SF  | A < B (signed, no overflow)    |
 |  OF  | overflow in signed subtraction |
 
 ## Branching
@@ -118,10 +118,6 @@ For example:
 | cmp A, B    |   g    | A > B (signed)   |
 | cmp A, B    |   a    | A > B (unsigned) |
 
-Note that somes suffixes are aliases to the same conditions.
-For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
-This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
-
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition:
 
 ```x86asm
@@ -135,6 +131,16 @@ They have the same syntax, but with a `n` before the suffix.
 
 For instance, `jnz` jumps when `ZF` is **not** set.
 Similarly, `jnae` jumps when A is **not** >= B (A and B interpreted as unsigned integers).
+
+~~~~exercism/note
+Some suffixes are aliases to the same conditions.
+For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
+This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
+
+Other suffixes, however, test a combination of flags and can not be directly substituted by a single flag suffix.
+
+Prefer the suffix that better describes the semantics of your comparison.
+~~~~
 
 ## Local Labels
 
@@ -177,19 +183,4 @@ fn2:
 .example:
     ...
     jmp .example ; this jumps to fn2.example
-```
-
-Note that a non-dotted label inside a function in practice defines another function:
-
-```x86asm
-section .text
-fn1:
-    ...
-.example: ; this is 'fn1.example'
-    ...
-non_dotted:
-    ...
-.example: ; this is 'non_dotted.example'
-    ...
-    ret
 ```
