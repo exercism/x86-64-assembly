@@ -11,7 +11,7 @@ example_loop:
 ```
 
 Note that an unconditional jump to a previous label will always transfer execution to this label.
-This means the loop will keep repeating forever, unless there is another loop to outside the repeated sequence.
+This means the loop will keep repeating forever, unless there is another jump to outside the repeated sequence.
 
 For instance, this loop does not end:
 
@@ -34,27 +34,21 @@ out_of_loop:
     ...
 ```
 
-## Micro-Ops
-
-A processor does not run an instruction such as `add` or `jnz` directly.
-The front-end of the CPU first _decodes_ each instruction into one or more smaller internal steps, called **micro-operations** (or **micro-ops**).
-The processor then schedules and executes these micro-ops, frequently several per cycle and out of their original order.
-
-Most simple instructions decode into a single micro-op, while a more complex instruction may decode into several.
-Because the processor's real workload is the stream of micro-ops, producing fewer of them for the same task is one way code becomes faster.
-
-## Macrofusion
+## Counting Loops
 
 A counting loop almost always ends the same way: an instruction that updates a counter or compares two values, immediately followed by a conditional jump that decides whether to go around again.
 
 ```x86asm
 sum_array:
-    xor rax, rax     ; running total
+    ; rdi is the memory address of an array
+    ; rsi is the number of elements in the array
+
+    mov eax, 0           ; running total
 .loop:
-    add rax, [rdi]   ; add the current element
-    add rdi, 8       ; advance to the next element
-    sub rsi, 1       ; one fewer element to process, setting ZF at zero
-    jnz .loop        ; repeat while the counter is not yet zero
+    add rax, qword [rdi] ; add the current element
+    add rdi, 8           ; advance to the next element
+    sub rsi, 1           ; one fewer element to process, setting ZF at zero
+    jnz .loop            ; repeat while the counter is not yet zero
     ret
 ```
 
@@ -69,7 +63,63 @@ You can check a [reference][reference] to see which flags are affected by each i
 [reference]: https://www.felixcloutier.com/x86/
 ~~~~
 
-Modern processors recognize this pattern during decoding.
+Note that in the example above, `rsi` is presumed to be greater than `0`.
+If it was `0`, then `sub rsi, 1` would reduce `rsi` to `-1`, which is a very large unsigned number.
+It would take `18,446,744,073,709,551,615` more iterations before the loop finally ended.
+Also, because the length of the array is `0`, any memory access would be out-of-bounds.
+
+If there are no guarantees about the length of an array, there are two common approaches.
+
+The first is moving the ending condition to the beginning of the loop, and then having an unconditional jump at the end:
+
+```x86asm
+sum_array:
+    mov eax, 0
+.loop:
+    cmp rsi, 0
+    je .done
+    add rax, qword [rdi]
+    add rdi, 8
+    sub rsi, 1
+    jmp .loop
+.done:
+    ret
+```
+
+The second is testing once for a zero-length array before the beginning of the loop:
+
+```x86asm
+sum_array:
+    mov eax, 0
+
+    cmp rsi, 0
+    je .done
+.loop:
+    add rax, qword [rdi]
+    add rdi, 8
+    sub rsi, 1
+    jnz .loop
+.done:
+    ret
+```
+
+This second approach is usually more efficient than the first, because there are fewer branches in the loop body.
+You will learn more about this in a future concept.
+
+## Micro-Ops
+
+A processor does not run an instruction such as `add` or `jnz` directly.
+The front-end of the CPU first _decodes_ each instruction into one or more smaller internal steps, called **micro-operations** (or **micro-ops**).
+The processor then schedules and executes these micro-ops, frequently several per cycle and out of their original order.
+
+Most simple instructions decode into a single micro-op, while a more complex instruction may decode into several.
+Because the processor's real workload is the stream of micro-ops, producing fewer of them for the same task is one way code becomes faster.
+
+## Macrofusion
+
+As it was mentioned before, a loop usually ends with some kind of conditional jump.
+This is so common that modern processors are optimized for this pattern during decoding.
+
 A flag-setting instruction immediately followed by a conditional jump that reads those flags can be decoded together into a **single** micro-op, rather than one each.
 This is called **macrofusion**.
 
