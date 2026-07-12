@@ -128,24 +128,6 @@ ja .greater         ; 'ja' must be used for "greater", not 'jg'
 jb .lesser          ; 'jb' must be used for "lesser", not 'jl'
 ```
 
-## Other instructions
-
-There are many more instructions for working with floating-point numbers, implementing common operations.
-Some of them are:
-
-| Instruction | Description                                      |
-| :---------- | :----------------------------------------------- |
-| `sqrtxx`    | Computes square root (`sqrt(x)`)                 |
-| `rcpss`     | Computes reciprocal (`1/x`)                      |
-| `rsqrtss`   | Computes reciprocal of square root (`1/sqrt(x)`) |
-| `minxx`     | Computes minimum (`min(x, y)`)                   |
-| `maxxx`     | Computes maximum (`max(x, y)`)                   |
-
-Where a `xx` placeholder is used, it can take the form of `ss` or `sd`, as usual.
-However, `rcpss` and `rsqrtss` only work with single-precision floating-point numbers.
-
-Those instructions are all two-operand.
-
 ## Calling Convention
 
 In System V ABI, the first eight floating-point arguments are passed to functions in order, from `xmm0` to `xmm7`.
