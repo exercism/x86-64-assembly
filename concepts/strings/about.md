@@ -5,9 +5,9 @@
 A [character encoding][char-encoding] is a specific convention used to represent elements of text in a natural language as a sequence of bytes.
 An "element of text" here may be any unit that has significance in a natural language, for example, letters, spaces, punctuation, emojis, ideograms, etc.
 
-NASM (The Netwide Assembler, the assembler used by this track) has support to the definition of data using [ASCII][ascii].
+NASM (The Netwide Assembler, the assembler used by this track) has support for the definition of data using [ASCII][ascii].
 
-Characters in NASM have up to 8 bytes and may be defined using single quotes (`'`), double quotes (`"`) or backticks (`` ` ``):
+Character constants in NASM may be up to 8 bytes long and may be defined using single quotes (`'`), double quotes (`"`) or backticks (`` ` ``):
 
 ```x86asm
 mov rax, '0' ; this copies the ASCII character '0' (decimal value 48)
@@ -22,14 +22,14 @@ mov rax, `\n` ; this copies the ASCII character newline (decimal value 10)
 mov rcx, `\t` ; this copies the ASCII character tab (decimal value 9)
 ```
 
-NASM also has support to [unicode characters][unicode] in [UTF-8][utf8], specified with `\u` or `\U` and in backticks:
+NASM also has support for [Unicode characters][unicode] in [UTF-8][utf8], specified with `\u` or `\U` and in backticks:
 
 ```x86asm
 mov rax, `\u263a` ; UTF-8 smiley face (☺), value U+263a
 mov rcx, `\u0393` ; UTF-8 capital letter gamma (Γ), value U+0393
 ```
 
-Note that there is no built-in support to any character encoding in x86-64 as a distinct type.
+Note that there is no built-in support for any character encoding in x86-64 as a distinct type.
 Data in assembly is a sequence of bytes and the interpretation of those bytes as a character, a number, or anything else, is left to the programmer.
 
 For instance, the ASCII character '0' is a single byte with the value 48.
@@ -50,7 +50,7 @@ add al, 32 ; al now has the value 97, which is 'a' in ASCII
 
 mov al, 5 ; al now has the value 5
 add al, 48 ; al now has the value 53, which is '5' in ASCII
-; so, summing 48 (equivalently, '0') transforms a number between 0 and 9 into a ASCII digit
+; so, summing 48 (equivalently, '0') transforms a number between 0 and 9 into an ASCII digit
 ```
 
 ## Strings
@@ -65,7 +65,7 @@ section .data
     string1 db "h", "e", "l", "l", "o"
 ```
 
-One difference between strings and other arrays is that NASM also has support to the declaration of strings without a comma (`,`) separating values.
+One difference between strings and other arrays is that NASM also has support for the declaration of strings without a comma (`,`) separating values.
 It is also possible to interleave values with commas:
 
 ```x86asm
@@ -74,7 +74,7 @@ section .data
     string3 db "h", "ello"
 ```
 
-Note that, as already mentioned, characters are just bytes (or sequence of bytes in unicode encoding):
+Note that, as already mentioned, characters are just bytes (or a sequence of bytes in Unicode encoding):
 
 ```x86asm
 section .data
@@ -84,19 +84,23 @@ section .data
 ; string1, string2 and string3 are all equivalent
 ```
 
-Similarly, since each ASCII character takes a single byte, these are all equivalent:
+Since each ASCII character takes a single byte, any subsequent byte in a wider size is `0`.
+For example, declaring `'a'` as a qword (8 bytes) means the first byte is `'a'` (`97`) and the other seven bytes are all `0`.
+
+For this reason, these are all equivalent:
 
 ```x86asm
 section .data
-    string1 dw 'hello' ; 3 words (2-byte)
-    string2 dw 'he', "ll", `o` ; 3 words (2-byte)
-    string3 db `hello`, 0 ; 3 words (2-byte)
+    ; in all of the following, "hello" takes 5 bytes
+    string1 dw 'hello'         ; 3 words (2-byte) - 5 bytes for "hello" + 0
+    string2 dw 'he', "ll", `o` ; 3 words (2-byte) - 5 bytes for "hello" + 0
+    string3 db `hello`, 0      ; 6 bytes - 5 bytes for "hello" + 0
 ```
 
 ~~~~exercism/caution
-In assembly, strings are not automatically ended by a ASCII NUL character (value `0`).
+In assembly, strings are not automatically ended by an ASCII NUL character (value `0`).
 
-When interfacing with higher level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
+When interfacing with higher-level languages, such as C, it is the programmer's responsibility to ensure the correct terminator, if any, is appended at the end of a string.
 ~~~~
 
 ## String instructions
@@ -109,8 +113,9 @@ section .data
 
 section .text
 fn:
-    lea rax, [rel hello_msg]
-    mov cl, byte [rax]
+    lea rdi, [rel hello_msg]
+    mov al, byte [rdi]       ; al == 'h'
+    mov cl, byte [rdi + 4]   ; cl == 'o'
     ret
 ```
 
@@ -123,7 +128,7 @@ Although called _string instructions_, they can be used with any sequence of byt
 | [stos][stos] | stores a value from `rax` into a memory location indicated by `rdi`                                               |
 | [movs][movs] | copies a value from a memory location indicated by `rsi` and stores it in a memory location indicated by `rdi`    |
 | [cmps][cmps] | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
-| [scas][scas] | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
+| [scas][scas] | compares the value in `rax` with the value in a memory location indicated by `rdi`                                |
 
 Note that those instructions do _not_ take any explicit operand.
 Their operands are implicit.
@@ -139,7 +144,7 @@ Note that those instructions automatically dereference memory addresses accordin
 All of them may operate in different sizes.
 A suffix is appended to indicate this size:
 
-| prefix | meaning | size    |
+| suffix | meaning | size    |
 | :----: | ------- | :------ |
 |  `b`   | byte    | 1 byte  |
 |  `w`   | word    | 2 bytes |
@@ -151,7 +156,7 @@ For example:
 ```x86asm
 movsb ; copies one byte from the memory location whose address is in `rsi` and stores it into the memory location whose address is in `rdi`
 lodsq ; copies one qword (8 bytes) from the memory location whose address is in `rsi` and stores it in `rax`
-stosw ; stores one word (2 bytes) into the memory location whose address is in `rdi`
+stosw ; stores one word (2 bytes) from `ax` into the memory location whose address is in `rdi`
 cmpsd ; compares one dword (4 bytes) in the memory locations whose addresses are in `rsi` and `rdi`, setting flags as per `cmp`
 ```
 
@@ -206,7 +211,7 @@ lodsq ; copies one qword (8 bytes) from the address indicated by `rsi` to `rax`
 
 ### Stos
 
-This instruction copies the value in `rax` and _writes_ it into a memory location whose address in `rdi`.
+This instruction copies the value in `rax` and _writes_ it into a memory location whose address is in `rdi`.
 
 The value in `rdi` is updated by the number of bytes written:
 
@@ -256,26 +261,32 @@ scasb ; compares one byte in `rax` with 1 byte read from the memory location who
 Apart from those, the [rep][rep] instruction does not interact directly with memory.
 Instead, it can be added as a prefix to the other mentioned instructions, _repeating_ those instructions.
 
-It works similarly to `loop`, i.e., it repeats an instruction by a number of times equal to the value in `rcx`.
-At each time, the value in `rcx` is decreased by `1`.
-Just as with the `loop` instructions, the value in `rcx` must be set before the instruction is used:
+When prefixed with `rep`, string instructions are repeated a number of times equal to the value in `rcx`.
+Each time, the value in `rcx` is decreased by `1`.
+Note that the value in `rcx` must be set before the instruction is used:
 
 ```x86asm
 mov rcx, 4
-rep movsq ; this repeats movsq 4 times
+rep movsq ; this repeats `movsq` 4 times
           ; it copies 4 * 8 == 32 bytes from a memory location indicated by `rsi` to a memory location indicated by `rdi`
 ```
 
-Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`) follow the same semantics as `loope` and `loopne`.
-They also stop execution if the `zero flag (ZF)` is cleared or set, respectively.
+Apart from using `rcx` as a counter, `repe` (or `repz`) and `repne` (or `repnz`) stop execution if the `zero flag (ZF)` is cleared or set, respectively:
 
-However, all `rep` instructions differ from their `loop` equivalent in that they can only be used to repeat a single string instruction, not a block of instructions:
+| instruction      | where can be added     | may stop earlier        |
+| ---------------- | ---------------------- | ----------------------- |
+| `rep`            | `movs`, `lods`, `stos` | no                      |
+| `repe`,`repz`    | `cmps`, `scas`         | yes, stops when ZF is 0 |
+| `repne`, `repnz` | `cmps`, `scas`         | yes, stops when ZF is 1 |
 
-| instruction      | where can be added     | may stop earlier         |
-| ---------------- | ---------------------- | ------------------------ |
-| `rep`            | `movs`, `lods`, `stos` | no                       |
-| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0 |
-| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1 |
+~~~~exercism/advanced
+On modern CPUs, `rep movs` and `rep stos` are usually fast options when moving data in large blocks.
+Other string instructions, and even `movs` and `stos` when operating without `rep`, however, are usually slower than a plain loop.
+
+A more in-depth view on this topic can be found in [Chapter 16.9, "String instructions", of this reference book][agner-optimization-guide].
+
+[agner-optimization-guide]: https://www.agner.org/optimize/optimizing_assembly.pdf#%5B%7B%22num%22%3A261%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C87%2C785%2C0%5D
+~~~~
 
 [char-encoding]: https://en.wikipedia.org/wiki/Character_encoding
 [ascii]: https://en.wikipedia.org/wiki/ASCII
