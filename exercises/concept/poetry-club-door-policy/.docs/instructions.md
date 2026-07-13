@@ -26,8 +26,6 @@ These are the string instructions mentioned in this concept:
 | `lods`       | loads a value from a memory location indicated by `rsi` into `rax`                                                |
 | `stos`       | stores a value from `rax` into a memory location indicated by `rdi`                                               |
 | `movs`       | copies a value from a memory location indicated by `rsi` and stores it in a memory location indicated by `rdi`    |
-| `cmps`       | compares the value in a memory location indicated by `rsi` with the value in a memory location indicated by `rdi` |
-| `scas`       | compares the value in`rax` with the value in a memory location indicated by `rdi`                                 |
 
 All of them must have a suffix to indicate the size of the operation:
 
@@ -41,13 +39,7 @@ All of them must have a suffix to indicate the size of the operation:
 All string instructions also modify addresses in `rsi` and/or `rdi` (only on those registers the instruction uses).
 By default, they increment the addresses by the size of the operation.
 
-These instructions repeat one of the string instructions:
-
-| instruction      | where can be added     | may stop earlier          |
-|------------------|------------------------|---------------------------|
-| `rep`            | `movs`, `lods`, `stos` | no                        |
-| `repe`,`repz`    | `cmps`, `scas`         | yes — stops when ZF is 0  |
-| `repne`, `repnz` | `cmps`, `scas`         | yes — stops when ZF is 1  |
+The `rep` prefix may be added to any of the string instructions above to repeat it by a number of times equal to `rcx`.
 ~~~~
 
 ## 1. Get the first letter of a sentence
