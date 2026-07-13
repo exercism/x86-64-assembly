@@ -1,8 +1,10 @@
 # Introduction
 
+## Stack
+
 The **call stack**, or just **stack**, is a special data structure that starts at the highest point in memory and grows downward.
 
-## Push and Pop
+### Push and Pop
 
 The stack supports at least two operations, with instructions of the same name:
 
@@ -21,7 +23,7 @@ As the stack grows downward, the value in `rsp` is reduced by the size of the st
 Similarly, a `pop` instruction takes one operand and stores the most recent value in the stack (the one pointed by `rsp`) into it.
 The value in `rsp` is then increased by the size of the retrieved value.
 
-## Local Variables
+### Local Variables
 
 It is also possible to manipulate the value of `rsp` directly.
 This is often used to create local variables for a function.
@@ -41,7 +43,7 @@ In some contexts, this may cause security concerns by exposing internal values t
 One way to deal with that is by zeroing-out the contents of any stack space used by the function.
 ~~~~
 
-## Call and Ret
+### Call and Ret
 
 The main purpose of the stack is to keep track of the return address for called functions.
 
@@ -59,7 +61,7 @@ This is the address `ret` must pop from the stack.
 
 So, any change in the value of `rsp` inside a function, either directly or with `push`, must be reversed before the function returns.
 
-## Callee-Saved and Caller-Saved Registers
+### Callee-Saved and Caller-Saved Registers
 
 Apart from `rsp`, there are other registers that must be preserved across function calls: `rbp`, `rbx`, `r12`, `r13`, `r14` and `r15`.
 In general, the calling function expects to be able to use those registers without them being changed by a called function.
@@ -74,7 +76,7 @@ This is why they are called **caller-saved registers**.
 
 _The most common way for saving the contents of a register is by storing it into the stack._
 
-## Prologue and Epilogue
+### Prologue and Epilogue
 
 In some cases, the stack might be heavily used, with many modifications before the function returns.
 So, keeping track of all those changes to reverse them may be complex.
@@ -102,15 +104,15 @@ fn:
     ret
 ```
 
-## Passing and Returning Arguments with the Stack
+### Passing Arguments with the Stack
 
 In the System V ABI calling convention, arguments are usually passed to functions in registers.
 However, when there are too many arguments, or they need more than the size of a register, the stack may be used.
 
 In those cases, values are added to the stack in reversed order, so that the first argument is closer to `rsp`.
-Since at point of entry, `rsp` points to the return address, which is a 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`.
+Since at point of entry, `rsp` points to the return address, which is an 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`.
 
-## Stack Alignment
+### Stack Alignment
 
 The System V ABI states that the stack needs to be 16 byte aligned immediately _before_ the call instruction is executed.
 As `call` pushes `rip` into the stack, at point of entry the stack for the called function is **not** 16-byte aligned.
@@ -118,5 +120,19 @@ As `call` pushes `rip` into the stack, at point of entry the stack for the calle
 This means that a function that calls another (and, in special, external functions) needs to align the stack before using `call`.
 
 This can be done by subtracting a suitable value from `rsp`.
-This value must be 8 more than a multiple of 16: 8, 24, 40, etc.
-Since a `push` instruction subtracts from `rsp`, a dummy `push` may be used to the same effect.
+At point of entry, this value must be 8 more than a multiple of 16: 8, 24, 40, etc.
+Since a `push` instruction subtracts from `rsp`, an odd number of `push` may be used to the same effect:
+
+```x86asm
+fn_a:
+    sub rsp, 24 ; subtracting 8 more than a multiple of 16: this aligns the stack
+    call fn_b
+    add rsp, 24
+    ret
+
+fn_b:
+    push rbx    ; odd number of pushes: this aligns the stack
+    call fn_c
+    pop rbx
+    ret
+```

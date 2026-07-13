@@ -106,16 +106,16 @@ fn:
 The main purpose of the prologue/epilogue sequences is to help the programmer in keeping track of changes to `rsp`.
 This is, of course, much easier for a compiler to do.
 
-This is why many compilers emit an optimization to omit the frame pointer and remove prologues/epilogues entirely from code.
+This is why many compilers emit an optimization to omit the frame pointer and remove prologues/epilogues whenever possible.
 ~~~~
 
-## Passing and Returning Arguments with the Stack
+## Passing Arguments with the Stack
 
 In the [System V ABI][SystemV] calling convention, arguments are usually passed to functions in registers.
 However, when there are too many arguments, or they need more than the size of a register, the stack may be used.
 
 In those cases, values are added to the stack in reversed order, so that the first argument is closer to `rsp`.
-Since at point of entry, `rsp` points to the return address, which is a 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`:
+Since at point of entry, `rsp` points to the return address, which is an 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`:
 
 ```x86asm
 mov rdi, 4   ; first argument
@@ -128,12 +128,12 @@ mov r9, 42   ; sixth argument
 ; any remaining integer argument goes on the stack in reversed order
 sub rsp, 16
 mov qword [rsp], 100      ; seventh argument
-mov qword [rsp + 8], 300  ; eigth argument
+mov qword [rsp + 8], 300  ; eighth argument
 
 call many_arguments_fn ; call implicitly pushes `rip` to the stack
 ; so, at point of entry, 'many_arguments_fn' finds the first six integer arguments in the usual registers
 ; the seventh argument is found in rsp + 8
-; and the eight argument is found in rsp + 16
+; and the eighth argument is found in rsp + 16
 ```
 
 ## Stack Alignment
@@ -144,10 +144,38 @@ As `call` pushes `rip` into the stack, at point of entry the stack for the calle
 This means that a function that calls another (and, in special, external functions) needs to align the stack before using `call`.
 
 This can be done by subtracting a suitable value from `rsp`.
-This value must be 8 more than a multiple of 16: 8, 24, 40, etc.
-Since a `push` instruction subtracts from `rsp`, a dummy `push` may be used to the same effect.
+At point of entry, this value must be 8 more than a multiple of 16: 8, 24, 40, etc.
+Since a `push` instruction subtracts from `rsp`, an odd number of `push` may be used to the same effect:
+
+```x86asm
+fn_a:
+    sub rsp, 24 ; subtracting 8 more than a multiple of 16: this aligns the stack
+    call fn_b
+    add rsp, 24
+    ret
+
+fn_b:
+    push rbx    ; odd number of pushes: this aligns the stack
+    call fn_c
+    pop rbx
+    ret
+```
+
+## Red Zone
+
+The System V ABI reserves a 128-byte space just below `rsp` that may be used without any adjustment of `rsp`.
+This space is known as [red zone][red-zone]:
+
+```x86asm
+fn:
+    mov [rsp - 8], rax ; this is safe to use because it is in the red zone
+    ret                ; no need to restore rsp
+```
+
+The red zone is only safe to be used by a leaf function, i.e., one that does not call another.
 
 [stack]: https://en.wikipedia.org/wiki/Call_stack
 [push]: https://www.felixcloutier.com/x86/push
 [pop]: https://www.felixcloutier.com/x86/pop
 [SystemV]: https://www.uclibc.org/docs/psABI-x86_64.pdf
+[red-zone]: https://en.wikipedia.org/wiki/Red_zone_(computing)

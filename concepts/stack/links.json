@@ -10,5 +10,9 @@
   {
     "url": "https://www.uclibc.org/docs/psABI-x86_64.pdf",
     "description": "System V AMD64 ABI Documentation"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Red_zone_(computing)",
+    "description": "Wikipedia Entry for the Red Zone"
   }
 ]
