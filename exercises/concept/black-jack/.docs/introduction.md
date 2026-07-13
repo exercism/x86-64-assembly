@@ -1,6 +1,8 @@
 # Introduction
 
-## RFLAGs
+## Conditionals
+
+### RFLAGs
 
 There's a special register called `rflags`.
 Its bits act like flags for various conditions.
@@ -14,7 +16,7 @@ Some of those are listed below:
 | sign     |   SF   |  7  |
 | overflow |   OF   | 11  |
 
-## Comparison Instructions
+### Comparison Instructions
 
 The flags in `rflags` are _not_ modified directly.
 Instead, they are set by many different instructions.
@@ -22,9 +24,9 @@ Instead, they are set by many different instructions.
 For instance, `ZF` is set by many arithmetic or bitwise operations when the result is zero.
 
 One of the most common instructions used to test conditions is `cmp`.
-It takes two operands and update the flags, but **do not modify its operands**.
+It takes two operands and updates the flags, but **does not modify its operands**.
 
-### CMP Instruction
+#### CMP Instruction
 
 The `cmp` instruction subtracts the second operand from the first and sets flags according to the result.
 
@@ -34,10 +36,10 @@ If A is the first operand and B, the second:
 | :--: | :----------------------------- |
 |  CF  | A < B (unsigned)               |
 |  ZF  | A == B                         |
-|  SF  | A < B (signed)                 |
+|  SF  | A < B (signed, no overflow)    |
 |  OF  | overflow in signed subtraction |
 
-## Branching
+### Branching
 
 As a default, code in x86-64 executes sequentially from top to bottom.
 
@@ -60,7 +62,7 @@ If no `ret` is found, execution fallthroughs from one function to the next.
 This can sometimes be used to optimize code flow.
 ~~~~
 
-### Unconditional Jump
+#### Unconditional Jump
 
 The instruction **jmp** unconditionally transfers execution of the program to another point of the code.
 Its single operand is a label which has the address to the point where execution will continue.
@@ -87,7 +89,7 @@ After `end`, the next instruction is `ret`, which transfers execution back to th
 Notice that, since `add rax, 10` is located after `jmp end` and before `end`, it is never executed.
 The value of `rax` when `fn` returns is 5.
 
-### Conditional Jump
+#### Conditional Jump
 
 The family of instructions **jcc** transfers execution of the program to another point only if a specific condition is met.
 Otherwise, execution continues sequentially.
@@ -118,10 +120,6 @@ For example:
 | cmp A, B    |   g    | A > B (signed)   |
 | cmp A, B    |   a    | A > B (unsigned) |
 
-Note that somes suffixes are aliases to the same conditions.
-For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
-This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
-
 It's possible to add `e` after `l`, `b`, `g` or `a` to include the equality in the condition:
 
 ```x86asm
@@ -136,7 +134,17 @@ They have the same syntax, but with a `n` before the suffix.
 For instance, `jnz` jumps when `ZF` is **not** set.
 Similarly, `jnae` jumps when A is **not** >= B (A and B interpreted as unsigned integers).
 
-## Local Labels
+~~~~exercism/note
+Some suffixes are aliases to the same conditions.
+For example, `jz` (suffix `z`, for `ZF`) and `je` (suffix `e`, for equal) both jump when `ZF` is set.
+This is because, with `cmp`, `ZF` is set when the subtraction yields zero, which corresponds to the two operands being equal.
+
+Other suffixes, however, test a combination of flags and can not be directly substituted by a single flag suffix.
+
+Prefer the suffix that better describes the semantics of your comparison.
+~~~~
+
+### Local Labels
 
 Labels are visible in the entire source file, they are not local to a function.
 So it is impossible to reuse a label name.
@@ -177,19 +185,4 @@ fn2:
 .example:
     ...
     jmp .example ; this jumps to fn2.example
-```
-
-Note that a non-dotted label inside a function in practice defines another function:
-
-```x86asm
-section .text
-fn1:
-    ...
-.example: ; this is 'fn1.example'
-    ...
-non_dotted:
-    ...
-.example: ; this is 'non_dotted.example'
-    ...
-    ret
 ```
