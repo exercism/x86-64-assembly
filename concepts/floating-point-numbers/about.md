@@ -177,4 +177,20 @@ section .data
     frac dq 1.e-10 ; this is a double precision floating-point value equal to 1 * 10⁻¹⁰, i.e., 0.0000000001
 ```
 
+## AVX/AVX2
+
+The AVX/AVX2 extensions to the x86-64 architecture introduce new three-operand forms for the floating-point instructions, separating destination from sources.
+They take a `v` (for _vector_) prefix to differentiate them from the legacy SSE form we have seen above:
+
+```x86asm
+vaddss xmm0, xmm1, xmm2 ; xmm0 = xmm1 + xmm2 (32-bit floating-point)
+vmulsd xmm2, xmm3, xmm4 ; xmm2 = xmm3 * xmm4 (64-bit floating-point)
+```
+
+In this track, we have restricted ourselves to instructions and registers up to the previous SSE extensions.
+This is enough to teach foundations and ensures compatibility with a wide range of CPUs.
+
+However, the test-runner fully supports AVX and AVX2.
+You are free to use them.
+
 [ieee]: https://en.wikipedia.org/wiki/IEEE_754

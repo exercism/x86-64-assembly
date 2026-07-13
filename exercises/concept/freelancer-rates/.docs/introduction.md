@@ -1,5 +1,7 @@
 # Introduction
 
+## Floating-Point Numbers
+
 A **floating-point** is a number which can take a fractional part, such as `-1.23` or `3.1415`.
 
 In order to represent such a number as a sequence of bytes, x86-64 uses the **IEEE-754** standard.
@@ -8,14 +10,14 @@ x86-64 supports both.
 
 A single-precision floating-point number is 32-bit wide, whereas a double-precision is 64-bit wide.
 
-## XMM Registers
+### XMM Registers
 
 In x86-64, there are 16 dedicated registers for doing floating-point arithmetic, named `xmm0` to `xmm15`.
 
 Those registers are at least 128-bit wide, but recent processors increase this to 256-bits or 512-bits.
 However, in practice, most floating-point numbers only use the lowest 32-bit or 64-bits, depending on the desired precision.
 
-## Conversion between numbers
+### Conversion between numbers
 
 There is a family of instructions for converting between number formats: `cvtxx2yy`.
 
@@ -59,7 +61,7 @@ For instance, `42.0` would _always_ be converted to `42`.
 
 There is a similar family of instructions with the format `cvttxx2si` (with an extra `t`) that always truncates the result.
 
-## Round
+### Round
 
 The `roundxx` family of instruction converts a floating-point in the source operand to a rounded floating-point stored in the destination operand.
 
@@ -84,7 +86,7 @@ roundsd xmm2, xmm2, 2 ; this rounds up (takes the ceil) a 64-bit floating-point 
 
 Since those instructions produce an exact result, they can be used in preparation for a `cvtxx2si`.
 
-## Arithmetic Instructions
+### Arithmetic Instructions
 
 Many operations with floating-point numbers take instructions with a similar name as its equivalent for integers, but adding the necessary placeholder (`ss` or `sd`) at the end.
 Those instructions are two-operand, with the usual semantics, even those that perform multiplication or division:
@@ -95,7 +97,7 @@ mulsd xmm4, xmm5 ; xmm4 = xmm4 * xmm5 (all 64-bit floating-point)
 divss xmm0, xmm3 ; xmm0 = xmm0 / xmm3 (all 32-bit floating-point)
 ```
 
-## Move
+### Move
 
 The instructions to move from a XMM register to another are `movss` or `movsd`:
 
@@ -112,7 +114,7 @@ mov rax, 10        ; rax is a 64-bit integer with value 10
 cvtsi2sd xmm0, rax ; xmm0 is a 64-bit floating-point with value 10.0
 ```
 
-## Comparisons
+### Comparisons
 
 There are two groups of instructions to make a comparison between two floating-point numbers.
 They take the form `comixx` and `ucomixx`, where `xx` is either `ss` or `sd`.
@@ -128,32 +130,14 @@ ja .greater         ; 'ja' must be used for "greater", not 'jg'
 jb .lesser          ; 'jb' must be used for "lesser", not 'jl'
 ```
 
-## Other instructions
-
-There are many more instructions for working with floating-point numbers, implementing common operations.
-Some of them are:
-
-| Instruction | Description                                      |
-| :---------- | :----------------------------------------------- |
-| `sqrtxx`    | Computes square root (`sqrt(x)`)                 |
-| `rcpss`     | Computes reciprocal (`1/x`)                      |
-| `rsqrtss`   | Computes reciprocal of square root (`1/sqrt(x)`) |
-| `minxx`     | Computes minimum (`min(x, y)`)                   |
-| `maxxx`     | Computes maximum (`max(x, y)`)                   |
-
-Where a `xx` placeholder is used, it can take the form of `ss` or `sd`, as usual.
-However, `rcpss` and `rsqrtss` only work with single-precision floating-point numbers.
-
-Those instructions are all two-operand.
-
-## Calling Convention
+### Calling Convention
 
 In System V ABI, the first eight floating-point arguments are passed to functions in order, from `xmm0` to `xmm7`.
 Floating-point values are returned from functions in `xmm0` and, if necessary, `xmm1`.
 
 All `xmm` registers are freely available to use, none of them is reserved for the caller.
 
-## Memory
+### Memory
 
 Floating-point values can be defined in memory following the same semantics as integers of the same size.
 NASM (The Netwide Assembler - the assembler used by this track) also allows for declaration of floating-point values in scientific notation.
