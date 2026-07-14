@@ -10,12 +10,12 @@ They follow the same general syntax as [SIMD integer operations][simd-integers],
 | `pxor`      | bitwise XOR of two 128-bit values |
 
 Note that there is no packed `NOT`.
-However, there is an ANDN operation, which negates the **destination** operand and then calculates the AND between both operands.
+However, there is an ANDN operation, which complements (flips all bits in) the **destination** operand and then calculates the AND between both operands.
 It can be thought of as a NOT combined with an AND:
 
-| instruction | description                                                |
-|-------------|------------------------------------------------------------|
-| `pandn`     | bitwise AND of the **negated** destination with the source |
+| instruction | description                                                     |
+|-------------|-----------------------------------------------------------------|
+| `pandn`     | bitwise AND of the **complemented** destination with the source |
 
 Note that a bitwise operation combines bits at the same position in two different operands, so lane boundaries cannot change the result.
 This is why these instructions do not have a size suffix, the register behaves as a single 128-bit lane:
@@ -44,7 +44,7 @@ Within each lane they behave like their scalar counterparts, and bits never cros
 | `psraw`, `psrad`          | shift right arithmetic, per lane    |
 
 Note that these instructions follow the syntax for packed integer operations, including a size suffix.
-There is no byte shift, only word, dword and, with the exception of shift right arithmetic, qword.
+There is no byte-lane shift, only word, dword and, with the exception of shift right arithmetic, qword.
 
 One difference between packed shifts and their scalar counterparts is in the operation name:
 
@@ -196,6 +196,14 @@ AVX gives every instruction here a `v`-prefixed three-operand form on wider regi
 vpand  ymm0, ymm1, ymm2 ; ymm0 = ymm1 AND ymm2, 256 bits
 vxorps ymm3, ymm4, ymm5 ; ymm3 = ymm4 XOR ymm5, 256 bits
 vpsrad ymm6, ymm7, 2    ; eight 32-bit lanes shifted right arithmetically
+```
+
+AVX2 also introduces variable shifts, with a `v` before the size suffix.
+They take a vector of counts, shifting according to the count in the corresponding lane:
+
+```x86asm
+vpsllvd ymm0, ymm1, ymm2  ; each 32-bit lane shifted left by its own count
+vpsravd ymm3, ymm4, ymm5  ; each 32-bit lane shifted right arithmetically by its own count
 ```
 
 AVX-512 closes both gaps left open by SSE:
