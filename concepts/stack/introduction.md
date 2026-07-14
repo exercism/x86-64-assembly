@@ -102,13 +102,13 @@ fn:
     ret
 ```
 
-## Passing and Returning Arguments with the Stack
+## Passing Arguments with the Stack
 
 In the System V ABI calling convention, arguments are usually passed to functions in registers.
 However, when there are too many arguments, or they need more than the size of a register, the stack may be used.
 
 In those cases, values are added to the stack in reversed order, so that the first argument is closer to `rsp`.
-Since at point of entry, `rsp` points to the return address, which is a 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`.
+Since at point of entry, `rsp` points to the return address, which is an 8-byte value in x86-64, the first argument on the stack, if any, can be accessed in `rsp + 8`.
 
 ## Stack Alignment
 
@@ -118,5 +118,19 @@ As `call` pushes `rip` into the stack, at point of entry the stack for the calle
 This means that a function that calls another (and, in special, external functions) needs to align the stack before using `call`.
 
 This can be done by subtracting a suitable value from `rsp`.
-This value must be 8 more than a multiple of 16: 8, 24, 40, etc.
-Since a `push` instruction subtracts from `rsp`, a dummy `push` may be used to the same effect.
+At point of entry, this value must be 8 more than a multiple of 16: 8, 24, 40, etc.
+Since a `push` instruction subtracts from `rsp`, an odd number of `push` may be used to the same effect:
+
+```x86asm
+fn_a:
+    sub rsp, 24 ; subtracting 8 more than a multiple of 16: this aligns the stack
+    call fn_b
+    add rsp, 24
+    ret
+
+fn_b:
+    push rbx    ; odd number of pushes: this aligns the stack
+    call fn_c
+    pop rbx
+    ret
+```
