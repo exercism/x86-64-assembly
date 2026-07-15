@@ -44,7 +44,7 @@ That means the function must also preserve callee-saved registers before using t
 This is usually done with a `push`/`pop` sequence, as we have seen in a previous concept.
 
 Since each frame of a recursive function, with the exception of the base case, is also a caller that needs to preserve its own local variables, this `push`/`pop` sequence must be repeated for each frame.
-Even storing the variables directly into the stack, without using registers, would still cost the same `8` bytes per frame.
+Even storing the variable directly into the stack, without using registers, would still cost the same `8` bytes per frame.
 
 This means each recursive call adds `8` bytes to the stack for the return address pushed by `call`, plus `8` bytes for each local variable it needs to save.
 The function will keep adding those bytes to the stack each frame until it reaches its base case.
