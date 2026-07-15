@@ -2,7 +2,7 @@
 
 ## Recursion
 
-A function is `recursive` when it calls itself.
+A function is **recursive** when it calls itself.
 
 One key difference between a function call and a loop is that calling a function pushes the address to be returned to the stack.
 This means that a recursive function usually demands more stack space than an equivalent loop.
@@ -37,13 +37,21 @@ factorial:
 Note that `factorial` must `push rdi` before recursing and `pop rdi` after.
 This is because it still needs `n` once the recursive call returns in order to compute `n * (n-1)!`.
 
-This means each recursive call adds 16 bytes to the stack:
+Note also that using a callee-saved register would not solve this problem.
 
-1. 8 bytes for the return address, pushed by `call`.
-2. and another 8 bytes for the saved `rdi`.
+Even though a recursive function is a potential caller of itself, it is itself a callee of some other function.
+That means the function must also preserve callee-saved registers before using them, and restore their value after they are used.
+This is usually done with a `push`/`pop` sequence, as we have seen in a previous concept.
 
-The function will keeping adding those bytes to the stack until it reaches its base case.
-Only then does it begin to unwind, with each stack frame doing its `pop rdi` and `ret`.
+Since each frame of a recursive function, with the exception of the base case, is also a caller that needs to preserve its own local variables, this `push`/`pop` sequence must be repeated for each frame.
+Even storing the variables directly into the stack, without using registers, would still cost the same `8` bytes per frame.
+
+This means each recursive call adds `8` bytes to the stack for the return address pushed by `call`, plus `8` bytes for each local variable it needs to save.
+The function will keep adding those bytes to the stack each frame until it reaches its base case.
+Only then does it begin to unwind in reverse order, each recursive call using as many `pop` as needed and then a `ret`.
+
+For example, if `factorial` was called with argument `10`, it would call itself nine times before reaching the base case of `1`.
+At that point, `144` bytes would have been used to store the `n` (`8` bytes) and the return address (`8` bytes) for each previous frame.
 
 ### Tail Call
 
@@ -82,7 +90,7 @@ triple_of_square:
     jmp times_three
 ```
 
-This is called a `tail call`.
+This is called a **tail call**.
 
 The main advantage of a tail call is avoiding the extra cost of `call`.
 A `call` pushes a return address onto the stack, and for control to come back to that point there must be a matching `ret`.
@@ -121,7 +129,7 @@ factorial:
     jmp factorial_helper ; tail call
 ```
 
-Since no more work is done after the recursive call, we do not need to save `rdi` anymore.
+Since no more work is done after the recursive call, we also do not need to save `rdi` anymore.
 There is no `call` or `push rdi` and so each recursive iteration adds `0` bytes to the stack: no additional stack space is used.
 This version can handle arbitrarily large `n` without overflowing the stack.
 It is both more efficient and safer.
