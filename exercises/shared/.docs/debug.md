@@ -19,4 +19,7 @@ To use any of those macros, `debug.mac` must be included at the top of the solut
 %include "debug.mac"
 ```
 
+Note that `rsp` is temporarily modified by all macros.
+To debug a value on the stack, load its address into another register before debugging.
+
 [debug]: https://github.com/exercism/x86-64-assembly/tree/main/templates/debug.mac
