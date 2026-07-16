@@ -120,5 +120,66 @@ Strings in C are an array of `char`, which is a 1-byte type.
 Most strings are of ASCII characters and NUL-terminated, so they end when a byte with the value `0` is found.
 This means the length of a string does not usually need to be passed as a separate argument.
 
+## Calling C library functions
+
+The `extern` directive only declares that a symbol is defined in another file.
+How a call to it is actually made depends on how that external code is linked.
+
+For ordinary functions linked together with your code, the linker is able to find an external function directly, and so a plain `call` is enough.
+
+However, standard C library functions such as `malloc`, `free`, and `printf` are usually resolved at runtime from a shared library, whose address is not known when your code is assembled.
+The call therefore goes through a stub in a [Procedure Linkage Table (PLT)][plt], placed at a known offset.
+Whenever calling an external library function from assembly, NASM requires an indication that this call should be resolved from the PLT.
+
+In `elf64` (output format used by Linux programs), this indication is done by adding `wrt ..plt` ("with reference to plt") after the call.
+For example, `call printf wrt ..plt`.
+
+In `macho64` programs (output format used by macOS programs), on the other hand, an underscore before the function name is enough.
+For example, `extern _printf`, then `call _printf`.
+However, since this track assembles `macho64` code with the flag `--prefix _`, this underscore is added automatically by the assembler in both situations, for example, `extern printf`, then `call printf`.
+
+Note that Exercism's test-runner runs in a Linux image, so any submitted solution that calls C library functions must use `wrt ..plt`.
+An assembler-time guard can be used to correctly dispatch between output formats:
+
+```x86asm
+extern malloc
+
+%ifidn __OUTPUT_FORMAT__,elf64
+    call malloc wrt ..plt       ; elf64: reach the function through the PLT
+%else
+    call malloc                 ; macho64: the linker generates the call stub
+                                ; the underscore is added automatically by an assembler flag
+%endif
+```
+
+## System calls
+
+There are many operations that user-level programs, such as those run in this track, can not perform directly.
+Reading from `stdin`, writing to `stdout`, requesting dynamic memory, interacting with peripherals, etc., are all handled by the Operating System (OS).
+
+A user-level program must explicitly request the OS to perform those operations, when needed.
+This is done with the [`syscall`][syscall] instruction.
+Conceptually, this instruction can be thought of as a call to some predefined OS procedure (a "system" call).
+
+Any argument for the system call should be passed to the OS in GPRs: `rdi`, `rsi`, `rdx`, `r10`, `r8`, and `r9`.
+
+Note that the sequence is almost the same as the one used in a function call, but `rcx` is replaced by `r10`.
+This is because `rcx` and `r11` are used by `syscall` to save the return address and the flags (which are restored before returning control to the calling function).
+Both registers must be treated as clobbered across every `syscall`.
+
+Differently from `call`, there are no labels indicating the system "functions".
+Instead, they are reached through specific numbers placed in `rax` before the call.
+Any returned value, if any, is also placed in `rax`.
+
+The conventions above are described [in an appendix of the System V ABI][linux-convention] that covers Linux specifically, and is marked as informative only.
+In practice, the system calls available, their number, and how errors are reported are OS-level details that vary greatly between OSes, and even between different versions of the same OS.
+
+Many C library functions, and other actual functions defined by the OS, are higher-level wrappers over a system call.
+The ABI recommends these wrappers should be preferred over a plain `syscall`, and Apple [does not guarantee compatibility][mac-qa1118] at the kernel system call interface.
+
 [enum]: https://en.cppreference.com/w/c/language/enum.html
 [pointer]: https://en.cppreference.com/w/c/language/pointer.html
+[plt]: https://www.uclibc.org/docs/psABI-x86_64.pdf#page=79
+[syscall]: https://www.felixcloutier.com/x86/syscall
+[linux-convention]: https://www.uclibc.org/docs/psABI-x86_64.pdf#subsection.A.2.1
+[mac-qa1118]: https://developer.apple.com/library/archive/qa/qa1118/_index.html
