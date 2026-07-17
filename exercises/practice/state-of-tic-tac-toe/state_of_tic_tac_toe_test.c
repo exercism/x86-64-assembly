@@ -367,6 +367,32 @@ void test_invalid_board_players_kept_playing_after_a_win(void) {
     TEST_ASSERT_EQUAL_INT(INVALID, gamestate(board));
 }
 
+void test_invalid_board_o_kept_playing_after_x_wins(void) {
+    TEST_IGNORE();
+    const char *board[] = {
+        // clang-format off
+        "OO ",
+        "XXX",
+        " O ",
+        NULL
+        // clang-format on
+    };
+    TEST_ASSERT_EQUAL_INT(INVALID, gamestate(board));
+}
+
+void test_invalid_board_x_kept_playing_after_o_wins(void) {
+    TEST_IGNORE();
+    const char *board[] = {
+        // clang-format off
+        "XX ",
+        "OOO",
+        " XX",
+        NULL
+        // clang-format on
+    };
+    TEST_ASSERT_EQUAL_INT(INVALID, gamestate(board));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_finished_game_where_x_won_via_left_column_victory);
@@ -396,5 +422,7 @@ int main(void) {
     RUN_TEST(test_invalid_board_o_started);
     RUN_TEST(test_invalid_board_x_won_and_o_kept_playing);
     RUN_TEST(test_invalid_board_players_kept_playing_after_a_win);
+    RUN_TEST(test_invalid_board_o_kept_playing_after_x_wins);
+    RUN_TEST(test_invalid_board_x_kept_playing_after_o_wins);
     return UNITY_END();
 }
