@@ -9,6 +9,17 @@ extern void abbreviate(const char* in, char* out);
 """
 
 
+def extra_cases():
+    return [
+        {
+            "description": "all lowercase",
+            "property": "abbreviate",
+            "input": {"phrase": "point of view"},
+            "expected": "POV",
+        }
+    ]
+
+
 def gen_func_body(prop, inp, expected):
     str_list = []
     value = inp["phrase"].replace("\\", "\\\\")
