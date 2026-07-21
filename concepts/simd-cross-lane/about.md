@@ -124,28 +124,6 @@ The instruction is also commonly used for fast table lookup.
 In that case, the control vector holds variable indices, possibly hashed from an initial value, and a 16-entry table is loaded on the data register.
 After the shuffle, each lane in the destination will hold the entry corresponding to its index.
 
-For example, it can be used to select only valid bytes of a string, after aligning-down its address to avoid crossing a page boundary:
-
-```x86asm
-section .rodata
-tab: db 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-     times 16 db 0x80
-
-section .text
-fn:
-  ; assume the string is passed on rsi
-  mov rax, rsi
-  and rsi, -16 ; align-down rsi, it is now safe to load 16 bytes out of it
-  and rax, 15  ; the number of garbage bytes loaded by rsi, before the start of the string
-
-  lea r10, [rel tab]
-  movdqa xmm0, [rsi]       ; rsi is 16-byte aligned
-  movdqu xmm1, [r10 + rax]
-  pshufb xmm0, xmm1        ; only string bytes are selected and put in the low lanes of xmm0
-                           ; other bytes are cleared (the top bit of 0x80 is set)
-  ...
-```
-
 ## Interleaving Lanes
 
 The **unpack** instructions take lanes from two operands and weave them together, alternating between the two.
