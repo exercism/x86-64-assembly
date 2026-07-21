@@ -108,8 +108,6 @@ pandn  xmm0, xmm4  ; xmm0 = NOT mask AND b: lanes of b where mask is false
 por    xmm2, xmm0  ; combine the two halves
 ```
 
-Note that the `pandn` asymmetry pays off here: the mask sits in the destination, gets negated, and selects from `b` in a single instruction.
-
 This pattern is the packed form of branchless selection.
 Every lane is computed, and the mask alone decides which value survives, with no `jcc` anywhere.
 

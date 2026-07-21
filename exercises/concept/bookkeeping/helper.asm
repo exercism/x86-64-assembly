@@ -23,7 +23,10 @@ section .text
 global clobber
 clobber:
     mov rax, rdi
+    sub rsp, 8
+    movdqa xmm0, [rsp]
     _clobber_regs
+    add rsp, 8
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
