@@ -1,414 +1,283 @@
-default rel
-
-SEED equ 1812433253 ; Borosh-Niederreiter multiplier for modulus 2^32
-                    ; in line with: https://github.com/cslarsen/mersenne-twister/blob/master/mersenne-twister.cpp
-
 section .bss
-    mt_state resd 624 ; array to hold the state of the generator
-    index resd 1 ; current index
-    is_init resb 1 ; flag for lazy initialization of state array
+xorshift32_state resd 1
+xorshift32_flag resb 1
+
+%macro xorshift32 0
+    movzx ecx, byte [rel xorshift32_flag]
+    test ecx, ecx
+    jnz %%skip
+
+    mov byte [rel xorshift32_flag], 1
+
+    rdtsc
+    lea eax, [eax + edx + 1812433253]
+    mov dword [rel xorshift32_state], eax
+%%skip:
+    mov eax, dword [rel xorshift32_state]
+
+    mov ecx, eax
+    shl ecx, 13
+    xor eax, ecx
+
+    mov ecx, eax
+    shr ecx, 17
+    xor eax, ecx
+
+    mov ecx, eax
+    shl ecx, 5
+    xor eax, ecx
+
+    mov [rel xorshift32_state], eax
+%endmacro
+
+alignb 16
+aes128_keys resb 11 * 16
+aes128_result resb 16
+aes128_counter resq 1
+aes128_flag resb 1
+
+%macro expand_aes 2
+    aeskeygenassist xmm2, xmm1, %1
+    pshufd xmm2, xmm2, 0xFF
+
+    movdqa xmm3, xmm1
+    pslldq xmm3, 4
+    pxor xmm1, xmm3
+    pslldq xmm3, 4
+    pxor xmm1, xmm3
+    pslldq xmm3, 4
+    pxor xmm1, xmm3
+
+    pxor xmm1, xmm2
+    movdqa [rel aes128_keys + %2], xmm1
+%endmacro
+
+%macro aes128 0
+    movzx ecx, byte [rel aes128_flag]
+    test ecx, ecx
+    jnz %%skip_setup
+
+    mov byte [rel aes128_flag], 1
+
+    rdtsc
+    mov qword [rel aes128_keys], rax
+    mov qword [rel aes128_keys + 8], rdx
+
+    movdqa xmm1, [rel aes128_keys]
+
+    expand_aes 1, 16
+    expand_aes 2, 32
+    expand_aes 4, 48
+    expand_aes 8, 64
+    expand_aes 16, 80
+    expand_aes 32, 96
+    expand_aes 64, 112
+    expand_aes 128, 128
+    expand_aes 27, 144
+    expand_aes 54, 160
+%%skip_setup:
+    mov rcx, qword [rel aes128_counter]
+    inc rcx
+    mov qword [rel aes128_counter], rcx
+
+    test ecx, 1
+    jz %%skip_generation
+
+    movq xmm2, rcx
+
+    movdqa  xmm1, [rel aes128_keys]
+    pxor    xmm2, xmm1
+
+    %assign i 16
+    %rep 9
+        movdqa xmm1, [rel aes128_keys + i]
+        aesenc xmm2, xmm1
+        %assign i i + 16
+    %endrep
+
+    movdqu  xmm1, [rel aes128_keys + 160]
+    aesenclast xmm2, xmm1
+    movdqa [rel aes128_result], xmm2
+%%skip_generation:
+    lea rax, [rel aes128_result]
+    and ecx, 1
+    mov rax, qword [rax + 8*rcx]
+%endmacro
+
+section .rodata
+valid_years:
+%assign i 1600
+%rep 529
+    %if i % 400 != 0 && (i % 100 = 0 || i % 4 != 0)
+        dw i
+    %endif
+    %assign i i + 1
+%endrep
+
+day_map:
+%assign i 1
+%assign j 31
+%rep 12
+    %assign k 1
+    %rep j
+        db i
+        db k
+        %assign k k + 1
+    %endrep
+    %assign i i + 1
+
+    %if i = 2
+        %assign j 28
+    %elif j = 28 || j = 30 || i = 8
+        %assign j 31
+    %else
+        %assign j 30
+    %endif
+%endrep
+
+hundred: dd 0x42c80000
+one_div_10000: dd 0x38d1b717
 
 section .text
-
 global shared_birthday
 global random_birthdates
 global estimated_probability_of_shared_birthday
 
-; The mt19937 algorithm is being reused from DND-CHARACTER solution
-;
-; The algorithm for the 32-bit Mersenne Twister PRNG (mt19937) was taken from:
-; https://en.wikipedia.org/wiki/Mersenne_Twister#C_code
-;
-; The seed chosen was the "Borosh-Niederreiter multiplier for modulus 2^32"
-; in line with: https://github.com/cslarsen/mersenne-twister/blob/master/mersenne-twister.cpp
-; This seed is xor-ed with the CPU timestamp
-;
-; Here's the godbolt for the wikipedia implementation mentioned above: https://godbolt.org/z/acEoj15xz
-; I've taken the "magic numbers" from there
+%macro _shared_birthday 3
+    sub rsp, 264
 
-mt_init:
-    ; prologue
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4 ; seed
-
-    lea r11, [mt_state]
-
-    rdtsc
-    xor rdi, rax
-
-    mov dword [rsp], edi  ; seed
-    mov dword [r11], edi
-
-    mov r10, 1 ; i
-.mt_init_loop:
-    cmp r10, 624
-    jge .end_mt_init_loop ; for (int i = 1; i < n; ++i)
-
-    mov eax, dword [rsp] ; seed
-
-    shr eax, 30 ; seed >> (w - 2)
-    xor eax, dword [rsp] ; seed ^ (seed >> (w - 2))
-    imul edx, eax, 1812433253 ; f * seed ^ (seed >> (w - 2))
-    mov eax, r10d
-    add eax, edx ; f * seed ^ (seed >> (w - 2)) + i
-
-    mov dword [rsp], eax ; seed = f * seed ^ (seed >> (w - 2))
-    mov dword [r11 + 4*r10], eax ; mt_state[i] = seed
-
-    inc r10 ; i++
-    jmp .mt_init_loop
-
-.end_mt_init_loop:
-    mov dword [index], 0 ; index = 0
-
-    ; epilogue
-    mov rsp, rbp
-    pop rbp
-    ret
-
-mt_rand:
-    ; prologue
-    push rbp
-    mov rbp, rsp
-    sub rsp, 20
-
-    lea r10, [mt_state]
-
-    mov eax, [index]
-    mov dword [rsp], eax ; k
-
-    sub eax, 623
-    mov dword [rsp + 4], eax ; j
-
-    cmp eax, 0
-    jge .skip_circular_sum1
-
-    add dword [rsp + 4], 624 ; j remains modulus 624
-
-.skip_circular_sum1:
-    xor rax, rax
-    mov eax, dword [rsp]
-    mov eax, dword [r10 + 4*rax] ; mt_state[k]
-
-    and eax, -2147483648 ; mt_state[k] & UMASK
-    mov edx, eax
-
-    xor rax, rax
-    mov eax, dword [rsp + 4]
-    mov eax, dword [r10 + 4*rax] ; mt_state[j]
-
-    and eax, 2147483647 ; mt_state[j] & LMASK
-
-    or eax, edx
-    mov dword [rsp + 8], eax ; x
-
-    shr eax, 1
-    mov dword [rsp + 12], eax ; xA
-
-    bt dword [rsp + 8], 0
-    jnc .even
-
-    xor dword [rsp + 12], -1727483681 ; xA ^= a
-
-.even:
-    mov eax, dword [rsp]
-    sub eax, 227
-    mov dword [rsp + 4], eax ; j = k - (n - m)
-
-    cmp eax, 0
-    jge .skip_circular_sum2
-
-    add dword [rsp + 4], 624 ; j remains modulus 624
-
-.skip_circular_sum2:
-    xor rax, rax
-    mov eax, dword [rsp + 4]
-
-    mov eax, dword [r10 + 4*rax] ; mt_state[j]
-    xor eax, dword [rsp + 12] ; mt_state[j] ^ xA
-    mov dword [rsp + 8], eax ; x = mt_state[j] ^ xA
-
-    xor rdx, rdx
-    mov edx, dword [rsp]
-    mov dword [r10 + 4*rdx], eax ; mt_state[k] = x
-
-    inc dword [rsp] ; k++
-
-    cmp dword [rsp], 624
-    jl .set_new_index
-
-    mov dword [rsp], 0 ; if (k >= 624) k = 0
-
-.set_new_index:
-    mov eax, dword [rsp]
-    mov [index], eax ; index = k
-
-    mov eax, dword [rsp + 8]
-    shr eax, 11 ; x >> u
-    xor eax, dword [rsp + 8] ; x ^ (x >> u)
-    mov dword [rsp + 16], eax ; y = x ^ (x >> u)
-
-    shl eax, 7 ; y << s
-    and eax, -1658038656 ; (y << s) & b
-    xor dword [rsp + 16], eax ; y = y ^ ((y << s) & b)
-
-    mov eax, dword [rsp + 16]
-    shl eax, 15 ; y << t
-    and eax, -272236544 ; (y << t) & c
-    xor dword [rsp + 16], eax ; y = ((y << t) & c)
-
-    mov eax, dword [rsp + 16]
-    shr eax, 18 ; y >> l
-    xor eax, dword [rsp + 16] ; z = y ^ (y >> l)
-    ; returns z
-
-    ; epilogue
-    mov rsp, rbp
-    pop rbp
-    ret
+    pxor xmm0, xmm0
+    %assign i 0
+    %rep 16
+        movdqa [rsp + i], xmm0
+        %assign i i + 16
+    %endrep
+    xor eax, eax
+%%loop:
+    movzx edx, word [%1 + 2]
+    movzx ecx, dl
+    shr edx, 5
+    or edx, ecx
+    movzx ecx, byte [rsp + rdx]
+    test ecx, ecx
+    cmovnz eax, ecx
+    jnz %%done
+    mov byte [rsp + rdx], 1
+    add %1, %3
+    dec %2
+    jnz %%loop
+%%done:
+    add rsp, 264
+%endmacro
 
 shared_birthday:
-    ; RDI - number of elements in input array
-    ; RSI - input array of date_t (struct of 1 uint16_t and 2 uint8_t == 4 bytes)
-    ; return is a boolean in RAX
-
-    ; prologue
-    push rbp
-    mov rbp, rsp
-
-    mov rdx, 0xFFFF0000 ; mask that gets only day and month,
-                        ; since year is irrelevant for sharing birthday
-
-    xor rax, rax
-    xor r8, r8 ; flag
-    mov rcx, rdi
-.accumulate:
-    lodsd ; rax holds current value in input array
-
-    and rax, rdx ; apply mask
-
-    mov r10, rsp ; r10 will serve as counter for end of loop, by comparing with RBP
-.compare_loop:
-    cmp r10, rbp
-    jge .end_compare ; reached end of stack array, adds value to stack
-
-    mov r9d, dword [r10] ; gets current value in stack
-    cmp r9d, eax
-    sete r11b ; 1 if a match is found, 0 otherwise
-
-    or r8b, r11b ; r8 is set on the first match and remains set
-
-    add r10, 4 ; moves to next value in the stack
-    jmp .compare_loop
-
-.end_compare:
-    sub rsp, 4
-    mov dword [rsp], eax ; adds current value to stack
-
-    cmp r8, 0
-    loope .accumulate ; loops while a match isn't found, or until end of array
-
-    mov rax, r8 ; moves match flag to RAX, for returning
-
-    ; epilogue
-    mov rsp, rbp
-    pop rbp
+    _shared_birthday rsi, rdi, 4
     ret
 
-%macro generate_year 1
-%%leap:
-    call mt_rand
-    and rax, 65535
-    mov r10, rax ; stores normalized random year
-
-    xor rdx, rdx
-    mov r11, 400
-    div r11
-
-    cmp rdx, 0
-    je %%leap ; divisible by 400 is leap, repeats
-
-    mov rax, r10
-    xor rdx, rdx
-    mov r11, 100
-    div r11
-
-    cmp rdx, 0
-    je %%non_leap ; divisible by 100 is non-leap, returns
-
-    mov rax, r10
-    and rax, 3
-    cmp rax, 0
-    je %%leap ; divisible by 4 is leap, repeats
-
-%%non_leap:
-    mov %1, r10
-%endmacro
-
-%macro generate_month 1
-    call mt_rand
-    xor rdx, rdx
-    mov r11, 12
-    div r11 ; RDX is in the range 0 - 11
-    mov %1, rdx
-    inc %1 ; month is in the range 1 - 12
-%endmacro
-
-%macro generate_day 2
-    call mt_rand
-
-    ; by default, day is in the range 1 - 30
-    mov r11, 30
-
-    ; if month is january, march, may, july, august, october or december
-    ; then day might be in the range 1 - 31
-    mov r10, 31
-    cmp %1, 1
-    cmove r11, r10
-    cmp %1, 3
-    cmove r11, r10
-    cmp %1, 5
-    cmove r11, r10
-    cmp %1, 7
-    cmove r11, r10
-    cmp %1, 8
-    cmove r11, r10
-    cmp %1, 10
-    cmove r11, r10
-    cmp %1, 12
-    cmove r11, r10
-
-    mov r10, 28
-    cmp %1, 2 ; if month is february, day is in the range 1 - 28
-    cmove r11, r10
-
-    xor rdx, rdx
-    div r11 ; RDX is in the range 0 - DAY_MAX - 1
-    mov %2, rdx
-    inc %2 ; day is in the range 1 - DAY_MAX
-%endmacro
-
 random_birthdates:
-    ; RDI - output buffer
-    ; RSI - number of date_t to be stored
-    ; return is void
+    test rsi, rsi
+    jz .done
 
-    ; prologue
-    push rbp
-    mov rbp, rsp
-    sub rsp, 48
+    lea r9, [rel valid_years]
+    lea r11, [rel day_map]
 
-    ; Since mt_rand and possibly mt_init is being called
-    ; Registers may be modified
-    ; So relevant values are saved in the stack
+    mov r8d, 365
+    mov r10d, 400
+.loop:
+    ; macOS does not support rdrand or rdseed
+    ; and example solutions are expected to be assembly only, without calling external libraries
+    ; so we are left with a PRNG
+    ; for a chi-squared test, it suffices that the distribution is uniform
+    ;
+    ; we use 2 different PRNGs:
+    ; 1- xorshift32 is our benchmark for a simpler and weaker PRNG.
+    ;    This is the minimum students should aim for if implementing their own PRNG.
+    ; 2- aes128 is our benchmark for a sophisticated PRNG.
+    ;    It has equivalent quality to rdrand, but is faster and should be supported by macOS.
+    ;
+    ; we use a simple rdtsc as a measure of a cheaper "PRNG" that must fail
 
-    mov qword [rsp], rdi
-    mov qword [rsp + 8], rsi
+    ; xorshift32
+    ; rdtsc
+    ; rdrand rax
+    aes128
 
-    cmp byte [is_init], 1
-    je .generate_dates ; if mt_state was initialized, proceed with generation
-    ; otherwise, initializes it
+    ; rax now holds a random 64-bit number
+    ; we use the low 32 bits for the year and the upper 32 bits for day/month
 
-    call mt_init
-    mov byte [is_init], 1 ; sets flag to avoid reinitialization
+    mov rcx, rax
+    shr rcx, 32
 
-.generate_dates:
-    mov qword [rsp + 16], -1
+    imul eax, eax, 0xFFFFFFFF / 400 + 1
+    mul r10d ; edx now holds random % 400
+    mov dx, word [r9 + 2*rdx]
+    mov word [rdi], dx
 
-.generation_loop:
-    inc qword [rsp + 16]
-    mov rcx, qword [rsp + 16]
+    imul eax, ecx, 0xFFFFFFFF / 365 + 1
+    mul r8d  ; edx now holds random % 365
+    mov dx, word [r11 + 2*rdx]
+    mov word [rdi + 2], dx
 
-    cmp rcx, qword [rsp + 8]
-    jge .end_loop ; loops until end of array
-
-    generate_year qword [rsp + 24]
-    generate_month qword [rsp + 32]
-    generate_day qword [rsp + 32], qword [rsp + 40]
-
-    mov rax, qword [rsp + 24] ; first 2 bytes are year
-    shl qword [rsp + 32], 16
-    or rax, qword [rsp + 32] ; following byte is month
-    shl qword [rsp + 40], 24
-    or rax, qword [rsp + 40] ; last byte of 4 is day
-
-    mov rdi, qword [rsp]
-    stosd
-    mov qword [rsp], rdi
-
-    jmp .generation_loop
-
-.end_loop:
-
-    ; epilogue
-    mov rsp, rbp
-    pop rbp
-
+    add rdi, 4
+    dec rsi
+    jnz .loop
+.done:
     ret
 
 estimated_probability_of_shared_birthday:
-    ; RDI - number of people in group size
-    ; return is the probability as a float in xmm0
+    sub rsp, 56 ; a byte for each day
 
-    ; Algorithm is:
-    ;
-    ; Reserve space in the stack for group size and two counters
-    ; The first for the number of iterations
-    ; The second for the number of results where shared birthdays were found
-    ;
-    ; After that, reserve space in the stack for a number of time_t nodes equal to the group size
-    ; And iterates 10000 times, filling this array each time with random birthdates
-    ; Then checking if a match was found
-    ; And accumulating this value in the second counter in the stack
-    ;
-    ; After the loop, divides the number of matches by 100 to get the estimated probability for the group size
-    ; And returns it
+    mov r8d, 365
+    mov r9d, 10000
+    xor r10d, r10d
+    pxor xmm0, xmm0
 
-    ; prologue
-    push rbp
-    mov rbp, rsp
-    sub rsp, 24
+    test rdi, rdi
+    jz .done
+.outer:
+    %assign i 0
+    %rep 3
+        movdqa [rsp + i], xmm0
+        %assign i i + 16
+    %endrep
 
-    ; Variables are saved in the stack, since multiple functions are being called in the loop,
-    ; and there's no guarantee that register values are being maintained
+    mov rsi, rdi
+    xor r11d, r11d
+.inner:
+    aes128
 
-    mov qword [rbp - 24], rdi ; saves group size
-    mov qword [rbp - 16], 0 ; loop counter
-    mov qword [rbp - 8], 0 ; matches counter
+    mov rcx, rax
 
-    ; Each time_t node occupies 4 bytes
+%macro _generate_birthday 0
+    imul eax, ecx, 0xFFFFFFFF / 365 + 1
+    mul r8d
+    bts [rsp], edx
+    setc r11b
+    jc .count_shared
+%endmacro
 
-    shl rdi, 2
-    sub rsp, rdi ; RSP now points to an array of time_t whose length == group size
+    _generate_birthday
 
-.counting_loop:
-    inc qword [rbp - 16]
+    dec rsi
+    jz .count_shared
 
-    mov rdi, rsp ; moves array pointer to RDI
-    mov rsi, qword [rbp - 24] ; moves group size to RSI
+    shr rcx, 32
+    _generate_birthday
 
-    call random_birthdates ; fills the array with random values
+    dec rsi
+    jnz .inner
 
-    mov rdi, qword [rbp - 24] ; moves group size to RDI
-    mov rsi, rsp ; moves array pointer to RSI
+.count_shared:
+    add r10d, r11d
 
-    call shared_birthday ; checks if there's a match
+    dec r9d
+    jnz .outer
 
-    add qword [rbp - 8], rax ; RAX is 1 if match found, 0 otherwise
-
-    cmp qword [rbp - 16], 10000
-    jl .counting_loop ; loops 10000 times
-
-    cvtsi2ss xmm0, qword [rbp - 8] ; moves num of matches to XMM0
-    mov r10, 100
-    cvtsi2ss xmm1, r10
-    divss xmm0, xmm1 ; divides num of matches by LOOP_COUNT / 100 to get a percentage
-
-    ; epilogue
-    mov rsp, rbp
-    pop rbp
-
+    cvtsi2ss xmm0, r10d
+    mulss xmm0, [rel hundred]
+    mulss xmm0, [rel one_div_10000]
+.done:
+    add rsp, 56
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
