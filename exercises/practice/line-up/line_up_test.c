@@ -109,11 +109,46 @@ void test_format_exceptional_ordinal_numeral_21(void) {
     TEST_ASSERT_EQUAL_STRING("Washi, you are the 21st customer we serve today. Thank you!", buffer);
 }
 
+void test_format_exceptional_ordinal_numeral_22_ending_in_nd_even_though_it_is_a_multiple_of_11(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Ingrid", 22);
+    TEST_ASSERT_EQUAL_STRING("Ingrid, you are the 22nd customer we serve today. Thank you!", buffer);
+}
+
+void test_format_exceptional_ordinal_numeral_33_ending_in_rd_even_though_it_is_a_multiple_of_11(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Mario", 33);
+    TEST_ASSERT_EQUAL_STRING("Mario, you are the 33rd customer we serve today. Thank you!", buffer);
+}
+
+void test_format_exceptional_ordinal_numeral_52_ending_in_nd_even_though_it_is_a_multiple_of_13(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Quentin", 52);
+    TEST_ASSERT_EQUAL_STRING("Quentin, you are the 52nd customer we serve today. Thank you!", buffer);
+}
+
 void test_format_exceptional_ordinal_numeral_62(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE];
     format(buffer, "Nayra", 62);
     TEST_ASSERT_EQUAL_STRING("Nayra, you are the 62nd customer we serve today. Thank you!", buffer);
+}
+
+void test_format_nonexceptional_ordinal_numeral_72_ending_in_nd_even_though_it_is_a_multiple_of_12(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Ugo", 72);
+    TEST_ASSERT_EQUAL_STRING("Ugo, you are the 72nd customer we serve today. Thank you!", buffer);
+}
+
+void test_format_exceptional_ordinal_numeral_91_ending_in_st_even_though_it_is_a_multiple_of_13(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Boris", 91);
+    TEST_ASSERT_EQUAL_STRING("Boris, you are the 91st customer we serve today. Thank you!", buffer);
 }
 
 void test_format_exceptional_ordinal_numeral_100(void) {
@@ -144,6 +179,13 @@ void test_format_exceptional_ordinal_numeral_123(void) {
     TEST_ASSERT_EQUAL_STRING("Yma, you are the 123rd customer we serve today. Thank you!", buffer);
 }
 
+void test_format_large_number_972_ending_in_nd_even_though_it_is_a_multiple_of_12(void) {
+    TEST_IGNORE();
+    char buffer[BUFFER_SIZE];
+    format(buffer, "Elias", 972);
+    TEST_ASSERT_EQUAL_STRING("Elias, you are the 972nd customer we serve today. Thank you!", buffer);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_format_smallest_nonexceptional_ordinal_numeral_4);
@@ -160,10 +202,16 @@ int main(void) {
     RUN_TEST(test_format_nonexceptional_ordinal_numeral_12);
     RUN_TEST(test_format_nonexceptional_ordinal_numeral_13);
     RUN_TEST(test_format_exceptional_ordinal_numeral_21);
+    RUN_TEST(test_format_exceptional_ordinal_numeral_22_ending_in_nd_even_though_it_is_a_multiple_of_11);
+    RUN_TEST(test_format_exceptional_ordinal_numeral_33_ending_in_rd_even_though_it_is_a_multiple_of_11);
+    RUN_TEST(test_format_exceptional_ordinal_numeral_52_ending_in_nd_even_though_it_is_a_multiple_of_13);
     RUN_TEST(test_format_exceptional_ordinal_numeral_62);
+    RUN_TEST(test_format_nonexceptional_ordinal_numeral_72_ending_in_nd_even_though_it_is_a_multiple_of_12);
+    RUN_TEST(test_format_exceptional_ordinal_numeral_91_ending_in_st_even_though_it_is_a_multiple_of_13);
     RUN_TEST(test_format_exceptional_ordinal_numeral_100);
     RUN_TEST(test_format_exceptional_ordinal_numeral_101);
     RUN_TEST(test_format_nonexceptional_ordinal_numeral_112);
     RUN_TEST(test_format_exceptional_ordinal_numeral_123);
+    RUN_TEST(test_format_large_number_972_ending_in_nd_even_though_it_is_a_multiple_of_12);
     return UNITY_END();
 }
