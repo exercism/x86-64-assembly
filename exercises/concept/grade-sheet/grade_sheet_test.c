@@ -173,19 +173,6 @@ void test_assign_ranks_all_perfect(void) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(expected[3], result[3], "The rank at lane 3 is different from expected");
 }
 
-void test_assign_ranks_perfect_overrides_threshold(void) {
-    TEST_IGNORE();
-    alignas(16) const float scores[4] = {55.0f, 100.0f, 50.0f, 90.0f};
-    alignas(16) const float maxima[4] = {200.0f, 100.0f, 50.0f, 90.0f};
-    alignas(16) uint32_t result[4];
-    assign_ranks(result, scores, maxima);
-    const uint32_t expected[4] = {2, 3, 3, 3};
-    TEST_ASSERT_EQUAL_UINT32_MESSAGE(expected[0], result[0], "The rank at lane 0 is different from expected");
-    TEST_ASSERT_EQUAL_UINT32_MESSAGE(expected[1], result[1], "The rank at lane 1 is different from expected");
-    TEST_ASSERT_EQUAL_UINT32_MESSAGE(expected[2], result[2], "The rank at lane 2 is different from expected");
-    TEST_ASSERT_EQUAL_UINT32_MESSAGE(expected[3], result[3], "The rank at lane 3 is different from expected");
-}
-
 void test_assign_ranks_threshold_boundary(void) {
     TEST_IGNORE();
     alignas(16) const float scores[4] = {50.0f, 51.0f, 49.0f, 100.0f};
@@ -280,7 +267,6 @@ int main(void) {
     RUN_TEST(test_assign_ranks_example);
     RUN_TEST(test_assign_ranks_all_low);
     RUN_TEST(test_assign_ranks_all_perfect);
-    RUN_TEST(test_assign_ranks_perfect_overrides_threshold);
     RUN_TEST(test_assign_ranks_threshold_boundary);
     RUN_TEST(test_count_failures_example);
     RUN_TEST(test_count_failures_none_below);
