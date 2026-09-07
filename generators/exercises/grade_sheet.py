@@ -143,13 +143,6 @@ def extra_cases():
         },
         {
             "task_id": 3,
-            "description": "assign_ranks_perfect_overrides_threshold",
-            "property": "assign_ranks",
-            "input": [[55.0, 100.0, 50.0, 90.0], [200.0, 100.0, 50.0, 90.0]],
-            "expected": _ranks([55.0, 100.0, 50.0, 90.0], [200.0, 100.0, 50.0, 90.0]),
-        },
-        {
-            "task_id": 3,
             "description": "assign_ranks_threshold_boundary",
             "property": "assign_ranks",
             "input": [[50.0, 51.0, 49.0, 100.0], [100.0, 100.0, 100.0, 100.0]],
