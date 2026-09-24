@@ -47,4 +47,4 @@
 - For an array declared with the label `arr`, `$ - arr` would be the total size of `arr` in bytes if used just after declaring the array.
 - You can use `rep` to repeat a string instruction such as `movsb` a number of times specified by `rcx`.
 - The string should end with `'\0'` (the NUL character) as terminator.
-- Remember that special characters, with a backslash (such as `'\0'`) should be defined in backticks (` ` `), or by using their decimal value (which is `0` for NUL).
+- Remember that special characters, with a backslash (such as `'\0'`) should be defined in backticks (`` ` ``), or by using their decimal value (which is `0` for NUL).
