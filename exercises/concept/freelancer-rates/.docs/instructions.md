@@ -47,7 +47,7 @@ These are the rounding control numbers in `roundss` and `roundsd`:
 
 ## 1. Calculate the daily rate given an hourly rate
 
-Implement a function called `daily_rate` to calculate the daily rate given as parameter an hourly rate, as a 64-bit floating-point number.
+Implement a function called `daily_rate` to calculate the daily rate given an hourly rate, as a 64-bit floating-point number argument.
 The contract defines that a day has 8 billable hours.
 
 ```c
@@ -60,7 +60,7 @@ The returned daily rate should be a 64-bit floating-point number.
 ## 2. Calculate a discounted price
 
 Implement a function `apply_discount` to calculate the price after a discount.
-It should accept two parameters: the original price and the discount rate in percent, both as a 64-bit floating-point number.
+It should accept two arguments: the original price and the discount rate in percent, both as a 64-bit floating-point number.
 
 ```c
 apply_discount(150.0, 10.0)
@@ -72,7 +72,7 @@ The returned value should always be a 64-bit floating-point number.
 ## 3. Calculate the monthly rate, given an hourly rate and a discount
 
 Implement a `monthly_rate` function to calculate the discounted monthly rate.
-It takes two parameters, an hourly rate and the discount in percent, both as a 64-bit floating-point number.
+It takes two arguments, an hourly rate and the discount in percent, both as a 64-bit floating-point number.
 
 ```c
 monthly_rate(77.0, 10.5)
@@ -83,7 +83,7 @@ The returned monthly rate should be rounded up (take the ceiling) to the nearest
 
 ## 4. Calculate the number of complete workdays given a budget, hourly rate, and discount
 
-Implement a function `days_in_budget` that takes as parameters:
+Implement a function `days_in_budget` that takes as arguments:
 
 1. A budget, as a 64-bit unsigned integer.
 2. An hourly rate, as a 64-bit floating-point number.
