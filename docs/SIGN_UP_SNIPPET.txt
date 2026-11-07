@@ -1,0 +1,14 @@
+count_letter:
+    xor eax, eax
+.next_char:
+    movzx ecx, byte [rdi]
+    test ecx, ecx
+    jz .done
+    cmp cl, sil
+    jne .skip
+    inc eax
+.skip:
+    inc rdi
+    jmp .next_char
+.done:
+    ret
