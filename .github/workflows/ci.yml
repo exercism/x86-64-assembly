@@ -43,3 +43,18 @@ jobs:
           CC: ${{ matrix.compiler }}
           CC_FOR_BUILD: ${{ matrix.compiler }}
         run: bin/verify-exercises -j "$(getconf _NPROCESSORS_ONLN)"
+
+  tests:
+    name: Tests
+    needs: ci
+    if: always()
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Check that every configuration passed
+        env:
+          RESULT: ${{ needs.ci.result }}
+        run: |
+          if [[ "$RESULT" != "success" ]]; then
+            echo "The exercise tests failed on at least one configuration."
+            exit 1
+          fi
