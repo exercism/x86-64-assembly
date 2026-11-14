@@ -189,8 +189,8 @@ void test_a_whole_phrase(void) {
     TEST_IGNORE();
     char buffer[BUFFER_SIZE];
 
-    translate(buffer, "quick fast run");
-    TEST_ASSERT_EQUAL_STRING("ickquay astfay unray", buffer);
+    translate(buffer, "why do squids enjoy xrays");
+    TEST_ASSERT_EQUAL_STRING("ywhay oday idssquay enjoyay xraysay", buffer);
 }
 
 int main(void) {
