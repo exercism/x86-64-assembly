@@ -46,6 +46,7 @@ run_tests() {
         --mount type=bind,src="${PWD}",dst=/output \
         --mount type=tmpfs,dst=/tmp \
         "${image}" "${slug}" /solution /output
+    cat "${PWD}/results.json"
     jq -r '.message // .status' "${PWD}/results.json"
     jq -e '.status == "pass"' "${PWD}/results.json" >/dev/null 2>&1
 }
