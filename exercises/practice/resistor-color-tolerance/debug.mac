@@ -1,0 +1,938 @@
+%ifndef DEBUG_MAC
+%define DEBUG_MAC
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                   DEBUGGING UTILITY FILE FOR EXERCISM'S X86-64 ASSEMBLY TRACK
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      CALLING CONVENTION
+;
+; There are macros for debugging:
+; 1. scalar values
+; 2. strings
+; 3. packed (SIMD) values
+; 4. conditions and flags
+;
+; All the macros may be called with multiple arguments, that must be separated by a comma (`,`).
+;
+; Note that the stack is modified temporarily by all macros.
+; This means any value pointed by RSP won't be valid at the time it is dereferenced.
+; Such value should be loaded on a register before debugging.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           SCALAR DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; A scalar debugging macro name is usually of the form: "debug" + type + size.
+;
+; The type is one of the following:
+; 1. "d", for signed integers
+; 2. "u", for unsigned integers in decimal format
+; 3. "x", for unsigned integers in hexadecimal format
+; 4. "f", for floating-point numbers
+;
+; The sizes are:
+; 1. 8, for 8-bit values
+; 2. 16, for 16-bit values
+; 3. 32, for 32-bit values
+; 4. 64, for 64-bit values
+;
+; The exception is debugc, which prints an individual character and does not need a size suffix.
+;
+; Scalar debugging macros may be called with registers or memory operands.
+;
+; If the macro is called with a memory operand, it should be passed in brackets and a size prefix may be necessary, e.g.:
+; - byte [<address>]
+; - word [<address>]
+; (where <address> is a valid dereferenceable relative memory address).
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           STRING DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; The debugs macro prints a NUL-terminated string and does not need a size suffix.
+;
+; It accepts a memory address as argument, without brackets.
+; If this address is given as a label, it must be RIP-relative.
+; This means either the label is passed with a preceding "rel" or there's a "default rel" directive:
+;
+; debugs rel label
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           SIMD DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; For SIMD debug, the form is: "debug" + type + size + "_xmm".
+;
+; The type is one of the following:
+; 1. "d", for signed integers
+; 2. "u", for unsigned integers in decimal format
+; 3. "x", for unsigned integers in hexadecimal format
+; 4. "f", for floating-point numbers
+;
+; The sizes are:
+; 1. 8, for 8-bit values
+; 2. 16, for 16-bit values
+; 3. 32, for 32-bit values
+; 4. 64, for 64-bit values
+;
+; In SIMD debugging, sizes refer to each individual lane.
+; For example, debugd16_xmm interprets a 128-bit argument as 8 16-bit packed numbers.
+;
+; SIMD debugging macros may be called with registers or memory operands.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           FLAG DEBUGGING MACRO CONVENTION
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; The debug_flag macro prints if a certain condition is true or false.
+; It is called with a condition as tested by, e.g., SETcc or Jcc instructions.
+; For example:
+;
+; debug_flag ae, z, c
+;
+; This example prints true if jae, jz and jc would jump, respectively, and false otherwise.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+extern printf
+
+section .rodata
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                     FORMATTING STRINGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; formatting string for signed integers
+fmtzd: db "debug signed integer... %zd", 0xA, 0x0
+
+; formatting string for unsigned integers
+fmtzu: db "debug unsigned integer... %zu", 0xA, 0x0
+
+; formatting string for unsigned integers in hexadecimal format
+fmtzx: db "debug hexadecimal... %zX", 0xA, 0x0
+
+; formatting string for floating-point values
+fmtf: db "debug floating-point... %f", 0xA, 0x0
+
+; formatting string for characters
+fmtc: db "debug character... %c", 0xA, 0x0
+
+; formatting string for strings
+fmts: db `debug string... "%s"`, 0xA, 0x0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           FORMATTING STRINGS FOR FLAGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+fmt_flag_true: db "debug flag... true", 0xA, 0x0
+fmt_flag_false: db "debug flag... false", 0xA, 0x0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                           FORMATTING STRINGS FOR PACKED VALUES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generates a formatting string with label of the form fmt_xmm_$x$n where:
+;
+; 1. $x is a format identifier such as 'd' or 'zx'
+; 2. $n is one of the following size identifiers: 8, 16, 32 or 64.
+;
+; For example, a fmt_xmm_d32 formats a SIMD register as 4 signed integer DWORDs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+%macro _fmt_xmm 3
+    %assign _i_x 0
+    fmt_xmm_%1: db "debug... ["
+    %rep %3
+        %if _i_x > 0
+            db ", "
+        %endif
+        db %2
+        %assign _i_x _i_x + 1
+    %endrep
+    db "]", 0xA, 0x0
+    %undef  _i_x
+%endmacro
+
+; generates formatting string for floating-point SIMD values
+_fmt_xmm f32, "%f", 4
+_fmt_xmm f64, "%f", 2
+
+; expands to four different formatting string, one for each size: 8, 16, 32 and 64
+%macro _fmt_xmm_is 2
+    %assign _i_is 8
+    %assign _j_is 16
+    %rep 4
+        _fmt_xmm %1 %+ %[_i_is], %2, %[_j_is]
+        %assign _i_is (_i_is * 2)
+        %assign _j_is (_j_is / 2)
+    %endrep
+    %undef _i_is
+    %undef _j_is
+%endmacro
+
+; generates formatting string for integer SIMD values
+_fmt_xmm_is zd, "%zd"
+_fmt_xmm_is zu, "%zu"
+_fmt_xmm_is zx, "%zX"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                       HELPER MACROS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; saves all caller-saved and XMM registers, as well as RFLAGS
+%macro save_registers 0
+
+    ; Preserve RFLAGS
+    pushfq
+
+    ; Preserve caller-save registers
+    push rax
+    push rcx
+    push rdx
+    push rsi
+    push rdi
+    push r8
+    push r9
+    push r10
+    push r11
+
+    ; Preserve xmm registers
+    sub rsp, 16 * 16
+%assign i 0
+%assign n 0
+%rep 16
+    movdqu [rsp + i], xmm %+ n
+    %assign i i + 16
+    %assign n n + 1
+%endrep
+%undef i
+%undef n
+
+%endmacro
+
+; restores all caller-saved and XMM registers, as well as RFLAGS, to their original values
+%macro restore_registers 0
+
+    ; Restore xmm registers
+%assign i 0
+%assign n 0
+%rep 16
+    movdqu xmm %+ n, [rsp + i]
+    %assign i i + 16
+    %assign n n + 1
+%endrep
+%undef i
+%undef n
+
+    add rsp, 16 * 16
+
+    ; Restore caller-save registers
+    pop r11
+    pop r10
+    pop r9
+    pop r8
+    pop rdi
+    pop rsi
+    pop rdx
+    pop rcx
+    pop rax
+
+    ; Restore RFLAGS
+    popfq
+
+%endmacro
+
+; preserves RSP
+%macro save_sp 0
+
+    push rbp
+    mov rbp, rsp
+
+%endmacro
+
+; restores RSP
+%macro restore_sp 0
+
+    mov rsp, rbp
+    pop rbp
+
+%endmacro
+
+; System V ABI requires the stack to be 16-byte aligned before calling an external function
+%macro align_sp 0
+
+    and rsp, -16
+
+%endmacro
+
+%macro prologue 0
+
+    save_registers
+    save_sp
+    align_sp
+
+%endmacro
+
+%macro epilogue 0
+
+    restore_sp
+    restore_registers
+
+%endmacro
+
+%macro call_print 0
+
+    %ifidn __OUTPUT_FORMAT__,elf64
+        call printf wrt ..plt
+    %else
+        call printf
+    %endif
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING MACROS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING SCALAR
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; prints the value of a 8-bit signed integer
+%macro debugd8 1-*
+
+    %rep %0
+        prologue
+
+        movsx rsi, %1
+        lea rdi, [rel fmtzd]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 16-bit signed integer
+%macro debugd16 1-*
+
+    debugd8 %{1:-1}
+
+%endmacro
+
+; prints the value of a 32-bit signed integer
+%macro debugd32 1-*
+
+    %rep %0
+        prologue
+
+        movsxd rsi, %1
+        lea rdi, [rel fmtzd]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 64-bit signed integer
+%macro debugd64 1-*
+
+    %rep %0
+        prologue
+
+        mov rsi, %1
+        lea rdi, [rel fmtzd]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 8-bit unsigned integer
+%macro debugu8 1-*
+
+    %rep %0
+        prologue
+
+        movzx rsi, %1
+        lea rdi, [rel fmtzu]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 16-bit unsigned integer
+%macro debugu16 1-*
+
+    debugu8 %{1:-1}
+
+%endmacro
+
+; prints the value of a 32-bit unsigned integer
+%macro debugu32 1-*
+
+    %rep %0
+        prologue
+
+        mov esi, %1
+        lea rdi, [rel fmtzu]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 64-bit unsigned integer
+%macro debugu64 1-*
+
+    %rep %0
+        prologue
+
+        mov rsi, %1
+        lea rdi, [rel fmtzu]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 8-bit unsigned integer in hexadecimal format
+%macro debugx8 1-*
+
+    %rep %0
+        prologue
+
+        movzx rsi, %1
+        lea rdi, [rel fmtzx]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 16-bit unsigned integer in hexadecimal format
+%macro debugx16 1-*
+
+    debugx8 %{1:-1}
+
+%endmacro
+
+; prints the value of a 32-bit unsigned integer in hexadecimal format
+%macro debugx32 1-*
+
+    %rep %0
+        prologue
+
+        mov esi, %1
+        lea rdi, [rel fmtzx]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 64-bit unsigned integer in hexadecimal format
+%macro debugx64 1-*
+
+    %rep %0
+        prologue
+
+        mov rsi, %1
+        lea rdi, [rel fmtzx]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 32-bit floating-point number
+%macro debugf32 1-*
+
+    %rep %0
+        prologue
+
+        cvtss2sd xmm0, %1
+        lea rdi, [rel fmtf]
+        mov eax, 1
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints the value of a 64-bit floating-point number
+%macro debugf64 1-*
+
+    %rep %0
+        prologue
+
+        movsd xmm0, %1
+        lea rdi, [rel fmtf]
+        mov eax, 1
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a 8-bit unsigned integer interpreted as a character
+%macro debugc 1-*
+
+    %rep %0
+        prologue
+
+        movzx rsi, %1
+        lea rdi, [rel fmtc]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a NUL-terminated string. The argument is a 64-bit memory address
+%macro debugs 1-*
+
+    %rep %0
+        prologue
+
+        lea rsi, [%1]
+        lea rdi, [rel fmts]
+        xor eax, eax
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING SIMD
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; prints a XMM register interpreted as 4 packed 32-bit floating-point numbers
+%macro debugf32_xmm 1-*
+
+    %rep %0
+        prologue
+
+        sub rsp, 16
+        movdqu xmm0, %1
+        movdqa [rsp], xmm0
+
+        cvtss2sd xmm0, [rsp]
+        cvtss2sd xmm1, [rsp + 4]
+        cvtss2sd xmm2, [rsp + 8]
+        cvtss2sd xmm3, [rsp + 12]
+        lea rdi, [rel fmt_xmm_f32]
+        mov eax, 4
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 2 packed 64-bit floating-point numbers
+%macro debugf64_xmm 1-*
+
+    %rep %0
+        prologue
+
+        sub rsp, 16
+        movdqu xmm0, %1
+        movdqa [rsp], xmm0
+
+        movsd xmm0, [rsp]
+        movsd xmm1, [rsp + 8]
+        lea rdi, [rel fmt_xmm_f64]
+        mov eax, 2
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 8-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness ("s") or unsignedness ("z") of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%macro _debug_si_xmm8 3
+
+    prologue
+
+    %defalias _mov_xmm %[mov %+ %2 %+ x]
+
+    sub rsp, 96
+    movdqu xmm0, %1
+    movdqa [rsp], xmm0
+
+    mov r10, [rsp]
+    mov r11, [rsp + 8]
+
+    _mov_xmm rsi, r10b
+    shr r10, 8
+
+    _mov_xmm rdx, r10b
+    shr r10, 8
+
+    _mov_xmm rcx, r10b
+    shr r10, 8
+
+    _mov_xmm r8 , r10b
+    shr r10, 8
+
+    _mov_xmm r9 , r10b
+    shr r10, 8
+
+    _mov_xmm rax, r10b
+    mov [rsp], rax
+    shr r10, 8
+
+    _mov_xmm rax, r10b
+    mov [rsp + 8], rax
+    shr r10, 8
+
+    _mov_xmm rax, r10b
+    mov [rsp + 16], rax
+
+    %assign _i_d8_xmm 24
+    %rep 8
+        _mov_xmm rax, r11b
+        shr r11, 8
+        mov [rsp + _i_d8_xmm], rax
+        %assign _i_d8_xmm _i_d8_xmm + 8
+    %endrep
+    %undef _i_d8_xmm
+    %undefalias _mov_xmm
+
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 8]
+    xor eax, eax
+    call_print
+
+    epilogue
+
+%endmacro
+
+; prints a XMM register interpreted as 16 packed 8-bit signed integers
+%macro debugd8_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm8 %1, s, zd
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 16 packed 8-bit unsigned integers
+%macro debugu8_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm8 %1, z, zu
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 16 packed 8-bit unsigned integers in hexadecimal format
+%macro debugx8_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm8 %1, z, zx
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 16-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness ("s") or unsignedness ("z") of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%macro _debug_si_xmm16 3
+
+    prologue
+
+    %defalias _mov_xmm %[mov %+ %2 %+ x]
+
+    sub rsp, 32
+    movdqu xmm0, %1
+    movdqa [rsp], xmm0
+
+    mov rax, [rsp]
+    _mov_xmm rsi, ax
+    shr rax, 16
+
+    _mov_xmm rdx, ax
+    shr rax, 16
+
+    _mov_xmm rcx, ax
+    shr rax, 16
+
+    _mov_xmm r8, ax
+    shr rax, 16
+
+    mov rax, [rsp + 8]
+    _mov_xmm r9, ax
+    shr rax, 16
+
+    _mov_xmm r10, ax
+    mov [rsp], r10
+    shr rax, 16
+
+    _mov_xmm r10, ax
+    mov [rsp + 8], r10
+    shr rax, 16
+
+    _mov_xmm r10, ax
+    mov [rsp + 16], r10
+    %undefalias _mov_xmm
+
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 16]
+    xor eax, eax
+    call_print
+
+    epilogue
+
+%endmacro
+
+; prints a XMM register interpreted as 8 packed 16-bit signed integers
+%macro debugd16_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm16  %1, s, zd
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 8 packed 16-bit unsigned integers
+%macro debugu16_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm16 %1, z, zu
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 8 packed 16-bit unsigned integers in hexadecimal format
+%macro debugx16_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm16 %1, z, zx
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 32-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. a flag for signedness or unsignedness of the integers
+; 3. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%macro _debug_si_xmm32 3
+
+    prologue
+
+    sub rsp, 16
+    movdqu xmm0, %1
+    movdqa [rsp], xmm0
+
+    mov esi, dword [rsp]
+    mov edx, dword [rsp + 4]
+    mov ecx, dword [rsp + 8]
+    mov r8d, dword [rsp + 12]
+
+    %ifidn %2, s
+        movsxd rsi, esi
+        movsxd rdx, edx
+        movsxd rcx, ecx
+        movsxd r8, r8d
+    %endif
+
+    lea rdi, [rel fmt_xmm_ %+ %3 %+ 32]
+    xor eax, eax
+    call_print
+
+    epilogue
+
+%endmacro
+
+; prints a XMM register interpreted as 4 packed 32-bit signed integers
+%macro debugd32_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm32 %1, s, zd
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 4 packed 32-bit unsigned integers
+%macro debugu32_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm32 %1, z, zu
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 4 packed 32-bit unsigned integers in hexadecimal format
+%macro debugx32_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm32 %1, z, zx
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generic macro for debugging packed 64-bit integers
+; The arguments are:
+; 1. the value to be printed.
+; 2. the type specifier for the formatting string ("zd", "zx" or "zu")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%macro _debug_si_xmm64 2
+
+    prologue
+
+    sub rsp, 16
+    movdqu xmm0, %1
+    movdqa [rsp], xmm0
+
+    mov rsi, [rsp]
+    mov rdx, [rsp + 8]
+    lea rdi, [rel fmt_xmm_ %+ %2 %+ 64]
+    xor eax, eax
+
+    call_print
+
+    epilogue
+
+%endmacro
+
+; prints a XMM register interpreted as 2 packed 64-bit signed integers
+%macro debugd64_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm64 %1, zd
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 2 packed 64-bit unsigned integers
+%macro debugu64_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm64 %1, zu
+    %rotate 1
+    %endrep
+
+%endmacro
+
+; prints a XMM register interpreted as 2 packed 64-bit unsigned integers in hexadecimal format
+%macro debugx64_xmm 1-*
+
+    %rep %0
+        _debug_si_xmm64 %1, zx
+    %rotate 1
+    %endrep
+
+%endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                      DEBUGGING FLAGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+%macro debug_flag 1-*
+
+    %rep %0
+        prologue
+
+        xor esi, esi
+
+        push qword [rbp + 16 * 16 + 10 * 8]
+        popfq
+
+        set%1 sil
+
+        lea rdi, [rel fmt_flag_true]
+        lea rdx, [rel fmt_flag_false]
+        test esi, esi
+        cmovz rdi, rdx
+
+        call_print
+
+        epilogue
+    %rotate 1
+    %endrep
+
+%endmacro
+
+%endif
